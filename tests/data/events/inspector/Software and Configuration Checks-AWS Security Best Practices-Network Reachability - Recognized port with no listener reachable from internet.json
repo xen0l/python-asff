@@ -1,0 +1,77 @@
+{
+    "AwsAccountId": "123456789012",
+    "Confidence": 10,
+    "CreatedAt": "2020-11-16T19:36:02.286Z",
+    "Description": "On this instance, TCP port 80, which is associated with HTTP, is reachable from the internet with no process listening. The instance i-0f312faa35bda6e20 is located in VPC vpc-12345678 and has an attached ENI eni-000d3ff9fd2537861 which uses network ACL acl-a186edc7. The port is reachable from the internet through Security Group sg-07a0d8ec5597c263d and IGW igw-2da14c48",
+    "GeneratorId": "arn:aws:inspector:eu-west-1:357557129151:rulespackage/0-SPzU33xe",
+    "Id": "inspector/eu-west-1/123456789012/c689dba4cf5308df6124b0e2a532e02cbd2b43c9",
+    "ProductArn": "arn:aws:securityhub:eu-west-1::product/aws/inspector",
+    "ProductFields": {
+        "attributes/ACL": "acl-a186edc7",
+        "attributes/ELB2": "sample-prod-1019857924.eu-west-1.elb.amazonaws.com",
+        "attributes/ENI": "eni-000d3ff9fd2537861",
+        "attributes/IGW": "igw-2da14c48",
+        "attributes/INSTANCE_ID": "i-0f312faa35bda6e20",
+        "attributes/PORT": "80",
+        "attributes/PORT_GROUP_NAME": "HTTP",
+        "attributes/PROTOCOL": "TCP",
+        "attributes/REACHABILITY_TYPE": "Internet",
+        "attributes/RULE_TYPE": "RecognizedPortNoListener",
+        "attributes/SECURITY_GROUP": "sg-07a0d8ec5597c263d",
+        "attributes/VPC": "vpc-12345678",
+        "aws/inspector/RulesPackageName": "Network Reachability",
+        "aws/inspector/arn": "arn:aws:inspector:eu-west-1:123456789012:target/0-EAItgHNz/template/0-H1ypSZbB/run/0-HySZ75Kn/finding/0-f2V4zRYp",
+        "aws/inspector/id": "Recognized port with no listener reachable from internet",
+        "aws/securityhub/CompanyName": "Amazon",
+        "aws/securityhub/FindingId": "arn:aws:securityhub:eu-west-1::product/aws/inspector/inspector/eu-west-1/123456789012/c689dba4cf5308df6124b0e2a532e02cbd2b43c9",
+        "aws/securityhub/ProductName": "Inspector",
+        "serviceAttributes/assessmentRunArn": "arn:aws:inspector:eu-west-1:123456789012:target/0-EAItgHNz/template/0-H1ypSZbB/run/0-HySZ75Kn",
+        "serviceAttributes/rulesPackageArn": "arn:aws:inspector:eu-west-1:357557129151:rulespackage/0-SPzU33xe",
+        "serviceAttributes/schemaVersion": "1"
+    },
+    "RecordState": "ACTIVE",
+    "Remediation": {
+        "Recommendation": {
+            "Text": "You can edit the Security Group sg-07a0d8ec5597c263d to remove access from the internet on port 80"
+        }
+    },
+    "Resources": [
+        {
+            "Details": {
+                "AwsEc2Instance": {
+                    "ImageId": "ami-0f5967603c4c72c38",
+                    "IpV4Addresses": [
+                        "172.31.108.119"
+                    ],
+                    "SubnetId": "subnet-ddb85ebb",
+                    "VpcId": "vpc-12345678"
+                }
+            },
+            "Id": "arn:aws:ec2:eu-west-1:123456789012:instance/i-0f312faa35bda6e20",
+            "Partition": "aws",
+            "Region": "eu-west-1",
+            "Tags": {
+                "Name": "sample-name",
+                "aws:autoscaling:groupName": "sample-name-v1",
+                "env": "prod",
+                "project": "sample-project"
+            },
+            "Type": "AwsEc2Instance"
+        }
+    ],
+    "SchemaVersion": "2018-10-08",
+    "Severity": {
+        "Label": "INFORMATIONAL",
+        "Normalized": 0,
+        "Original": "0.0"
+    },
+    "Title": "On instance i-0f312faa35bda6e20, TCP port 80 which is associated with 'HTTP' is reachable from the internet",
+    "Types": [
+        "Software and Configuration Checks/AWS Security Best Practices/Network Reachability - Recognized port with no listener reachable from internet"
+    ],
+    "UpdatedAt": "2020-11-16T19:36:02.286Z",
+    "Workflow": {
+        "Status": "NEW"
+    },
+    "WorkflowState": "NEW"
+}

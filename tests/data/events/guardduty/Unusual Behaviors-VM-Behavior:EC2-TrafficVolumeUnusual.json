@@ -1,0 +1,94 @@
+{
+    "AwsAccountId": "123456789012",
+    "CreatedAt": "2020-11-11T11:47:26.519Z",
+    "Description": "EC2 instance i-99999999 is generating unusually large amounts of network traffic to remote host 198.51.100.0.",
+    "FirstObservedAt": "2020-11-11T11:47:26.519Z",
+    "GeneratorId": "arn:aws:guardduty:eu-west-1:123456789012:detector/cab6a714deb3b739eaddacbdfd5ef2f2",
+    "Id": "arn:aws:guardduty:eu-west-1:123456789012:detector/cab6a714deb3b739eaddacbdfd5ef2f2/finding/26badb90e55bd454a678f53776687b02",
+    "LastObservedAt": "2020-11-28T23:11:30.819Z",
+    "ProductArn": "arn:aws:securityhub:eu-west-1::product/aws/guardduty",
+    "ProductFields": {
+        "aws/guardduty/service/action/actionType": "NETWORK_CONNECTION",
+        "aws/guardduty/service/action/networkConnectionAction/blocked": "false",
+        "aws/guardduty/service/action/networkConnectionAction/connectionDirection": "OUTBOUND",
+        "aws/guardduty/service/action/networkConnectionAction/localIpDetails/ipAddressV4": "10.0.0.23",
+        "aws/guardduty/service/action/networkConnectionAction/localPortDetails/port": "2000",
+        "aws/guardduty/service/action/networkConnectionAction/localPortDetails/portName": "Unknown",
+        "aws/guardduty/service/action/networkConnectionAction/protocol": "TCP",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/city/cityName": "GeneratedFindingCityName",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/country/countryName": "GeneratedFindingCountryName",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/geoLocation/lat": "0",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/geoLocation/lon": "0",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/ipAddressV4": "198.51.100.0",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/organization/asn": "-1",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/organization/asnOrg": "GeneratedFindingASNOrg",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/organization/isp": "GeneratedFindingISP",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/organization/org": "GeneratedFindingORG",
+        "aws/guardduty/service/action/networkConnectionAction/remotePortDetails/port": "22",
+        "aws/guardduty/service/action/networkConnectionAction/remotePortDetails/portName": "SSH",
+        "aws/guardduty/service/additionalInfo/sample": "true",
+        "aws/guardduty/service/additionalInfo/threatListName": "GeneratedFindingThreatListName",
+        "aws/guardduty/service/additionalInfo/unusual": "22",
+        "aws/guardduty/service/additionalInfo/unusualProtocol": "UDP",
+        "aws/guardduty/service/archived": "false",
+        "aws/guardduty/service/count": "2",
+        "aws/guardduty/service/detectorId": "cab6a714deb3b739eaddacbdfd5ef2f2",
+        "aws/guardduty/service/eventFirstSeen": "2020-11-11T11:47:26.519Z",
+        "aws/guardduty/service/eventLastSeen": "2020-11-28T23:11:30.819Z",
+        "aws/guardduty/service/resourceRole": "TARGET",
+        "aws/guardduty/service/serviceName": "guardduty",
+        "aws/securityhub/CompanyName": "Amazon",
+        "aws/securityhub/FindingId": "arn:aws:securityhub:eu-west-1::product/aws/guardduty/arn:aws:guardduty:eu-west-1:123456789012:detector/cab6a714deb3b739eaddacbdfd5ef2f2/finding/26badb90e55bd454a678f53776687b02",
+        "aws/securityhub/ProductName": "GuardDuty"
+    },
+    "RecordState": "ACTIVE",
+    "Resources": [
+        {
+            "Details": {
+                "AwsEc2Instance": {
+                    "IamInstanceProfileArn": "arn:aws:iam::123456789012:example/instance/profile",
+                    "ImageId": "ami-99999999",
+                    "IpV4Addresses": [
+                        "10.0.0.1",
+                        "198.51.100.0"
+                    ],
+                    "LaunchedAt": "2016-08-02T02:05:06Z",
+                    "SubnetId": "GeneratedFindingSubnetId",
+                    "Type": "m3.xlarge",
+                    "VpcId": "GeneratedFindingVPCId"
+                }
+            },
+            "Id": "arn:aws:ec2:eu-west-1:123456789012:instance/i-99999999",
+            "Partition": "aws",
+            "Region": "eu-west-1",
+            "Tags": {
+                "GeneratedFindingInstaceTag1": "GeneratedFindingInstaceValue1",
+                "GeneratedFindingInstaceTag2": "GeneratedFindingInstaceTagValue2",
+                "GeneratedFindingInstaceTag3": "GeneratedFindingInstaceTagValue3",
+                "GeneratedFindingInstaceTag4": "GeneratedFindingInstaceTagValue4",
+                "GeneratedFindingInstaceTag5": "GeneratedFindingInstaceTagValue5",
+                "GeneratedFindingInstaceTag6": "GeneratedFindingInstaceTagValue6",
+                "GeneratedFindingInstaceTag7": "GeneratedFindingInstaceTagValue7",
+                "GeneratedFindingInstaceTag8": "GeneratedFindingInstaceTagValue8",
+                "GeneratedFindingInstaceTag9": "GeneratedFindingInstaceTagValue9"
+            },
+            "Type": "AwsEc2Instance"
+        }
+    ],
+    "SchemaVersion": "2018-10-08",
+    "Severity": {
+        "Label": "MEDIUM",
+        "Normalized": 50,
+        "Product": 5
+    },
+    "SourceUrl": "https://eu-west-1.console.aws.amazon.com/guardduty/home?region=eu-west-1#/findings?macros=current&fId=26badb90e55bd454a678f53776687b02",
+    "Title": "Unusually large amount of network traffic from EC2 instance i-99999999.",
+    "Types": [
+        "Unusual Behaviors/VM/Behavior:EC2-TrafficVolumeUnusual"
+    ],
+    "UpdatedAt": "2020-11-28T23:11:30.819Z",
+    "Workflow": {
+        "Status": "NEW"
+    },
+    "WorkflowState": "NEW"
+}

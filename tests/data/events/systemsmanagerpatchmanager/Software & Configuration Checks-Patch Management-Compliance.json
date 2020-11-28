@@ -1,0 +1,56 @@
+{
+    "AwsAccountId": "123456789012",
+    "CreatedAt": "2020-11-28T18:50:00Z",
+    "Description": "This AWS control checks whether each instance that is managed by AWS Systems Manager is in compliance with the rules of the patch baseline that applies to that instance when a compliance Scan runs.",
+    "GeneratorId": "a193cfa4-d145-47a9-b9fb-cae267f13304",
+    "Id": "arn:aws:patchmanager:eu-west-1:123456789012:instance/i-05ad008342abe284a/document/AWS-RunPatchBaseline/run-command/a193cfa4-d145-47a9-b9fb-cae267f13304",
+    "PatchSummary": {
+        "FailedCount": 0,
+        "Id": "pb-0ae97fd6d8867ff9d",
+        "InstalledCount": 45,
+        "InstalledOtherCount": 399,
+        "InstalledPendingReboot": 0,
+        "InstalledRejectedCount": 0,
+        "MissingCount": 2,
+        "Operation": "SCAN",
+        "OperationEndTime": "2020-11-28T18:50:00Z",
+        "OperationStartTime": "2020-11-28T18:49:53Z",
+        "RebootOption": "RebootIfNeeded"
+    },
+    "ProductArn": "arn:aws:securityhub:eu-west-1::product/aws/ssm-patch-manager",
+    "ProductFields": {
+        "aws/securityhub/CompanyName": "AWS",
+        "aws/securityhub/FindingId": "arn:aws:securityhub:eu-west-1::product/aws/ssm-patch-manager/arn:aws:patchmanager:eu-west-1:123456789012:instance/i-05ad008342abe284a/document/AWS-RunPatchBaseline/run-command/a193cfa4-d145-47a9-b9fb-cae267f13304",
+        "aws/securityhub/ProductName": "Systems Manager Patch Manager"
+    },
+    "RecordState": "ACTIVE",
+    "Remediation": {
+        "Recommendation": {
+            "Text": "For information about bringing instances into patch compliance, see 'Remediating out-of-compliance instances (Patch Manager)'.",
+            "Url": "https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-compliance-remediation.html"
+        }
+    },
+    "Resources": [
+        {
+            "Id": "i-05ad008342abe284a",
+            "Partition": "aws",
+            "Region": "eu-west-1",
+            "Type": "AwsEc2Instance"
+        }
+    ],
+    "SchemaVersion": "2018-10-08",
+    "Severity": {
+        "Label": "INFORMATIONAL",
+        "Normalized": 0
+    },
+    "SourceUrl": "https://eu-west-1.console.aws.amazon.com/systems-manager/managed-instances/i-05ad008342abe284a/patch?region=eu-west-1",
+    "Title": "Systems Manager Patch Summary - Managed Instance Non-Compliant",
+    "Types": [
+        "Software & Configuration Checks/Patch Management/Compliance"
+    ],
+    "UpdatedAt": "2020-11-28T18:50:00Z",
+    "Workflow": {
+        "Status": "NEW"
+    },
+    "WorkflowState": "NEW"
+}

@@ -1,0 +1,89 @@
+{
+    "AwsAccountId": "123456789012",
+    "CreatedAt": "2020-05-29T09:37:25.983Z",
+    "Description": "EC2 instance i-00de0b8518a580841 is behaving in a manner that may indicate it is being used to perform a Denial of Service (DoS) attack using UDP protocol on TCP port.",
+    "FirstObservedAt": "2020-05-29T09:17:47Z",
+    "GeneratorId": "arn:aws:guardduty:eu-west-1:123456789012:detector/f6b25b5036fb2ae646f8d5324d809420",
+    "Id": "arn:aws:guardduty:eu-west-1:123456789012:detector/f6b25b5036fb2ae646f8d5324d809420/finding/90b92fe58defaaaf2267c5a96cc4dbcd",
+    "LastObservedAt": "2020-09-11T16:59:12Z",
+    "ProductArn": "arn:aws:securityhub:eu-west-1::product/aws/guardduty",
+    "ProductFields": {
+        "aws/guardduty/service/action/actionType": "NETWORK_CONNECTION",
+        "aws/guardduty/service/action/networkConnectionAction/blocked": "false",
+        "aws/guardduty/service/action/networkConnectionAction/connectionDirection": "OUTBOUND",
+        "aws/guardduty/service/action/networkConnectionAction/localIpDetails/ipAddressV4": "172.31.37.132",
+        "aws/guardduty/service/action/networkConnectionAction/localPortDetails/port": "60546",
+        "aws/guardduty/service/action/networkConnectionAction/localPortDetails/portName": "Unknown",
+        "aws/guardduty/service/action/networkConnectionAction/protocol": "UDP",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/city/cityName": "THIS_WAS_PREVIOUSLY_EMPTY_AND_WAS_ADDED_BY_NE",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/country/countryName": "United States",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/geoLocation/lat": "37.751",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/geoLocation/lon": "-97.822",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/ipAddressV4": "74.125.193.113",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/organization/asn": "15169",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/organization/asnOrg": "GOOGLE",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/organization/isp": "Google",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/organization/org": "Google",
+        "aws/guardduty/service/action/networkConnectionAction/remotePortDetails/port": "443",
+        "aws/guardduty/service/action/networkConnectionAction/remotePortDetails/portName": "HTTPS",
+        "aws/guardduty/service/additionalInfo": "THIS_WAS_PREVIOUSLY_EMPTY_AND_WAS_ADDED_BY_NE",
+        "aws/guardduty/service/archived": "false",
+        "aws/guardduty/service/count": "4",
+        "aws/guardduty/service/detectorId": "f6b25b5036fb2ae646f8d5324d809420",
+        "aws/guardduty/service/eventFirstSeen": "2020-05-29T09:17:47Z",
+        "aws/guardduty/service/eventLastSeen": "2020-09-11T16:59:12Z",
+        "aws/guardduty/service/evidence": "THIS_WAS_PREVIOUSLY_EMPTY_AND_WAS_ADDED_BY_NE",
+        "aws/guardduty/service/resourceRole": "ACTOR",
+        "aws/guardduty/service/serviceName": "guardduty",
+        "aws/securityhub/CompanyName": "Amazon",
+        "aws/securityhub/FindingId": "arn:aws:securityhub:eu-west-1::product/aws/guardduty/arn:aws:guardduty:eu-west-1:123456789012:detector/f6b25b5036fb2ae646f8d5324d809420/finding/90b92fe58defaaaf2267c5a96cc4dbcd",
+        "aws/securityhub/ProductName": "GuardDuty"
+    },
+    "RecordState": "ACTIVE",
+    "Resources": [
+        {
+            "Details": {
+                "AwsEc2Instance": {
+                    "IamInstanceProfileArn": "arn:aws:iam::123456789012:instance-profile/ERPInstanceRole",
+                    "ImageId": "ami-dd9eb6ae",
+                    "IpV4Addresses": [
+                        "3.248.120.141",
+                        "172.31.37.132"
+                    ],
+                    "LaunchedAt": "2019-08-13T14:53:50Z",
+                    "SubnetId": "subnet-1e3cf169",
+                    "Type": "m4.10xlarge",
+                    "VpcId": "vpc-12345678"
+                }
+            },
+            "Id": "arn:aws:ec2:eu-west-1:123456789012:instance/i-00de0b8518a580841",
+            "Partition": "aws",
+            "Region": "eu-west-1",
+            "Tags": {
+                "Environment": "Production",
+                "Name": "sample-name",
+                "Project": "sample-project",
+                "env": "prod",
+                "owner": "sample-team",
+                "project": "sample-project"
+            },
+            "Type": "AwsEc2Instance"
+        }
+    ],
+    "SchemaVersion": "2018-10-08",
+    "Severity": {
+        "Label": "HIGH",
+        "Normalized": 70,
+        "Product": 8
+    },
+    "SourceUrl": "https://eu-west-1.console.aws.amazon.com/guardduty/home?region=eu-west-1#/findings?macros=current&fId=90b92fe58defaaaf2267c5a96cc4dbcd",
+    "Title": "EC2 instance i-00de0b8518a580841 is behaving in a manner that may indicate it is being used to perform a Denial of Service (DoS) attack using UDP protocol on TCP port.",
+    "Types": [
+        "Effects/Denial of Service/Backdoor:EC2-DenialOfService.UdpOnTcpPorts"
+    ],
+    "UpdatedAt": "2020-09-11T17:12:51.730Z",
+    "Workflow": {
+        "Status": "NOTIFIED"
+    },
+    "WorkflowState": "NEW"
+}

@@ -1,0 +1,57 @@
+{
+    "AwsAccountId": "123456789012",
+    "CreatedAt": "2020-10-08T13:31:44.899Z",
+    "Description": "The access control list (ACL) or bucket policy for the Amazon S3 bucket allows the bucket to be accessed by the public, all authenticated AWS users or roles, or any anonymous AWS users or roles.",
+    "GeneratorId": "aws/macie",
+    "Id": "8d7dfd93-8128-422c-b13c-54a5aa9e39b8",
+    "ProductArn": "arn:aws:securityhub:eu-west-1::product/aws/macie",
+    "ProductFields": {
+        "aws/securityhub/CompanyName": "Amazon",
+        "aws/securityhub/FindingId": "arn:aws:securityhub:eu-west-1::product/aws/macie/8d7dfd93-8128-422c-b13c-54a5aa9e39b8",
+        "aws/securityhub/ProductName": "Macie"
+    },
+    "RecordState": "ACTIVE",
+    "Resources": [
+        {
+            "Details": {
+                "AwsS3Bucket": {
+                    "CreatedAt": "2020-10-08T13:19:59.000Z",
+                    "OwnerId": "CanonicalId of Owner",
+                    "OwnerName": "aws-root",
+                    "ServerSideEncryptionConfiguration": {
+                        "Rules": [
+                            {
+                                "ApplyServerSideEncryptionByDefault": {
+                                    "SSEAlgorithm": "AES256"
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "Id": "arn:aws:s3:::bucketname",
+            "Partition": "aws",
+            "Region": "eu-west-1",
+            "Tags": {
+                "env": "prod",
+                "owner": "sample-team",
+                "project": "sample-project"
+            },
+            "Type": "AWS::S3::Bucket"
+        }
+    ],
+    "SchemaVersion": "2018-10-08",
+    "Severity": {
+        "Label": "HIGH",
+        "Normalized": 70
+    },
+    "Title": "The S3 bucket is publicly accessible.",
+    "Types": [
+        "Policy:IAMUser/S3BucketPublic"
+    ],
+    "UpdatedAt": "2020-10-08T13:31:45.527Z",
+    "Workflow": {
+        "Status": "NEW"
+    },
+    "WorkflowState": "NEW"
+}

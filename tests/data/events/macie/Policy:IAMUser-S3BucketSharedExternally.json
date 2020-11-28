@@ -1,0 +1,52 @@
+{
+    "AwsAccountId": "123456789012",
+    "CreatedAt": "2020-10-08T14:55:53.683Z",
+    "Description": "The access control list (ACL) or bucket policy for the Amazon S3 bucket allows the bucket to be shared with an AWS account that isn\u2019t part of your Amazon Macie organization.",
+    "GeneratorId": "aws/macie",
+    "Id": "e70b2e92-db42-40c0-8ddc-da63db5c2af9",
+    "ProductArn": "arn:aws:securityhub:eu-west-1::product/aws/macie",
+    "ProductFields": {
+        "aws/securityhub/CompanyName": "Amazon",
+        "aws/securityhub/FindingId": "arn:aws:securityhub:eu-west-1::product/aws/macie/e70b2e92-db42-40c0-8ddc-da63db5c2af9",
+        "aws/securityhub/ProductName": "Macie"
+    },
+    "RecordState": "ACTIVE",
+    "Resources": [
+        {
+            "Details": {
+                "AwsS3Bucket": {
+                    "CreatedAt": "2020-10-08T14:40:05.000Z",
+                    "OwnerId": "CanonicalId of Owner",
+                    "OwnerName": "aws-root+data-dev",
+                    "ServerSideEncryptionConfiguration": {
+                        "Rules": [
+                            {
+                                "ApplyServerSideEncryptionByDefault": {
+                                    "SSEAlgorithm": "NONE"
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "Id": "arn:aws:s3:::bucketname",
+            "Partition": "aws",
+            "Region": "eu-west-1",
+            "Type": "AWS::S3::Bucket"
+        }
+    ],
+    "SchemaVersion": "2018-10-08",
+    "Severity": {
+        "Label": "HIGH",
+        "Normalized": 70
+    },
+    "Title": "The S3 bucket is shared with an external AWS account.",
+    "Types": [
+        "Policy:IAMUser/S3BucketSharedExternally"
+    ],
+    "UpdatedAt": "2020-10-08T14:55:53.683Z",
+    "Workflow": {
+        "Status": "NEW"
+    },
+    "WorkflowState": "NEW"
+}

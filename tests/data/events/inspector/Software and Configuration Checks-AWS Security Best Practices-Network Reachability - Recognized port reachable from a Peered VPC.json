@@ -1,0 +1,78 @@
+{
+    "AwsAccountId": "123456789012",
+    "Confidence": 10,
+    "CreatedAt": "2020-11-16T19:36:26.693Z",
+    "Description": "On this instance, TCP port 22, which is associated with SSH, is reachable from a Peered VPC. You can install the Inspector agent on this instance and re-run the assessment to check for any process listening on this port. The instance i-0f5a08d88dbba4fdc is located in VPC vpc-12345678 and has an attached ENI eni-05f420d500be1766f which uses network ACL acl-9bba7cfe. The port is reachable from a Peered VPC through Security Group sg-066e481a61335f572 and VPC Peering Connection pcx-043fcf6c",
+    "GeneratorId": "arn:aws:inspector:eu-west-1:357557129151:rulespackage/0-SPzU33xe",
+    "Id": "inspector/eu-west-1/123456789012/c6620b147347170e6afdb2665bc387ce8c554ee3",
+    "ProductArn": "arn:aws:securityhub:eu-west-1::product/aws/inspector",
+    "ProductFields": {
+        "attributes/ACL": "acl-9bba7cfe",
+        "attributes/ENI": "eni-05f420d500be1766f",
+        "attributes/INSTANCE_ID": "i-0f5a08d88dbba4fdc",
+        "attributes/PCX": "pcx-043fcf6c",
+        "attributes/PCX_VPC": "vpc-12345678",
+        "attributes/PORT": "22",
+        "attributes/PORT_GROUP_NAME": "SSH",
+        "attributes/PROTOCOL": "TCP",
+        "attributes/REACHABILITY_TYPE": "PeeredVpc",
+        "attributes/RULE_TYPE": "RecognizedPortNoAgent",
+        "attributes/SECURITY_GROUP": "sg-066e481a61335f572",
+        "attributes/VPC": "vpc-12345678",
+        "aws/inspector/RulesPackageName": "Network Reachability",
+        "aws/inspector/arn": "arn:aws:inspector:eu-west-1:123456789012:target/0-EAItgHNz/template/0-H1ypSZbB/run/0-HySZ75Kn/finding/0-kTskYhHW",
+        "aws/inspector/id": "Recognized port reachable from a Peered VPC",
+        "aws/securityhub/CompanyName": "Amazon",
+        "aws/securityhub/FindingId": "arn:aws:securityhub:eu-west-1::product/aws/inspector/inspector/eu-west-1/123456789012/c6620b147347170e6afdb2665bc387ce8c554ee3",
+        "aws/securityhub/ProductName": "Inspector",
+        "serviceAttributes/assessmentRunArn": "arn:aws:inspector:eu-west-1:123456789012:target/0-EAItgHNz/template/0-H1ypSZbB/run/0-HySZ75Kn",
+        "serviceAttributes/rulesPackageArn": "arn:aws:inspector:eu-west-1:357557129151:rulespackage/0-SPzU33xe",
+        "serviceAttributes/schemaVersion": "1"
+    },
+    "RecordState": "ACTIVE",
+    "Remediation": {
+        "Recommendation": {
+            "Text": "You can edit the Security Group sg-066e481a61335f572 to remove access from a Peered VPC on port 22"
+        }
+    },
+    "Resources": [
+        {
+            "Details": {
+                "AwsEc2Instance": {
+                    "ImageId": "ami-00f8dc7b9e268ec99",
+                    "IpV4Addresses": [
+                        "172.31.41.217"
+                    ],
+                    "SubnetId": "subnet-1e3cf169",
+                    "VpcId": "vpc-12345678"
+                }
+            },
+            "Id": "arn:aws:ec2:eu-west-1:123456789012:instance/i-0f5a08d88dbba4fdc",
+            "Partition": "aws",
+            "Region": "eu-west-1",
+            "Tags": {
+                "Name": "sample-name",
+                "env": "prod",
+                "owner": "sample-team",
+                "project": "sample-project",
+                "team": "sample-team"
+            },
+            "Type": "AwsEc2Instance"
+        }
+    ],
+    "SchemaVersion": "2018-10-08",
+    "Severity": {
+        "Label": "LOW",
+        "Normalized": 1,
+        "Original": "3.0"
+    },
+    "Title": "On instance i-0f5a08d88dbba4fdc, TCP port 22 which is associated with 'SSH' is reachable from a Peered VPC",
+    "Types": [
+        "Software and Configuration Checks/AWS Security Best Practices/Network Reachability - Recognized port reachable from a Peered VPC"
+    ],
+    "UpdatedAt": "2020-11-16T19:36:26.693Z",
+    "Workflow": {
+        "Status": "NEW"
+    },
+    "WorkflowState": "NEW"
+}

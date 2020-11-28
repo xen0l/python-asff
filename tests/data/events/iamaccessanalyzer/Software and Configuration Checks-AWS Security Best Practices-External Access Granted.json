@@ -1,0 +1,49 @@
+{
+    "AwsAccountId": "123456789012",
+    "CreatedAt": "2020-11-28T01:07:05.692Z",
+    "Description": "AWS::S3::Bucket/arn:aws:s3:::bucketname/ allows cross-account access from CanonicalUser f37215810f68939743c05ae53c611f2923fbc3cd6fab1762eebd7719b9152b62",
+    "GeneratorId": "aws/access-analyzer",
+    "Id": "arn:aws:access-analyzer:eu-west-1:123456789012:analyzer/aws-organization/arn:aws:s3:::bucketname",
+    "ProductArn": "arn:aws:securityhub:eu-west-1::product/aws/access-analyzer",
+    "ProductFields": {
+        "aws/securityhub/CompanyName": "AWS",
+        "aws/securityhub/FindingId": "arn:aws:securityhub:eu-west-1::product/aws/access-analyzer/arn:aws:access-analyzer:eu-west-1:123456789012:analyzer/aws-organization/arn:aws:s3:::bucketname",
+        "aws/securityhub/ProductName": "IAM Access Analyzer"
+    },
+    "RecordState": "ACTIVE",
+    "Remediation": {
+        "Recommendation": {
+            "Text": "If the access isn't intended, it indicates a potential security risk. Use the console for the resource to modify or remove the policy that grants the unintended access. You can use the Rescan button on the Finding details page in the Access Analyzer console to confirm whether the change removed the access. If the access is removed, the status changes to Resolved."
+        }
+    },
+    "Resources": [
+        {
+            "Details": {
+                "Other": {
+                    "Action Granted": "s3:DeleteObject,s3:GetBucketAcl,s3:ListBucket,s3:ListBucketByTags,s3:ListBucketMultipartUploads,s3:ListBucketVersions,s3:PutObject",
+                    "Condition": "none",
+                    "External Principal": "f37215810f68939743c05ae53c611f2923fbc3cd6fab1762eebd7719b9152b62",
+                    "External Principal Type": "CanonicalUser"
+                }
+            },
+            "Id": "arn:aws:s3:::bucketname",
+            "Type": "AwsS3Bucket"
+        }
+    ],
+    "SchemaVersion": "2018-10-08",
+    "Severity": {
+        "Label": "LOW",
+        "Normalized": 1,
+        "Product": 1
+    },
+    "SourceUrl": "https://console.aws.amazon.com/access-analyzer/home?region=eu-west-1#/findings/details/c8239db4-631a-4207-9feb-26ec24c857d4",
+    "Title": "AwsS3Bucket/arn:aws:s3:::bucketname/ allows cross-account access",
+    "Types": [
+        "Software and Configuration Checks/AWS Security Best Practices/External Access Granted"
+    ],
+    "UpdatedAt": "2020-11-28T01:07:05.692Z",
+    "Workflow": {
+        "Status": "NEW"
+    },
+    "WorkflowState": "NEW"
+}

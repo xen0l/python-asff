@@ -1,0 +1,49 @@
+{
+    "AwsAccountId": "123456789012",
+    "CreatedAt": "2020-10-08T13:31:44Z",
+    "Description": "AWS::S3::Bucket/arn:aws:s3:::bucketname/ allows public access",
+    "GeneratorId": "aws/access-analyzer",
+    "Id": "arn:aws:access-analyzer:eu-west-1:123456789012:analyzer/iam-access-analyzer/arn:aws:s3:::bucketname",
+    "ProductArn": "arn:aws:securityhub:eu-west-1::product/aws/access-analyzer",
+    "ProductFields": {
+        "aws/securityhub/CompanyName": "AWS",
+        "aws/securityhub/FindingId": "arn:aws:securityhub:eu-west-1::product/aws/access-analyzer/arn:aws:access-analyzer:eu-west-1:123456789012:analyzer/iam-access-analyzer/arn:aws:s3:::bucketname",
+        "aws/securityhub/ProductName": "IAM Access Analyzer"
+    },
+    "RecordState": "ACTIVE",
+    "Remediation": {
+        "Recommendation": {
+            "Text": "If the access isn't intended, it indicates a potential security risk. Use the console for the resource to modify or remove the policy that grants the unintended access. You can use the Rescan button on the Finding details page in the Access Analyzer console to confirm whether the change removed the access. If the access is removed, the status changes to Resolved."
+        }
+    },
+    "Resources": [
+        {
+            "Details": {
+                "Other": {
+                    "Action Granted": "s3:ListBucket,s3:ListBucketByTags,s3:ListBucketMultipartUploads,s3:ListBucketVersions",
+                    "Condition": "none",
+                    "External Principal": "*",
+                    "External Principal Type": "AWS"
+                }
+            },
+            "Id": "arn:aws:s3:::bucketname",
+            "Type": "AwsS3Bucket"
+        }
+    ],
+    "SchemaVersion": "2018-10-08",
+    "Severity": {
+        "Label": "MEDIUM",
+        "Normalized": 40,
+        "Product": 40
+    },
+    "SourceUrl": "https://console.aws.amazon.com/access-analyzer/home?region=eu-west-1#/findings/details/87860901-9d15-43ce-810f-6c2b0adf5544",
+    "Title": "AwsS3Bucket/arn:aws:s3:::bucketname/ allows public access",
+    "Types": [
+        "Effects/Data Exposure/External Access Granted"
+    ],
+    "UpdatedAt": "2020-10-08T13:31:44Z",
+    "Workflow": {
+        "Status": "NEW"
+    },
+    "WorkflowState": "NEW"
+}
