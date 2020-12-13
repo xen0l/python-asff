@@ -29,7 +29,7 @@ report_dir = os.path.join(root_dir, "reports")
 if not os.path.exists(report_dir):
     os.mkdir(report_dir, mode=0o755)
 
-cmd = ["pytest", "--verbose"]
+cmd = ["poetry", "run", "pytest", "--verbose"]
 
 if args.lint:
     lint_args = [
