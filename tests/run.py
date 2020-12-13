@@ -56,4 +56,6 @@ else:
 
 cmd.extend(rest)
 
+print(cmd)
+
 os.execvp(cmd[0], cmd)  # noqa: S606
