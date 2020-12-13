@@ -30,7 +30,7 @@ report_dir = os.path.join(root_dir, "reports")
 if not os.path.exists(report_dir):
     os.mkdir(report_dir, mode=0o755)
 
-cmd = ["pytest", "--verbose"]
+cmd = ["poetry", "run", "pytest", "--verbose"]
 
 if args.lint:
     lint_args = [
@@ -39,14 +39,14 @@ if args.lint:
         "--pylint",
         "--pylint-jobs={}".format(multiprocessing.cpu_count()),
         "--pylint-rcfile={}".format(os.path.join(root_dir, ".pylintrc")),
-        "--pylint-ignore-patterns=tools/",
+        "--pylint-ignore-patterns=tools",
     ]
     cmd.extend(lint_args)
 
 if args.coverage:
     coverage_args = [
         "--cov=asff",
-        "--cov-fail-under=100",
+        "--cov-fail-under=75",
         "--cov-report=term-missing",
         "--cov-report=xml:{}".format(os.path.join(report_dir, "coverage.xml")),
         "--cov-report=html:{}".format(os.path.join(report_dir, "coverage", "asff")),
