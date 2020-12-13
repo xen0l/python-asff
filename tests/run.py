@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import argparse
-import multiprocessing
 import os
 import sys
 
@@ -30,14 +29,13 @@ report_dir = os.path.join(root_dir, "reports")
 if not os.path.exists(report_dir):
     os.mkdir(report_dir, mode=0o755)
 
-cmd = ["poetry", "run", "pytest", "--verbose"]
+cmd = ["pytest", "--verbose"]
 
 if args.lint:
     lint_args = [
         "--flake8",
         "--black",
         "--pylint",
-        "--pylint-jobs={}".format(multiprocessing.cpu_count()),
         "--pylint-rcfile={}".format(os.path.join(root_dir, ".pylintrc")),
         "--pylint-ignore-patterns=tools",
     ]
