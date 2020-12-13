@@ -24,7 +24,7 @@ parser.add_argument(
 )
 args, rest = parser.parse_known_args()
 
-root_dir = os.path.split(os.path.dirname(sys.argv[0]))[0]
+root_dir = os.path.abspath(os.path.split(os.path.dirname(sys.argv[0]))[0])
 report_dir = os.path.join(root_dir, "reports")
 
 if not os.path.exists(report_dir):
@@ -39,23 +39,23 @@ if args.lint:
         "--pylint",
         "--pylint-jobs={}".format(multiprocessing.cpu_count()),
         "--pylint-rcfile={}".format(os.path.join(root_dir, ".pylintrc")),
+        "--pylint-ignore-patterns=tools/",
     ]
     cmd.extend(lint_args)
 
 if args.coverage:
     coverage_args = [
         "--cov=asff",
+        "--cov-fail-under=100",
         "--cov-report=term-missing",
-        "--cov-report=xml:reports/coverage.xml",
-        "--cov-report=html:reports/coverage/asff",
-        "--junitxml=reports/test.xml",
+        "--cov-report=xml:{}".format(os.path.join(report_dir, "coverage.xml")),
+        "--cov-report=html:{}".format(os.path.join(report_dir, "coverage", "asff")),
+        "--junitxml={}".format(os.path.join(report_dir, "test.xml")),
     ]
     cmd.extend(coverage_args)
 else:
     cmd.append("--no-cov")
 
 cmd.extend(rest)
-
-print(cmd)
 
 os.execvp(cmd[0], cmd)  # noqa: S606

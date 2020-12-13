@@ -18,7 +18,7 @@ from asff.constants import (
 
 @pytest.mark.parametrize(
     "path",
-    [f for f in glob.glob("**/events/*/*.json", recursive=True)],
+    glob.glob("**/events/*/*.json", recursive=True),
 )
 def test_finding_from_json(path):
     with open(path, "r") as f:
@@ -32,7 +32,7 @@ def test_finding_from_json(path):
 
 @pytest.mark.parametrize(
     "path",
-    [f for f in glob.glob("**/events/*/*.json", recursive=True)],
+    glob.glob("**/events/*/*.json", recursive=True),
 )
 def test_finding_from_dict(path):
     with open(path, "r") as f:
@@ -45,7 +45,7 @@ def test_finding_from_dict(path):
 
 @pytest.mark.parametrize(
     "path",
-    [f for f in glob.glob("**/events/*/*.json", recursive=True)],
+    glob.glob("**/events/*/*.json", recursive=True),
 )
 def test_finding_from_kwargs(path):
     with open(path, "r") as f:
@@ -155,7 +155,7 @@ def test_finding_hashable(shared_datadir):
 
 @pytest.mark.parametrize(
     "path",
-    [f for f in glob.glob("**/broken_events/*.json", recursive=True)],
+    glob.glob("**/broken_events/*.json", recursive=True),
 )
 def test_finding_exception(path):
     with open(path, "r") as f:

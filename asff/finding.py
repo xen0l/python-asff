@@ -20,10 +20,6 @@ from asff.constants import (
 from asff.generated import AwsSecurityFinding, TypeList, NonEmptyString
 from asff.exceptions import ValidationError
 
-# TODO:
-# - type hints
-# - docstrings
-
 
 class AmazonSecurityFinding(AwsSecurityFinding):
     def __init__(self, **data):
@@ -38,8 +34,7 @@ class AmazonSecurityFinding(AwsSecurityFinding):
     def __eq__(self, other):
         if isinstance(other, self.__class__):
             return self.id == other.id
-        else:
-            return NotImplemented
+        return NotImplemented
 
     def __dir__(self):  # pragma: no cover
         pydantic_methods = [
@@ -56,7 +51,7 @@ class AmazonSecurityFinding(AwsSecurityFinding):
             )
         ]
 
-        self_vars = [k for k in vars(self).keys()]
+        self_vars = list(vars(self).keys())
 
         return list(set(self_methods) - set(pydantic_methods)) + dir(object) + self_vars
 
@@ -84,7 +79,7 @@ class AmazonSecurityFinding(AwsSecurityFinding):
         title: NonEmptyString,
         description: NonEmptyString,
         resources: Optional[List[Any]] = None,
-        id: Optional[str] = None,
+        id: Optional[str] = None,  # pylint: disable=redefined-builtin
         schema_version: str = DEFAULT_SCHEMA_VERSION,
         severity: str = DEFAULT_SEVERITY,
         product_name: Optional[str] = DEFAULT_PRODUCT_NAME,

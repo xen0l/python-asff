@@ -4,5 +4,6 @@
 # feed them to our exception.
 # https://github.com/samuelcolvin/pydantic/blob/master/pydantic/error_wrappers.py#L59-L65
 class ValidationError(ValueError):
+    # pylint: disable=super-init-not-called
     def __init__(self, msg):
         self.msg = msg
