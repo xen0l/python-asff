@@ -43,7 +43,7 @@ jobs:
         poetry install
 
     - name: Run tests
-      run: ./tests/run.py
+      run: poetry run ./tests/run.py
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
