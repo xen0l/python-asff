@@ -6,7 +6,7 @@ authors = ["Adam Števko <adam.stevko@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.6.1"
-pydantic = "^1.7.2"
+pydantic = "^1.7.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.1.2"
