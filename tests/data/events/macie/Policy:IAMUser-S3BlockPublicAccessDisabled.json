@@ -1,0 +1,58 @@
+{
+    "AwsAccountId": "123456789012",
+    "CreatedAt": "2020-11-04T12:55:35.540Z",
+    "Description": "All Amazon S3 block public access settings are disabled for the Amazon S3 bucket. Access to the bucket is controlled only by access control lists (ACLs) or bucket policies.",
+    "GeneratorId": "aws/macie",
+    "Id": "9f594359-b232-44dc-b6ee-7b4420dda85a",
+    "ProductArn": "arn:aws:securityhub:eu-west-1::product/aws/macie",
+    "ProductFields": {
+        "aws/securityhub/CompanyName": "Amazon",
+        "aws/securityhub/FindingId": "arn:aws:securityhub:eu-west-1::product/aws/macie/9f594359-b232-44dc-b6ee-7b4420dda85a",
+        "aws/securityhub/ProductName": "Macie"
+    },
+    "RecordState": "ACTIVE",
+    "Resources": [
+        {
+            "Details": {
+                "AwsS3Bucket": {
+                    "CreatedAt": "2020-11-04T12:50:38.000Z",
+                    "OwnerId": "CanonicalId of Owner",
+                    "OwnerName": "aws-root+infra-test",
+                    "ServerSideEncryptionConfiguration": {
+                        "Rules": [
+                            {
+                                "ApplyServerSideEncryptionByDefault": {
+                                    "SSEAlgorithm": "AES256"
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "Id": "arn:aws:s3:::bucketname",
+            "Partition": "aws",
+            "Region": "eu-west-1",
+            "Tags": {
+                "cluster": "platform",
+                "env": "test",
+                "owner": "sample-team",
+                "project": "sample-project"
+            },
+            "Type": "AWS::S3::Bucket"
+        }
+    ],
+    "SchemaVersion": "2018-10-08",
+    "Severity": {
+        "Label": "HIGH",
+        "Normalized": 70
+    },
+    "Title": "Block Public Access settings are disabled for the S3 bucket",
+    "Types": [
+        "Policy:IAMUser/S3BlockPublicAccessDisabled"
+    ],
+    "UpdatedAt": "2020-11-04T12:55:35.540Z",
+    "Workflow": {
+        "Status": "NEW"
+    },
+    "WorkflowState": "NEW"
+}

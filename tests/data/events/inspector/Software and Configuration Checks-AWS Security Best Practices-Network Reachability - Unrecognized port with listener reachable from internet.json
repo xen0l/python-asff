@@ -1,0 +1,79 @@
+{
+    "AwsAccountId": "123456789012",
+    "Confidence": 10,
+    "CreatedAt": "2020-09-21T19:34:22.004Z",
+    "Description": "On this instance, TCP port 1194 is reachable from the internet with a process listening on the port. The process has name \u2018openvpn\u2019, process id 2953, and uses binary /usr/sbin/openvpn. The instance i-0c573f5ddc669df95 is located in VPC vpc-12345678 and has an attached ENI eni-0c14c7884856f5dc7 which uses network ACL acl-732bfb0a. The port is reachable from the internet through Security Group sg-05b4caee579eea798 and IGW igw-b2a1f4d5",
+    "GeneratorId": "arn:aws:inspector:eu-west-1:357557129151:rulespackage/0-SPzU33xe",
+    "Id": "inspector/eu-west-1/123456789012/9d349fc8d0cfe6337050d5bc64298e89ae6cfa7b",
+    "ProductArn": "arn:aws:securityhub:eu-west-1::product/aws/inspector",
+    "ProductFields": {
+        "attributes/ACL": "acl-732bfb0a",
+        "attributes/ENI": "eni-0c14c7884856f5dc7",
+        "attributes/IGW": "igw-b2a1f4d5",
+        "attributes/INSTANCE_ID": "i-0c573f5ddc669df95",
+        "attributes/PORT": "1194",
+        "attributes/PROCESS_NAME": "openvpn",
+        "attributes/PROCESS_PATH": "/usr/sbin/openvpn",
+        "attributes/PROCESS_PID": "2953",
+        "attributes/PROTOCOL": "TCP",
+        "attributes/REACHABILITY_TYPE": "Internet",
+        "attributes/RULE_TYPE": "UnrecognizedPortWithListener",
+        "attributes/SECURITY_GROUP": "sg-05b4caee579eea798",
+        "attributes/VPC": "vpc-12345678",
+        "aws/inspector/RulesPackageName": "Network Reachability",
+        "aws/inspector/arn": "arn:aws:inspector:eu-west-1:123456789012:target/0-EAItgHNz/template/0-H1ypSZbB/run/0-HySZ75Kn/finding/0-hRN6LWzl",
+        "aws/inspector/id": "Unrecognized port with listener reachable from internet",
+        "aws/securityhub/CompanyName": "Amazon",
+        "aws/securityhub/FindingId": "arn:aws:securityhub:eu-west-1::product/aws/inspector/inspector/eu-west-1/123456789012/9d349fc8d0cfe6337050d5bc64298e89ae6cfa7b",
+        "aws/securityhub/ProductName": "Inspector",
+        "serviceAttributes/assessmentRunArn": "arn:aws:inspector:eu-west-1:123456789012:target/0-EAItgHNz/template/0-H1ypSZbB/run/0-HySZ75Kn",
+        "serviceAttributes/rulesPackageArn": "arn:aws:inspector:eu-west-1:357557129151:rulespackage/0-SPzU33xe",
+        "serviceAttributes/schemaVersion": "1"
+    },
+    "RecordState": "ACTIVE",
+    "Remediation": {
+        "Recommendation": {
+            "Text": "You can edit the Security Group sg-05b4caee579eea798 to remove access from the internet on port 1194"
+        }
+    },
+    "Resources": [
+        {
+            "Details": {
+                "AwsEc2Instance": {
+                    "ImageId": "ami-0e441e32f042d97c1",
+                    "IpV4Addresses": [
+                        "10.40.2.62"
+                    ],
+                    "SubnetId": "subnet-841c79cc",
+                    "VpcId": "vpc-12345678"
+                }
+            },
+            "Id": "arn:aws:ec2:eu-west-1:123456789012:instance/i-0c573f5ddc669df95",
+            "Partition": "aws",
+            "Region": "eu-west-1",
+            "Tags": {
+                "Name": "sample-name",
+                "aws:autoscaling:groupName": "sample-Stage20200915123617464800000001-ASG",
+                "env": "stage",
+                "owner": "sample-team",
+                "project": "sample-project"
+            },
+            "Type": "AwsEc2Instance"
+        }
+    ],
+    "SchemaVersion": "2018-10-08",
+    "Severity": {
+        "Label": "LOW",
+        "Normalized": 1,
+        "Original": "3.0"
+    },
+    "Title": "On instance i-0c573f5ddc669df95, process 'openvpn' is listening on TCP port 1194 which is reachable from the internet",
+    "Types": [
+        "Software and Configuration Checks/AWS Security Best Practices/Network Reachability - Unrecognized port with listener reachable from internet"
+    ],
+    "UpdatedAt": "2020-11-16T19:32:04.596Z",
+    "Workflow": {
+        "Status": "RESOLVED"
+    },
+    "WorkflowState": "NEW"
+}

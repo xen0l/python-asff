@@ -1,0 +1,87 @@
+{
+    "AwsAccountId": "123456789012",
+    "CreatedAt": "2020-05-28T21:48:37.992Z",
+    "Description": "EC2 instance has an unprotected port which is being probed by a known malicious host.",
+    "FirstObservedAt": "2020-05-28T21:30:59Z",
+    "GeneratorId": "arn:aws:guardduty:eu-west-1:123456789012:detector/f6b25b5036fb2ae646f8d5324d809420",
+    "Id": "arn:aws:guardduty:eu-west-1:123456789012:detector/f6b25b5036fb2ae646f8d5324d809420/finding/4eb92ea11774608a277c081b5e825a97",
+    "LastObservedAt": "2020-10-04T19:36:51Z",
+    "ProductArn": "arn:aws:securityhub:eu-west-1::product/aws/guardduty",
+    "ProductFields": {
+        "aws/guardduty/service/action/actionType": "PORT_PROBE",
+        "aws/guardduty/service/action/portProbeAction/blocked": "false",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.0_/localPortDetails/port": "80",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.0_/localPortDetails/portName": "HTTP",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.0_/remoteIpDetails/city/cityName": "McHenry",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.0_/remoteIpDetails/country/countryName": "United States",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.0_/remoteIpDetails/geoLocation/lat": "42.3574",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.0_/remoteIpDetails/geoLocation/lon": "-88.2209",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.0_/remoteIpDetails/ipAddressV4": "96.127.158.234",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.0_/remoteIpDetails/organization/asn": "32475",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.0_/remoteIpDetails/organization/asnOrg": "SINGLEHOP-LLC",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.0_/remoteIpDetails/organization/isp": "SingleHop LLC",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.0_/remoteIpDetails/organization/org": "SingleHop LLC",
+        "aws/guardduty/service/additionalInfo/threatListName": "ProofPoint",
+        "aws/guardduty/service/additionalInfo/threatName": "Scanner",
+        "aws/guardduty/service/archived": "false",
+        "aws/guardduty/service/count": "436",
+        "aws/guardduty/service/detectorId": "f6b25b5036fb2ae646f8d5324d809420",
+        "aws/guardduty/service/eventFirstSeen": "2020-05-28T21:30:59Z",
+        "aws/guardduty/service/eventLastSeen": "2020-10-04T19:36:51Z",
+        "aws/guardduty/service/evidence/threatIntelligenceDetails.0_/threatListName": "ProofPoint",
+        "aws/guardduty/service/evidence/threatIntelligenceDetails.0_/threatNames.0_": "Brute Forcer",
+        "aws/guardduty/service/evidence/threatIntelligenceDetails.1_/threatListName": "ProofPoint",
+        "aws/guardduty/service/evidence/threatIntelligenceDetails.1_/threatNames.0_": "Scanner",
+        "aws/guardduty/service/resourceRole": "TARGET",
+        "aws/guardduty/service/serviceName": "guardduty",
+        "aws/securityhub/CompanyName": "Amazon",
+        "aws/securityhub/FindingId": "arn:aws:securityhub:eu-west-1::product/aws/guardduty/arn:aws:guardduty:eu-west-1:123456789012:detector/f6b25b5036fb2ae646f8d5324d809420/finding/4eb92ea11774608a277c081b5e825a97",
+        "aws/securityhub/ProductName": "GuardDuty"
+    },
+    "RecordState": "ACTIVE",
+    "Resources": [
+        {
+            "Details": {
+                "AwsEc2Instance": {
+                    "IamInstanceProfileArn": "arn:aws:iam::123456789012:instance-profile/ListBucketCerts",
+                    "ImageId": "ami-931851ea",
+                    "IpV4Addresses": [
+                        "34.242.146.85",
+                        "172.31.30.97"
+                    ],
+                    "LaunchedAt": "2018-03-13T14:48:20Z",
+                    "SubnetId": "subnet-c3e84ea6",
+                    "Type": "t2.small",
+                    "VpcId": "vpc-12345678"
+                }
+            },
+            "Id": "arn:aws:ec2:eu-west-1:123456789012:instance/i-08a922f31de4801d5",
+            "Partition": "aws",
+            "Region": "eu-west-1",
+            "Tags": {
+                "Name": "sample-name",
+                "env": "prod",
+                "owner": "sample-team",
+                "project": "sample-project"
+            },
+            "Type": "AwsEc2Instance"
+        }
+    ],
+    "SchemaVersion": "2018-10-08",
+    "Severity": {
+        "Label": "LOW",
+        "Normalized": 30,
+        "Product": 2
+    },
+    "SourceUrl": "https://eu-west-1.console.aws.amazon.com/guardduty/home?region=eu-west-1#/findings?macros=current&fId=4eb92ea11774608a277c081b5e825a97",
+    "Title": "Unprotected port on EC2 instance i-08a922f31de4801d5 is being probed.",
+    "Types": [
+        "TTPs/Initial Access/Recon:EC2-PortProbeUnprotectedPort",
+        "Software and Configuration Checks/Network Reachability/Recon:EC2-PortProbeUnprotectedPort"
+    ],
+    "UpdatedAt": "2020-10-04T19:44:30.278Z",
+    "Workflow": {
+        "Status": "RESOLVED"
+    },
+    "WorkflowState": "NEW"
+}

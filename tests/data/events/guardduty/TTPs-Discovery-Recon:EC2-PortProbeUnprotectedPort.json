@@ -1,0 +1,103 @@
+{
+    "AwsAccountId": "123456789012",
+    "CreatedAt": "2020-11-11T11:47:26.520Z",
+    "Description": "EC2 instance has an unprotected port which is being probed by a known malicious host.",
+    "FirstObservedAt": "2020-11-11T11:47:26.520Z",
+    "GeneratorId": "arn:aws:guardduty:eu-west-1:123456789012:detector/cab6a714deb3b739eaddacbdfd5ef2f2",
+    "Id": "arn:aws:guardduty:eu-west-1:123456789012:detector/cab6a714deb3b739eaddacbdfd5ef2f2/finding/f2badb90e55c28a6d5ce5d9213808729",
+    "LastObservedAt": "2020-11-28T23:11:30.821Z",
+    "ProductArn": "arn:aws:securityhub:eu-west-1::product/aws/guardduty",
+    "ProductFields": {
+        "aws/guardduty/service/action/actionType": "PORT_PROBE",
+        "aws/guardduty/service/action/portProbeAction/blocked": "false",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.0_/localIpDetails/ipAddressV4": "10.0.0.23",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.0_/localPortDetails/port": "80",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.0_/localPortDetails/portName": "HTTP",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.0_/remoteIpDetails/city/cityName": "GeneratedFindingCityName1",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.0_/remoteIpDetails/country/countryName": "GeneratedFindingCountryName1",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.0_/remoteIpDetails/geoLocation/lat": "0",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.0_/remoteIpDetails/geoLocation/lon": "0",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.0_/remoteIpDetails/ipAddressV4": "198.51.100.0",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.0_/remoteIpDetails/organization/asn": "9808",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.0_/remoteIpDetails/organization/asnOrg": "GeneratedFindingASNOrg1",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.0_/remoteIpDetails/organization/isp": "GeneratedFindingISP1",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.0_/remoteIpDetails/organization/org": "GeneratedFindingORG1",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.1_/localIpDetails/ipAddressV4": "10.0.0.23",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.1_/localPortDetails/port": "443",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.1_/localPortDetails/portName": "HTTPS",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.1_/remoteIpDetails/city/cityName": "GeneratedFindingCityName2",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.1_/remoteIpDetails/country/countryName": "GeneratedFindingCountryName2",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.1_/remoteIpDetails/geoLocation/lat": "0",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.1_/remoteIpDetails/geoLocation/lon": "0",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.1_/remoteIpDetails/ipAddressV4": "198.51.100.1",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.1_/remoteIpDetails/organization/asn": "29073",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.1_/remoteIpDetails/organization/asnOrg": "GeneratedFindingASNOrg2",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.1_/remoteIpDetails/organization/isp": "GeneratedFindingISP2",
+        "aws/guardduty/service/action/portProbeAction/portProbeDetails.1_/remoteIpDetails/organization/org": "GeneratedFindingORG2",
+        "aws/guardduty/service/additionalInfo/sample": "true",
+        "aws/guardduty/service/additionalInfo/threatListName": "GeneratedFindingThreatListName",
+        "aws/guardduty/service/additionalInfo/threatName": "GeneratedFindingThreatName",
+        "aws/guardduty/service/archived": "false",
+        "aws/guardduty/service/count": "2",
+        "aws/guardduty/service/detectorId": "cab6a714deb3b739eaddacbdfd5ef2f2",
+        "aws/guardduty/service/eventFirstSeen": "2020-11-11T11:47:26.520Z",
+        "aws/guardduty/service/eventLastSeen": "2020-11-28T23:11:30.821Z",
+        "aws/guardduty/service/evidence/threatIntelligenceDetails.0_/threatListName": "GeneratedFindingThreatListName",
+        "aws/guardduty/service/evidence/threatIntelligenceDetails.0_/threatNames.0_": "GeneratedFindingThreatName",
+        "aws/guardduty/service/resourceRole": "TARGET",
+        "aws/guardduty/service/serviceName": "guardduty",
+        "aws/securityhub/CompanyName": "Amazon",
+        "aws/securityhub/FindingId": "arn:aws:securityhub:eu-west-1::product/aws/guardduty/arn:aws:guardduty:eu-west-1:123456789012:detector/cab6a714deb3b739eaddacbdfd5ef2f2/finding/f2badb90e55c28a6d5ce5d9213808729",
+        "aws/securityhub/ProductName": "GuardDuty"
+    },
+    "RecordState": "ACTIVE",
+    "Resources": [
+        {
+            "Details": {
+                "AwsEc2Instance": {
+                    "IamInstanceProfileArn": "arn:aws:iam::123456789012:example/instance/profile",
+                    "ImageId": "ami-99999999",
+                    "IpV4Addresses": [
+                        "10.0.0.1",
+                        "198.51.100.0"
+                    ],
+                    "LaunchedAt": "2016-08-02T02:05:06Z",
+                    "SubnetId": "GeneratedFindingSubnetId",
+                    "Type": "m3.xlarge",
+                    "VpcId": "GeneratedFindingVPCId"
+                }
+            },
+            "Id": "arn:aws:ec2:eu-west-1:123456789012:instance/i-99999999",
+            "Partition": "aws",
+            "Region": "eu-west-1",
+            "Tags": {
+                "GeneratedFindingInstaceTag1": "GeneratedFindingInstaceValue1",
+                "GeneratedFindingInstaceTag2": "GeneratedFindingInstaceTagValue2",
+                "GeneratedFindingInstaceTag3": "GeneratedFindingInstaceTagValue3",
+                "GeneratedFindingInstaceTag4": "GeneratedFindingInstaceTagValue4",
+                "GeneratedFindingInstaceTag5": "GeneratedFindingInstaceTagValue5",
+                "GeneratedFindingInstaceTag6": "GeneratedFindingInstaceTagValue6",
+                "GeneratedFindingInstaceTag7": "GeneratedFindingInstaceTagValue7",
+                "GeneratedFindingInstaceTag8": "GeneratedFindingInstaceTagValue8",
+                "GeneratedFindingInstaceTag9": "GeneratedFindingInstaceTagValue9"
+            },
+            "Type": "AwsEc2Instance"
+        }
+    ],
+    "SchemaVersion": "2018-10-08",
+    "Severity": {
+        "Label": "LOW",
+        "Normalized": 40,
+        "Product": 2
+    },
+    "SourceUrl": "https://eu-west-1.console.aws.amazon.com/guardduty/home?region=eu-west-1#/findings?macros=current&fId=f2badb90e55c28a6d5ce5d9213808729",
+    "Title": "Unprotected port on EC2 instance i-99999999 is being probed.",
+    "Types": [
+        "TTPs/Discovery/Recon:EC2-PortProbeUnprotectedPort"
+    ],
+    "UpdatedAt": "2020-11-28T23:11:30.821Z",
+    "Workflow": {
+        "Status": "NEW"
+    },
+    "WorkflowState": "NEW"
+}

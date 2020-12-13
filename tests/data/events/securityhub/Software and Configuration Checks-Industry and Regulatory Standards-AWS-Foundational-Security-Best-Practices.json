@@ -1,0 +1,70 @@
+{
+    "AwsAccountId": "123456789012",
+    "Compliance": {
+        "Status": "FAILED"
+    },
+    "CreatedAt": "2020-11-28T23:13:28.704Z",
+    "Description": "This control checks whether your IAM users have passwords or active access keys that were not used within the previous 90 days.",
+    "FirstObservedAt": "2020-11-28T23:13:28.704Z",
+    "GeneratorId": "aws-foundational-security-best-practices/v/1.0.0/IAM.8",
+    "Id": "arn:aws:securityhub:eu-west-1:123456789012:subscription/aws-foundational-security-best-practices/v/1.0.0/IAM.8/finding/c9ce5e69-24eb-41ee-bbb5-856777f89637",
+    "LastObservedAt": "2020-11-28T23:13:29.226Z",
+    "ProductArn": "arn:aws:securityhub:eu-west-1::product/aws/securityhub",
+    "ProductFields": {
+        "ControlId": "IAM.8",
+        "RecommendationUrl": "https://docs.aws.amazon.com/console/securityhub/IAM.8/remediation",
+        "RelatedAWSResources:0/name": "securityhub-iam-user-unused-credentials-check-1f48524d",
+        "RelatedAWSResources:0/type": "AWS::Config::ConfigRule",
+        "StandardsArn": "arn:aws:securityhub:::standards/aws-foundational-security-best-practices/v/1.0.0",
+        "StandardsControlArn": "arn:aws:securityhub:eu-west-1:123456789012:control/aws-foundational-security-best-practices/v/1.0.0/IAM.8",
+        "StandardsSubscriptionArn": "arn:aws:securityhub:eu-west-1:123456789012:subscription/aws-foundational-security-best-practices/v/1.0.0",
+        "aws/securityhub/CompanyName": "AWS",
+        "aws/securityhub/FindingId": "arn:aws:securityhub:eu-west-1::product/aws/securityhub/arn:aws:securityhub:eu-west-1:123456789012:subscription/aws-foundational-security-best-practices/v/1.0.0/IAM.8/finding/c9ce5e69-24eb-41ee-bbb5-856777f89637",
+        "aws/securityhub/ProductName": "Security Hub"
+    },
+    "RecordState": "ACTIVE",
+    "Remediation": {
+        "Recommendation": {
+            "Text": "For directions on how to fix this issue, please consult the AWS Security Hub Foundational Security Best Practices documentation.",
+            "Url": "https://docs.aws.amazon.com/console/securityhub/IAM.8/remediation"
+        }
+    },
+    "Resources": [
+        {
+            "Details": {
+                "AwsIamUser": {
+                    "AttachedManagedPolicies": [
+                        {
+                            "PolicyArn": "arn:aws:iam::123456789012:policy/ImageBuilderAMIBake",
+                            "PolicyName": "ImageBuilderAMIBake"
+                        }
+                    ],
+                    "CreateDate": "2020-01-24T08:59:55.000Z",
+                    "Path": "/",
+                    "UserId": "AIDAZ2QT5RT6QZOUEYPNQ",
+                    "UserName": "github-ami-baking"
+                }
+            },
+            "Id": "arn:aws:iam::123456789012:user/github-ami-baking",
+            "Partition": "aws",
+            "Region": "eu-west-1",
+            "Type": "AwsIamUser"
+        }
+    ],
+    "SchemaVersion": "2018-10-08",
+    "Severity": {
+        "Label": "MEDIUM",
+        "Normalized": 40,
+        "Original": "MEDIUM",
+        "Product": 40
+    },
+    "Title": "IAM.8 Unused IAM user credentials should be removed",
+    "Types": [
+        "Software and Configuration Checks/Industry and Regulatory Standards/AWS-Foundational-Security-Best-Practices"
+    ],
+    "UpdatedAt": "2020-11-28T23:13:28.704Z",
+    "Workflow": {
+        "Status": "NEW"
+    },
+    "WorkflowState": "NEW"
+}

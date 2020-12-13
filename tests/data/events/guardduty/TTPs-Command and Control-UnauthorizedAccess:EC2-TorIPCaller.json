@@ -1,0 +1,87 @@
+{
+    "AwsAccountId": "123456789012",
+    "CreatedAt": "2020-05-27T18:50:10.762Z",
+    "Description": "IP address 192.42.116.14 on the Tor Anonymizing Proxy network is communicating with EC2 instance i-8d09136a.",
+    "FirstObservedAt": "2020-05-27T18:46:47Z",
+    "GeneratorId": "arn:aws:guardduty:eu-west-1:123456789012:detector/f6b25b5036fb2ae646f8d5324d809420",
+    "Id": "arn:aws:guardduty:eu-west-1:123456789012:detector/f6b25b5036fb2ae646f8d5324d809420/finding/aeb92bbc38e566ee378b6d3cbcbdb4e9",
+    "LastObservedAt": "2020-10-01T20:15:51Z",
+    "ProductArn": "arn:aws:securityhub:eu-west-1::product/aws/guardduty",
+    "ProductFields": {
+        "aws/guardduty/service/action/actionType": "NETWORK_CONNECTION",
+        "aws/guardduty/service/action/networkConnectionAction/blocked": "false",
+        "aws/guardduty/service/action/networkConnectionAction/connectionDirection": "INBOUND",
+        "aws/guardduty/service/action/networkConnectionAction/localIpDetails/ipAddressV4": "172.31.35.121",
+        "aws/guardduty/service/action/networkConnectionAction/localPortDetails/port": "443",
+        "aws/guardduty/service/action/networkConnectionAction/localPortDetails/portName": "HTTPS",
+        "aws/guardduty/service/action/networkConnectionAction/protocol": "TCP",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/city": "THIS_WAS_PREVIOUSLY_EMPTY_AND_WAS_ADDED_BY_NE",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/country/countryName": "Netherlands",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/geoLocation": "THIS_WAS_PREVIOUSLY_EMPTY_AND_WAS_ADDED_BY_NE",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/ipAddressV4": "192.42.116.14",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/organization/asn": "1101",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/organization/asnOrg": "SURFnet bv",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/organization/isp": "SURFnet bv",
+        "aws/guardduty/service/action/networkConnectionAction/remoteIpDetails/organization/org": "SURFnet bv",
+        "aws/guardduty/service/action/networkConnectionAction/remotePortDetails/port": "56868",
+        "aws/guardduty/service/action/networkConnectionAction/remotePortDetails/portName": "Unknown",
+        "aws/guardduty/service/additionalInfo": "THIS_WAS_PREVIOUSLY_EMPTY_AND_WAS_ADDED_BY_NE",
+        "aws/guardduty/service/archived": "false",
+        "aws/guardduty/service/count": "388",
+        "aws/guardduty/service/detectorId": "f6b25b5036fb2ae646f8d5324d809420",
+        "aws/guardduty/service/eventFirstSeen": "2020-05-27T18:46:47Z",
+        "aws/guardduty/service/eventLastSeen": "2020-10-01T20:15:51Z",
+        "aws/guardduty/service/evidence": "THIS_WAS_PREVIOUSLY_EMPTY_AND_WAS_ADDED_BY_NE",
+        "aws/guardduty/service/resourceRole": "TARGET",
+        "aws/guardduty/service/serviceName": "guardduty",
+        "aws/securityhub/CompanyName": "Amazon",
+        "aws/securityhub/FindingId": "arn:aws:securityhub:eu-west-1::product/aws/guardduty/arn:aws:guardduty:eu-west-1:123456789012:detector/f6b25b5036fb2ae646f8d5324d809420/finding/aeb92bbc38e566ee378b6d3cbcbdb4e9",
+        "aws/securityhub/ProductName": "GuardDuty"
+    },
+    "RecordState": "ACTIVE",
+    "Resources": [
+        {
+            "Details": {
+                "AwsEc2Instance": {
+                    "ImageId": "ami-47a23a30",
+                    "IpV4Addresses": [
+                        "52.16.84.248",
+                        "172.31.35.121"
+                    ],
+                    "LaunchedAt": "2018-10-05T22:02:29Z",
+                    "SubnetId": "subnet-1e3cf169",
+                    "Type": "m4.4xlarge",
+                    "VpcId": "vpc-12345678"
+                }
+            },
+            "Id": "arn:aws:ec2:eu-west-1:123456789012:instance/i-8d09136a",
+            "Partition": "aws",
+            "Region": "eu-west-1",
+            "Tags": {
+                "Environment": "Production",
+                "Name": "sample-name",
+                "Project": "sample-project",
+                "env": "prod",
+                "owner": "sample-team",
+                "project": "sample-project"
+            },
+            "Type": "AwsEc2Instance"
+        }
+    ],
+    "SchemaVersion": "2018-10-08",
+    "Severity": {
+        "Label": "MEDIUM",
+        "Normalized": 50,
+        "Product": 5
+    },
+    "SourceUrl": "https://eu-west-1.console.aws.amazon.com/guardduty/home?region=eu-west-1#/findings?macros=current&fId=aeb92bbc38e566ee378b6d3cbcbdb4e9",
+    "Title": "Tor Exit node is communicating with EC2 instance i-8d09136a.",
+    "Types": [
+        "TTPs/Command and Control/UnauthorizedAccess:EC2-TorIPCaller"
+    ],
+    "UpdatedAt": "2020-10-01T20:20:10.636Z",
+    "Workflow": {
+        "Status": "NEW"
+    },
+    "WorkflowState": "NEW"
+}

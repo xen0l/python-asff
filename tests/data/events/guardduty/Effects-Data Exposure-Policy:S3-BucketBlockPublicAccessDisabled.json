@@ -1,0 +1,127 @@
+{
+    "AwsAccountId": "123456789012",
+    "CreatedAt": "2020-11-11T11:47:26.512Z",
+    "Description": "Amazon S3 Block Public Access was disabled for S3 bucket GeneratedFindingS3Bucket by GeneratedFindingUserName calling GeneratedFindingAPIName. If this behavior is not expected, it may indicate a configuration mistake or that your credentials are compromised.",
+    "FirstObservedAt": "2020-11-11T11:47:26.512Z",
+    "GeneratorId": "arn:aws:guardduty:eu-west-1:123456789012:detector/cab6a714deb3b739eaddacbdfd5ef2f2",
+    "Id": "arn:aws:guardduty:eu-west-1:123456789012:detector/cab6a714deb3b739eaddacbdfd5ef2f2/finding/62badb90e55836fed51c25470c2fe25b",
+    "LastObservedAt": "2020-11-28T23:11:30.812Z",
+    "ProductArn": "arn:aws:securityhub:eu-west-1::product/aws/guardduty",
+    "ProductFields": {
+        "aws/guardduty/service/action/actionType": "AWS_API_CALL",
+        "aws/guardduty/service/action/awsApiCallAction/affectedResources/AWS::S3::Bucket": "GeneratedFindingS3Bucket",
+        "aws/guardduty/service/action/awsApiCallAction/api": "GeneratedFindingAPIName",
+        "aws/guardduty/service/action/awsApiCallAction/callerType": "Remote IP",
+        "aws/guardduty/service/action/awsApiCallAction/remoteIpDetails/city/cityName": "GeneratedFindingCityName",
+        "aws/guardduty/service/action/awsApiCallAction/remoteIpDetails/country/countryName": "GeneratedFindingCountryName",
+        "aws/guardduty/service/action/awsApiCallAction/remoteIpDetails/geoLocation/lat": "0",
+        "aws/guardduty/service/action/awsApiCallAction/remoteIpDetails/geoLocation/lon": "0",
+        "aws/guardduty/service/action/awsApiCallAction/remoteIpDetails/ipAddressV4": "198.51.100.0",
+        "aws/guardduty/service/action/awsApiCallAction/remoteIpDetails/organization/asn": "-1",
+        "aws/guardduty/service/action/awsApiCallAction/remoteIpDetails/organization/asnOrg": "GeneratedFindingASNOrg",
+        "aws/guardduty/service/action/awsApiCallAction/remoteIpDetails/organization/isp": "GeneratedFindingISP",
+        "aws/guardduty/service/action/awsApiCallAction/remoteIpDetails/organization/org": "GeneratedFindingORG",
+        "aws/guardduty/service/action/awsApiCallAction/serviceName": "GeneratedFindingAPIServiceName",
+        "aws/guardduty/service/additionalInfo/sample": "true",
+        "aws/guardduty/service/additionalInfo/unusual/hoursOfDay.0_": "1513609200000",
+        "aws/guardduty/service/additionalInfo/unusual/userNames.0_": "GeneratedFindingUserName",
+        "aws/guardduty/service/archived": "false",
+        "aws/guardduty/service/count": "2",
+        "aws/guardduty/service/detectorId": "cab6a714deb3b739eaddacbdfd5ef2f2",
+        "aws/guardduty/service/eventFirstSeen": "2020-11-11T11:47:26.512Z",
+        "aws/guardduty/service/eventLastSeen": "2020-11-28T23:11:30.812Z",
+        "aws/guardduty/service/resourceRole": "TARGET",
+        "aws/guardduty/service/serviceName": "guardduty",
+        "aws/securityhub/CompanyName": "Amazon",
+        "aws/securityhub/FindingId": "arn:aws:securityhub:eu-west-1::product/aws/guardduty/arn:aws:guardduty:eu-west-1:123456789012:detector/cab6a714deb3b739eaddacbdfd5ef2f2/finding/62badb90e55836fed51c25470c2fe25b",
+        "aws/securityhub/ProductName": "GuardDuty"
+    },
+    "RecordState": "ACTIVE",
+    "Resources": [
+        {
+            "Details": {
+                "AwsEc2Instance": {
+                    "IamInstanceProfileArn": "arn:aws:iam::123456789012:example/instance/profile",
+                    "ImageId": "ami-99999999",
+                    "IpV4Addresses": [
+                        "10.0.0.1",
+                        "198.51.100.0"
+                    ],
+                    "LaunchedAt": "2016-08-02T02:05:06Z",
+                    "SubnetId": "GeneratedFindingSubnetId",
+                    "Type": "m3.xlarge",
+                    "VpcId": "GeneratedFindingVPCId"
+                }
+            },
+            "Id": "arn:aws:ec2:eu-west-1:123456789012:instance/i-99999999",
+            "Partition": "aws",
+            "Region": "eu-west-1",
+            "Tags": {
+                "GeneratedFindingInstaceTag1": "GeneratedFindingInstaceValue1",
+                "GeneratedFindingInstaceTag2": "GeneratedFindingInstaceTagValue2",
+                "GeneratedFindingInstaceTag3": "GeneratedFindingInstaceTagValue3",
+                "GeneratedFindingInstaceTag4": "GeneratedFindingInstaceTagValue4",
+                "GeneratedFindingInstaceTag5": "GeneratedFindingInstaceTagValue5",
+                "GeneratedFindingInstaceTag6": "GeneratedFindingInstaceTagValue6",
+                "GeneratedFindingInstaceTag7": "GeneratedFindingInstaceTagValue7",
+                "GeneratedFindingInstaceTag8": "GeneratedFindingInstaceTagValue8",
+                "GeneratedFindingInstaceTag9": "GeneratedFindingInstaceTagValue9"
+            },
+            "Type": "AwsEc2Instance"
+        },
+        {
+            "Details": {
+                "AwsIamAccessKey": {
+                    "PrincipalId": "GeneratedFindingPrincipalId",
+                    "PrincipalName": "GeneratedFindingUserName",
+                    "PrincipalType": "IAMUser"
+                }
+            },
+            "Id": "AWS::IAM::AccessKey:GeneratedFindingAccessKeyId",
+            "Partition": "aws",
+            "Region": "eu-west-1",
+            "Type": "AwsIamAccessKey"
+        },
+        {
+            "Details": {
+                "AwsS3Bucket": {
+                    "CreatedAt": "2017-12-18T15:58:11.551Z",
+                    "OwnerId": "CanonicalId of Owner",
+                    "ServerSideEncryptionConfiguration": {
+                        "Rules": [
+                            {
+                                "ApplyServerSideEncryptionByDefault": {
+                                    "KMSMasterKeyID": "arn:aws:kms:region:123456789012:key/key-id",
+                                    "SSEAlgorithm": "SSEAlgorithm"
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "Id": "arn:aws:s3:::bucketname",
+            "Partition": "aws",
+            "Region": "eu-west-1",
+            "Tags": {
+                "foo": "bar"
+            },
+            "Type": "AwsS3Bucket"
+        }
+    ],
+    "SchemaVersion": "2018-10-08",
+    "Severity": {
+        "Label": "LOW",
+        "Normalized": 40,
+        "Product": 2
+    },
+    "SourceUrl": "https://eu-west-1.console.aws.amazon.com/guardduty/home?region=eu-west-1#/findings?macros=current&fId=62badb90e55836fed51c25470c2fe25b",
+    "Title": "Amazon S3 Block Public Access was disabled for S3 bucket GeneratedFindingS3Bucket.",
+    "Types": [
+        "Effects/Data Exposure/Policy:S3-BucketBlockPublicAccessDisabled"
+    ],
+    "UpdatedAt": "2020-11-28T23:11:30.812Z",
+    "Workflow": {
+        "Status": "NEW"
+    },
+    "WorkflowState": "NEW"
+}

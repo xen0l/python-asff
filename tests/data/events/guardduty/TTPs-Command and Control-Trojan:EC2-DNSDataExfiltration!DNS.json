@@ -1,0 +1,78 @@
+{
+    "AwsAccountId": "123456789012",
+    "CreatedAt": "2020-11-11T11:47:26.518Z",
+    "Description": "EC2 instance i-99999999 is attempting to query domain names that resemble exfiltrated data. This could be an indication of a compromised instance.",
+    "FirstObservedAt": "2020-11-11T11:47:26.518Z",
+    "GeneratorId": "arn:aws:guardduty:eu-west-1:123456789012:detector/cab6a714deb3b739eaddacbdfd5ef2f2",
+    "Id": "arn:aws:guardduty:eu-west-1:123456789012:detector/cab6a714deb3b739eaddacbdfd5ef2f2/finding/6abadb90e55b178eb49a08b8b00c2b5b",
+    "LastObservedAt": "2020-11-28T23:11:30.818Z",
+    "ProductArn": "arn:aws:securityhub:eu-west-1::product/aws/guardduty",
+    "ProductFields": {
+        "aws/guardduty/service/action/actionType": "DNS_REQUEST",
+        "aws/guardduty/service/action/dnsRequestAction/blocked": "true",
+        "aws/guardduty/service/action/dnsRequestAction/domain": "GeneratedFindingAdditionalDomainName",
+        "aws/guardduty/service/action/dnsRequestAction/protocol": "0",
+        "aws/guardduty/service/additionalInfo/domain": "GeneratedFindingThreatListName",
+        "aws/guardduty/service/additionalInfo/sample": "true",
+        "aws/guardduty/service/archived": "false",
+        "aws/guardduty/service/count": "2",
+        "aws/guardduty/service/detectorId": "cab6a714deb3b739eaddacbdfd5ef2f2",
+        "aws/guardduty/service/eventFirstSeen": "2020-11-11T11:47:26.518Z",
+        "aws/guardduty/service/eventLastSeen": "2020-11-28T23:11:30.818Z",
+        "aws/guardduty/service/resourceRole": "ACTOR",
+        "aws/guardduty/service/serviceName": "guardduty",
+        "aws/securityhub/CompanyName": "Amazon",
+        "aws/securityhub/FindingId": "arn:aws:securityhub:eu-west-1::product/aws/guardduty/arn:aws:guardduty:eu-west-1:123456789012:detector/cab6a714deb3b739eaddacbdfd5ef2f2/finding/6abadb90e55b178eb49a08b8b00c2b5b",
+        "aws/securityhub/ProductName": "GuardDuty"
+    },
+    "RecordState": "ACTIVE",
+    "Resources": [
+        {
+            "Details": {
+                "AwsEc2Instance": {
+                    "IamInstanceProfileArn": "arn:aws:iam::123456789012:example/instance/profile",
+                    "ImageId": "ami-99999999",
+                    "IpV4Addresses": [
+                        "10.0.0.1",
+                        "198.51.100.0"
+                    ],
+                    "LaunchedAt": "2017-01-25T13:25:34Z",
+                    "SubnetId": "GeneratedFindingSubnetId",
+                    "Type": "t2.small",
+                    "VpcId": "GeneratedFindingVPCId"
+                }
+            },
+            "Id": "arn:aws:ec2:eu-west-1:123456789012:instance/i-99999999",
+            "Partition": "aws",
+            "Region": "eu-west-1",
+            "Tags": {
+                "GeneratedFindingInstaceTag1": "GeneratedFindingInstaceValue1",
+                "GeneratedFindingInstaceTag2": "GeneratedFindingInstaceTagValue2",
+                "GeneratedFindingInstaceTag3": "GeneratedFindingInstaceTagValue3",
+                "GeneratedFindingInstaceTag4": "GeneratedFindingInstaceTagValue4",
+                "GeneratedFindingInstaceTag5": "GeneratedFindingInstaceTagValue5",
+                "GeneratedFindingInstaceTag6": "GeneratedFindingInstaceTagValue6",
+                "GeneratedFindingInstaceTag7": "GeneratedFindingInstaceTagValue7",
+                "GeneratedFindingInstaceTag8": "GeneratedFindingInstaceTagValue8",
+                "GeneratedFindingInstaceTag9": "GeneratedFindingInstaceTagValue9"
+            },
+            "Type": "AwsEc2Instance"
+        }
+    ],
+    "SchemaVersion": "2018-10-08",
+    "Severity": {
+        "Label": "HIGH",
+        "Normalized": 75,
+        "Product": 8
+    },
+    "SourceUrl": "https://eu-west-1.console.aws.amazon.com/guardduty/home?region=eu-west-1#/findings?macros=current&fId=6abadb90e55b178eb49a08b8b00c2b5b",
+    "Title": "Data exfiltration through DNS queries from EC2 instance i-99999999.",
+    "Types": [
+        "TTPs/Command and Control/Trojan:EC2-DNSDataExfiltration!DNS"
+    ],
+    "UpdatedAt": "2020-11-28T23:11:30.818Z",
+    "Workflow": {
+        "Status": "NEW"
+    },
+    "WorkflowState": "NEW"
+}

@@ -1,0 +1,55 @@
+{
+    "AwsAccountId": "123456789012",
+    "CreatedAt": "2020-09-04T00:51:28.007Z",
+    "Description": "Encryption is disabled for the Amazon S3 bucket. The data in the bucket isn\u2019t encrypted using server-side encryption.",
+    "GeneratorId": "aws/macie",
+    "Id": "04a0773b-51ba-4444-9ea5-cad74e054b97",
+    "ProductArn": "arn:aws:securityhub:eu-west-1::product/aws/macie",
+    "ProductFields": {
+        "aws/securityhub/CompanyName": "Amazon",
+        "aws/securityhub/FindingId": "arn:aws:securityhub:eu-west-1::product/aws/macie/04a0773b-51ba-4444-9ea5-cad74e054b97",
+        "aws/securityhub/ProductName": "Macie"
+    },
+    "RecordState": "ACTIVE",
+    "Resources": [
+        {
+            "Details": {
+                "AwsS3Bucket": {
+                    "CreatedAt": "2020-09-04T00:37:17.000Z",
+                    "OwnerId": "CanonicalId of Owner",
+                    "OwnerName": "aws-root+security-prod",
+                    "ServerSideEncryptionConfiguration": {
+                        "Rules": [
+                            {
+                                "ApplyServerSideEncryptionByDefault": {
+                                    "SSEAlgorithm": "NONE"
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "Id": "arn:aws:s3:::bucketname",
+            "Partition": "aws",
+            "Region": "eu-west-1",
+            "Tags": {
+                "STAGE": "prod"
+            },
+            "Type": "AWS::S3::Bucket"
+        }
+    ],
+    "SchemaVersion": "2018-10-08",
+    "Severity": {
+        "Label": "LOW",
+        "Normalized": 1
+    },
+    "Title": "Encryption is disabled for the S3 bucket",
+    "Types": [
+        "Policy:IAMUser/S3BucketEncryptionDisabled"
+    ],
+    "UpdatedAt": "2020-09-04T00:51:28.007Z",
+    "Workflow": {
+        "Status": "RESOLVED"
+    },
+    "WorkflowState": "NEW"
+}

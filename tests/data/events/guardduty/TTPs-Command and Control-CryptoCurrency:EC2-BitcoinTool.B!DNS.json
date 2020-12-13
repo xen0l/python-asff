@@ -1,0 +1,81 @@
+{
+    "AwsAccountId": "123456789012",
+    "CreatedAt": "2020-11-11T11:47:26.517Z",
+    "Description": "EC2 instance i-99999999 is querying a domain name that is associated with Bitcoin-related activity.",
+    "FirstObservedAt": "2020-11-11T11:47:26.517Z",
+    "GeneratorId": "arn:aws:guardduty:eu-west-1:123456789012:detector/cab6a714deb3b739eaddacbdfd5ef2f2",
+    "Id": "arn:aws:guardduty:eu-west-1:123456789012:detector/cab6a714deb3b739eaddacbdfd5ef2f2/finding/9cbadb90e55ab66aa702ddfe4170906e",
+    "LastObservedAt": "2020-11-28T23:11:30.817Z",
+    "ProductArn": "arn:aws:securityhub:eu-west-1::product/aws/guardduty",
+    "ProductFields": {
+        "aws/guardduty/service/action/actionType": "DNS_REQUEST",
+        "aws/guardduty/service/action/dnsRequestAction/blocked": "true",
+        "aws/guardduty/service/action/dnsRequestAction/domain": "GeneratedFindingDomainName",
+        "aws/guardduty/service/action/dnsRequestAction/protocol": "UDP",
+        "aws/guardduty/service/additionalInfo/sample": "true",
+        "aws/guardduty/service/additionalInfo/threatListName": "GeneratedFindingThreatListName",
+        "aws/guardduty/service/archived": "false",
+        "aws/guardduty/service/count": "2",
+        "aws/guardduty/service/detectorId": "cab6a714deb3b739eaddacbdfd5ef2f2",
+        "aws/guardduty/service/eventFirstSeen": "2020-11-11T11:47:26.517Z",
+        "aws/guardduty/service/eventLastSeen": "2020-11-28T23:11:30.817Z",
+        "aws/guardduty/service/evidence/threatIntelligenceDetails.0_/threatListName": "GeneratedFindingThreatListName",
+        "aws/guardduty/service/evidence/threatIntelligenceDetails.0_/threatNames.0_": "GeneratedFindingThreatName",
+        "aws/guardduty/service/resourceRole": "TARGET",
+        "aws/guardduty/service/serviceName": "guardduty",
+        "aws/securityhub/CompanyName": "Amazon",
+        "aws/securityhub/FindingId": "arn:aws:securityhub:eu-west-1::product/aws/guardduty/arn:aws:guardduty:eu-west-1:123456789012:detector/cab6a714deb3b739eaddacbdfd5ef2f2/finding/9cbadb90e55ab66aa702ddfe4170906e",
+        "aws/securityhub/ProductName": "GuardDuty"
+    },
+    "RecordState": "ACTIVE",
+    "Resources": [
+        {
+            "Details": {
+                "AwsEc2Instance": {
+                    "IamInstanceProfileArn": "arn:aws:iam::123456789012:example/instance/profile",
+                    "ImageId": "ami-99999999",
+                    "IpV4Addresses": [
+                        "10.0.0.1",
+                        "198.51.100.0"
+                    ],
+                    "LaunchedAt": "2017-12-20T23:46:44Z",
+                    "SubnetId": "GeneratedFindingSubnetId",
+                    "Type": "p2.xlarge",
+                    "VpcId": "GeneratedFindingVPCId"
+                }
+            },
+            "Id": "arn:aws:ec2:eu-west-1:123456789012:instance/i-99999999",
+            "Partition": "aws",
+            "Region": "eu-west-1",
+            "Tags": {
+                "GeneratedFindingInstaceTag1": "GeneratedFindingInstaceValue1",
+                "GeneratedFindingInstaceTag2": "GeneratedFindingInstaceTagValue2",
+                "GeneratedFindingInstaceTag3": "GeneratedFindingInstaceTagValue3",
+                "GeneratedFindingInstaceTag4": "GeneratedFindingInstaceTagValue4",
+                "GeneratedFindingInstaceTag5": "GeneratedFindingInstaceTagValue5",
+                "GeneratedFindingInstaceTag6": "GeneratedFindingInstaceTagValue6",
+                "GeneratedFindingInstaceTag7": "GeneratedFindingInstaceTagValue7",
+                "GeneratedFindingInstaceTag8": "GeneratedFindingInstaceTagValue8",
+                "GeneratedFindingInstaceTag9": "GeneratedFindingInstaceTagValue9"
+            },
+            "Type": "AwsEc2Instance"
+        }
+    ],
+    "SchemaVersion": "2018-10-08",
+    "Severity": {
+        "Label": "HIGH",
+        "Normalized": 50,
+        "Product": 8
+    },
+    "SourceUrl": "https://eu-west-1.console.aws.amazon.com/guardduty/home?region=eu-west-1#/findings?macros=current&fId=9cbadb90e55ab66aa702ddfe4170906e",
+    "Title": "Bitcoin-related domain name queried by EC2 instance i-99999999.",
+    "Types": [
+        "TTPs/Command and Control/CryptoCurrency:EC2-BitcoinTool.B!DNS",
+        "Effects/Resource Consumption/CryptoCurrency:EC2-BitcoinTool.B!DNS"
+    ],
+    "UpdatedAt": "2020-11-28T23:11:30.817Z",
+    "Workflow": {
+        "Status": "NEW"
+    },
+    "WorkflowState": "NEW"
+}

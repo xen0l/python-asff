@@ -1,0 +1,78 @@
+{
+    "AwsAccountId": "123456789012",
+    "Confidence": 10,
+    "CreatedAt": "2020-08-24T19:32:28.505Z",
+    "Description": "On this instance, TCP port 443, which is associated with HTTPS, is reachable from a Peered VPC with no process listening. The instance i-0f6edc00c87633fec is located in VPC vpc-12345678 and has an attached ENI eni-075dbc604bfea47f1 which uses network ACL acl-2bc83152. The port is reachable from a Peered VPC through Security Group sg-0035c7ac2182b3d2d and VPC Peering Connection pcx-043fcf6c",
+    "GeneratorId": "arn:aws:inspector:eu-west-1:357557129151:rulespackage/0-SPzU33xe",
+    "Id": "inspector/eu-west-1/123456789012/e928a93fbef80ec82fe5b5005371855e00fd20ab",
+    "ProductArn": "arn:aws:securityhub:eu-west-1::product/aws/inspector",
+    "ProductFields": {
+        "attributes/ACL": "acl-2bc83152",
+        "attributes/ENI": "eni-075dbc604bfea47f1",
+        "attributes/INSTANCE_ID": "i-0f6edc00c87633fec",
+        "attributes/PCX": "pcx-043fcf6c",
+        "attributes/PCX_VPC": "vpc-12345678",
+        "attributes/PORT": "443",
+        "attributes/PORT_GROUP_NAME": "HTTPS",
+        "attributes/PROTOCOL": "TCP",
+        "attributes/REACHABILITY_TYPE": "PeeredVpc",
+        "attributes/RULE_TYPE": "RecognizedPortNoListener",
+        "attributes/SECURITY_GROUP": "sg-0035c7ac2182b3d2d",
+        "attributes/VPC": "vpc-12345678",
+        "aws/inspector/RulesPackageName": "Network Reachability",
+        "aws/inspector/arn": "arn:aws:inspector:eu-west-1:123456789012:target/0-EAItgHNz/template/0-H1ypSZbB/run/0-HySZ75Kn/finding/0-gn09xydf",
+        "aws/inspector/id": "Recognized port with no listener reachable from a Peered VPC",
+        "aws/securityhub/CompanyName": "Amazon",
+        "aws/securityhub/FindingId": "arn:aws:securityhub:eu-west-1::product/aws/inspector/inspector/eu-west-1/123456789012/e928a93fbef80ec82fe5b5005371855e00fd20ab",
+        "aws/securityhub/ProductName": "Inspector",
+        "serviceAttributes/assessmentRunArn": "arn:aws:inspector:eu-west-1:123456789012:target/0-EAItgHNz/template/0-H1ypSZbB/run/0-HySZ75Kn",
+        "serviceAttributes/rulesPackageArn": "arn:aws:inspector:eu-west-1:357557129151:rulespackage/0-SPzU33xe",
+        "serviceAttributes/schemaVersion": "1"
+    },
+    "RecordState": "ACTIVE",
+    "Remediation": {
+        "Recommendation": {
+            "Text": "You can edit the Security Group sg-0035c7ac2182b3d2d to remove access from a Peered VPC on port 443"
+        }
+    },
+    "Resources": [
+        {
+            "Details": {
+                "AwsEc2Instance": {
+                    "ImageId": "ami-0c6feccca5f785e54",
+                    "IpV4Addresses": [
+                        "172.31.240.77"
+                    ],
+                    "SubnetId": "subnet-663ffa3c",
+                    "VpcId": "vpc-12345678"
+                }
+            },
+            "Id": "arn:aws:ec2:eu-west-1:123456789012:instance/i-0f6edc00c87633fec",
+            "Partition": "aws",
+            "Region": "eu-west-1",
+            "Tags": {
+                "Name": "sample-name",
+                "env": "prod",
+                "owner": "sample-team",
+                "project": "sample-project",
+                "team": "sample-team"
+            },
+            "Type": "AwsEc2Instance"
+        }
+    ],
+    "SchemaVersion": "2018-10-08",
+    "Severity": {
+        "Label": "INFORMATIONAL",
+        "Normalized": 0,
+        "Original": "0.0"
+    },
+    "Title": "On instance i-0f6edc00c87633fec, TCP port 443 which is associated with 'HTTPS' is reachable from a Peered VPC",
+    "Types": [
+        "Software and Configuration Checks/AWS Security Best Practices/Network Reachability - Recognized port with no listener reachable from a Peered VPC"
+    ],
+    "UpdatedAt": "2020-11-16T19:34:59.492Z",
+    "Workflow": {
+        "Status": "RESOLVED"
+    },
+    "WorkflowState": "NEW"
+}
