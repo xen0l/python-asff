@@ -3,10 +3,12 @@
 #
 # For more information, see tools/generate_class.py.
 #
+# pylint: skip-file
 import re
+from typing import List, Dict, Optional
+
 import pydantic
 from pydantic import constr
-from typing import List, Dict, Optional
 
 
 # Some ASFF classes have inconsistent naming, e.g. 'SseType' or 'SSEAlgorithm'.

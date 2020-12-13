@@ -5,7 +5,7 @@ description = "asff is a Python library to work with Amazon Security Finding For
 authors = ["Adam Števko <adam.stevko@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = ">=3.6.1"
+python = "^3.6.1"
 pydantic = "^1.7.2"
 
 [tool.poetry.dev-dependencies]
@@ -29,3 +29,20 @@ pre-commit = "^2.9.2"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.pytest_cache
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
