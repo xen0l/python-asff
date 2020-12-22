@@ -18,6 +18,9 @@ _ALIAS_NORMALIZER = {
     "kms_master_key_id": "KMSMasterKeyID",
 }
 
+# Taken from Security Hub error response.
+ISO8601_REGEX = r"(\d\d\d\d)-[0-1](\d)-[0-3](\d)[Tt](?:[0-2](\d):[0-5](\d):[0-5](\d)|23:59:60)(?:\.(\d)+)?(?:[Zz]|[+-](\d\d)(?::?(\d\d))?)$"  # noqa: B950
+
 
 class ASFFBaseModel(pydantic.BaseModel):
     """
@@ -30,3 +33,9 @@ class ASFFBaseModel(pydantic.BaseModel):
         alias_generator = lambda x: _ALIAS_NORMALIZER.get(
             x, re.sub(r"(?:^|_)(.)", lambda m: m.group(1).upper(), x)
         )
+
+
+# Custom types
+Iso8601Timestamp = constr(regex=ISO8601_REGEX)
+
+# Generated part below

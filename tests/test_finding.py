@@ -1,7 +1,6 @@
-import json
-
 import glob
-import os
+import json
+import re
 from uuid import UUID
 
 import pytest
@@ -13,6 +12,7 @@ from asff.constants import (
     DEFAULT_REGION,
     DEFAULT_PRODUCT_NAME,
     DEFAULT_PRODUCT_VERSION,
+    ISO8601_REGEX,
 )
 
 
@@ -93,9 +93,7 @@ def test_finding_from_kwargs(path):
     assert finding == expected_finding
 
 
-def test_finding_from_kwargs_default_args(mocker):
-    mocker.patch.dict(os.environ, {"AWS_DEFAULT_REGION": "us-west-1"})
-
+def test_finding_from_kwargs_default_args():
     kwargs = {
         "aws_account_id": "12345678901",
         "title": "Title",
@@ -117,6 +115,24 @@ def test_finding_from_kwargs_default_args(mocker):
     assert f.resources == []
     assert f.updated_at is not None
     assert f.created_at is not None
+    assert re.match(ISO8601_REGEX, f.updated_at)
+    assert re.match(ISO8601_REGEX, f.created_at)
+
+
+@pytest.mark.parametrize(
+    "time_attr", [{"created_at": "2020-22-12"}, {"updated_at": "2020-22-12"}]
+)
+def test_finding_from_kwargs_iso8601_timestamp_validation(time_attr):
+    kwargs = {
+        "aws_account_id": "12345678901",
+        "title": "Title",
+        "description": "Description",
+        "types": ["TTP1"],
+    }
+    kwargs.update(time_attr)
+
+    with pytest.raises(ValidationError):
+        AmazonSecurityFinding.from_kwargs(**kwargs)
 
 
 def test_finding_equality(shared_datadir):

@@ -18,6 +18,9 @@ _ALIAS_NORMALIZER = {
     "kms_master_key_id": "KMSMasterKeyID",
 }
 
+# Taken from Security Hub error response.
+ISO8601_REGEX = r"(\d\d\d\d)-[0-1](\d)-[0-3](\d)[Tt](?:[0-2](\d):[0-5](\d):[0-5](\d)|23:59:60)(?:\.(\d)+)?(?:[Zz]|[+-](\d\d)(?::?(\d\d))?)$"  # noqa: B950
+
 
 class ASFFBaseModel(pydantic.BaseModel):
     """
@@ -32,6 +35,10 @@ class ASFFBaseModel(pydantic.BaseModel):
         )
 
 
+# Custom types
+Iso8601Timestamp = constr(regex=ISO8601_REGEX)
+
+# Generated part below
 NonEmptyString = constr(regex=".*\S.*")
 TypeList = List[NonEmptyString]
 Double = int
@@ -232,8 +239,8 @@ class ProcessDetails(ASFFBaseModel):
     path: Optional[NonEmptyString]
     pid: Optional[Integer]
     parent_pid: Optional[Integer]
-    launched_at: Optional[NonEmptyString]
-    terminated_at: Optional[NonEmptyString]
+    launched_at: Optional[Iso8601Timestamp]
+    terminated_at: Optional[Iso8601Timestamp]
 
 
 ThreatIntelIndicatorType = constr(
@@ -261,7 +268,7 @@ class ThreatIntelIndicator(ASFFBaseModel):
     type: Optional[ThreatIntelIndicatorType]
     value: Optional[NonEmptyString]
     category: Optional[ThreatIntelIndicatorCategory]
-    last_observed_at: Optional[NonEmptyString]
+    last_observed_at: Optional[Iso8601Timestamp]
     source: Optional[NonEmptyString]
     source_url: Optional[NonEmptyString]
 
@@ -287,7 +294,7 @@ class AwsAutoScalingAutoScalingGroupDetails(ASFFBaseModel):
     load_balancer_names: Optional[StringList]
     health_check_type: Optional[NonEmptyString]
     health_check_grace_period: Optional[Integer]
-    created_time: Optional[NonEmptyString]
+    created_time: Optional[Iso8601Timestamp]
 
 
 class AwsCodeBuildProjectEnvironmentRegistryCredential(ASFFBaseModel):
@@ -450,7 +457,7 @@ class AwsCloudFrontDistributionDetails(ASFFBaseModel):
 
     domain_name: Optional[NonEmptyString]
     e_tag: Optional[NonEmptyString]
-    last_modified_time: Optional[NonEmptyString]
+    last_modified_time: Optional[Iso8601Timestamp]
     logging: Optional[AwsCloudFrontDistributionLogging]
     origins: Optional[AwsCloudFrontDistributionOrigins]
     status: Optional[NonEmptyString]
@@ -482,7 +489,7 @@ class AwsEc2InstanceDetails(ASFFBaseModel):
     iam_instance_profile_arn: Optional[NonEmptyString]
     vpc_id: Optional[NonEmptyString]
     subnet_id: Optional[NonEmptyString]
-    launched_at: Optional[NonEmptyString]
+    launched_at: Optional[Iso8601Timestamp]
 
 
 class AwsEc2NetworkInterfaceAttachment(ASFFBaseModel):
@@ -500,7 +507,7 @@ class AwsEc2NetworkInterfaceAttachment(ASFFBaseModel):
     :return: AwsEc2NetworkInterfaceAttachment object
     """
 
-    attach_time: Optional[NonEmptyString]
+    attach_time: Optional[Iso8601Timestamp]
     attachment_id: Optional[NonEmptyString]
     delete_on_termination: Optional[Boolean]
     device_index: Optional[Integer]
@@ -675,7 +682,7 @@ class AwsEc2VolumeAttachment(ASFFBaseModel):
     :return: AwsEc2VolumeAttachment object
     """
 
-    attach_time: Optional[NonEmptyString]
+    attach_time: Optional[Iso8601Timestamp]
     delete_on_termination: Optional[Boolean]
     instance_id: Optional[NonEmptyString]
     status: Optional[NonEmptyString]
@@ -699,7 +706,7 @@ class AwsEc2VolumeDetails(ASFFBaseModel):
     :return: AwsEc2VolumeDetails object
     """
 
-    create_time: Optional[NonEmptyString]
+    create_time: Optional[Iso8601Timestamp]
     encrypted: Optional[Boolean]
     size: Optional[Integer]
     snapshot_id: Optional[NonEmptyString]
@@ -846,7 +853,7 @@ class AwsElbv2LoadBalancerDetails(ASFFBaseModel):
 
     availability_zones: Optional[AvailabilityZones]
     canonical_hosted_zone_id: Optional[NonEmptyString]
-    created_time: Optional[NonEmptyString]
+    created_time: Optional[Iso8601Timestamp]
     dns_name: Optional[NonEmptyString]
     ip_address_type: Optional[NonEmptyString]
     scheme: Optional[NonEmptyString]
@@ -1006,7 +1013,7 @@ class AwsS3BucketDetails(ASFFBaseModel):
 
     owner_id: Optional[NonEmptyString]
     owner_name: Optional[NonEmptyString]
-    created_at: Optional[NonEmptyString]
+    created_at: Optional[Iso8601Timestamp]
     server_side_encryption_configuration: Optional[
         AwsS3BucketServerSideEncryptionConfiguration
     ]
@@ -1026,7 +1033,7 @@ class AwsS3ObjectDetails(ASFFBaseModel):
     :return: AwsS3ObjectDetails object
     """
 
-    last_modified: Optional[NonEmptyString]
+    last_modified: Optional[Iso8601Timestamp]
     e_tag: Optional[NonEmptyString]
     version_id: Optional[NonEmptyString]
     content_type: Optional[NonEmptyString]
@@ -1091,7 +1098,7 @@ class AwsIamAccessKeyDetails(ASFFBaseModel):
 
     user_name: Optional[NonEmptyString]
     status: Optional[AwsIamAccessKeyStatus]
-    created_at: Optional[NonEmptyString]
+    created_at: Optional[Iso8601Timestamp]
     principal_id: Optional[NonEmptyString]
     principal_type: Optional[NonEmptyString]
     principal_name: Optional[NonEmptyString]
@@ -1160,7 +1167,7 @@ class AwsIamUserDetails(ASFFBaseModel):
     """
 
     attached_managed_policies: Optional[AwsIamAttachedManagedPolicyList]
-    create_date: Optional[NonEmptyString]
+    create_date: Optional[Iso8601Timestamp]
     group_list: Optional[StringList]
     path: Optional[NonEmptyString]
     permissions_boundary: Optional[AwsIamPermissionsBoundary]
@@ -1182,7 +1189,7 @@ class AwsIamPolicyVersion(ASFFBaseModel):
 
     version_id: Optional[NonEmptyString]
     is_default_version: Optional[Boolean]
-    create_date: Optional[NonEmptyString]
+    create_date: Optional[Iso8601Timestamp]
 
 
 AwsIamPolicyVersionList = List[AwsIamPolicyVersion]
@@ -1208,7 +1215,7 @@ class AwsIamPolicyDetails(ASFFBaseModel):
     """
 
     attachment_count: Optional[Integer]
-    create_date: Optional[NonEmptyString]
+    create_date: Optional[Iso8601Timestamp]
     default_version_id: Optional[NonEmptyString]
     description: Optional[NonEmptyString]
     is_attachable: Optional[Boolean]
@@ -1217,7 +1224,7 @@ class AwsIamPolicyDetails(ASFFBaseModel):
     policy_id: Optional[NonEmptyString]
     policy_name: Optional[NonEmptyString]
     policy_version_list: Optional[AwsIamPolicyVersionList]
-    update_date: Optional[NonEmptyString]
+    update_date: Optional[Iso8601Timestamp]
 
 
 class AwsDynamoDbTableAttributeDefinition(ASFFBaseModel):
@@ -1248,7 +1255,7 @@ class AwsDynamoDbTableBillingModeSummary(ASFFBaseModel):
     """
 
     billing_mode: Optional[NonEmptyString]
-    last_update_to_pay_per_request_date_time: Optional[NonEmptyString]
+    last_update_to_pay_per_request_date_time: Optional[Iso8601Timestamp]
 
 
 SizeBytes = int
@@ -1298,8 +1305,8 @@ class AwsDynamoDbTableProvisionedThroughput(ASFFBaseModel):
     :return: AwsDynamoDbTableProvisionedThroughput object
     """
 
-    last_decrease_date_time: Optional[NonEmptyString]
-    last_increase_date_time: Optional[NonEmptyString]
+    last_decrease_date_time: Optional[Iso8601Timestamp]
+    last_increase_date_time: Optional[Iso8601Timestamp]
     number_of_decreases_today: Optional[Integer]
     read_capacity_units: Optional[Integer]
     write_capacity_units: Optional[Integer]
@@ -1431,7 +1438,7 @@ class AwsDynamoDbTableRestoreSummary(ASFFBaseModel):
 
     source_backup_arn: Optional[NonEmptyString]
     source_table_arn: Optional[NonEmptyString]
-    restore_date_time: Optional[NonEmptyString]
+    restore_date_time: Optional[Iso8601Timestamp]
     restore_in_progress: Optional[Boolean]
 
 
@@ -1447,7 +1454,7 @@ class AwsDynamoDbTableSseDescription(ASFFBaseModel):
     :return: AwsDynamoDbTableSseDescription object
     """
 
-    inaccessible_encryption_date_time: Optional[NonEmptyString]
+    inaccessible_encryption_date_time: Optional[Iso8601Timestamp]
     status: Optional[NonEmptyString]
     sse_type: Optional[NonEmptyString]
     kms_master_key_arn: Optional[NonEmptyString]
@@ -1496,7 +1503,7 @@ class AwsDynamoDbTableDetails(ASFFBaseModel):
 
     attribute_definitions: Optional[AwsDynamoDbTableAttributeDefinitionList]
     billing_mode_summary: Optional[AwsDynamoDbTableBillingModeSummary]
-    creation_date_time: Optional[NonEmptyString]
+    creation_date_time: Optional[Iso8601Timestamp]
     global_secondary_indexes: Optional[AwsDynamoDbTableGlobalSecondaryIndexList]
     global_table_version: Optional[NonEmptyString]
     item_count: Optional[Integer]
@@ -1537,7 +1544,7 @@ class AwsIamRoleDetails(ASFFBaseModel):
     """
 
     assume_role_policy_document: Optional[AwsIamRoleAssumeRolePolicyDocument]
-    create_date: Optional[NonEmptyString]
+    create_date: Optional[Iso8601Timestamp]
     role_id: Optional[NonEmptyString]
     role_name: Optional[NonEmptyString]
     max_session_duration: Optional[Integer]
@@ -1560,7 +1567,7 @@ class AwsKmsKeyDetails(ASFFBaseModel):
     """
 
     aws_account_id: Optional[NonEmptyString]
-    creation_date: Optional[Double]
+    creation_date: Optional[Iso8601Timestamp]
     key_id: Optional[NonEmptyString]
     key_manager: Optional[NonEmptyString]
     key_state: Optional[NonEmptyString]
@@ -1704,7 +1711,7 @@ class AwsLambdaFunctionDetails(ASFFBaseModel):
     function_name: Optional[NonEmptyString]
     handler: Optional[NonEmptyString]
     kms_key_arn: Optional[NonEmptyString]
-    last_modified: Optional[NonEmptyString]
+    last_modified: Optional[Iso8601Timestamp]
     layers: Optional[AwsLambdaFunctionLayerList]
     master_arn: Optional[NonEmptyString]
     memory_size: Optional[Integer]
@@ -1733,7 +1740,7 @@ class AwsLambdaLayerVersionDetails(ASFFBaseModel):
 
     version: Optional[AwsLambdaLayerVersionNumber]
     compatible_runtimes: Optional[NonEmptyStringList]
-    created_date: Optional[NonEmptyString]
+    created_date: Optional[Iso8601Timestamp]
 
 
 class AwsRdsDbInstanceAssociatedRole(ASFFBaseModel):
@@ -2065,7 +2072,7 @@ class AwsRdsDbInstanceDetails(ASFFBaseModel):
     engine: Optional[NonEmptyString]
     engine_version: Optional[NonEmptyString]
     iam_database_authentication_enabled: Optional[Boolean]
-    instance_create_time: Optional[NonEmptyString]
+    instance_create_time: Optional[Iso8601Timestamp]
     kms_key_id: Optional[NonEmptyString]
     publicly_accessible: Optional[Boolean]
     storage_encrypted: Optional[Boolean]
@@ -2084,7 +2091,7 @@ class AwsRdsDbInstanceDetails(ASFFBaseModel):
     db_subnet_group: Optional[AwsRdsDbSubnetGroup]
     preferred_maintenance_window: Optional[NonEmptyString]
     pending_modified_values: Optional[AwsRdsDbPendingModifiedValues]
-    latest_restorable_time: Optional[NonEmptyString]
+    latest_restorable_time: Optional[Iso8601Timestamp]
     auto_minor_version_upgrade: Optional[Boolean]
     read_replica_source_db_instance_identifier: Optional[NonEmptyString]
     read_replica_db_instance_identifiers: Optional[StringList]
@@ -2283,14 +2290,14 @@ class AwsRdsDbSnapshotDetails(ASFFBaseModel):
 
     db_snapshot_identifier: Optional[NonEmptyString]
     db_instance_identifier: Optional[NonEmptyString]
-    snapshot_create_time: Optional[NonEmptyString]
+    snapshot_create_time: Optional[Iso8601Timestamp]
     engine: Optional[NonEmptyString]
     allocated_storage: Optional[Integer]
     status: Optional[NonEmptyString]
     port: Optional[Integer]
     availability_zone: Optional[NonEmptyString]
     vpc_id: Optional[NonEmptyString]
-    instance_create_time: Optional[NonEmptyString]
+    instance_create_time: Optional[Iso8601Timestamp]
     master_username: Optional[NonEmptyString]
     engine_version: Optional[NonEmptyString]
     license_model: Optional[NonEmptyString]
@@ -2337,13 +2344,13 @@ class AwsRdsDbClusterSnapshotDetails(ASFFBaseModel):
     """
 
     availability_zones: Optional[StringList]
-    snapshot_create_time: Optional[NonEmptyString]
+    snapshot_create_time: Optional[Iso8601Timestamp]
     engine: Optional[NonEmptyString]
     allocated_storage: Optional[Integer]
     status: Optional[NonEmptyString]
     port: Optional[Integer]
     vpc_id: Optional[NonEmptyString]
-    cluster_create_time: Optional[NonEmptyString]
+    cluster_create_time: Optional[Iso8601Timestamp]
     master_username: Optional[NonEmptyString]
     engine_version: Optional[NonEmptyString]
     license_model: Optional[NonEmptyString]
@@ -2478,7 +2485,7 @@ class AwsRdsDbClusterDetails(ASFFBaseModel):
     kms_key_id: Optional[NonEmptyString]
     db_cluster_resource_id: Optional[NonEmptyString]
     associated_roles: Optional[AwsRdsDbClusterAssociatedRoles]
-    cluster_create_time: Optional[NonEmptyString]
+    cluster_create_time: Optional[Iso8601Timestamp]
     enabled_cloud_watch_logs_exports: Optional[StringList]
     engine_mode: Optional[NonEmptyString]
     deletion_protection: Optional[Boolean]
@@ -2510,7 +2517,7 @@ class ContainerDetails(ASFFBaseModel):
     name: Optional[NonEmptyString]
     image_id: Optional[NonEmptyString]
     image_name: Optional[NonEmptyString]
-    launched_at: Optional[NonEmptyString]
+    launched_at: Optional[Iso8601Timestamp]
 
 
 class ResourceDetails(ASFFBaseModel):
@@ -2697,7 +2704,7 @@ class Note(ASFFBaseModel):
 
     text: NonEmptyString
     updated_by: NonEmptyString
-    updated_at: NonEmptyString
+    updated_at: Iso8601Timestamp
 
 
 class SoftwarePackage(ASFFBaseModel):
@@ -2758,8 +2765,8 @@ class VulnerabilityVendor(ASFFBaseModel):
     name: NonEmptyString
     url: Optional[NonEmptyString]
     vendor_severity: Optional[NonEmptyString]
-    vendor_created_at: Optional[NonEmptyString]
-    vendor_updated_at: Optional[NonEmptyString]
+    vendor_created_at: Optional[Iso8601Timestamp]
+    vendor_updated_at: Optional[Iso8601Timestamp]
 
 
 class Vulnerability(ASFFBaseModel):
@@ -2813,8 +2820,8 @@ class PatchSummary(ASFFBaseModel):
     installed_other_count: Optional[Integer]
     installed_rejected_count: Optional[Integer]
     installed_pending_reboot: Optional[Integer]
-    operation_start_time: Optional[NonEmptyString]
-    operation_end_time: Optional[NonEmptyString]
+    operation_start_time: Optional[Iso8601Timestamp]
+    operation_end_time: Optional[Iso8601Timestamp]
     reboot_option: Optional[NonEmptyString]
     operation: Optional[NonEmptyString]
 
@@ -2867,10 +2874,10 @@ class AwsSecurityFinding(ASFFBaseModel):
     generator_id: NonEmptyString
     aws_account_id: NonEmptyString
     types: TypeList
-    first_observed_at: Optional[NonEmptyString]
-    last_observed_at: Optional[NonEmptyString]
-    created_at: NonEmptyString
-    updated_at: NonEmptyString
+    first_observed_at: Optional[Iso8601Timestamp]
+    last_observed_at: Optional[Iso8601Timestamp]
+    created_at: Iso8601Timestamp
+    updated_at: Iso8601Timestamp
     severity: Severity
     confidence: Optional[Integer]
     criticality: Optional[Integer]

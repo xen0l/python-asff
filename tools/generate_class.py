@@ -26,6 +26,48 @@ type_aliases = {}
 graph = nx.DiGraph()
 
 
+# Some attributes are non-empty string, but have additional requirements, e.g. CreatedAt.
+# We collect such cases here. Use the following command to build this:
+#
+# grep -B2 '<code>date-time</code>' tools/service-2.json | sed -Ee 's/"(.*)":{/"\1": "Iso8601Timestamp",/g' | grep Iso8601Timestamp | sort -u
+#
+TYPE_NORMALIZER = {
+    "AttachTime": "Iso8601Timestamp",
+    "ClusterCreateTime": "Iso8601Timestamp",
+    "CreateDate": "Iso8601Timestamp",
+    "CreateTime": "Iso8601Timestamp",
+    "CreatedAt": "Iso8601Timestamp",
+    "CreatedDate": "Iso8601Timestamp",
+    "CreatedTime": "Iso8601Timestamp",
+    "CreationDate": "Iso8601Timestamp",
+    "CreationDateTime": "Iso8601Timestamp",
+    "FirstObservedAt": "Iso8601Timestamp",
+    "InaccessibleEncryptionDateTime": "Iso8601Timestamp",
+    "InstanceCreateTime": "Iso8601Timestamp",
+    "LastDecreaseDateTime": "Iso8601Timestamp",
+    "LastIncreaseDateTime": "Iso8601Timestamp",
+    "LastModified": "Iso8601Timestamp",
+    "LastModifiedTime": "Iso8601Timestamp",
+    "LastObservedAt": "Iso8601Timestamp",
+    "LastUpdateToPayPerRequestDateTime": "Iso8601Timestamp",
+    "LatestRestorableTime": "Iso8601Timestamp",
+    "LaunchedAt": "Iso8601Timestamp",
+    "OperationEndTime": "Iso8601Timestamp",
+    "OperationStartTime": "Iso8601Timestamp",
+    "RestoreDateTime": "Iso8601Timestamp",
+    "SnapshotCreateTime": "Iso8601Timestamp",
+    "TerminatedAt": "Iso8601Timestamp",
+    "UpdateDate": "Iso8601Timestamp",
+    "UpdatedAt": "Iso8601Timestamp",
+    "VendorCreatedAt": "Iso8601Timestamp",
+    "VendorUpdatedAt": "Iso8601Timestamp",
+}
+
+
+def normalize_type(member, type):
+    return TYPE_NORMALIZER.get(member, type)
+
+
 # Taken from https://github.com/jpvanhal/inflection/blob/master/inflection/__init__.py#L397-L416
 # to avoid external dependency
 def to_snake_case(word: str) -> str:  # pragma: no cover
@@ -79,10 +121,12 @@ def parse(name, schema):
         if "members" in schema[name]:
             for member, type in schema[name]["members"].items():
 
+                normalized_type = normalize_type(member, type["shape"])
+
                 if member in required:
-                    attributes.append({member: type["shape"]})
+                    attributes.append({member: normalized_type})
                 else:
-                    attributes.append({member: f'Optional[{type["shape"]}]'})
+                    attributes.append({member: f"Optional[{normalized_type}]"})
 
                 if type.get("documentation"):
                     docs.append(

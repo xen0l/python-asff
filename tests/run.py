@@ -37,14 +37,14 @@ if args.lint:
         "--black",
         "--pylint",
         "--pylint-rcfile={}".format(os.path.join(root_dir, ".pylintrc")),
-        "--pylint-ignore-patterns=tools,docs",
+        "--pylint-ignore-patterns=tools,docs,examples",
     ]
     cmd.extend(lint_args)
 
 if args.coverage:
     coverage_args = [
         "--cov=asff",
-        "--cov-fail-under=75",
+        "--cov-fail-under=100",
         "--cov-report=term-missing",
         "--cov-report=xml:{}".format(os.path.join(report_dir, "coverage.xml")),
         "--cov-report=html:{}".format(os.path.join(report_dir, "coverage", "asff")),
