@@ -18,7 +18,7 @@ from asff.constants import (
     DEFAULT_WORKFLOW_STATUS,
 )
 from asff.exceptions import ValidationError
-from asff.generated import AwsSecurityFinding, TypeList, NonEmptyString
+from asff.generated import AwsSecurityFinding, TypeList, NonEmptyString, Resource
 
 
 class AmazonSecurityFinding(AwsSecurityFinding):
@@ -84,6 +84,7 @@ class AmazonSecurityFinding(AwsSecurityFinding):
         severity: str = DEFAULT_SEVERITY,
         product_name: Optional[str] = DEFAULT_PRODUCT_NAME,
         product_version: Optional[str] = DEFAULT_PRODUCT_VERSION,
+        region: str = DEFAULT_REGION,
         record_state: str = DEFAULT_RECORD_STATE,
         workflow_status: str = DEFAULT_WORKFLOW_STATUS,
         generator_id: Optional[str] = None,
@@ -104,6 +105,7 @@ class AmazonSecurityFinding(AwsSecurityFinding):
         :param severity: A finding's severity.
         :param product_name: Product name that generated the finding
         :param product_version: Product version that generated the finding
+        :param region: AWS region where the finding was found
         :param record_state: The record state of a finding.
         :param workflow_status: Provides information about the status of the investigation into a finding.
         :param generator_id: The identifier for the solution-specific component that generated a finding.
@@ -119,7 +121,14 @@ class AmazonSecurityFinding(AwsSecurityFinding):
             generator_id = DEFAULT_GENERATOR_ID
 
         if resources is None:
-            resources = []
+            resources = [
+                Resource(
+                    type="AwsAccount",
+                    id=f"AWS::::Account:{aws_account_id}",
+                    region=region,
+                    partition="aws",
+                )
+            ]
 
         if created_at is None:
             created_at = str(
@@ -132,7 +141,7 @@ class AmazonSecurityFinding(AwsSecurityFinding):
             )
 
         product_arn = DEFAULT_PRODUCT_ARN_FMT.format(
-            region=DEFAULT_REGION,
+            region=region,
             aws_account_id=aws_account_id,
             product_name=DEFAULT_PRODUCT_NAME,
         )
