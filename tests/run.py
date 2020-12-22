@@ -37,7 +37,7 @@ if args.lint:
         "--black",
         "--pylint",
         "--pylint-rcfile={}".format(os.path.join(root_dir, ".pylintrc")),
-        "--pylint-ignore-patterns=tools",
+        "--pylint-ignore-patterns=tools,docs",
     ]
     cmd.extend(lint_args)
 
