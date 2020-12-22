@@ -8,7 +8,7 @@ import sys
 
 import json
 import subprocess
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 import networkx as nx
 from pydantic import BaseModel
@@ -35,13 +35,22 @@ def to_snake_case(word: str) -> str:  # pragma: no cover
     return word.lower()
 
 
+def strip_html_tags(text):
+    return re.sub("<[^<]+?>", "", text)
+
+
 class Class(BaseModel):
     name: str
     required: List[str]
     attributes: List[Dict[str, str]]
+    doc: Optional[str] = None
 
     def to_code(self):
         ret = [f"class {self.name}({BASE_CLASS}):"]
+        if self.doc:
+            ret.append('\t"""')
+            ret.append(f"{strip_html_tags(self.doc)}")
+            ret.append('\t"""')
         for attribute in self.attributes:
             for key, value in attribute.items():
                 ret.append(f"\t{to_snake_case(key)}: {value}")
@@ -63,6 +72,7 @@ def parse(name, schema):
     if schema[name]["type"] == "structure":
         required = schema[name].get("required", [])
         attributes = []
+        docs = [schema[name].get("documentation"), ""]
 
         graph.add_node(name)
 
@@ -74,12 +84,22 @@ def parse(name, schema):
                 else:
                     attributes.append({member: f'Optional[{type["shape"]}]'})
 
+                if type.get("documentation"):
+                    docs.append(
+                        f':param {to_snake_case(member)}: {type["documentation"]}'
+                    )
+
                 graph.add_node(type["shape"])
                 graph.add_edge(name, type["shape"])
 
                 parse(type["shape"], schema)
 
-        classes[name] = Class(name=name, required=required, attributes=attributes)
+        docs.extend(["", f":return: {name} object"])
+        doc = "\n".join(docs)
+
+        classes[name] = Class(
+            name=name, required=required, attributes=attributes, doc=doc
+        )
 
     else:
         type = schema[name]["type"]
