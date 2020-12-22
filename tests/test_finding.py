@@ -14,6 +14,7 @@ from asff.constants import (
     DEFAULT_PRODUCT_VERSION,
     ISO8601_REGEX,
 )
+from asff.generated import Resource
 
 
 @pytest.mark.parametrize(
@@ -112,7 +113,16 @@ def test_finding_from_kwargs_default_args():
     assert f.product_fields["ProviderName"] == DEFAULT_PRODUCT_NAME
     assert f.product_fields["ProviderVersion"] == DEFAULT_PRODUCT_VERSION
     assert f.generator_id == DEFAULT_GENERATOR_ID
-    assert f.resources == []
+    assert f.resources == [
+        Resource(
+            type="AwsAccount",
+            id=f'AWS::::Account:{kwargs["aws_account_id"]}',
+            partition="aws",
+            region=DEFAULT_REGION,
+            tags=None,
+            details=None,
+        )
+    ]
     assert f.updated_at is not None
     assert f.created_at is not None
     assert re.match(ISO8601_REGEX, f.updated_at)
