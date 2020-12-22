@@ -1,7 +1,7 @@
-import datetime
 import inspect
 import json
 import uuid
+from datetime import datetime, timezone
 from typing import List, Any, Optional, Dict
 
 import pydantic
@@ -17,8 +17,8 @@ from asff.constants import (
     DEFAULT_RECORD_STATE,
     DEFAULT_WORKFLOW_STATUS,
 )
-from asff.generated import AwsSecurityFinding, TypeList, NonEmptyString
 from asff.exceptions import ValidationError
+from asff.generated import AwsSecurityFinding, TypeList, NonEmptyString
 
 
 class AmazonSecurityFinding(AwsSecurityFinding):
@@ -92,7 +92,7 @@ class AmazonSecurityFinding(AwsSecurityFinding):
         **kwargs,
     ):
         """
-        Construct the finding from a keyword arguments.
+        Construct the finding from keyword arguments.
 
         :param aws_account_id: The AWS account ID that the finding applies to.
         :param types: Finding type that classifies the finding
@@ -122,10 +122,14 @@ class AmazonSecurityFinding(AwsSecurityFinding):
             resources = []
 
         if created_at is None:
-            created_at = str(datetime.datetime.now())
+            created_at = str(
+                datetime.now(tz=timezone.utc).isoformat(timespec="seconds")
+            )
 
         if updated_at is None:
-            updated_at = str(datetime.datetime.now())
+            updated_at = str(
+                datetime.now(tz=timezone.utc).isoformat(timespec="seconds")
+            )
 
         product_arn = DEFAULT_PRODUCT_ARN_FMT.format(
             region=DEFAULT_REGION,
