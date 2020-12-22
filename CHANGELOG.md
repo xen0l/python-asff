@@ -3,7 +3,7 @@
 0.1.1 (unreleased)
 ------------------
 
-* If unset, `resources` not provide an AWS account as the default resource 
+* If unset, `resources` now provide an AWS account as the default resource 
 * All datetime attributes are properly validated for ISO8601 format
 
 
