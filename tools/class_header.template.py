@@ -20,6 +20,10 @@ _ALIAS_NORMALIZER = {
 
 
 class ASFFBaseModel(pydantic.BaseModel):
+    """
+    Base model with common settings, which other classes inherit from.
+    """
+
     class Config:
         validate_assignment = True
         allow_population_by_field_name = True

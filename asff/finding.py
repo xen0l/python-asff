@@ -59,7 +59,7 @@ class AmazonSecurityFinding(AwsSecurityFinding):
         """
         Return a JSON representation of the finding.
 
-        :return:
+        :return: JSON representation of the finding
         """
         return self.json(exclude_unset=True, by_alias=True, indent=4, sort_keys=True)
 
@@ -67,7 +67,7 @@ class AmazonSecurityFinding(AwsSecurityFinding):
         """
         Return a dict representation of the finding.
 
-        :return:
+        :return: A dict representation of the finding
         """
         return self.dict(exclude_unset=True, by_alias=True)
 
@@ -168,7 +168,7 @@ class AmazonSecurityFinding(AwsSecurityFinding):
         Construct the finding from a dictionary.
 
         :param data: Dictionary holding finding data
-        :return: finding object
+        :return: A finding object
         """
         return cls(**data)
 
@@ -178,7 +178,7 @@ class AmazonSecurityFinding(AwsSecurityFinding):
         Construct the finding from a JSON string.
 
         :param data: JSON string with finding data
-        :return: finding object
+        :return: A finding object
         """
         kwargs = json.loads(data)
 
