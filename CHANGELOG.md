@@ -3,6 +3,7 @@
 0.1.1 (unreleased)
 ------------------
 
+* Finding ID are now calculated in predictable way, so updating findings is easier.
 * If unset, `resources` now provide an AWS account as the default resource 
 * All datetime attributes are properly validated for ISO8601 format
 
