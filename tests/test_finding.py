@@ -13,7 +13,6 @@ from asff.constants import (
     DEFAULT_PRODUCT_VERSION,
     ISO8601_REGEX,
 )
-from asff.finding import _calculate_finding_id
 from asff.generated import Resource
 
 
@@ -157,7 +156,7 @@ def test_finding_from_kwargs_predictable_id():
 
     f = AmazonSecurityFinding.from_kwargs(**kwargs)
 
-    calculated_id = _calculate_finding_id(
+    calculated_id = AmazonSecurityFinding.calculate_finding_id(
         aws_account_id=kwargs["aws_account_id"],
         region="eu-west-1",
         product_name=kwargs["product_name"],
