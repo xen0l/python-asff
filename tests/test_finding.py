@@ -1,7 +1,6 @@
 import glob
 import json
 import re
-from uuid import UUID
 
 import pytest
 
@@ -14,6 +13,7 @@ from asff.constants import (
     DEFAULT_PRODUCT_VERSION,
     ISO8601_REGEX,
 )
+from asff.finding import _calculate_finding_id
 from asff.generated import Resource
 
 
@@ -104,7 +104,7 @@ def test_finding_from_kwargs_default_args():
 
     f = AmazonSecurityFinding.from_kwargs(**kwargs)
 
-    assert f.id == str(UUID(f.id, version=4))
+    assert re.match("^[a-f0-9]{64}$", f.id)
     assert f.product_arn == DEFAULT_PRODUCT_ARN_FMT.format(
         aws_account_id=kwargs["aws_account_id"],
         region=DEFAULT_REGION,
@@ -143,6 +143,28 @@ def test_finding_from_kwargs_iso8601_timestamp_validation(time_attr):
 
     with pytest.raises(ValidationError):
         AmazonSecurityFinding.from_kwargs(**kwargs)
+
+
+def test_finding_from_kwargs_predictable_id():
+    kwargs = {
+        "aws_account_id": "12345678901",
+        "region": "eu-west-1",
+        "title": "Title",
+        "description": "Description",
+        "types": ["TTP1"],
+        "product_name": "python-asff",
+    }
+
+    f = AmazonSecurityFinding.from_kwargs(**kwargs)
+
+    calculated_id = _calculate_finding_id(
+        aws_account_id=kwargs["aws_account_id"],
+        region="eu-west-1",
+        product_name=kwargs["product_name"],
+        title=kwargs["title"],
+    )
+
+    assert f.id == calculated_id
 
 
 def test_finding_equality(shared_datadir):

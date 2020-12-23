@@ -1,6 +1,6 @@
+import hashlib
 import inspect
 import json
-import uuid
 from datetime import datetime, timezone
 from typing import List, Any, Optional, Dict
 
@@ -71,6 +71,41 @@ class AmazonSecurityFinding(AwsSecurityFinding):
         """
         return self.dict(exclude_unset=True, by_alias=True)
 
+    @staticmethod
+    def calculate_finding_id(
+        aws_account_id: str, region: str, product_name: str, title: str
+    ) -> str:
+        """
+        Calculate predictable unique finding ID based on immutable finding attributes.
+        The finding ID is calculated as a SHA256 hash of the string consisting of the following
+        attributes:
+        - aws_account_id
+        - region
+        - product_name
+        - title
+
+        finding_id = SHA256(aws_account_id + region + product_name + title)
+
+        In the future, the list of attributes used for calculating hashes might be extended, but the
+        primary purpose is to have a set of attributes that are unique, yet easy to remember, so the
+        finding ID could be calculated easily and found by this library.
+
+        :param aws_account_id: The AWS account ID that the finding applies to.
+        :param region: AWS region where the finding was found
+        :param product_name: Product name that generated the finding
+        :param title: A finding's title.
+
+        :return: A predictable unique finding ID
+        """
+
+        attrs = [aws_account_id, region, product_name, title]
+        string = "+".join(attrs).encode()
+
+        h = hashlib.new("sha256")
+        h.update(string)
+
+        return h.hexdigest()
+
     @classmethod
     def from_kwargs(
         cls,
@@ -115,7 +150,12 @@ class AmazonSecurityFinding(AwsSecurityFinding):
         :return: A finding object
         """
         if id is None:
-            id = str(uuid.uuid4())
+            id = cls.calculate_finding_id(
+                aws_account_id=aws_account_id,
+                region=region,
+                product_name=product_name,
+                title=title,
+            )
 
         if generator_id is None:
             generator_id = DEFAULT_GENERATOR_ID
