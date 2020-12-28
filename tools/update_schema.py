@@ -9,6 +9,7 @@ import sys
 import urllib.request
 from functools import partial
 from typing import Optional
+import subprocess
 
 log_level = logging.INFO
 log_format = "%(message)s"
@@ -20,6 +21,7 @@ tools_dir = os.path.dirname(sys.argv[0])
 
 SCHEMA_FILE = os.path.join(tools_dir, "service-2.json")
 SCHEMA_URL = "https://raw.githubusercontent.com/boto/botocore/master/botocore/data/securityhub/2018-10-26/service-2.json"
+GENERATE_CLASS = os.path.join(tools_dir, "generate_class.py")
 
 
 def sha256sum(file: str, block_size: int = 2 ** 16) -> str:
@@ -32,6 +34,10 @@ def sha256sum(file: str, block_size: int = 2 ** 16) -> str:
 
 def download_file(url: str, dest: str) -> None:
     urllib.request.urlretrieve(url=url, filename=dest)
+
+
+def update_generated_asff_class() -> None:
+    return subprocess.run(GENERATE_CLASS)
 
 
 def tool_is_present(name: str) -> Optional[str]:
@@ -69,7 +75,7 @@ def main() -> None:
     logger.info(f"New checksum: {new_checksum}")
 
     if old_checksum != new_checksum:
-        pass
+        update_generated_asff_class()
 
 
 if __name__ == "__main__":
