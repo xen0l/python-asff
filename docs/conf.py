@@ -89,8 +89,8 @@ html_theme_options = {
     # specified, then no sitemap will be built.
     #'base_url': 'https://project.github.io/project',
     # Set the color and the accent color
-    "color_primary": "blue",
-    "color_accent": "light-blue",
+    "color_primary": "indigo",
+    "color_accent": "indigo",
     # Set the repo location to get a badge with stats
     "repo_url": "https://github.com/xen0l/python-asff/",
     "repo_name": "python-asff",
