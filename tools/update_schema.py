@@ -4,12 +4,11 @@ import argparse
 import hashlib
 import logging
 import os
-import shutil
+import subprocess
 import sys
 import urllib.request
 from functools import partial
-from typing import Optional
-import subprocess
+from typing import Union
 
 log_level = logging.INFO
 log_format = "%(message)s"
@@ -36,13 +35,11 @@ def download_file(url: str, dest: str) -> None:
     urllib.request.urlretrieve(url=url, filename=dest)
 
 
-def update_generated_asff_class() -> None:
+def update_generated_asff_class() -> Union[
+    subprocess.CompletedProcess, subprocess.CompletedProcess[bytes]
+]:
     logger.info(f"Running {GENERATE_CLASS}...")
     return subprocess.run(GENERATE_CLASS)
-
-
-def tool_is_present(name: str) -> Optional[str]:
-    return shutil.which(cmd=name)
 
 
 def parse_args() -> argparse.Namespace:
@@ -51,7 +48,6 @@ def parse_args() -> argparse.Namespace:
         "--schema", default=SCHEMA_FILE, help="Security Hub schema file"
     )
     parser.add_argument("--url", default=SCHEMA_URL, help="Security Hub schema URL")
-    parser.add_argument("--open-pr", action="store_true")
     return parser.parse_args()
 
 
@@ -60,7 +56,6 @@ def main() -> None:
 
     schema_file = args.schema
     schema_url = args.url
-    open_pr = args.open_pr
 
     old_checksum = sha256sum(file=schema_file)
 
@@ -77,6 +72,7 @@ def main() -> None:
 
     if old_checksum != new_checksum:
         update_generated_asff_class()
+        logger.info("It is a good idea to review the changes")
 
 
 if __name__ == "__main__":
