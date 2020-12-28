@@ -37,6 +37,7 @@ def download_file(url: str, dest: str) -> None:
 
 
 def update_generated_asff_class() -> None:
+    logger.info(f"Running {GENERATE_CLASS}...")
     return subprocess.run(GENERATE_CLASS)
 
 
