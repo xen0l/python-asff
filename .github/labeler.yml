@@ -1,0 +1,6 @@
+schema_update:
+  - tools/service-2.json
+
+documentation:
+  - docs/*
+  - CHANGELOG.md
