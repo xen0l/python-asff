@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "asff"
-version = "0.1.0"
+version = "0.1.1"
 description = "asff is a Python library to work with Amazon Security Finding Format"
 license = "BSD-3-Clause"
 authors = ["Adam Števko <adam.stevko@gmail.com>"]
