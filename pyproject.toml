@@ -2,7 +2,21 @@
 name = "asff"
 version = "0.1.0"
 description = "asff is a Python library to work with Amazon Security Finding Format"
+license = "BSD-3-Clause"
 authors = ["Adam Števko <adam.stevko@gmail.com>"]
+maintainers = ["Adam Števko <adam.stevko@gmail.com>"]
+readme = "README.md"
+homepage = "https://github.com/xen0l/python-asff"
+repository = "https://github.com/xen0l/python-asff"
+documentation = "https://python-asff.readthedocs.io/"
+keywords = [ "security", "aws", "asff", "secuityhub" ]
+classifiers = [
+    "License :: OSI Approved :: BSD License",
+    "Topic :: Security",
+]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/xen0l/python-asff/issues"
 
 [tool.poetry.dependencies]
 python = "^3.6.1"
