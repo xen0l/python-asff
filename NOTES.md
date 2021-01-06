@@ -7,7 +7,7 @@
 ## Security Hub finding updates
 
 Security Hub findings can be updated. However, there are some limitations on which attributes can be updated 
-and one should be aware of them. The list can be found [here](https://docs.aws.amazon.com/securityhub/latest/userguide/finding-update-batchupdatefindings.html#batchupdatefindings-fields)
+and one should be aware of them. The list can be found [here](https://docs.aws.amazon.com/securityhub/latest/userguide/finding-update-batchupdatefindings.html#batchupdatefindings-fields).
 
 ## Findings discovered while working with Security Hub
 

@@ -12,10 +12,9 @@
 #
 import os
 import sys
+from recommonmark.transform import AutoStructify
 
 sys.path.insert(0, os.path.abspath("../"))
-
-import sphinx_rtd_theme
 
 
 # -- Project information -----------------------------------------------------
@@ -34,9 +33,10 @@ release = "0.1.0"
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    "sphinx.ext.inheritance_diagram",
+    "sphinx.ext.napoleon",
     "sphinx.ext.autodoc",
     "autoapi.extension",
-    "sphinx.ext.inheritance_diagram",
     "recommonmark",
 ]
 
@@ -76,7 +76,11 @@ autoapi_options = [
     "show-inheritance",
 ]
 autoapi_member_order = "groupwise"
-# autoapi_add_toctree_entry = True
+
+# Uncomment, if you are working on documentation and want faster rebuilds.
+# autoapi_generate_api_docs = False
+# autoapi_add_toctree_entry = False
+# autoapi_keep_files = True
 
 html_title = "python-asff"
 
@@ -84,7 +88,7 @@ html_theme_options = {
     # Set the name of the project to appear in the navigation.
     "nav_title": "python-asff",
     # Set you GA account ID to enable tracking
-    "google_analytics_account": "UA-XXXXX",
+    # "google_analytics_account": "UA-XXXXX",
     # Specify a base_url used to generate sitemap.xml. If not
     # specified, then no sitemap will be built.
     #'base_url': 'https://project.github.io/project',
@@ -109,3 +113,17 @@ html_theme_options = {
 html_sidebars = {
     "**": ["logo-text.html", "globaltoc.html", "localtoc.html", "searchbox.html"]
 }
+
+
+def setup(app):
+    app.add_config_value(
+        "recommonmark_config",
+        {
+            "auto_toc_tree_section": "Contents",
+            "enable_math": False,
+            "enable_inline_math": False,
+            "enable_eval_rst": True,
+        },
+        True,
+    )
+    app.add_transform(AutoStructify)
