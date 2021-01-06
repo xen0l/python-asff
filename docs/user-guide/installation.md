@@ -10,6 +10,6 @@ Python 3 versions prior to 3.6 can also work with some changes, but the code use
 python-asff is available via PyPI:
 
 ```bash
-pip install python-asff
+pip install asff
 ```
 
