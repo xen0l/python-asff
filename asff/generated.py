@@ -656,6 +656,40 @@ class AwsEc2NetworkInterfaceSecurityGroup(ASFFBaseModel):
 AwsEc2NetworkInterfaceSecurityGroupList = List[AwsEc2NetworkInterfaceSecurityGroup]
 
 
+class AwsEc2NetworkInterfaceIpV6AddressDetail(ASFFBaseModel):
+    """
+    Provides information about an IPV6 address that is associated with the network interface.
+
+    :param ip_v6_address: The IPV6 address.
+
+    :return: AwsEc2NetworkInterfaceIpV6AddressDetail object
+    """
+
+    ip_v6_address: Optional[NonEmptyString]
+
+
+AwsEc2NetworkInterfaceIpV6AddressList = List[AwsEc2NetworkInterfaceIpV6AddressDetail]
+
+
+class AwsEc2NetworkInterfacePrivateIpAddressDetail(ASFFBaseModel):
+    """
+    Provides information about a private IPv4 address that is with the network interface.
+
+    :param private_ip_address: The IP address.
+    :param private_dns_name: The private DNS name for the IP address.
+
+    :return: AwsEc2NetworkInterfacePrivateIpAddressDetail object
+    """
+
+    private_ip_address: Optional[NonEmptyString]
+    private_dns_name: Optional[NonEmptyString]
+
+
+AwsEc2NetworkInterfacePrivateIpAddressList = List[
+    AwsEc2NetworkInterfacePrivateIpAddressDetail
+]
+
+
 class AwsEc2NetworkInterfaceDetails(ASFFBaseModel):
     """
     Details about the network interface
@@ -664,6 +698,10 @@ class AwsEc2NetworkInterfaceDetails(ASFFBaseModel):
     :param network_interface_id: The ID of the network interface.
     :param security_groups: Security groups for the network interface.
     :param source_dest_check: Indicates whether traffic to or from the instance is validated.
+    :param ip_v6_addresses: The IPv6 addresses associated with the network interface.
+    :param private_ip_addresses: The private IPv4 addresses associated with the network interface.
+    :param public_dns_name: The public DNS name of the network interface.
+    :param public_ip: The address of the Elastic IP address bound to the network interface.
 
     :return: AwsEc2NetworkInterfaceDetails object
     """
@@ -672,6 +710,10 @@ class AwsEc2NetworkInterfaceDetails(ASFFBaseModel):
     network_interface_id: Optional[NonEmptyString]
     security_groups: Optional[AwsEc2NetworkInterfaceSecurityGroupList]
     source_dest_check: Optional[Boolean]
+    ip_v6_addresses: Optional[AwsEc2NetworkInterfaceIpV6AddressList]
+    private_ip_addresses: Optional[AwsEc2NetworkInterfacePrivateIpAddressList]
+    public_dns_name: Optional[NonEmptyString]
+    public_ip: Optional[NonEmptyString]
 
 
 class AwsEc2SecurityGroupUserIdGroupPair(ASFFBaseModel):
@@ -1996,6 +2038,76 @@ class AwsCloudTrailTrailDetails(ASFFBaseModel):
     trail_arn: Optional[NonEmptyString]
 
 
+class AwsSsmComplianceSummary(ASFFBaseModel):
+    """
+    Provides the details about the compliance status for a patch.
+
+    :param status: The current patch compliance status. The possible status values are:    COMPLIANT     NON_COMPLIANT     UNSPECIFIED_DATA
+    :param compliant_critical_count: For the patches that are compliant, the number that have a severity of CRITICAL.
+    :param compliant_high_count: For the patches that are compliant, the number that have a severity of HIGH.
+    :param compliant_medium_count: For the patches that are compliant, the number that have a severity of MEDIUM.
+    :param execution_type: The type of execution that was used determine compliance.
+    :param non_compliant_critical_count: For the patch items that are noncompliant, the number of items that have a severity of CRITICAL.
+    :param compliant_informational_count: For the patches that are compliant, the number that have a severity of INFORMATIONAL.
+    :param non_compliant_informational_count: For the patches that are noncompliant, the number that have a severity of INFORMATIONAL.
+    :param compliant_unspecified_count: For the patches that are compliant, the number that have a severity of UNSPECIFIED.
+    :param non_compliant_low_count: For the patches that are noncompliant, the number that have a severity of LOW.
+    :param non_compliant_high_count: For the patches that are noncompliant, the number that have a severity of HIGH.
+    :param compliant_low_count: For the patches that are compliant, the number that have a severity of LOW.
+    :param compliance_type: The type of resource for which the compliance was determined. For AwsSsmPatchCompliance, ComplianceType is Patch.
+    :param patch_baseline_id: The identifier of the patch baseline. The patch baseline lists the patches that are approved for installation.
+    :param overall_severity: The highest severity for the patches.
+    :param non_compliant_medium_count: For the patches that are noncompliant, the number that have a severity of MEDIUM.
+    :param non_compliant_unspecified_count: For the patches that are noncompliant, the number that have a severity of UNSPECIFIED.
+    :param patch_group: The identifier of the patch group for which compliance was determined. A patch group uses tags to group EC2 instances that should have the same patch compliance.
+
+    :return: AwsSsmComplianceSummary object
+    """
+
+    status: Optional[NonEmptyString]
+    compliant_critical_count: Optional[Integer]
+    compliant_high_count: Optional[Integer]
+    compliant_medium_count: Optional[Integer]
+    execution_type: Optional[NonEmptyString]
+    non_compliant_critical_count: Optional[Integer]
+    compliant_informational_count: Optional[Integer]
+    non_compliant_informational_count: Optional[Integer]
+    compliant_unspecified_count: Optional[Integer]
+    non_compliant_low_count: Optional[Integer]
+    non_compliant_high_count: Optional[Integer]
+    compliant_low_count: Optional[Integer]
+    compliance_type: Optional[NonEmptyString]
+    patch_baseline_id: Optional[NonEmptyString]
+    overall_severity: Optional[NonEmptyString]
+    non_compliant_medium_count: Optional[Integer]
+    non_compliant_unspecified_count: Optional[Integer]
+    patch_group: Optional[NonEmptyString]
+
+
+class AwsSsmPatch(ASFFBaseModel):
+    """
+    Provides details about the compliance for a patch.
+
+    :param compliance_summary: The compliance status details for the patch.
+
+    :return: AwsSsmPatch object
+    """
+
+    compliance_summary: Optional[AwsSsmComplianceSummary]
+
+
+class AwsSsmPatchComplianceDetails(ASFFBaseModel):
+    """
+    Provides information about the state of a patch on an instance based on the patch baseline that was used to patch the instance.
+
+    :param patch: Information about the status of a patch.
+
+    :return: AwsSsmPatchComplianceDetails object
+    """
+
+    patch: Optional[AwsSsmPatch]
+
+
 class AwsCertificateManagerCertificateExtendedKeyUsage(ASFFBaseModel):
     """
     Contains information about an extended key usage X.509 v3 extension object.
@@ -3184,10 +3296,10 @@ AwsRdsDbInstanceVpcSecurityGroups = List[AwsRdsDbInstanceVpcSecurityGroup]
 
 class AwsRdsDbParameterGroup(ASFFBaseModel):
     """
+    Provides information about a parameter group for a DB instance.
 
-
-    :param db_parameter_group_name:
-    :param parameter_apply_status:
+    :param db_parameter_group_name: The name of the parameter group.
+    :param parameter_apply_status: The status of parameter updates.
 
     :return: AwsRdsDbParameterGroup object
     """
@@ -3268,10 +3380,10 @@ class AwsRdsPendingCloudWatchLogsExports(ASFFBaseModel):
 
 class AwsRdsDbProcessorFeature(ASFFBaseModel):
     """
+    A processor feature.
 
-
-    :param name:
-    :param value:
+    :param name: The name of the processor feature.
+    :param value: The value of the processor feature.
 
     :return: AwsRdsDbProcessorFeature object
     """
@@ -3285,23 +3397,23 @@ AwsRdsDbProcessorFeatures = List[AwsRdsDbProcessorFeature]
 
 class AwsRdsDbPendingModifiedValues(ASFFBaseModel):
     """
+    Changes to a DB instance that are currently pending.
 
-
-    :param db_instance_class:
-    :param allocated_storage:
-    :param master_user_password:
-    :param port:
-    :param backup_retention_period:
-    :param multi_az:
-    :param engine_version:
-    :param license_model:
-    :param iops:
-    :param db_instance_identifier:
-    :param storage_type:
-    :param ca_certificate_identifier:
-    :param db_subnet_group_name:
-    :param pending_cloud_watch_logs_exports:
-    :param processor_features:
+    :param db_instance_class: The new DB instance class for the DB instance.
+    :param allocated_storage: The new value of the allocated storage for the DB instance.
+    :param master_user_password: The new master user password for the DB instance.
+    :param port: The new port for the DB instance.
+    :param backup_retention_period: The new backup retention period for the DB instance.
+    :param multi_az: Indicates that a single Availability Zone DB instance is changing to a multiple Availability Zone deployment.
+    :param engine_version: The new engine version for the DB instance.
+    :param license_model: The new license model value for the DB instance.
+    :param iops: The new provisioned IOPS value for the DB instance.
+    :param db_instance_identifier: The new DB instance identifier for the DB instance.
+    :param storage_type: The new storage type for the DB instance.
+    :param ca_certificate_identifier: The new CA certificate identifier for the DB instance.
+    :param db_subnet_group_name: The name of the new subnet group for the DB instance.
+    :param pending_cloud_watch_logs_exports: A list of log types that are being enabled or disabled.
+    :param processor_features: Processor features that are being updated.
 
     :return: AwsRdsDbPendingModifiedValues object
     """
@@ -3325,10 +3437,10 @@ class AwsRdsDbPendingModifiedValues(ASFFBaseModel):
 
 class AwsRdsDbOptionGroupMembership(ASFFBaseModel):
     """
+    An option group membership.
 
-
-    :param option_group_name:
-    :param status:
+    :param option_group_name: The name of the option group.
+    :param status: The status of the option group membership.
 
     :return: AwsRdsDbOptionGroupMembership object
     """
@@ -3642,35 +3754,35 @@ class AwsWafWebAclDetails(ASFFBaseModel):
 
 class AwsRdsDbSnapshotDetails(ASFFBaseModel):
     """
+    Provides details about an Amazon RDS DB cluster snapshot.
 
-
-    :param db_snapshot_identifier:
-    :param db_instance_identifier:
-    :param snapshot_create_time:
-    :param engine:
-    :param allocated_storage:
-    :param status:
-    :param port:
-    :param availability_zone:
-    :param vpc_id:
-    :param instance_create_time:
-    :param master_username:
-    :param engine_version:
-    :param license_model:
-    :param snapshot_type:
-    :param iops:
-    :param option_group_name:
-    :param percent_progress:
-    :param source_region:
-    :param source_db_snapshot_identifier:
-    :param storage_type:
-    :param tde_credential_arn:
-    :param encrypted:
-    :param kms_key_id:
-    :param timezone:
-    :param iam_database_authentication_enabled:
-    :param processor_features:
-    :param dbi_resource_id:
+    :param db_snapshot_identifier: The name or ARN of the DB snapshot that is used to restore the DB instance.
+    :param db_instance_identifier: A name for the DB instance.
+    :param snapshot_create_time: When the snapshot was taken in Coordinated Universal Time (UTC).
+    :param engine: The name of the database engine to use for this DB instance.
+    :param allocated_storage: The amount of storage (in gigabytes) to be initially allocated for the database instance.
+    :param status: The status of this DB snapshot.
+    :param port: The port that the database engine was listening on at the time of the snapshot.
+    :param availability_zone: Specifies the name of the Availability Zone in which the DB instance was located at the time of the DB snapshot.
+    :param vpc_id: The VPC ID associated with the DB snapshot.
+    :param instance_create_time: Specifies the time in Coordinated Universal Time (UTC) when the DB instance, from which the snapshot was taken, was created.
+    :param master_username: The master user name for the DB snapshot.
+    :param engine_version: The version of the database engine.
+    :param license_model: License model information for the restored DB instance.
+    :param snapshot_type: The type of the DB snapshot.
+    :param iops: The provisioned IOPS (I/O operations per second) value of the DB instance at the time of the snapshot.
+    :param option_group_name: The option group name for the DB snapshot.
+    :param percent_progress: The percentage of the estimated data that has been transferred.
+    :param source_region: The AWS Region that the DB snapshot was created in or copied from.
+    :param source_db_snapshot_identifier: The DB snapshot ARN that the DB snapshot was copied from.
+    :param storage_type: The storage type associated with the DB snapshot.
+    :param tde_credential_arn: The ARN from the key store with which to associate the instance for TDE encryption.
+    :param encrypted: Whether the DB snapshot is encrypted.
+    :param kms_key_id: If Encrypted is true, the AWS KMS key identifier for the encrypted DB snapshot.
+    :param timezone: The time zone of the DB snapshot.
+    :param iam_database_authentication_enabled: Whether mapping of IAM accounts to database accounts is enabled.
+    :param processor_features: The number of CPU cores and the number of threads per core for the DB instance class of the DB instance.
+    :param dbi_resource_id: The identifier for the source DB instance.
 
     :return: AwsRdsDbSnapshotDetails object
     """
@@ -3710,7 +3822,7 @@ class AwsRdsDbClusterSnapshotDetails(ASFFBaseModel):
 
     :param availability_zones: A list of Availability Zones where instances in the DB cluster can be created.
     :param snapshot_create_time: Indicates when the snapshot was taken. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param engine:
+    :param engine: The name of the database engine that you want to use for this DB instance.
     :param allocated_storage: Specifies the allocated storage size in gibibytes (GiB).
     :param status: The status of this DB cluster snapshot.
     :param port: The port number on which the DB instances in the DB cluster accept connections.
@@ -3928,16 +4040,17 @@ class ResourceDetails(ASFFBaseModel):
     :param aws_iam_access_key: Details about an IAM access key related to a finding.
     :param aws_iam_user: Details about an IAM user.
     :param aws_iam_policy: Details about an IAM permissions policy.
-    :param aws_api_gateway_v2_stage:
-    :param aws_api_gateway_v2_api:
+    :param aws_api_gateway_v2_stage: Provides information about a version 2 stage for Amazon API Gateway.
+    :param aws_api_gateway_v2_api: Provides information about a version 2 API in Amazon API Gateway.
     :param aws_dynamo_db_table: Details about a DynamoDB table.
-    :param aws_api_gateway_stage:
-    :param aws_api_gateway_rest_api:
-    :param aws_cloud_trail_trail:
-    :param aws_certificate_manager_certificate:
-    :param aws_redshift_cluster:
-    :param aws_elb_load_balancer:
-    :param aws_iam_group:
+    :param aws_api_gateway_stage: Provides information about a version 1 Amazon API Gateway stage.
+    :param aws_api_gateway_rest_api: Provides information about a REST API in version 1 of Amazon API Gateway.
+    :param aws_cloud_trail_trail: Provides details about a CloudTrail trail.
+    :param aws_ssm_patch_compliance: Provides information about the state of a patch on an instance based on the patch baseline that was used to patch the instance.
+    :param aws_certificate_manager_certificate: Provides details about an AWS Certificate Manager (ACM) certificate.
+    :param aws_redshift_cluster: Contains details about an Amazon Redshift cluster.
+    :param aws_elb_load_balancer: contains details about a Classic Load Balancer.
+    :param aws_iam_group: Contains details about an IAM group.
     :param aws_iam_role: Details about an IAM role.
     :param aws_kms_key: Details about a KMS key.
     :param aws_lambda_function: Details about a Lambda function.
@@ -3978,6 +4091,7 @@ class ResourceDetails(ASFFBaseModel):
     aws_api_gateway_stage: Optional[AwsApiGatewayStageDetails]
     aws_api_gateway_rest_api: Optional[AwsApiGatewayRestApiDetails]
     aws_cloud_trail_trail: Optional[AwsCloudTrailTrailDetails]
+    aws_ssm_patch_compliance: Optional[AwsSsmPatchComplianceDetails]
     aws_certificate_manager_certificate: Optional[
         AwsCertificateManagerCertificateDetails
     ]
@@ -4007,7 +4121,7 @@ class Resource(ASFFBaseModel):
     :param id: The canonical identifier for the given resource type.
     :param partition: The canonical AWS partition name that the Region is assigned to.
     :param region: The canonical AWS external Region name where this resource is located.
-    :param resource_role:
+    :param resource_role: Identifies the role of the resource in the finding. A resource is either the actor or target of the finding activity,
     :param tags: A list of AWS tags associated with a resource at the time the finding was processed.
     :param details: Additional details about the resource related to a finding.
 
@@ -4072,7 +4186,7 @@ class Workflow(ASFFBaseModel):
     """
     Provides information about the status of the investigation into a finding.
 
-    :param status: The status of the investigation into the finding. The allowed values are the following.    NEW - The initial state of a finding, before it is reviewed.    NOTIFIED - Indicates that you notified the resource owner about the security issue. Used when the initial reviewer is not the resource owner, and needs intervention from the resource owner.    SUPPRESSED - The finding will not be reviewed again and will not be acted upon.    RESOLVED - The finding was reviewed and remediated and is now considered resolved.
+    :param status: The status of the investigation into the finding. The allowed values are the following.    NEW - The initial state of a finding, before it is reviewed. Security Hub also resets the workflow status from NOTIFIED or RESOLVED to NEW in the following cases:    RecordState changes from ARCHIVED to ACTIVE.    ComplianceStatus changes from PASSED to either WARNING, FAILED, or NOT_AVAILABLE.      NOTIFIED - Indicates that you notified the resource owner about the security issue. Used when the initial reviewer is not the resource owner, and needs intervention from the resource owner.    SUPPRESSED - The finding will not be reviewed again and will not be acted upon.    RESOLVED - The finding was reviewed and remediated and is now considered resolved.
 
     :return: Workflow object
     """
@@ -4235,6 +4349,253 @@ class PatchSummary(ASFFBaseModel):
     operation: Optional[NonEmptyString]
 
 
+class IpOrganizationDetails(ASFFBaseModel):
+    """
+    Provides information about an internet provider.
+
+    :param asn: The Autonomous System Number (ASN) of the internet provider
+    :param asn_org: The name of the organization that registered the ASN.
+    :param isp: The ISP information for the internet provider.
+    :param org: The name of the internet provider.
+
+    :return: IpOrganizationDetails object
+    """
+
+    asn: Optional[Integer]
+    asn_org: Optional[NonEmptyString]
+    isp: Optional[NonEmptyString]
+    org: Optional[NonEmptyString]
+
+
+class Country(ASFFBaseModel):
+    """
+    Information about a country.
+
+    :param country_code: The 2-letter ISO 3166 country code for the country.
+    :param country_name: The name of the country.
+
+    :return: Country object
+    """
+
+    country_code: Optional[NonEmptyString]
+    country_name: Optional[NonEmptyString]
+
+
+class City(ASFFBaseModel):
+    """
+    Information about a city.
+
+    :param city_name: The name of the city.
+
+    :return: City object
+    """
+
+    city_name: Optional[NonEmptyString]
+
+
+class GeoLocation(ASFFBaseModel):
+    """
+    Provides the latitude and longitude coordinates of a location.
+
+    :param lon: The longitude of the location.
+    :param lat: The latitude of the location.
+
+    :return: GeoLocation object
+    """
+
+    lon: Optional[Double]
+    lat: Optional[Double]
+
+
+class ActionRemoteIpDetails(ASFFBaseModel):
+    """
+    For AwsApiAction, NetworkConnectionAction, and PortProbeAction, RemoteIpDetails provides information about the remote IP address that was involved in the action.
+
+    :param ip_address_v4: The IP address.
+    :param organization: The internet service provider (ISP) organization associated with the remote IP address.
+    :param country: The country where the remote IP address is located.
+    :param city: The city where the remote IP address is located.
+    :param geo_location: The coordinates of the location of the remote IP address.
+
+    :return: ActionRemoteIpDetails object
+    """
+
+    ip_address_v4: Optional[NonEmptyString]
+    organization: Optional[IpOrganizationDetails]
+    country: Optional[Country]
+    city: Optional[City]
+    geo_location: Optional[GeoLocation]
+
+
+class ActionRemotePortDetails(ASFFBaseModel):
+    """
+    Provides information about the remote port that was involved in an attempted network connection.
+
+    :param port: The number of the port.
+    :param port_name: The port name of the remote connection.
+
+    :return: ActionRemotePortDetails object
+    """
+
+    port: Optional[Integer]
+    port_name: Optional[NonEmptyString]
+
+
+class ActionLocalPortDetails(ASFFBaseModel):
+    """
+    For NetworkConnectionAction and PortProbeDetails, LocalPortDetails provides information about the local port that was involved in the action.
+
+    :param port: The number of the port.
+    :param port_name: The port name of the local connection.
+
+    :return: ActionLocalPortDetails object
+    """
+
+    port: Optional[Integer]
+    port_name: Optional[NonEmptyString]
+
+
+class NetworkConnectionAction(ASFFBaseModel):
+    """
+    Provided if ActionType is NETWORK_CONNECTION. It provides details about the attempted network connection that was detected.
+
+    :param connection_direction: The direction of the network connection request (IN or OUT).
+    :param remote_ip_details: Information about the remote IP address that issued the network connection request.
+    :param remote_port_details: Information about the port on the remote IP address.
+    :param local_port_details: Information about the port on the EC2 instance.
+    :param protocol: The protocol used to make the network connection request.
+    :param blocked: Indicates whether the network connection attempt was blocked.
+
+    :return: NetworkConnectionAction object
+    """
+
+    connection_direction: Optional[NonEmptyString]
+    remote_ip_details: Optional[ActionRemoteIpDetails]
+    remote_port_details: Optional[ActionRemotePortDetails]
+    local_port_details: Optional[ActionLocalPortDetails]
+    protocol: Optional[NonEmptyString]
+    blocked: Optional[Boolean]
+
+
+class AwsApiCallActionDomainDetails(ASFFBaseModel):
+    """
+    Provided if CallerType is domain. It provides information about the DNS domain that issued the API call.
+
+    :param domain: The name of the DNS domain that issued the API call.
+
+    :return: AwsApiCallActionDomainDetails object
+    """
+
+    domain: Optional[NonEmptyString]
+
+
+class AwsApiCallAction(ASFFBaseModel):
+    """
+    Provided if ActionType is AWS_API_CALL. It provides details about the API call that was detected.
+
+    :param api: The name of the API method that was issued.
+    :param service_name: The name of the AWS service that the API method belongs to.
+    :param caller_type: Indicates whether the API call originated from a remote IP address (remoteip) or from a DNS domain (domain).
+    :param remote_ip_details: Provided if CallerType is remoteIp. Provides information about the remote IP address that the API call originated from.
+    :param domain_details: Provided if CallerType is domain. Provides information about the DNS domain that the API call originated from.
+    :param affected_resources: Identifies the resources that were affected by the API call.
+    :param first_seen: An ISO8601-formatted timestamp that indicates when the API call was first observed.
+    :param last_seen: An ISO8601-formatted timestamp that indicates when the API call was most recently observed.
+
+    :return: AwsApiCallAction object
+    """
+
+    api: Optional[NonEmptyString]
+    service_name: Optional[NonEmptyString]
+    caller_type: Optional[NonEmptyString]
+    remote_ip_details: Optional[ActionRemoteIpDetails]
+    domain_details: Optional[AwsApiCallActionDomainDetails]
+    affected_resources: Optional[FieldMap]
+    first_seen: Optional[NonEmptyString]
+    last_seen: Optional[NonEmptyString]
+
+
+class DnsRequestAction(ASFFBaseModel):
+    """
+    Provided if ActionType is DNS_REQUEST. It provides details about the DNS request that was detected.
+
+    :param domain: The DNS domain that is associated with the DNS request.
+    :param protocol: The protocol that was used for the DNS request.
+    :param blocked: Indicates whether the DNS request was blocked.
+
+    :return: DnsRequestAction object
+    """
+
+    domain: Optional[NonEmptyString]
+    protocol: Optional[NonEmptyString]
+    blocked: Optional[Boolean]
+
+
+class ActionLocalIpDetails(ASFFBaseModel):
+    """
+    Provides information about the IP address where the scanned port is located.
+
+    :param ip_address_v4: The IP address.
+
+    :return: ActionLocalIpDetails object
+    """
+
+    ip_address_v4: Optional[NonEmptyString]
+
+
+class PortProbeDetail(ASFFBaseModel):
+    """
+    A port scan that was part of the port probe. For each scan, PortProbeDetails provides information about the local IP address and port that were scanned, and the remote IP address that the scan originated from.
+
+    :param local_port_details: Provides information about the port that was scanned.
+    :param local_ip_details: Provides information about the IP address where the scanned port is located.
+    :param remote_ip_details: Provides information about the remote IP address that performed the scan.
+
+    :return: PortProbeDetail object
+    """
+
+    local_port_details: Optional[ActionLocalPortDetails]
+    local_ip_details: Optional[ActionLocalIpDetails]
+    remote_ip_details: Optional[ActionRemoteIpDetails]
+
+
+PortProbeDetailList = List[PortProbeDetail]
+
+
+class PortProbeAction(ASFFBaseModel):
+    """
+    Provided if ActionType is PORT_PROBE. It provides details about the attempted port probe that was detected.
+
+    :param port_probe_details: Information about the ports affected by the port probe.
+    :param blocked: Indicates whether the port probe was blocked.
+
+    :return: PortProbeAction object
+    """
+
+    port_probe_details: Optional[PortProbeDetailList]
+    blocked: Optional[Boolean]
+
+
+class Action(ASFFBaseModel):
+    """
+    Provides details about one of the following actions that were detected for the finding:   A remote IP address issued an AWS API call   A DNS request was received   A remote IP address attempted to connect to an EC2 instance   A remote IP address attempted a port probe on an EC2 instance
+
+    :param action_type: The type of action that was detected. The possible action types are:    NETWORK_CONNECTION     AWS_API_CALL     DNS_REQUEST     PORT_PROBE
+    :param network_connection_action: Included if ActionType is NETWORK_CONNECTION. Provides details about the network connection that was detected.
+    :param aws_api_call_action: Included if ActionType is AWS_API_CALL. Provides details about the API call that was detected.
+    :param dns_request_action: Included if ActionType is DNS_REQUEST. Provides details about the DNS request that was detected.
+    :param port_probe_action: Included if ActionType is PORT_PROBE. Provides details about the port probe that was detected.
+
+    :return: Action object
+    """
+
+    action_type: Optional[NonEmptyString]
+    network_connection_action: Optional[NetworkConnectionAction]
+    aws_api_call_action: Optional[AwsApiCallAction]
+    dns_request_action: Optional[DnsRequestAction]
+    port_probe_action: Optional[PortProbeAction]
+
+
 class AwsSecurityFinding(ASFFBaseModel):
     """
     Provides consistent format for the contents of the Security Hub-aggregated findings. AwsSecurityFinding format enables you to share findings between AWS security services and third-party solutions, and security standards checks.  A finding is a potential security issue generated either by AWS services (Amazon GuardDuty, Amazon Inspector, and Amazon Macie) or by the integrated third-party solutions and standards checks.
@@ -4273,6 +4634,7 @@ class AwsSecurityFinding(ASFFBaseModel):
     :param note: A user-defined note added to a finding.
     :param vulnerabilities: Provides a list of vulnerabilities associated with the findings.
     :param patch_summary: Provides an overview of the patch compliance status for an instance against a selected compliance standard.
+    :param action: Provides details about an action that was detected for the finding.
 
     :return: AwsSecurityFinding object
     """
@@ -4311,3 +4673,4 @@ class AwsSecurityFinding(ASFFBaseModel):
     note: Optional[Note]
     vulnerabilities: Optional[VulnerabilityList]
     patch_summary: Optional[PatchSummary]
+    action: Optional[Action]
