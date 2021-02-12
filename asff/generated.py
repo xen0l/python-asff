@@ -4578,7 +4578,7 @@ class PortProbeAction(ASFFBaseModel):
 
 class Action(ASFFBaseModel):
     """
-    Provides details about one of the following actions that were detected for the finding:   A remote IP address issued an AWS API call   A DNS request was received   A remote IP address attempted to connect to an EC2 instance   A remote IP address attempted a port probe on an EC2 instance
+    Provides details about one of the following actions that affects or that was taken on a resource:   A remote IP address issued an AWS API call   A DNS request was received   A remote IP address attempted to connect to an EC2 instance   A remote IP address attempted a port probe on an EC2 instance
 
     :param action_type: The type of action that was detected. The possible action types are:    NETWORK_CONNECTION     AWS_API_CALL     DNS_REQUEST     PORT_PROBE
     :param network_connection_action: Included if ActionType is NETWORK_CONNECTION. Provides details about the network connection that was detected.
@@ -4634,7 +4634,7 @@ class AwsSecurityFinding(ASFFBaseModel):
     :param note: A user-defined note added to a finding.
     :param vulnerabilities: Provides a list of vulnerabilities associated with the findings.
     :param patch_summary: Provides an overview of the patch compliance status for an instance against a selected compliance standard.
-    :param action: Provides details about an action that was detected for the finding.
+    :param action: Provides details about an action that affects or that was taken on a resource.
 
     :return: AwsSecurityFinding object
     """
