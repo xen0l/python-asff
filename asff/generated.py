@@ -41,11 +41,10 @@ class ASFFBaseModel(pydantic.BaseModel):
 Iso8601Timestamp = constr(regex=ISO8601_REGEX)
 
 # Generated part below
-NonEmptyString = constr(regex=".*\S.*")
-TypeList = List[NonEmptyString]
 Double = int
 SeverityLabel = constr(regex="^(INFORMATIONAL|LOW|MEDIUM|HIGH|CRITICAL)$")
 Integer = int
+NonEmptyString = constr(regex=".*\S.*")
 
 
 class Severity(ASFFBaseModel):
@@ -277,6 +276,229 @@ class ThreatIntelIndicator(ASFFBaseModel):
 
 ThreatIntelIndicatorList = List[ThreatIntelIndicator]
 Partition = constr(regex="^(aws|aws-cn|aws-us-gov)$")
+Boolean = bool
+
+
+class ClassificationStatus(ASFFBaseModel):
+    """
+    Provides details about the current status of the sensitive data detection.
+
+    :param code: The code that represents the status of the sensitive data detection.
+    :param reason: A longer description of the current status of the sensitive data detection.
+
+    :return: ClassificationStatus object
+    """
+
+    code: Optional[NonEmptyString]
+    reason: Optional[NonEmptyString]
+
+
+Long = int
+
+
+class Range(ASFFBaseModel):
+    """
+    Identifies where the sensitive data begins and ends.
+
+    :param start: The number of lines (for a line range) or characters (for an offset range) from the beginning of the file to the end of the sensitive data.
+    :param end: The number of lines (for a line range) or characters (for an offset range) from the beginning of the file to the end of the sensitive data.
+    :param start_column: In the line where the sensitive data starts, the column within the line where the sensitive data starts.
+
+    :return: Range object
+    """
+
+    start: Optional[Long]
+    end: Optional[Long]
+    start_column: Optional[Long]
+
+
+Ranges = List[Range]
+
+
+class Page(ASFFBaseModel):
+    """
+    An occurrence of sensitive data in an Adobe Portable Document Format (PDF) file.
+
+    :param page_number: The page number of the page that contains the sensitive data.
+    :param line_range: An occurrence of sensitive data detected in a non-binary text file or a Microsoft Word file. Non-binary text files include files such as HTML, XML, JSON, and TXT files.
+    :param offset_range: An occurrence of sensitive data detected in a binary text file.
+
+    :return: Page object
+    """
+
+    page_number: Optional[Long]
+    line_range: Optional[Range]
+    offset_range: Optional[Range]
+
+
+Pages = List[Page]
+
+
+class Record(ASFFBaseModel):
+    """
+    An occurrence of sensitive data in an Apache Avro object container or an Apache Parquet file.
+
+    :param json_path: The path, as a JSONPath expression, to the field in the record that contains the data. If the field name is longer than 20 characters, it is truncated. If the path is longer than 250 characters, it is truncated.
+    :param record_index: The record index, starting from 0, for the record that contains the data.
+
+    :return: Record object
+    """
+
+    json_path: Optional[NonEmptyString]
+    record_index: Optional[Long]
+
+
+Records = List[Record]
+
+
+class Cell(ASFFBaseModel):
+    """
+    An occurrence of sensitive data detected in a Microsoft Excel workbook, comma-separated value (CSV) file, or tab-separated value (TSV) file.
+
+    :param column: The column number of the column that contains the data. For a Microsoft Excel workbook, the column number corresponds to the alphabetical column identifiers. For example, a value of 1 for Column corresponds to the A column in the workbook.
+    :param row: The row number of the row that contains the data.
+    :param column_name: The name of the column that contains the data.
+    :param cell_reference: For a Microsoft Excel workbook, provides the location of the cell, as an absolute cell reference, that contains the data. For example, Sheet2!C5 for cell C5 on Sheet2.
+
+    :return: Cell object
+    """
+
+    column: Optional[Long]
+    row: Optional[Long]
+    column_name: Optional[NonEmptyString]
+    cell_reference: Optional[NonEmptyString]
+
+
+Cells = List[Cell]
+
+
+class Occurrences(ASFFBaseModel):
+    """
+    The detected occurrences of sensitive data.
+
+    :param line_ranges: Occurrences of sensitive data detected in a non-binary text file or a Microsoft Word file. Non-binary text files include files such as HTML, XML, JSON, and TXT files.
+    :param offset_ranges: Occurrences of sensitive data detected in a binary text file.
+    :param pages: Occurrences of sensitive data in an Adobe Portable Document Format (PDF) file.
+    :param records: Occurrences of sensitive data in an Apache Avro object container or an Apache Parquet file.
+    :param cells: Occurrences of sensitive data detected in Microsoft Excel workbooks, comma-separated value (CSV) files, or tab-separated value (TSV) files.
+
+    :return: Occurrences object
+    """
+
+    line_ranges: Optional[Ranges]
+    offset_ranges: Optional[Ranges]
+    pages: Optional[Pages]
+    records: Optional[Records]
+    cells: Optional[Cells]
+
+
+class SensitiveDataDetections(ASFFBaseModel):
+    """
+    The list of detected instances of sensitive data.
+
+    :param count: The total number of occurrences of sensitive data that were detected.
+    :param type: The type of sensitive data that was detected. For example, the type might indicate that the data is an email address.
+    :param occurrences: Details about the sensitive data that was detected.
+
+    :return: SensitiveDataDetections object
+    """
+
+    count: Optional[Long]
+    type: Optional[NonEmptyString]
+    occurrences: Optional[Occurrences]
+
+
+SensitiveDataDetectionsList = List[SensitiveDataDetections]
+
+
+class SensitiveDataResult(ASFFBaseModel):
+    """
+    Contains a detected instance of sensitive data that are based on built-in identifiers.
+
+    :param category: The category of sensitive data that was detected. For example, the category can indicate that the sensitive data involved credentials, financial information, or personal information.
+    :param detections: The list of detected instances of sensitive data.
+    :param total_count: The total number of occurrences of sensitive data.
+
+    :return: SensitiveDataResult object
+    """
+
+    category: Optional[NonEmptyString]
+    detections: Optional[SensitiveDataDetectionsList]
+    total_count: Optional[Long]
+
+
+SensitiveDataResultList = List[SensitiveDataResult]
+
+
+class CustomDataIdentifiersDetections(ASFFBaseModel):
+    """
+    The list of detected instances of sensitive data.
+
+    :param count: The total number of occurrences of sensitive data that were detected.
+    :param arn: The ARN of the custom identifier that was used to detect the sensitive data.
+    :param name: he name of the custom identifier that detected the sensitive data.
+    :param occurrences: Details about the sensitive data that was detected.
+
+    :return: CustomDataIdentifiersDetections object
+    """
+
+    count: Optional[Long]
+    arn: Optional[NonEmptyString]
+    name: Optional[NonEmptyString]
+    occurrences: Optional[Occurrences]
+
+
+CustomDataIdentifiersDetectionsList = List[CustomDataIdentifiersDetections]
+
+
+class CustomDataIdentifiersResult(ASFFBaseModel):
+    """
+    Contains an instance of sensitive data that was detected by a customer-defined identifier.
+
+    :param detections: The list of detected instances of sensitive data.
+    :param total_count: The total number of occurrences of sensitive data.
+
+    :return: CustomDataIdentifiersResult object
+    """
+
+    detections: Optional[CustomDataIdentifiersDetectionsList]
+    total_count: Optional[Long]
+
+
+class ClassificationResult(ASFFBaseModel):
+    """
+    Details about the sensitive data that was detected on the resource.
+
+    :param mime_type: The type of content that the finding applies to.
+    :param size_classified: The total size in bytes of the affected data.
+    :param additional_occurrences: Indicates whether there are additional occurrences of sensitive data that are not included in the finding. This occurs when the number of occurrences exceeds the maximum that can be included.
+    :param status: The current status of the sensitive data detection.
+    :param sensitive_data: Provides details about sensitive data that was identified based on built-in configuration.
+    :param custom_data_identifiers: Provides details about sensitive data that was identified based on customer-defined configuration.
+
+    :return: ClassificationResult object
+    """
+
+    mime_type: Optional[NonEmptyString]
+    size_classified: Optional[Long]
+    additional_occurrences: Optional[Boolean]
+    status: Optional[ClassificationStatus]
+    sensitive_data: Optional[SensitiveDataResultList]
+    custom_data_identifiers: Optional[CustomDataIdentifiersResult]
+
+
+class DataClassificationDetails(ASFFBaseModel):
+    """
+    Provides details about sensitive data that was detected on a resource.
+
+    :param detailed_results_location: The path to the folder or file that contains the sensitive data.
+    :param result: The details about the sensitive data that was detected on the resource.
+
+    :return: DataClassificationDetails object
+    """
+
+    detailed_results_location: Optional[NonEmptyString]
+    result: Optional[ClassificationResult]
 
 
 class AwsAutoScalingAutoScalingGroupDetails(ASFFBaseModel):
@@ -329,9 +551,6 @@ class AwsCodeBuildProjectEnvironment(ASFFBaseModel):
     image_pull_credentials_type: Optional[NonEmptyString]
     registry_credential: Optional[AwsCodeBuildProjectEnvironmentRegistryCredential]
     type: Optional[NonEmptyString]
-
-
-Boolean = bool
 
 
 class AwsCodeBuildProjectSource(ASFFBaseModel):
@@ -1164,6 +1383,24 @@ class AwsS3BucketServerSideEncryptionConfiguration(ASFFBaseModel):
     rules: Optional[AwsS3BucketServerSideEncryptionRules]
 
 
+class AwsS3AccountPublicAccessBlockDetails(ASFFBaseModel):
+    """
+    provides information about the Amazon S3 Public Access Block configuration for accounts.
+
+    :param block_public_acls: Indicates whether to reject calls to update an S3 bucket if the calls include a public access control list (ACL).
+    :param block_public_policy: Indicates whether to reject calls to update the access policy for an S3 bucket or access point if the policy allows public access.
+    :param ignore_public_acls: Indicates whether Amazon S3 ignores public ACLs that are associated with an S3 bucket.
+    :param restrict_public_buckets: Indicates whether to restrict access to an access point or S3 bucket that has a public policy to only AWS service principals and authorized users within the S3 bucket owner's account.
+
+    :return: AwsS3AccountPublicAccessBlockDetails object
+    """
+
+    block_public_acls: Optional[Boolean]
+    block_public_policy: Optional[Boolean]
+    ignore_public_acls: Optional[Boolean]
+    restrict_public_buckets: Optional[Boolean]
+
+
 class AwsS3BucketDetails(ASFFBaseModel):
     """
     The details of an Amazon S3 bucket.
@@ -1172,6 +1409,7 @@ class AwsS3BucketDetails(ASFFBaseModel):
     :param owner_name: The display name of the owner of the S3 bucket.
     :param created_at: Indicates when the S3 bucket was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
     :param server_side_encryption_configuration: The encryption rules that are applied to the S3 bucket.
+    :param public_access_block_configuration: Provides information about the Amazon S3 Public Access Block configuration for the S3 bucket.
 
     :return: AwsS3BucketDetails object
     """
@@ -1182,6 +1420,7 @@ class AwsS3BucketDetails(ASFFBaseModel):
     server_side_encryption_configuration: Optional[
         AwsS3BucketServerSideEncryptionConfiguration
     ]
+    public_access_block_configuration: Optional[AwsS3AccountPublicAccessBlockDetails]
 
 
 class AwsS3ObjectDetails(ASFFBaseModel):
@@ -2499,9 +2738,6 @@ class AwsRedshiftClusterResizeInfo(ASFFBaseModel):
 
     allow_cancel_resize: Optional[Boolean]
     resize_type: Optional[NonEmptyString]
-
-
-Long = int
 
 
 class AwsRedshiftClusterRestoreStatus(ASFFBaseModel):
@@ -4035,6 +4271,7 @@ class ResourceDetails(ASFFBaseModel):
     :param aws_elbv2_load_balancer: Details about a load balancer.
     :param aws_elasticsearch_domain: Details for an Elasticsearch domain.
     :param aws_s3_bucket: Details about an Amazon S3 bucket related to a finding.
+    :param aws_s3_account_public_access_block: Details about the Amazon S3 Public Access Block configuration for an account.
     :param aws_s3_object: Details about an Amazon S3 object related to a finding.
     :param aws_secrets_manager_secret: Details about a Secrets Manager secret.
     :param aws_iam_access_key: Details about an IAM access key related to a finding.
@@ -4080,6 +4317,7 @@ class ResourceDetails(ASFFBaseModel):
     aws_elbv2_load_balancer: Optional[AwsElbv2LoadBalancerDetails]
     aws_elasticsearch_domain: Optional[AwsElasticsearchDomainDetails]
     aws_s3_bucket: Optional[AwsS3BucketDetails]
+    aws_s3_account_public_access_block: Optional[AwsS3AccountPublicAccessBlockDetails]
     aws_s3_object: Optional[AwsS3ObjectDetails]
     aws_secrets_manager_secret: Optional[AwsSecretsManagerSecretDetails]
     aws_iam_access_key: Optional[AwsIamAccessKeyDetails]
@@ -4123,6 +4361,7 @@ class Resource(ASFFBaseModel):
     :param region: The canonical AWS external Region name where this resource is located.
     :param resource_role: Identifies the role of the resource in the finding. A resource is either the actor or target of the finding activity,
     :param tags: A list of AWS tags associated with a resource at the time the finding was processed.
+    :param data_classification: Contains information about sensitive data that was detected on the resource.
     :param details: Additional details about the resource related to a finding.
 
     :return: Resource object
@@ -4134,6 +4373,7 @@ class Resource(ASFFBaseModel):
     region: Optional[NonEmptyString]
     resource_role: Optional[NonEmptyString]
     tags: Optional[FieldMap]
+    data_classification: Optional[DataClassificationDetails]
     details: Optional[ResourceDetails]
 
 
@@ -4195,23 +4435,6 @@ class Workflow(ASFFBaseModel):
 
 
 RecordState = constr(regex="^(ACTIVE|ARCHIVED)$")
-
-
-class RelatedFinding(ASFFBaseModel):
-    """
-    Details about a related finding.
-
-    :param product_arn: The ARN of the product that generated a related finding.
-    :param id: The product-generated identifier for a related finding.
-
-    :return: RelatedFinding object
-    """
-
-    product_arn: NonEmptyString
-    id: NonEmptyString
-
-
-RelatedFindingList = List[RelatedFinding]
 
 
 class Note(ASFFBaseModel):
@@ -4596,6 +4819,63 @@ class Action(ASFFBaseModel):
     port_probe_action: Optional[PortProbeAction]
 
 
+RatioScale = int
+
+
+class RelatedFinding(ASFFBaseModel):
+    """
+    Details about a related finding.
+
+    :param product_arn: The ARN of the product that generated a related finding.
+    :param id: The product-generated identifier for a related finding.
+
+    :return: RelatedFinding object
+    """
+
+    product_arn: NonEmptyString
+    id: NonEmptyString
+
+
+RelatedFindingList = List[RelatedFinding]
+
+
+class FindingProviderSeverity(ASFFBaseModel):
+    """
+    The severity assigned to the finding by the finding provider.
+
+    :param label: The severity label assigned to the finding by the finding provider.
+    :param original: The finding provider's original value for the severity.
+
+    :return: FindingProviderSeverity object
+    """
+
+    label: Optional[SeverityLabel]
+    original: Optional[NonEmptyString]
+
+
+TypeList = List[NonEmptyString]
+
+
+class FindingProviderFields(ASFFBaseModel):
+    """
+    In a BatchImportFindings request, finding providers use FindingProviderFields to provide and update values for confidence, criticality, related findings, severity, and types.
+
+    :param confidence: A finding's confidence. Confidence is defined as the likelihood that a finding accurately identifies the behavior or issue that it was intended to identify. Confidence is scored on a 0-100 basis using a ratio scale, where 0 means zero percent confidence and 100 means 100 percent confidence.
+    :param criticality: The level of importance assigned to the resources associated with the finding. A score of 0 means that the underlying resources have no criticality, and a score of 100 is reserved for the most critical resources.
+    :param related_findings: A list of findings that are related to the current finding.
+    :param severity: The severity of a finding.
+    :param types: One or more finding types in the format of namespace/category/classifier that classify a finding. Valid namespace values are: Software and Configuration Checks | TTPs | Effects | Unusual Behaviors | Sensitive Data Identifications
+
+    :return: FindingProviderFields object
+    """
+
+    confidence: Optional[RatioScale]
+    criticality: Optional[RatioScale]
+    related_findings: Optional[RelatedFindingList]
+    severity: Optional[FindingProviderSeverity]
+    types: Optional[TypeList]
+
+
 class AwsSecurityFinding(ASFFBaseModel):
     """
     Provides consistent format for the contents of the Security Hub-aggregated findings. AwsSecurityFinding format enables you to share findings between AWS security services and third-party solutions, and security standards checks.  A finding is a potential security issue generated either by AWS services (Amazon GuardDuty, Amazon Inspector, and Amazon Macie) or by the integrated third-party solutions and standards checks.
@@ -4635,6 +4915,7 @@ class AwsSecurityFinding(ASFFBaseModel):
     :param vulnerabilities: Provides a list of vulnerabilities associated with the findings.
     :param patch_summary: Provides an overview of the patch compliance status for an instance against a selected compliance standard.
     :param action: Provides details about an action that affects or that was taken on a resource.
+    :param finding_provider_fields: In a BatchImportFindings request, finding providers use FindingProviderFields to provide and update their own values for confidence, criticality, related findings, severity, and types.
 
     :return: AwsSecurityFinding object
     """
@@ -4644,12 +4925,12 @@ class AwsSecurityFinding(ASFFBaseModel):
     product_arn: NonEmptyString
     generator_id: NonEmptyString
     aws_account_id: NonEmptyString
-    types: TypeList
+    types: Optional[TypeList]
     first_observed_at: Optional[Iso8601Timestamp]
     last_observed_at: Optional[Iso8601Timestamp]
     created_at: Iso8601Timestamp
     updated_at: Iso8601Timestamp
-    severity: Severity
+    severity: Optional[Severity]
     confidence: Optional[Integer]
     criticality: Optional[Integer]
     title: NonEmptyString
@@ -4674,3 +4955,4 @@ class AwsSecurityFinding(ASFFBaseModel):
     vulnerabilities: Optional[VulnerabilityList]
     patch_summary: Optional[PatchSummary]
     action: Optional[Action]
+    finding_provider_fields: Optional[FindingProviderFields]
