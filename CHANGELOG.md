@@ -1,9 +1,9 @@
 # Changelog
 
-0.1.2 (unreleased)
+0.2.0 (unreleased)
 ------------------
 
-* ASFF schema updated to the latest version
+* ASFF schema updated to the latest version (19/03/2021)
 
 0.1.1 (2021-01-06)
 ------------------
