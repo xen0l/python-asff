@@ -45,4914 +45,4203 @@ Double = int
 SeverityLabel = constr(regex="^(INFORMATIONAL|LOW|MEDIUM|HIGH|CRITICAL)$")
 Integer = int
 NonEmptyString = constr(regex=".*\S.*")
-
-
 class Severity(ASFFBaseModel):
-    """
-    The severity of the finding. The finding provider can provide the initial severity. The finding provider can only update the severity if it has not been updated using BatchUpdateFindings. The finding must have either Label or Normalized populated. If only one of these attributes is populated, then Security Hub automatically populates the other one. If neither attribute is populated, then the finding is invalid. Label is the preferred attribute.
+	"""
+The severity of the finding. The finding provider can provide the initial severity. The finding provider can only update the severity if it has not been updated using BatchUpdateFindings. The finding must have either Label or Normalized populated. If only one of these attributes is populated, then Security Hub automatically populates the other one. If neither attribute is populated, then the finding is invalid. Label is the preferred attribute.
 
-    :param product: Deprecated. This attribute is being deprecated. Instead of providing Product, provide Original. The native severity as defined by the AWS service or integrated partner product that generated the finding.
-    :param label: The severity value of the finding. The allowed values are the following.    INFORMATIONAL - No issue was found.    LOW - The issue does not require action on its own.    MEDIUM - The issue must be addressed but not urgently.    HIGH - The issue must be addressed as a priority.    CRITICAL - The issue must be remediated immediately to avoid it escalating.   If you provide Normalized and do not provide Label, then Label is set automatically as follows.    0 - INFORMATIONAL    1–39 - LOW    40–69 - MEDIUM    70–89 - HIGH    90–100 - CRITICAL
-    :param normalized: Deprecated. The normalized severity of a finding. This attribute is being deprecated. Instead of providing Normalized, provide Label. If you provide Label and do not provide Normalized, then Normalized is set automatically as follows.    INFORMATIONAL - 0    LOW - 1    MEDIUM - 40    HIGH - 70    CRITICAL - 90
-    :param original: The native severity from the finding product that generated the finding.
+:param product: Deprecated. This attribute is being deprecated. Instead of providing Product, provide Original. The native severity as defined by the AWS service or integrated partner product that generated the finding.
+:param label: The severity value of the finding. The allowed values are the following.    INFORMATIONAL - No issue was found.    LOW - The issue does not require action on its own.    MEDIUM - The issue must be addressed but not urgently.    HIGH - The issue must be addressed as a priority.    CRITICAL - The issue must be remediated immediately to avoid it escalating.   If you provide Normalized and do not provide Label, then Label is set automatically as follows.    0 - INFORMATIONAL    1–39 - LOW    40–69 - MEDIUM    70–89 - HIGH    90–100 - CRITICAL   
+:param normalized: Deprecated. The normalized severity of a finding. This attribute is being deprecated. Instead of providing Normalized, provide Label. If you provide Label and do not provide Normalized, then Normalized is set automatically as follows.    INFORMATIONAL - 0    LOW - 1    MEDIUM - 40    HIGH - 70    CRITICAL - 90  
+:param original: The native severity from the finding product that generated the finding.
 
-    :return: Severity object
-    """
-
-    product: Optional[Double]
-    label: Optional[SeverityLabel]
-    normalized: Optional[Integer]
-    original: Optional[NonEmptyString]
-
-
+:return: Severity object
+	"""
+	product: Optional[Double]
+	label: Optional[SeverityLabel]
+	normalized: Optional[Integer]
+	original: Optional[NonEmptyString]
 class Recommendation(ASFFBaseModel):
-    """
-    A recommendation on how to remediate the issue identified in a finding.
+	"""
+A recommendation on how to remediate the issue identified in a finding.
 
-    :param text: Describes the recommended steps to take to remediate an issue identified in a finding.
-    :param url: A URL to a page or site that contains information about how to remediate a finding.
+:param text: Describes the recommended steps to take to remediate an issue identified in a finding.
+:param url: A URL to a page or site that contains information about how to remediate a finding.
 
-    :return: Recommendation object
-    """
-
-    text: Optional[NonEmptyString]
-    url: Optional[NonEmptyString]
-
-
+:return: Recommendation object
+	"""
+	text: Optional[NonEmptyString]
+	url: Optional[NonEmptyString]
 class Remediation(ASFFBaseModel):
-    """
-    Details about the remediation steps for a finding.
+	"""
+Details about the remediation steps for a finding.
 
-    :param recommendation: A recommendation on the steps to take to remediate the issue identified by a finding.
+:param recommendation: A recommendation on the steps to take to remediate the issue identified by a finding.
 
-    :return: Remediation object
-    """
-
-    recommendation: Optional[Recommendation]
-
-
-MalwareType = constr(
-    regex="^(ADWARE|BLENDED_THREAT|BOTNET_AGENT|COIN_MINER|EXPLOIT_KIT|KEYLOGGER|MACRO|POTENTIALLY_UNWANTED|SPYWARE|RANSOMWARE|REMOTE_ACCESS|ROOTKIT|TROJAN|VIRUS|WORM)$"
-)
+:return: Remediation object
+	"""
+	recommendation: Optional[Recommendation]
+MalwareType = constr(regex="^(ADWARE|BLENDED_THREAT|BOTNET_AGENT|COIN_MINER|EXPLOIT_KIT|KEYLOGGER|MACRO|POTENTIALLY_UNWANTED|SPYWARE|RANSOMWARE|REMOTE_ACCESS|ROOTKIT|TROJAN|VIRUS|WORM)$")
 MalwareState = constr(regex="^(OBSERVED|REMOVAL_FAILED|REMOVED)$")
-
-
 class Malware(ASFFBaseModel):
-    """
-    A list of malware related to a finding.
+	"""
+A list of malware related to a finding.
 
-    :param name: The name of the malware that was observed.
-    :param type: The type of the malware that was observed.
-    :param path: The file system path of the malware that was observed.
-    :param state: The state of the malware that was observed.
+:param name: The name of the malware that was observed.
+:param type: The type of the malware that was observed.
+:param path: The file system path of the malware that was observed.
+:param state: The state of the malware that was observed.
 
-    :return: Malware object
-    """
-
-    name: NonEmptyString
-    type: Optional[MalwareType]
-    path: Optional[NonEmptyString]
-    state: Optional[MalwareState]
-
-
+:return: Malware object
+	"""
+	name: NonEmptyString
+	type: Optional[MalwareType]
+	path: Optional[NonEmptyString]
+	state: Optional[MalwareState]
 MalwareList = List[Malware]
 NetworkDirection = constr(regex="^(IN|OUT)$")
-
-
 class PortRange(ASFFBaseModel):
-    """
-    A range of ports.
+	"""
+A range of ports.
 
-    :param begin: The first port in the port range.
-    :param end: The last port in the port range.
+:param begin: The first port in the port range.
+:param end: The last port in the port range.
 
-    :return: PortRange object
-    """
-
-    begin: Optional[Integer]
-    end: Optional[Integer]
-
-
+:return: PortRange object
+	"""
+	begin: Optional[Integer]
+	end: Optional[Integer]
 class Network(ASFFBaseModel):
-    """
-    The details of network-related information about a finding.
+	"""
+The details of network-related information about a finding.
 
-    :param direction: The direction of network traffic associated with a finding.
-    :param protocol: The protocol of network-related information about a finding.
-    :param open_port_range: The range of open ports that is present on the network.
-    :param source_ip_v4: The source IPv4 address of network-related information about a finding.
-    :param source_ip_v6: The source IPv6 address of network-related information about a finding.
-    :param source_port: The source port of network-related information about a finding.
-    :param source_domain: The source domain of network-related information about a finding.
-    :param source_mac: The source media access control (MAC) address of network-related information about a finding.
-    :param destination_ip_v4: The destination IPv4 address of network-related information about a finding.
-    :param destination_ip_v6: The destination IPv6 address of network-related information about a finding.
-    :param destination_port: The destination port of network-related information about a finding.
-    :param destination_domain: The destination domain of network-related information about a finding.
+:param direction: The direction of network traffic associated with a finding.
+:param protocol: The protocol of network-related information about a finding.
+:param open_port_range: The range of open ports that is present on the network.
+:param source_ip_v4: The source IPv4 address of network-related information about a finding.
+:param source_ip_v6: The source IPv6 address of network-related information about a finding.
+:param source_port: The source port of network-related information about a finding.
+:param source_domain: The source domain of network-related information about a finding.
+:param source_mac: The source media access control (MAC) address of network-related information about a finding.
+:param destination_ip_v4: The destination IPv4 address of network-related information about a finding.
+:param destination_ip_v6: The destination IPv6 address of network-related information about a finding.
+:param destination_port: The destination port of network-related information about a finding.
+:param destination_domain: The destination domain of network-related information about a finding.
 
-    :return: Network object
-    """
-
-    direction: Optional[NetworkDirection]
-    protocol: Optional[NonEmptyString]
-    open_port_range: Optional[PortRange]
-    source_ip_v4: Optional[NonEmptyString]
-    source_ip_v6: Optional[NonEmptyString]
-    source_port: Optional[Integer]
-    source_domain: Optional[NonEmptyString]
-    source_mac: Optional[NonEmptyString]
-    destination_ip_v4: Optional[NonEmptyString]
-    destination_ip_v6: Optional[NonEmptyString]
-    destination_port: Optional[Integer]
-    destination_domain: Optional[NonEmptyString]
-
-
+:return: Network object
+	"""
+	direction: Optional[NetworkDirection]
+	protocol: Optional[NonEmptyString]
+	open_port_range: Optional[PortRange]
+	source_ip_v4: Optional[NonEmptyString]
+	source_ip_v6: Optional[NonEmptyString]
+	source_port: Optional[Integer]
+	source_domain: Optional[NonEmptyString]
+	source_mac: Optional[NonEmptyString]
+	destination_ip_v4: Optional[NonEmptyString]
+	destination_ip_v6: Optional[NonEmptyString]
+	destination_port: Optional[Integer]
+	destination_domain: Optional[NonEmptyString]
 StringList = List[NonEmptyString]
 PortRangeList = List[PortRange]
-
-
 class NetworkPathComponentDetails(ASFFBaseModel):
-    """
-    Information about the destination of the next component in the network path.
+	"""
+Information about the destination of the next component in the network path.
 
-    :param address: The IP addresses of the destination.
-    :param port_ranges: A list of port ranges for the destination.
+:param address: The IP addresses of the destination.
+:param port_ranges: A list of port ranges for the destination.
 
-    :return: NetworkPathComponentDetails object
-    """
-
-    address: Optional[StringList]
-    port_ranges: Optional[PortRangeList]
-
-
+:return: NetworkPathComponentDetails object
+	"""
+	address: Optional[StringList]
+	port_ranges: Optional[PortRangeList]
 class NetworkHeader(ASFFBaseModel):
-    """
-    Details about a network path component that occurs before or after the current component.
+	"""
+Details about a network path component that occurs before or after the current component.
 
-    :param protocol: The protocol used for the component.
-    :param destination: Information about the destination of the component.
-    :param source: Information about the origin of the component.
+:param protocol: The protocol used for the component.
+:param destination: Information about the destination of the component.
+:param source: Information about the origin of the component.
 
-    :return: NetworkHeader object
-    """
-
-    protocol: Optional[NonEmptyString]
-    destination: Optional[NetworkPathComponentDetails]
-    source: Optional[NetworkPathComponentDetails]
-
-
+:return: NetworkHeader object
+	"""
+	protocol: Optional[NonEmptyString]
+	destination: Optional[NetworkPathComponentDetails]
+	source: Optional[NetworkPathComponentDetails]
 class NetworkPathComponent(ASFFBaseModel):
-    """
-    Information about a network path component.
+	"""
+Information about a network path component.
 
-    :param component_id: The identifier of a component in the network path.
-    :param component_type: The type of component.
-    :param egress: Information about the component that comes after the current component in the network path.
-    :param ingress: Information about the component that comes before the current node in the network path.
+:param component_id: The identifier of a component in the network path.
+:param component_type: The type of component.
+:param egress: Information about the component that comes after the current component in the network path.
+:param ingress: Information about the component that comes before the current node in the network path.
 
-    :return: NetworkPathComponent object
-    """
-
-    component_id: Optional[NonEmptyString]
-    component_type: Optional[NonEmptyString]
-    egress: Optional[NetworkHeader]
-    ingress: Optional[NetworkHeader]
-
-
+:return: NetworkPathComponent object
+	"""
+	component_id: Optional[NonEmptyString]
+	component_type: Optional[NonEmptyString]
+	egress: Optional[NetworkHeader]
+	ingress: Optional[NetworkHeader]
 NetworkPathList = List[NetworkPathComponent]
-
-
 class ProcessDetails(ASFFBaseModel):
-    """
-    The details of process-related information about a finding.
+	"""
+The details of process-related information about a finding.
 
-    :param name: The name of the process.
-    :param path: The path to the process executable.
-    :param pid: The process ID.
-    :param parent_pid: The parent process ID.
-    :param launched_at: Indicates when the process was launched. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param terminated_at: Indicates when the process was terminated. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param name: The name of the process.
+:param path: The path to the process executable.
+:param pid: The process ID.
+:param parent_pid: The parent process ID.
+:param launched_at: Indicates when the process was launched. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param terminated_at: Indicates when the process was terminated. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
 
-    :return: ProcessDetails object
-    """
-
-    name: Optional[NonEmptyString]
-    path: Optional[NonEmptyString]
-    pid: Optional[Integer]
-    parent_pid: Optional[Integer]
-    launched_at: Optional[Iso8601Timestamp]
-    terminated_at: Optional[Iso8601Timestamp]
-
-
-ThreatIntelIndicatorType = constr(
-    regex="^(DOMAIN|EMAIL_ADDRESS|HASH_MD5|HASH_SHA1|HASH_SHA256|HASH_SHA512|IPV4_ADDRESS|IPV6_ADDRESS|MUTEX|PROCESS|URL)$"
-)
-ThreatIntelIndicatorCategory = constr(
-    regex="^(BACKDOOR|CARD_STEALER|COMMAND_AND_CONTROL|DROP_SITE|EXPLOIT_SITE|KEYLOGGER)$"
-)
-
-
+:return: ProcessDetails object
+	"""
+	name: Optional[NonEmptyString]
+	path: Optional[NonEmptyString]
+	pid: Optional[Integer]
+	parent_pid: Optional[Integer]
+	launched_at: Optional[Iso8601Timestamp]
+	terminated_at: Optional[Iso8601Timestamp]
+ThreatIntelIndicatorType = constr(regex="^(DOMAIN|EMAIL_ADDRESS|HASH_MD5|HASH_SHA1|HASH_SHA256|HASH_SHA512|IPV4_ADDRESS|IPV6_ADDRESS|MUTEX|PROCESS|URL)$")
+ThreatIntelIndicatorCategory = constr(regex="^(BACKDOOR|CARD_STEALER|COMMAND_AND_CONTROL|DROP_SITE|EXPLOIT_SITE|KEYLOGGER)$")
 class ThreatIntelIndicator(ASFFBaseModel):
-    """
-    Details about the threat intelligence related to a finding.
+	"""
+Details about the threat intelligence related to a finding.
 
-    :param type: The type of threat intelligence indicator.
-    :param value: The value of a threat intelligence indicator.
-    :param category: The category of a threat intelligence indicator.
-    :param last_observed_at: Indicates when the most recent instance of a threat intelligence indicator was observed. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param source: The source of the threat intelligence indicator.
-    :param source_url: The URL to the page or site where you can get more information about the threat intelligence indicator.
+:param type: The type of threat intelligence indicator.
+:param value: The value of a threat intelligence indicator.
+:param category: The category of a threat intelligence indicator.
+:param last_observed_at: Indicates when the most recent instance of a threat intelligence indicator was observed. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param source: The source of the threat intelligence indicator.
+:param source_url: The URL to the page or site where you can get more information about the threat intelligence indicator.
 
-    :return: ThreatIntelIndicator object
-    """
-
-    type: Optional[ThreatIntelIndicatorType]
-    value: Optional[NonEmptyString]
-    category: Optional[ThreatIntelIndicatorCategory]
-    last_observed_at: Optional[Iso8601Timestamp]
-    source: Optional[NonEmptyString]
-    source_url: Optional[NonEmptyString]
-
-
+:return: ThreatIntelIndicator object
+	"""
+	type: Optional[ThreatIntelIndicatorType]
+	value: Optional[NonEmptyString]
+	category: Optional[ThreatIntelIndicatorCategory]
+	last_observed_at: Optional[Iso8601Timestamp]
+	source: Optional[NonEmptyString]
+	source_url: Optional[NonEmptyString]
 ThreatIntelIndicatorList = List[ThreatIntelIndicator]
 Partition = constr(regex="^(aws|aws-cn|aws-us-gov)$")
 Boolean = bool
-
-
 class ClassificationStatus(ASFFBaseModel):
-    """
-    Provides details about the current status of the sensitive data detection.
+	"""
+Provides details about the current status of the sensitive data detection.
 
-    :param code: The code that represents the status of the sensitive data detection.
-    :param reason: A longer description of the current status of the sensitive data detection.
+:param code: The code that represents the status of the sensitive data detection.
+:param reason: A longer description of the current status of the sensitive data detection.
 
-    :return: ClassificationStatus object
-    """
-
-    code: Optional[NonEmptyString]
-    reason: Optional[NonEmptyString]
-
-
+:return: ClassificationStatus object
+	"""
+	code: Optional[NonEmptyString]
+	reason: Optional[NonEmptyString]
 Long = int
-
-
 class Range(ASFFBaseModel):
-    """
-    Identifies where the sensitive data begins and ends.
+	"""
+Identifies where the sensitive data begins and ends.
 
-    :param start: The number of lines (for a line range) or characters (for an offset range) from the beginning of the file to the end of the sensitive data.
-    :param end: The number of lines (for a line range) or characters (for an offset range) from the beginning of the file to the end of the sensitive data.
-    :param start_column: In the line where the sensitive data starts, the column within the line where the sensitive data starts.
+:param start: The number of lines (for a line range) or characters (for an offset range) from the beginning of the file to the end of the sensitive data.
+:param end: The number of lines (for a line range) or characters (for an offset range) from the beginning of the file to the end of the sensitive data.
+:param start_column: In the line where the sensitive data starts, the column within the line where the sensitive data starts.
 
-    :return: Range object
-    """
-
-    start: Optional[Long]
-    end: Optional[Long]
-    start_column: Optional[Long]
-
-
+:return: Range object
+	"""
+	start: Optional[Long]
+	end: Optional[Long]
+	start_column: Optional[Long]
 Ranges = List[Range]
-
-
 class Page(ASFFBaseModel):
-    """
-    An occurrence of sensitive data in an Adobe Portable Document Format (PDF) file.
+	"""
+An occurrence of sensitive data in an Adobe Portable Document Format (PDF) file.
 
-    :param page_number: The page number of the page that contains the sensitive data.
-    :param line_range: An occurrence of sensitive data detected in a non-binary text file or a Microsoft Word file. Non-binary text files include files such as HTML, XML, JSON, and TXT files.
-    :param offset_range: An occurrence of sensitive data detected in a binary text file.
+:param page_number: The page number of the page that contains the sensitive data.
+:param line_range: An occurrence of sensitive data detected in a non-binary text file or a Microsoft Word file. Non-binary text files include files such as HTML, XML, JSON, and TXT files.
+:param offset_range: An occurrence of sensitive data detected in a binary text file.
 
-    :return: Page object
-    """
-
-    page_number: Optional[Long]
-    line_range: Optional[Range]
-    offset_range: Optional[Range]
-
-
+:return: Page object
+	"""
+	page_number: Optional[Long]
+	line_range: Optional[Range]
+	offset_range: Optional[Range]
 Pages = List[Page]
-
-
 class Record(ASFFBaseModel):
-    """
-    An occurrence of sensitive data in an Apache Avro object container or an Apache Parquet file.
+	"""
+An occurrence of sensitive data in an Apache Avro object container or an Apache Parquet file.
 
-    :param json_path: The path, as a JSONPath expression, to the field in the record that contains the data. If the field name is longer than 20 characters, it is truncated. If the path is longer than 250 characters, it is truncated.
-    :param record_index: The record index, starting from 0, for the record that contains the data.
+:param json_path: The path, as a JSONPath expression, to the field in the record that contains the data. If the field name is longer than 20 characters, it is truncated. If the path is longer than 250 characters, it is truncated.
+:param record_index: The record index, starting from 0, for the record that contains the data.
 
-    :return: Record object
-    """
-
-    json_path: Optional[NonEmptyString]
-    record_index: Optional[Long]
-
-
+:return: Record object
+	"""
+	json_path: Optional[NonEmptyString]
+	record_index: Optional[Long]
 Records = List[Record]
-
-
 class Cell(ASFFBaseModel):
-    """
-    An occurrence of sensitive data detected in a Microsoft Excel workbook, comma-separated value (CSV) file, or tab-separated value (TSV) file.
+	"""
+An occurrence of sensitive data detected in a Microsoft Excel workbook, comma-separated value (CSV) file, or tab-separated value (TSV) file.
 
-    :param column: The column number of the column that contains the data. For a Microsoft Excel workbook, the column number corresponds to the alphabetical column identifiers. For example, a value of 1 for Column corresponds to the A column in the workbook.
-    :param row: The row number of the row that contains the data.
-    :param column_name: The name of the column that contains the data.
-    :param cell_reference: For a Microsoft Excel workbook, provides the location of the cell, as an absolute cell reference, that contains the data. For example, Sheet2!C5 for cell C5 on Sheet2.
+:param column: The column number of the column that contains the data. For a Microsoft Excel workbook, the column number corresponds to the alphabetical column identifiers. For example, a value of 1 for Column corresponds to the A column in the workbook.
+:param row: The row number of the row that contains the data.
+:param column_name: The name of the column that contains the data.
+:param cell_reference: For a Microsoft Excel workbook, provides the location of the cell, as an absolute cell reference, that contains the data. For example, Sheet2!C5 for cell C5 on Sheet2.
 
-    :return: Cell object
-    """
-
-    column: Optional[Long]
-    row: Optional[Long]
-    column_name: Optional[NonEmptyString]
-    cell_reference: Optional[NonEmptyString]
-
-
+:return: Cell object
+	"""
+	column: Optional[Long]
+	row: Optional[Long]
+	column_name: Optional[NonEmptyString]
+	cell_reference: Optional[NonEmptyString]
 Cells = List[Cell]
-
-
 class Occurrences(ASFFBaseModel):
-    """
-    The detected occurrences of sensitive data.
+	"""
+The detected occurrences of sensitive data.
 
-    :param line_ranges: Occurrences of sensitive data detected in a non-binary text file or a Microsoft Word file. Non-binary text files include files such as HTML, XML, JSON, and TXT files.
-    :param offset_ranges: Occurrences of sensitive data detected in a binary text file.
-    :param pages: Occurrences of sensitive data in an Adobe Portable Document Format (PDF) file.
-    :param records: Occurrences of sensitive data in an Apache Avro object container or an Apache Parquet file.
-    :param cells: Occurrences of sensitive data detected in Microsoft Excel workbooks, comma-separated value (CSV) files, or tab-separated value (TSV) files.
+:param line_ranges: Occurrences of sensitive data detected in a non-binary text file or a Microsoft Word file. Non-binary text files include files such as HTML, XML, JSON, and TXT files.
+:param offset_ranges: Occurrences of sensitive data detected in a binary text file.
+:param pages: Occurrences of sensitive data in an Adobe Portable Document Format (PDF) file.
+:param records: Occurrences of sensitive data in an Apache Avro object container or an Apache Parquet file.
+:param cells: Occurrences of sensitive data detected in Microsoft Excel workbooks, comma-separated value (CSV) files, or tab-separated value (TSV) files.
 
-    :return: Occurrences object
-    """
-
-    line_ranges: Optional[Ranges]
-    offset_ranges: Optional[Ranges]
-    pages: Optional[Pages]
-    records: Optional[Records]
-    cells: Optional[Cells]
-
-
+:return: Occurrences object
+	"""
+	line_ranges: Optional[Ranges]
+	offset_ranges: Optional[Ranges]
+	pages: Optional[Pages]
+	records: Optional[Records]
+	cells: Optional[Cells]
 class SensitiveDataDetections(ASFFBaseModel):
-    """
-    The list of detected instances of sensitive data.
+	"""
+The list of detected instances of sensitive data.
 
-    :param count: The total number of occurrences of sensitive data that were detected.
-    :param type: The type of sensitive data that was detected. For example, the type might indicate that the data is an email address.
-    :param occurrences: Details about the sensitive data that was detected.
+:param count: The total number of occurrences of sensitive data that were detected.
+:param type: The type of sensitive data that was detected. For example, the type might indicate that the data is an email address.
+:param occurrences: Details about the sensitive data that was detected.
 
-    :return: SensitiveDataDetections object
-    """
-
-    count: Optional[Long]
-    type: Optional[NonEmptyString]
-    occurrences: Optional[Occurrences]
-
-
+:return: SensitiveDataDetections object
+	"""
+	count: Optional[Long]
+	type: Optional[NonEmptyString]
+	occurrences: Optional[Occurrences]
 SensitiveDataDetectionsList = List[SensitiveDataDetections]
-
-
 class SensitiveDataResult(ASFFBaseModel):
-    """
-    Contains a detected instance of sensitive data that are based on built-in identifiers.
+	"""
+Contains a detected instance of sensitive data that are based on built-in identifiers.
 
-    :param category: The category of sensitive data that was detected. For example, the category can indicate that the sensitive data involved credentials, financial information, or personal information.
-    :param detections: The list of detected instances of sensitive data.
-    :param total_count: The total number of occurrences of sensitive data.
+:param category: The category of sensitive data that was detected. For example, the category can indicate that the sensitive data involved credentials, financial information, or personal information.
+:param detections: The list of detected instances of sensitive data.
+:param total_count: The total number of occurrences of sensitive data.
 
-    :return: SensitiveDataResult object
-    """
-
-    category: Optional[NonEmptyString]
-    detections: Optional[SensitiveDataDetectionsList]
-    total_count: Optional[Long]
-
-
+:return: SensitiveDataResult object
+	"""
+	category: Optional[NonEmptyString]
+	detections: Optional[SensitiveDataDetectionsList]
+	total_count: Optional[Long]
 SensitiveDataResultList = List[SensitiveDataResult]
-
-
 class CustomDataIdentifiersDetections(ASFFBaseModel):
-    """
-    The list of detected instances of sensitive data.
+	"""
+The list of detected instances of sensitive data.
 
-    :param count: The total number of occurrences of sensitive data that were detected.
-    :param arn: The ARN of the custom identifier that was used to detect the sensitive data.
-    :param name: he name of the custom identifier that detected the sensitive data.
-    :param occurrences: Details about the sensitive data that was detected.
+:param count: The total number of occurrences of sensitive data that were detected.
+:param arn: The ARN of the custom identifier that was used to detect the sensitive data.
+:param name: he name of the custom identifier that detected the sensitive data.
+:param occurrences: Details about the sensitive data that was detected.
 
-    :return: CustomDataIdentifiersDetections object
-    """
-
-    count: Optional[Long]
-    arn: Optional[NonEmptyString]
-    name: Optional[NonEmptyString]
-    occurrences: Optional[Occurrences]
-
-
+:return: CustomDataIdentifiersDetections object
+	"""
+	count: Optional[Long]
+	arn: Optional[NonEmptyString]
+	name: Optional[NonEmptyString]
+	occurrences: Optional[Occurrences]
 CustomDataIdentifiersDetectionsList = List[CustomDataIdentifiersDetections]
-
-
 class CustomDataIdentifiersResult(ASFFBaseModel):
-    """
-    Contains an instance of sensitive data that was detected by a customer-defined identifier.
+	"""
+Contains an instance of sensitive data that was detected by a customer-defined identifier.
 
-    :param detections: The list of detected instances of sensitive data.
-    :param total_count: The total number of occurrences of sensitive data.
+:param detections: The list of detected instances of sensitive data.
+:param total_count: The total number of occurrences of sensitive data.
 
-    :return: CustomDataIdentifiersResult object
-    """
-
-    detections: Optional[CustomDataIdentifiersDetectionsList]
-    total_count: Optional[Long]
-
-
+:return: CustomDataIdentifiersResult object
+	"""
+	detections: Optional[CustomDataIdentifiersDetectionsList]
+	total_count: Optional[Long]
 class ClassificationResult(ASFFBaseModel):
-    """
-    Details about the sensitive data that was detected on the resource.
+	"""
+Details about the sensitive data that was detected on the resource.
 
-    :param mime_type: The type of content that the finding applies to.
-    :param size_classified: The total size in bytes of the affected data.
-    :param additional_occurrences: Indicates whether there are additional occurrences of sensitive data that are not included in the finding. This occurs when the number of occurrences exceeds the maximum that can be included.
-    :param status: The current status of the sensitive data detection.
-    :param sensitive_data: Provides details about sensitive data that was identified based on built-in configuration.
-    :param custom_data_identifiers: Provides details about sensitive data that was identified based on customer-defined configuration.
+:param mime_type: The type of content that the finding applies to.
+:param size_classified: The total size in bytes of the affected data.
+:param additional_occurrences: Indicates whether there are additional occurrences of sensitive data that are not included in the finding. This occurs when the number of occurrences exceeds the maximum that can be included.
+:param status: The current status of the sensitive data detection.
+:param sensitive_data: Provides details about sensitive data that was identified based on built-in configuration.
+:param custom_data_identifiers: Provides details about sensitive data that was identified based on customer-defined configuration.
 
-    :return: ClassificationResult object
-    """
-
-    mime_type: Optional[NonEmptyString]
-    size_classified: Optional[Long]
-    additional_occurrences: Optional[Boolean]
-    status: Optional[ClassificationStatus]
-    sensitive_data: Optional[SensitiveDataResultList]
-    custom_data_identifiers: Optional[CustomDataIdentifiersResult]
-
-
+:return: ClassificationResult object
+	"""
+	mime_type: Optional[NonEmptyString]
+	size_classified: Optional[Long]
+	additional_occurrences: Optional[Boolean]
+	status: Optional[ClassificationStatus]
+	sensitive_data: Optional[SensitiveDataResultList]
+	custom_data_identifiers: Optional[CustomDataIdentifiersResult]
 class DataClassificationDetails(ASFFBaseModel):
-    """
-    Provides details about sensitive data that was detected on a resource.
+	"""
+Provides details about sensitive data that was detected on a resource.
 
-    :param detailed_results_location: The path to the folder or file that contains the sensitive data.
-    :param result: The details about the sensitive data that was detected on the resource.
+:param detailed_results_location: The path to the folder or file that contains the sensitive data.
+:param result: The details about the sensitive data that was detected on the resource.
 
-    :return: DataClassificationDetails object
-    """
-
-    detailed_results_location: Optional[NonEmptyString]
-    result: Optional[ClassificationResult]
-
-
+:return: DataClassificationDetails object
+	"""
+	detailed_results_location: Optional[NonEmptyString]
+	result: Optional[ClassificationResult]
 class AwsAutoScalingAutoScalingGroupDetails(ASFFBaseModel):
-    """
-    Provides details about an auto scaling group.
+	"""
+Provides details about an auto scaling group.
 
-    :param launch_configuration_name: The name of the launch configuration.
-    :param load_balancer_names: The list of load balancers associated with the group.
-    :param health_check_type: The service to use for the health checks.
-    :param health_check_grace_period: The amount of time, in seconds, that Amazon EC2 Auto Scaling waits before it checks the health status of an EC2 instance that has come into service.
-    :param created_time: Indicates when the auto scaling group was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param launch_configuration_name: The name of the launch configuration.
+:param load_balancer_names: The list of load balancers associated with the group.
+:param health_check_type: The service to use for the health checks.
+:param health_check_grace_period: The amount of time, in seconds, that Amazon EC2 Auto Scaling waits before it checks the health status of an EC2 instance that has come into service.
+:param created_time: Indicates when the auto scaling group was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
 
-    :return: AwsAutoScalingAutoScalingGroupDetails object
-    """
-
-    launch_configuration_name: Optional[NonEmptyString]
-    load_balancer_names: Optional[StringList]
-    health_check_type: Optional[NonEmptyString]
-    health_check_grace_period: Optional[Integer]
-    created_time: Optional[Iso8601Timestamp]
-
-
+:return: AwsAutoScalingAutoScalingGroupDetails object
+	"""
+	launch_configuration_name: Optional[NonEmptyString]
+	load_balancer_names: Optional[StringList]
+	health_check_type: Optional[NonEmptyString]
+	health_check_grace_period: Optional[Integer]
+	created_time: Optional[Iso8601Timestamp]
 class AwsCodeBuildProjectEnvironmentRegistryCredential(ASFFBaseModel):
-    """
-    The credentials for access to a private registry.
+	"""
+The credentials for access to a private registry.
 
-    :param credential: The Amazon Resource Name (ARN) or name of credentials created using AWS Secrets Manager.  The credential can use the name of the credentials only if they exist in your current AWS Region.
-    :param credential_provider: The service that created the credentials to access a private Docker registry. The valid value, SECRETS_MANAGER, is for AWS Secrets Manager.
+:param credential: The Amazon Resource Name (ARN) or name of credentials created using AWS Secrets Manager.  The credential can use the name of the credentials only if they exist in your current AWS Region.  
+:param credential_provider: The service that created the credentials to access a private Docker registry. The valid value, SECRETS_MANAGER, is for AWS Secrets Manager.
 
-    :return: AwsCodeBuildProjectEnvironmentRegistryCredential object
-    """
-
-    credential: Optional[NonEmptyString]
-    credential_provider: Optional[NonEmptyString]
-
-
+:return: AwsCodeBuildProjectEnvironmentRegistryCredential object
+	"""
+	credential: Optional[NonEmptyString]
+	credential_provider: Optional[NonEmptyString]
 class AwsCodeBuildProjectEnvironment(ASFFBaseModel):
-    """
-    Information about the build environment for this build project.
+	"""
+Information about the build environment for this build project.
 
-    :param certificate: The certificate to use with this build project.
-    :param image_pull_credentials_type: The type of credentials AWS CodeBuild uses to pull images in your build. Valid values:    CODEBUILD specifies that AWS CodeBuild uses its own credentials. This requires that you modify your ECR repository policy to trust the AWS CodeBuild service principal.    SERVICE_ROLE specifies that AWS CodeBuild uses your build project's service role.   When you use a cross-account or private registry image, you must use SERVICE_ROLE credentials. When you use an AWS CodeBuild curated image, you must use CODEBUILD credentials.
-    :param registry_credential: The credentials for access to a private registry.
-    :param type: The type of build environment to use for related builds. The environment type ARM_CONTAINER is available only in Regions US East (N. Virginia), US East (Ohio), US West (Oregon), Europe (Ireland), Asia Pacific (Mumbai), Asia Pacific (Tokyo), Asia Pacific (Sydney), and Europe (Frankfurt). The environment type LINUX_CONTAINER with compute type build.general1.2xlarge is available only in Regions US East (N. Virginia), US East (N. Virginia), US West (Oregon), Canada (Central), Europe (Ireland), Europe (London), Europe (Frankfurt), Asia Pacific (Tokyo), Asia Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney), China (Beijing), and China (Ningxia). The environment type LINUX_GPU_CONTAINER is available only in Regions US East (N. Virginia), US East (N. Virginia), US West (Oregon), Canada (Central), Europe (Ireland), Europe (London), Europe (Frankfurt), Asia Pacific (Tokyo), Asia Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney), China (Beijing), and China (Ningxia). Valid values: WINDOWS_CONTAINER | LINUX_CONTAINER | LINUX_GPU_CONTAINER | ARM_CONTAINER
+:param certificate: The certificate to use with this build project.
+:param image_pull_credentials_type: The type of credentials AWS CodeBuild uses to pull images in your build. Valid values:    CODEBUILD specifies that AWS CodeBuild uses its own credentials. This requires that you modify your ECR repository policy to trust the AWS CodeBuild service principal.    SERVICE_ROLE specifies that AWS CodeBuild uses your build project's service role.   When you use a cross-account or private registry image, you must use SERVICE_ROLE credentials. When you use an AWS CodeBuild curated image, you must use CODEBUILD credentials.
+:param registry_credential: The credentials for access to a private registry.
+:param type: The type of build environment to use for related builds. The environment type ARM_CONTAINER is available only in Regions US East (N. Virginia), US East (Ohio), US West (Oregon), Europe (Ireland), Asia Pacific (Mumbai), Asia Pacific (Tokyo), Asia Pacific (Sydney), and Europe (Frankfurt). The environment type LINUX_CONTAINER with compute type build.general1.2xlarge is available only in Regions US East (N. Virginia), US East (N. Virginia), US West (Oregon), Canada (Central), Europe (Ireland), Europe (London), Europe (Frankfurt), Asia Pacific (Tokyo), Asia Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney), China (Beijing), and China (Ningxia). The environment type LINUX_GPU_CONTAINER is available only in Regions US East (N. Virginia), US East (N. Virginia), US West (Oregon), Canada (Central), Europe (Ireland), Europe (London), Europe (Frankfurt), Asia Pacific (Tokyo), Asia Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney), China (Beijing), and China (Ningxia). Valid values: WINDOWS_CONTAINER | LINUX_CONTAINER | LINUX_GPU_CONTAINER | ARM_CONTAINER 
 
-    :return: AwsCodeBuildProjectEnvironment object
-    """
-
-    certificate: Optional[NonEmptyString]
-    image_pull_credentials_type: Optional[NonEmptyString]
-    registry_credential: Optional[AwsCodeBuildProjectEnvironmentRegistryCredential]
-    type: Optional[NonEmptyString]
-
-
+:return: AwsCodeBuildProjectEnvironment object
+	"""
+	certificate: Optional[NonEmptyString]
+	image_pull_credentials_type: Optional[NonEmptyString]
+	registry_credential: Optional[AwsCodeBuildProjectEnvironmentRegistryCredential]
+	type: Optional[NonEmptyString]
 class AwsCodeBuildProjectSource(ASFFBaseModel):
-    """
-    Information about the build input source code for this build project.
+	"""
+Information about the build input source code for this build project.
 
-    :param type: The type of repository that contains the source code to be built. Valid values are:    BITBUCKET - The source code is in a Bitbucket repository.    CODECOMMIT - The source code is in an AWS CodeCommit repository.    CODEPIPELINE - The source code settings are specified in the source action of a pipeline in AWS CodePipeline.    GITHUB - The source code is in a GitHub repository.    GITHUB_ENTERPRISE - The source code is in a GitHub Enterprise repository.    NO_SOURCE - The project does not have input source code.    S3 - The source code is in an S3 input bucket.
-    :param location: Information about the location of the source code to be built. Valid values include:   For source code settings that are specified in the source action of a pipeline in AWS CodePipeline, location should not be specified. If it is specified, AWS CodePipeline ignores it. This is because AWS CodePipeline uses the settings in a pipeline's source action instead of this value.   For source code in an AWS CodeCommit repository, the HTTPS clone URL to the repository that contains the source code and the build spec file (for example, https://git-codecommit.region-ID.amazonaws.com/v1/repos/repo-name ).   For source code in an S3 input bucket, one of the following.   The path to the ZIP file that contains the source code (for example, bucket-name/path/to/object-name.zip).    The path to the folder that contains the source code (for example, bucket-name/path/to/source-code/folder/).     For source code in a GitHub repository, the HTTPS clone URL to the repository that contains the source and the build spec file.   For source code in a Bitbucket repository, the HTTPS clone URL to the repository that contains the source and the build spec file.
-    :param git_clone_depth: Information about the Git clone depth for the build project.
-    :param insecure_ssl: Whether to ignore SSL warnings while connecting to the project source code.
+:param type: The type of repository that contains the source code to be built. Valid values are:    BITBUCKET - The source code is in a Bitbucket repository.    CODECOMMIT - The source code is in an AWS CodeCommit repository.    CODEPIPELINE - The source code settings are specified in the source action of a pipeline in AWS CodePipeline.    GITHUB - The source code is in a GitHub repository.    GITHUB_ENTERPRISE - The source code is in a GitHub Enterprise repository.    NO_SOURCE - The project does not have input source code.    S3 - The source code is in an S3 input bucket.   
+:param location: Information about the location of the source code to be built. Valid values include:   For source code settings that are specified in the source action of a pipeline in AWS CodePipeline, location should not be specified. If it is specified, AWS CodePipeline ignores it. This is because AWS CodePipeline uses the settings in a pipeline's source action instead of this value.   For source code in an AWS CodeCommit repository, the HTTPS clone URL to the repository that contains the source code and the build spec file (for example, https://git-codecommit.region-ID.amazonaws.com/v1/repos/repo-name ).   For source code in an S3 input bucket, one of the following.   The path to the ZIP file that contains the source code (for example, bucket-name/path/to/object-name.zip).    The path to the folder that contains the source code (for example, bucket-name/path/to/source-code/folder/).     For source code in a GitHub repository, the HTTPS clone URL to the repository that contains the source and the build spec file.   For source code in a Bitbucket repository, the HTTPS clone URL to the repository that contains the source and the build spec file.   
+:param git_clone_depth: Information about the Git clone depth for the build project.
+:param insecure_ssl: Whether to ignore SSL warnings while connecting to the project source code.
 
-    :return: AwsCodeBuildProjectSource object
-    """
-
-    type: Optional[NonEmptyString]
-    location: Optional[NonEmptyString]
-    git_clone_depth: Optional[Integer]
-    insecure_ssl: Optional[Boolean]
-
-
+:return: AwsCodeBuildProjectSource object
+	"""
+	type: Optional[NonEmptyString]
+	location: Optional[NonEmptyString]
+	git_clone_depth: Optional[Integer]
+	insecure_ssl: Optional[Boolean]
 NonEmptyStringList = List[NonEmptyString]
-
-
 class AwsCodeBuildProjectVpcConfig(ASFFBaseModel):
-    """
-    Information about the VPC configuration that AWS CodeBuild accesses.
+	"""
+Information about the VPC configuration that AWS CodeBuild accesses.
 
-    :param vpc_id: The ID of the VPC.
-    :param subnets: A list of one or more subnet IDs in your Amazon VPC.
-    :param security_group_ids: A list of one or more security group IDs in your Amazon VPC.
+:param vpc_id: The ID of the VPC.
+:param subnets: A list of one or more subnet IDs in your Amazon VPC.
+:param security_group_ids: A list of one or more security group IDs in your Amazon VPC.
 
-    :return: AwsCodeBuildProjectVpcConfig object
-    """
-
-    vpc_id: Optional[NonEmptyString]
-    subnets: Optional[NonEmptyStringList]
-    security_group_ids: Optional[NonEmptyStringList]
-
-
+:return: AwsCodeBuildProjectVpcConfig object
+	"""
+	vpc_id: Optional[NonEmptyString]
+	subnets: Optional[NonEmptyStringList]
+	security_group_ids: Optional[NonEmptyStringList]
 class AwsCodeBuildProjectDetails(ASFFBaseModel):
-    """
-    Information about an AWS CodeBuild project.
+	"""
+Information about an AWS CodeBuild project.
 
-    :param encryption_key: The AWS Key Management Service (AWS KMS) customer master key (CMK) used to encrypt the build output artifacts. You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK alias (using the format alias/alias-name).
-    :param environment: Information about the build environment for this build project.
-    :param name: The name of the build project.
-    :param source: Information about the build input source code for this build project.
-    :param service_role: The ARN of the IAM role that enables AWS CodeBuild to interact with dependent AWS services on behalf of the AWS account.
-    :param vpc_config: Information about the VPC configuration that AWS CodeBuild accesses.
+:param encryption_key: The AWS Key Management Service (AWS KMS) customer master key (CMK) used to encrypt the build output artifacts. You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK alias (using the format alias/alias-name). 
+:param environment: Information about the build environment for this build project.
+:param name: The name of the build project.
+:param source: Information about the build input source code for this build project.
+:param service_role: The ARN of the IAM role that enables AWS CodeBuild to interact with dependent AWS services on behalf of the AWS account.
+:param vpc_config: Information about the VPC configuration that AWS CodeBuild accesses.
 
-    :return: AwsCodeBuildProjectDetails object
-    """
-
-    encryption_key: Optional[NonEmptyString]
-    environment: Optional[AwsCodeBuildProjectEnvironment]
-    name: Optional[NonEmptyString]
-    source: Optional[AwsCodeBuildProjectSource]
-    service_role: Optional[NonEmptyString]
-    vpc_config: Optional[AwsCodeBuildProjectVpcConfig]
-
-
+:return: AwsCodeBuildProjectDetails object
+	"""
+	encryption_key: Optional[NonEmptyString]
+	environment: Optional[AwsCodeBuildProjectEnvironment]
+	name: Optional[NonEmptyString]
+	source: Optional[AwsCodeBuildProjectSource]
+	service_role: Optional[NonEmptyString]
+	vpc_config: Optional[AwsCodeBuildProjectVpcConfig]
 class AwsCloudFrontDistributionCacheBehavior(ASFFBaseModel):
-    """
-    Information about a cache behavior for the distribution.
+	"""
+Information about a cache behavior for the distribution.
 
-    :param viewer_protocol_policy: The protocol that viewers can use to access the files in an origin. You can specify the following options:    allow-all - Viewers can use HTTP or HTTPS.    redirect-to-https - CloudFront responds to HTTP requests with an HTTP status code of 301 (Moved Permanently) and the HTTPS URL. The viewer then uses the new URL to resubmit.    https-only - CloudFront responds to HTTP request with an HTTP status code of 403 (Forbidden).
+:param viewer_protocol_policy: The protocol that viewers can use to access the files in an origin. You can specify the following options:    allow-all - Viewers can use HTTP or HTTPS.    redirect-to-https - CloudFront responds to HTTP requests with an HTTP status code of 301 (Moved Permanently) and the HTTPS URL. The viewer then uses the new URL to resubmit.    https-only - CloudFront responds to HTTP request with an HTTP status code of 403 (Forbidden).  
 
-    :return: AwsCloudFrontDistributionCacheBehavior object
-    """
-
-    viewer_protocol_policy: Optional[NonEmptyString]
-
-
-AwsCloudFrontDistributionCacheBehaviorsItemList = List[
-    AwsCloudFrontDistributionCacheBehavior
-]
-
-
+:return: AwsCloudFrontDistributionCacheBehavior object
+	"""
+	viewer_protocol_policy: Optional[NonEmptyString]
+AwsCloudFrontDistributionCacheBehaviorsItemList = List[AwsCloudFrontDistributionCacheBehavior]
 class AwsCloudFrontDistributionCacheBehaviors(ASFFBaseModel):
-    """
-    Provides information about caching for the distribution.
+	"""
+Provides information about caching for the distribution.
 
-    :param items: The cache behaviors for the distribution.
+:param items: The cache behaviors for the distribution.
 
-    :return: AwsCloudFrontDistributionCacheBehaviors object
-    """
-
-    items: Optional[AwsCloudFrontDistributionCacheBehaviorsItemList]
-
-
+:return: AwsCloudFrontDistributionCacheBehaviors object
+	"""
+	items: Optional[AwsCloudFrontDistributionCacheBehaviorsItemList]
 class AwsCloudFrontDistributionDefaultCacheBehavior(ASFFBaseModel):
-    """
-    Contains information about the default cache configuration for the distribution.
+	"""
+Contains information about the default cache configuration for the distribution.
 
-    :param viewer_protocol_policy: The protocol that viewers can use to access the files in an origin. You can specify the following options:    allow-all - Viewers can use HTTP or HTTPS.    redirect-to-https - CloudFront responds to HTTP requests with an HTTP status code of 301 (Moved Permanently) and the HTTPS URL. The viewer then uses the new URL to resubmit.    https-only - CloudFront responds to HTTP request with an HTTP status code of 403 (Forbidden).
+:param viewer_protocol_policy: The protocol that viewers can use to access the files in an origin. You can specify the following options:    allow-all - Viewers can use HTTP or HTTPS.    redirect-to-https - CloudFront responds to HTTP requests with an HTTP status code of 301 (Moved Permanently) and the HTTPS URL. The viewer then uses the new URL to resubmit.    https-only - CloudFront responds to HTTP request with an HTTP status code of 403 (Forbidden).  
 
-    :return: AwsCloudFrontDistributionDefaultCacheBehavior object
-    """
-
-    viewer_protocol_policy: Optional[NonEmptyString]
-
-
+:return: AwsCloudFrontDistributionDefaultCacheBehavior object
+	"""
+	viewer_protocol_policy: Optional[NonEmptyString]
 class AwsCloudFrontDistributionLogging(ASFFBaseModel):
-    """
-    A complex type that controls whether access logs are written for the distribution.
+	"""
+A complex type that controls whether access logs are written for the distribution.
 
-    :param bucket: The Amazon S3 bucket to store the access logs in.
-    :param enabled: With this field, you can enable or disable the selected distribution.
-    :param include_cookies: Specifies whether you want CloudFront to include cookies in access logs.
-    :param prefix: An optional string that you want CloudFront to use as a prefix to the access log filenames for this distribution.
+:param bucket: The Amazon S3 bucket to store the access logs in.
+:param enabled: With this field, you can enable or disable the selected distribution.
+:param include_cookies: Specifies whether you want CloudFront to include cookies in access logs.
+:param prefix: An optional string that you want CloudFront to use as a prefix to the access log filenames for this distribution.
 
-    :return: AwsCloudFrontDistributionLogging object
-    """
-
-    bucket: Optional[NonEmptyString]
-    enabled: Optional[Boolean]
-    include_cookies: Optional[Boolean]
-    prefix: Optional[NonEmptyString]
-
-
+:return: AwsCloudFrontDistributionLogging object
+	"""
+	bucket: Optional[NonEmptyString]
+	enabled: Optional[Boolean]
+	include_cookies: Optional[Boolean]
+	prefix: Optional[NonEmptyString]
 class AwsCloudFrontDistributionOriginS3OriginConfig(ASFFBaseModel):
-    """
-    Information about an origin that is an S3 bucket that is not configured with static website hosting.
+	"""
+Information about an origin that is an S3 bucket that is not configured with static website hosting.
 
-    :param origin_access_identity: The CloudFront origin access identity to associate with the origin.
+:param origin_access_identity: The CloudFront origin access identity to associate with the origin.
 
-    :return: AwsCloudFrontDistributionOriginS3OriginConfig object
-    """
-
-    origin_access_identity: Optional[NonEmptyString]
-
-
+:return: AwsCloudFrontDistributionOriginS3OriginConfig object
+	"""
+	origin_access_identity: Optional[NonEmptyString]
 class AwsCloudFrontDistributionOriginItem(ASFFBaseModel):
-    """
-    A complex type that describes the Amazon S3 bucket, HTTP server (for example, a web server), Amazon Elemental MediaStore, or other server from which CloudFront gets your files.
+	"""
+A complex type that describes the Amazon S3 bucket, HTTP server (for example, a web server), Amazon Elemental MediaStore, or other server from which CloudFront gets your files.
 
-    :param domain_name: Amazon S3 origins: The DNS name of the Amazon S3 bucket from which you want CloudFront to get objects for this origin.
-    :param id: A unique identifier for the origin or origin group.
-    :param origin_path: An optional element that causes CloudFront to request your content from a directory in your Amazon S3 bucket or your custom origin.
-    :param s3_origin_config: An origin that is an S3 bucket that is not configured with static website hosting.
+:param domain_name: Amazon S3 origins: The DNS name of the Amazon S3 bucket from which you want CloudFront to get objects for this origin.
+:param id: A unique identifier for the origin or origin group.
+:param origin_path: An optional element that causes CloudFront to request your content from a directory in your Amazon S3 bucket or your custom origin.
+:param s3_origin_config: An origin that is an S3 bucket that is not configured with static website hosting.
 
-    :return: AwsCloudFrontDistributionOriginItem object
-    """
-
-    domain_name: Optional[NonEmptyString]
-    id: Optional[NonEmptyString]
-    origin_path: Optional[NonEmptyString]
-    s3_origin_config: Optional[AwsCloudFrontDistributionOriginS3OriginConfig]
-
-
+:return: AwsCloudFrontDistributionOriginItem object
+	"""
+	domain_name: Optional[NonEmptyString]
+	id: Optional[NonEmptyString]
+	origin_path: Optional[NonEmptyString]
+	s3_origin_config: Optional[AwsCloudFrontDistributionOriginS3OriginConfig]
 AwsCloudFrontDistributionOriginItemList = List[AwsCloudFrontDistributionOriginItem]
-
-
 class AwsCloudFrontDistributionOrigins(ASFFBaseModel):
-    """
-    A complex type that contains information about origins and origin groups for this distribution.
+	"""
+A complex type that contains information about origins and origin groups for this distribution.
 
-    :param items: A complex type that contains origins or origin groups for this distribution.
+:param items: A complex type that contains origins or origin groups for this distribution.
 
-    :return: AwsCloudFrontDistributionOrigins object
-    """
-
-    items: Optional[AwsCloudFrontDistributionOriginItemList]
-
-
+:return: AwsCloudFrontDistributionOrigins object
+	"""
+	items: Optional[AwsCloudFrontDistributionOriginItemList]
 AwsCloudFrontDistributionOriginGroupFailoverStatusCodesItemList = List[Integer]
-
-
 class AwsCloudFrontDistributionOriginGroupFailoverStatusCodes(ASFFBaseModel):
-    """
-    The status codes that cause an origin group to fail over.
+	"""
+The status codes that cause an origin group to fail over.
 
-    :param items: The list of status code values that can cause a failover to the next origin.
-    :param quantity: The number of status codes that can cause a failover.
+:param items: The list of status code values that can cause a failover to the next origin.
+:param quantity: The number of status codes that can cause a failover.
 
-    :return: AwsCloudFrontDistributionOriginGroupFailoverStatusCodes object
-    """
-
-    items: Optional[AwsCloudFrontDistributionOriginGroupFailoverStatusCodesItemList]
-    quantity: Optional[Integer]
-
-
+:return: AwsCloudFrontDistributionOriginGroupFailoverStatusCodes object
+	"""
+	items: Optional[AwsCloudFrontDistributionOriginGroupFailoverStatusCodesItemList]
+	quantity: Optional[Integer]
 class AwsCloudFrontDistributionOriginGroupFailover(ASFFBaseModel):
-    """
-    Provides information about when an origin group fails over.
+	"""
+Provides information about when an origin group fails over.
 
-    :param status_codes: Information about the status codes that cause an origin group to fail over.
+:param status_codes: Information about the status codes that cause an origin group to fail over.
 
-    :return: AwsCloudFrontDistributionOriginGroupFailover object
-    """
-
-    status_codes: Optional[AwsCloudFrontDistributionOriginGroupFailoverStatusCodes]
-
-
+:return: AwsCloudFrontDistributionOriginGroupFailover object
+	"""
+	status_codes: Optional[AwsCloudFrontDistributionOriginGroupFailoverStatusCodes]
 class AwsCloudFrontDistributionOriginGroup(ASFFBaseModel):
-    """
-    Information about an origin group for the distribution.
+	"""
+Information about an origin group for the distribution.
 
-    :param failover_criteria: Provides the criteria for an origin group to fail over.
+:param failover_criteria: Provides the criteria for an origin group to fail over.
 
-    :return: AwsCloudFrontDistributionOriginGroup object
-    """
-
-    failover_criteria: Optional[AwsCloudFrontDistributionOriginGroupFailover]
-
-
-AwsCloudFrontDistributionOriginGroupsItemList = List[
-    AwsCloudFrontDistributionOriginGroup
-]
-
-
+:return: AwsCloudFrontDistributionOriginGroup object
+	"""
+	failover_criteria: Optional[AwsCloudFrontDistributionOriginGroupFailover]
+AwsCloudFrontDistributionOriginGroupsItemList = List[AwsCloudFrontDistributionOriginGroup]
 class AwsCloudFrontDistributionOriginGroups(ASFFBaseModel):
-    """
-    Provides information about origin groups that are associated with the distribution.
+	"""
+Provides information about origin groups that are associated with the distribution.
 
-    :param items: The list of origin groups.
+:param items: The list of origin groups.
 
-    :return: AwsCloudFrontDistributionOriginGroups object
-    """
-
-    items: Optional[AwsCloudFrontDistributionOriginGroupsItemList]
-
-
+:return: AwsCloudFrontDistributionOriginGroups object
+	"""
+	items: Optional[AwsCloudFrontDistributionOriginGroupsItemList]
 class AwsCloudFrontDistributionDetails(ASFFBaseModel):
-    """
-    A distribution configuration.
+	"""
+A distribution configuration.
 
-    :param cache_behaviors: Provides information about the cache configuration for the distribution.
-    :param default_cache_behavior: The default cache behavior for the configuration.
-    :param default_root_object: The object that CloudFront sends in response to requests from the origin (for example, index.html) when a viewer requests the root URL for the distribution (http://www.example.com) instead of an object in your distribution (http://www.example.com/product-description.html).
-    :param domain_name: The domain name corresponding to the distribution.
-    :param e_tag: The entity tag is a hash of the object.
-    :param last_modified_time: Indicates when that the distribution was last modified. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param logging: A complex type that controls whether access logs are written for the distribution.
-    :param origins: A complex type that contains information about origins for this distribution.
-    :param origin_groups: Provides information about the origin groups in the distribution.
-    :param status: Indicates the current status of the distribution.
-    :param web_acl_id: A unique identifier that specifies the AWS WAF web ACL, if any, to associate with this distribution.
+:param cache_behaviors: Provides information about the cache configuration for the distribution.
+:param default_cache_behavior: The default cache behavior for the configuration.
+:param default_root_object: The object that CloudFront sends in response to requests from the origin (for example, index.html) when a viewer requests the root URL for the distribution (http://www.example.com) instead of an object in your distribution (http://www.example.com/product-description.html). 
+:param domain_name: The domain name corresponding to the distribution.
+:param e_tag: The entity tag is a hash of the object.
+:param last_modified_time: Indicates when that the distribution was last modified. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param logging: A complex type that controls whether access logs are written for the distribution.
+:param origins: A complex type that contains information about origins for this distribution.
+:param origin_groups: Provides information about the origin groups in the distribution.
+:param status: Indicates the current status of the distribution.
+:param web_acl_id: A unique identifier that specifies the AWS WAF web ACL, if any, to associate with this distribution.
 
-    :return: AwsCloudFrontDistributionDetails object
-    """
-
-    cache_behaviors: Optional[AwsCloudFrontDistributionCacheBehaviors]
-    default_cache_behavior: Optional[AwsCloudFrontDistributionDefaultCacheBehavior]
-    default_root_object: Optional[NonEmptyString]
-    domain_name: Optional[NonEmptyString]
-    e_tag: Optional[NonEmptyString]
-    last_modified_time: Optional[Iso8601Timestamp]
-    logging: Optional[AwsCloudFrontDistributionLogging]
-    origins: Optional[AwsCloudFrontDistributionOrigins]
-    origin_groups: Optional[AwsCloudFrontDistributionOriginGroups]
-    status: Optional[NonEmptyString]
-    web_acl_id: Optional[NonEmptyString]
-
-
+:return: AwsCloudFrontDistributionDetails object
+	"""
+	cache_behaviors: Optional[AwsCloudFrontDistributionCacheBehaviors]
+	default_cache_behavior: Optional[AwsCloudFrontDistributionDefaultCacheBehavior]
+	default_root_object: Optional[NonEmptyString]
+	domain_name: Optional[NonEmptyString]
+	e_tag: Optional[NonEmptyString]
+	last_modified_time: Optional[Iso8601Timestamp]
+	logging: Optional[AwsCloudFrontDistributionLogging]
+	origins: Optional[AwsCloudFrontDistributionOrigins]
+	origin_groups: Optional[AwsCloudFrontDistributionOriginGroups]
+	status: Optional[NonEmptyString]
+	web_acl_id: Optional[NonEmptyString]
 class AwsEc2InstanceDetails(ASFFBaseModel):
-    """
-    The details of an Amazon EC2 instance.
+	"""
+The details of an Amazon EC2 instance.
 
-    :param type: The instance type of the instance.
-    :param image_id: The Amazon Machine Image (AMI) ID of the instance.
-    :param ip_v4_addresses: The IPv4 addresses associated with the instance.
-    :param ip_v6_addresses: The IPv6 addresses associated with the instance.
-    :param key_name: The key name associated with the instance.
-    :param iam_instance_profile_arn: The IAM profile ARN of the instance.
-    :param vpc_id: The identifier of the VPC that the instance was launched in.
-    :param subnet_id: The identifier of the subnet that the instance was launched in.
-    :param launched_at: Indicates when the instance was launched. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param type: The instance type of the instance. 
+:param image_id: The Amazon Machine Image (AMI) ID of the instance.
+:param ip_v4_addresses: The IPv4 addresses associated with the instance.
+:param ip_v6_addresses: The IPv6 addresses associated with the instance.
+:param key_name: The key name associated with the instance.
+:param iam_instance_profile_arn: The IAM profile ARN of the instance.
+:param vpc_id: The identifier of the VPC that the instance was launched in.
+:param subnet_id: The identifier of the subnet that the instance was launched in.
+:param launched_at: Indicates when the instance was launched. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
 
-    :return: AwsEc2InstanceDetails object
-    """
-
-    type: Optional[NonEmptyString]
-    image_id: Optional[NonEmptyString]
-    ip_v4_addresses: Optional[StringList]
-    ip_v6_addresses: Optional[StringList]
-    key_name: Optional[NonEmptyString]
-    iam_instance_profile_arn: Optional[NonEmptyString]
-    vpc_id: Optional[NonEmptyString]
-    subnet_id: Optional[NonEmptyString]
-    launched_at: Optional[Iso8601Timestamp]
-
-
+:return: AwsEc2InstanceDetails object
+	"""
+	type: Optional[NonEmptyString]
+	image_id: Optional[NonEmptyString]
+	ip_v4_addresses: Optional[StringList]
+	ip_v6_addresses: Optional[StringList]
+	key_name: Optional[NonEmptyString]
+	iam_instance_profile_arn: Optional[NonEmptyString]
+	vpc_id: Optional[NonEmptyString]
+	subnet_id: Optional[NonEmptyString]
+	launched_at: Optional[Iso8601Timestamp]
 class AwsEc2NetworkInterfaceAttachment(ASFFBaseModel):
-    """
-    Information about the network interface attachment.
+	"""
+Information about the network interface attachment.
 
-    :param attach_time: Indicates when the attachment initiated. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param attachment_id: The identifier of the network interface attachment
-    :param delete_on_termination: Indicates whether the network interface is deleted when the instance is terminated.
-    :param device_index: The device index of the network interface attachment on the instance.
-    :param instance_id: The ID of the instance.
-    :param instance_owner_id: The AWS account ID of the owner of the instance.
-    :param status: The attachment state. Valid values: attaching | attached | detaching | detached
+:param attach_time: Indicates when the attachment initiated. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param attachment_id: The identifier of the network interface attachment
+:param delete_on_termination: Indicates whether the network interface is deleted when the instance is terminated.
+:param device_index: The device index of the network interface attachment on the instance.
+:param instance_id: The ID of the instance.
+:param instance_owner_id: The AWS account ID of the owner of the instance.
+:param status: The attachment state. Valid values: attaching | attached | detaching | detached 
 
-    :return: AwsEc2NetworkInterfaceAttachment object
-    """
-
-    attach_time: Optional[Iso8601Timestamp]
-    attachment_id: Optional[NonEmptyString]
-    delete_on_termination: Optional[Boolean]
-    device_index: Optional[Integer]
-    instance_id: Optional[NonEmptyString]
-    instance_owner_id: Optional[NonEmptyString]
-    status: Optional[NonEmptyString]
-
-
+:return: AwsEc2NetworkInterfaceAttachment object
+	"""
+	attach_time: Optional[Iso8601Timestamp]
+	attachment_id: Optional[NonEmptyString]
+	delete_on_termination: Optional[Boolean]
+	device_index: Optional[Integer]
+	instance_id: Optional[NonEmptyString]
+	instance_owner_id: Optional[NonEmptyString]
+	status: Optional[NonEmptyString]
 class AwsEc2NetworkInterfaceSecurityGroup(ASFFBaseModel):
-    """
-    A security group associated with the network interface.
+	"""
+A security group associated with the network interface.
 
-    :param group_name: The name of the security group.
-    :param group_id: The ID of the security group.
+:param group_name: The name of the security group.
+:param group_id: The ID of the security group.
 
-    :return: AwsEc2NetworkInterfaceSecurityGroup object
-    """
-
-    group_name: Optional[NonEmptyString]
-    group_id: Optional[NonEmptyString]
-
-
+:return: AwsEc2NetworkInterfaceSecurityGroup object
+	"""
+	group_name: Optional[NonEmptyString]
+	group_id: Optional[NonEmptyString]
 AwsEc2NetworkInterfaceSecurityGroupList = List[AwsEc2NetworkInterfaceSecurityGroup]
-
-
 class AwsEc2NetworkInterfaceIpV6AddressDetail(ASFFBaseModel):
-    """
-    Provides information about an IPV6 address that is associated with the network interface.
+	"""
+Provides information about an IPV6 address that is associated with the network interface.
 
-    :param ip_v6_address: The IPV6 address.
+:param ip_v6_address: The IPV6 address.
 
-    :return: AwsEc2NetworkInterfaceIpV6AddressDetail object
-    """
-
-    ip_v6_address: Optional[NonEmptyString]
-
-
+:return: AwsEc2NetworkInterfaceIpV6AddressDetail object
+	"""
+	ip_v6_address: Optional[NonEmptyString]
 AwsEc2NetworkInterfaceIpV6AddressList = List[AwsEc2NetworkInterfaceIpV6AddressDetail]
-
-
 class AwsEc2NetworkInterfacePrivateIpAddressDetail(ASFFBaseModel):
-    """
-    Provides information about a private IPv4 address that is with the network interface.
+	"""
+Provides information about a private IPv4 address that is with the network interface.
 
-    :param private_ip_address: The IP address.
-    :param private_dns_name: The private DNS name for the IP address.
+:param private_ip_address: The IP address.
+:param private_dns_name: The private DNS name for the IP address.
 
-    :return: AwsEc2NetworkInterfacePrivateIpAddressDetail object
-    """
-
-    private_ip_address: Optional[NonEmptyString]
-    private_dns_name: Optional[NonEmptyString]
-
-
-AwsEc2NetworkInterfacePrivateIpAddressList = List[
-    AwsEc2NetworkInterfacePrivateIpAddressDetail
-]
-
-
+:return: AwsEc2NetworkInterfacePrivateIpAddressDetail object
+	"""
+	private_ip_address: Optional[NonEmptyString]
+	private_dns_name: Optional[NonEmptyString]
+AwsEc2NetworkInterfacePrivateIpAddressList = List[AwsEc2NetworkInterfacePrivateIpAddressDetail]
 class AwsEc2NetworkInterfaceDetails(ASFFBaseModel):
-    """
-    Details about the network interface
+	"""
+Details about the network interface
 
-    :param attachment: The network interface attachment.
-    :param network_interface_id: The ID of the network interface.
-    :param security_groups: Security groups for the network interface.
-    :param source_dest_check: Indicates whether traffic to or from the instance is validated.
-    :param ip_v6_addresses: The IPv6 addresses associated with the network interface.
-    :param private_ip_addresses: The private IPv4 addresses associated with the network interface.
-    :param public_dns_name: The public DNS name of the network interface.
-    :param public_ip: The address of the Elastic IP address bound to the network interface.
+:param attachment: The network interface attachment.
+:param network_interface_id: The ID of the network interface.
+:param security_groups: Security groups for the network interface.
+:param source_dest_check: Indicates whether traffic to or from the instance is validated.
+:param ip_v6_addresses: The IPv6 addresses associated with the network interface.
+:param private_ip_addresses: The private IPv4 addresses associated with the network interface.
+:param public_dns_name: The public DNS name of the network interface.
+:param public_ip: The address of the Elastic IP address bound to the network interface.
 
-    :return: AwsEc2NetworkInterfaceDetails object
-    """
-
-    attachment: Optional[AwsEc2NetworkInterfaceAttachment]
-    network_interface_id: Optional[NonEmptyString]
-    security_groups: Optional[AwsEc2NetworkInterfaceSecurityGroupList]
-    source_dest_check: Optional[Boolean]
-    ip_v6_addresses: Optional[AwsEc2NetworkInterfaceIpV6AddressList]
-    private_ip_addresses: Optional[AwsEc2NetworkInterfacePrivateIpAddressList]
-    public_dns_name: Optional[NonEmptyString]
-    public_ip: Optional[NonEmptyString]
-
-
+:return: AwsEc2NetworkInterfaceDetails object
+	"""
+	attachment: Optional[AwsEc2NetworkInterfaceAttachment]
+	network_interface_id: Optional[NonEmptyString]
+	security_groups: Optional[AwsEc2NetworkInterfaceSecurityGroupList]
+	source_dest_check: Optional[Boolean]
+	ip_v6_addresses: Optional[AwsEc2NetworkInterfaceIpV6AddressList]
+	private_ip_addresses: Optional[AwsEc2NetworkInterfacePrivateIpAddressList]
+	public_dns_name: Optional[NonEmptyString]
+	public_ip: Optional[NonEmptyString]
 class AwsEc2SecurityGroupUserIdGroupPair(ASFFBaseModel):
-    """
-    A relationship between a security group and a user.
+	"""
+A relationship between a security group and a user.
 
-    :param group_id: The ID of the security group.
-    :param group_name: The name of the security group.
-    :param peering_status: The status of a VPC peering connection, if applicable.
-    :param user_id: The ID of an AWS account. For a referenced security group in another VPC, the account ID of the referenced security group is returned in the response. If the referenced security group is deleted, this value is not returned. [EC2-Classic] Required when adding or removing rules that reference a security group in another AWS.
-    :param vpc_id: The ID of the VPC for the referenced security group, if applicable.
-    :param vpc_peering_connection_id: The ID of the VPC peering connection, if applicable.
+:param group_id: The ID of the security group.
+:param group_name: The name of the security group.
+:param peering_status: The status of a VPC peering connection, if applicable.
+:param user_id: The ID of an AWS account. For a referenced security group in another VPC, the account ID of the referenced security group is returned in the response. If the referenced security group is deleted, this value is not returned. [EC2-Classic] Required when adding or removing rules that reference a security group in another AWS. 
+:param vpc_id: The ID of the VPC for the referenced security group, if applicable.
+:param vpc_peering_connection_id: The ID of the VPC peering connection, if applicable.
 
-    :return: AwsEc2SecurityGroupUserIdGroupPair object
-    """
-
-    group_id: Optional[NonEmptyString]
-    group_name: Optional[NonEmptyString]
-    peering_status: Optional[NonEmptyString]
-    user_id: Optional[NonEmptyString]
-    vpc_id: Optional[NonEmptyString]
-    vpc_peering_connection_id: Optional[NonEmptyString]
-
-
+:return: AwsEc2SecurityGroupUserIdGroupPair object
+	"""
+	group_id: Optional[NonEmptyString]
+	group_name: Optional[NonEmptyString]
+	peering_status: Optional[NonEmptyString]
+	user_id: Optional[NonEmptyString]
+	vpc_id: Optional[NonEmptyString]
+	vpc_peering_connection_id: Optional[NonEmptyString]
 AwsEc2SecurityGroupUserIdGroupPairList = List[AwsEc2SecurityGroupUserIdGroupPair]
-
-
 class AwsEc2SecurityGroupIpRange(ASFFBaseModel):
-    """
-    A range of IPv4 addresses.
+	"""
+A range of IPv4 addresses.
 
-    :param cidr_ip: The IPv4 CIDR range. You can specify either a CIDR range or a source security group, but not both. To specify a single IPv4 address, use the /32 prefix length.
+:param cidr_ip: The IPv4 CIDR range. You can specify either a CIDR range or a source security group, but not both. To specify a single IPv4 address, use the /32 prefix length.
 
-    :return: AwsEc2SecurityGroupIpRange object
-    """
-
-    cidr_ip: Optional[NonEmptyString]
-
-
+:return: AwsEc2SecurityGroupIpRange object
+	"""
+	cidr_ip: Optional[NonEmptyString]
 AwsEc2SecurityGroupIpRangeList = List[AwsEc2SecurityGroupIpRange]
-
-
 class AwsEc2SecurityGroupIpv6Range(ASFFBaseModel):
-    """
-    A range of IPv6 addresses.
+	"""
+A range of IPv6 addresses.
 
-    :param cidr_ipv6: The IPv6 CIDR range. You can specify either a CIDR range or a source security group, but not both. To specify a single IPv6 address, use the /128 prefix length.
+:param cidr_ipv6: The IPv6 CIDR range. You can specify either a CIDR range or a source security group, but not both. To specify a single IPv6 address, use the /128 prefix length.
 
-    :return: AwsEc2SecurityGroupIpv6Range object
-    """
-
-    cidr_ipv6: Optional[NonEmptyString]
-
-
+:return: AwsEc2SecurityGroupIpv6Range object
+	"""
+	cidr_ipv6: Optional[NonEmptyString]
 AwsEc2SecurityGroupIpv6RangeList = List[AwsEc2SecurityGroupIpv6Range]
-
-
 class AwsEc2SecurityGroupPrefixListId(ASFFBaseModel):
-    """
-    A prefix list ID.
+	"""
+A prefix list ID.
 
-    :param prefix_list_id: The ID of the prefix.
+:param prefix_list_id: The ID of the prefix.
 
-    :return: AwsEc2SecurityGroupPrefixListId object
-    """
-
-    prefix_list_id: Optional[NonEmptyString]
-
-
+:return: AwsEc2SecurityGroupPrefixListId object
+	"""
+	prefix_list_id: Optional[NonEmptyString]
 AwsEc2SecurityGroupPrefixListIdList = List[AwsEc2SecurityGroupPrefixListId]
-
-
 class AwsEc2SecurityGroupIpPermission(ASFFBaseModel):
-    """
-    An IP permission for an EC2 security group.
+	"""
+An IP permission for an EC2 security group.
 
-    :param ip_protocol: The IP protocol name (tcp, udp, icmp, icmpv6) or number. [VPC only] Use -1 to specify all protocols. When authorizing security group rules, specifying -1 or a protocol number other than tcp, udp, icmp, or icmpv6 allows traffic on all ports, regardless of any port range you specify. For tcp, udp, and icmp, you must specify a port range. For icmpv6, the port range is optional. If you omit the port range, traffic for all types and codes is allowed.
-    :param from_port: The start of the port range for the TCP and UDP protocols, or an ICMP/ICMPv6 type number. A value of -1 indicates all ICMP/ICMPv6 types. If you specify all ICMP/ICMPv6 types, you must specify all codes.
-    :param to_port: The end of the port range for the TCP and UDP protocols, or an ICMP/ICMPv6 code. A value of -1 indicates all ICMP/ICMPv6 codes. If you specify all ICMP/ICMPv6 types, you must specify all codes.
-    :param user_id_group_pairs: The security group and AWS account ID pairs.
-    :param ip_ranges: The IPv4 ranges.
-    :param ipv6_ranges: The IPv6 ranges.
-    :param prefix_list_ids: [VPC only] The prefix list IDs for an AWS service. With outbound rules, this is the AWS service to access through a VPC endpoint from instances associated with the security group.
+:param ip_protocol: The IP protocol name (tcp, udp, icmp, icmpv6) or number. [VPC only] Use -1 to specify all protocols. When authorizing security group rules, specifying -1 or a protocol number other than tcp, udp, icmp, or icmpv6 allows traffic on all ports, regardless of any port range you specify. For tcp, udp, and icmp, you must specify a port range. For icmpv6, the port range is optional. If you omit the port range, traffic for all types and codes is allowed. 
+:param from_port: The start of the port range for the TCP and UDP protocols, or an ICMP/ICMPv6 type number. A value of -1 indicates all ICMP/ICMPv6 types. If you specify all ICMP/ICMPv6 types, you must specify all codes. 
+:param to_port: The end of the port range for the TCP and UDP protocols, or an ICMP/ICMPv6 code. A value of -1 indicates all ICMP/ICMPv6 codes. If you specify all ICMP/ICMPv6 types, you must specify all codes.
+:param user_id_group_pairs: The security group and AWS account ID pairs.
+:param ip_ranges: The IPv4 ranges.
+:param ipv6_ranges: The IPv6 ranges.
+:param prefix_list_ids: [VPC only] The prefix list IDs for an AWS service. With outbound rules, this is the AWS service to access through a VPC endpoint from instances associated with the security group.
 
-    :return: AwsEc2SecurityGroupIpPermission object
-    """
-
-    ip_protocol: Optional[NonEmptyString]
-    from_port: Optional[Integer]
-    to_port: Optional[Integer]
-    user_id_group_pairs: Optional[AwsEc2SecurityGroupUserIdGroupPairList]
-    ip_ranges: Optional[AwsEc2SecurityGroupIpRangeList]
-    ipv6_ranges: Optional[AwsEc2SecurityGroupIpv6RangeList]
-    prefix_list_ids: Optional[AwsEc2SecurityGroupPrefixListIdList]
-
-
+:return: AwsEc2SecurityGroupIpPermission object
+	"""
+	ip_protocol: Optional[NonEmptyString]
+	from_port: Optional[Integer]
+	to_port: Optional[Integer]
+	user_id_group_pairs: Optional[AwsEc2SecurityGroupUserIdGroupPairList]
+	ip_ranges: Optional[AwsEc2SecurityGroupIpRangeList]
+	ipv6_ranges: Optional[AwsEc2SecurityGroupIpv6RangeList]
+	prefix_list_ids: Optional[AwsEc2SecurityGroupPrefixListIdList]
 AwsEc2SecurityGroupIpPermissionList = List[AwsEc2SecurityGroupIpPermission]
-
-
 class AwsEc2SecurityGroupDetails(ASFFBaseModel):
-    """
-    Details about an EC2 security group.
+	"""
+Details about an EC2 security group.
 
-    :param group_name: The name of the security group.
-    :param group_id: The ID of the security group.
-    :param owner_id: The AWS account ID of the owner of the security group.
-    :param vpc_id: [VPC only] The ID of the VPC for the security group.
-    :param ip_permissions: The inbound rules associated with the security group.
-    :param ip_permissions_egress: [VPC only] The outbound rules associated with the security group.
+:param group_name: The name of the security group.
+:param group_id: The ID of the security group.
+:param owner_id: The AWS account ID of the owner of the security group.
+:param vpc_id: [VPC only] The ID of the VPC for the security group.
+:param ip_permissions: The inbound rules associated with the security group.
+:param ip_permissions_egress: [VPC only] The outbound rules associated with the security group.
 
-    :return: AwsEc2SecurityGroupDetails object
-    """
-
-    group_name: Optional[NonEmptyString]
-    group_id: Optional[NonEmptyString]
-    owner_id: Optional[NonEmptyString]
-    vpc_id: Optional[NonEmptyString]
-    ip_permissions: Optional[AwsEc2SecurityGroupIpPermissionList]
-    ip_permissions_egress: Optional[AwsEc2SecurityGroupIpPermissionList]
-
-
+:return: AwsEc2SecurityGroupDetails object
+	"""
+	group_name: Optional[NonEmptyString]
+	group_id: Optional[NonEmptyString]
+	owner_id: Optional[NonEmptyString]
+	vpc_id: Optional[NonEmptyString]
+	ip_permissions: Optional[AwsEc2SecurityGroupIpPermissionList]
+	ip_permissions_egress: Optional[AwsEc2SecurityGroupIpPermissionList]
 class AwsEc2VolumeAttachment(ASFFBaseModel):
-    """
-    An attachment to an AWS EC2 volume.
+	"""
+An attachment to an AWS EC2 volume.
 
-    :param attach_time: The datetime when the attachment initiated.
-    :param delete_on_termination: Whether the EBS volume is deleted when the EC2 instance is terminated.
-    :param instance_id: The identifier of the EC2 instance.
-    :param status: The attachment state of the volume.
+:param attach_time: The datetime when the attachment initiated.
+:param delete_on_termination: Whether the EBS volume is deleted when the EC2 instance is terminated.
+:param instance_id: The identifier of the EC2 instance.
+:param status: The attachment state of the volume.
 
-    :return: AwsEc2VolumeAttachment object
-    """
-
-    attach_time: Optional[Iso8601Timestamp]
-    delete_on_termination: Optional[Boolean]
-    instance_id: Optional[NonEmptyString]
-    status: Optional[NonEmptyString]
-
-
+:return: AwsEc2VolumeAttachment object
+	"""
+	attach_time: Optional[Iso8601Timestamp]
+	delete_on_termination: Optional[Boolean]
+	instance_id: Optional[NonEmptyString]
+	status: Optional[NonEmptyString]
 AwsEc2VolumeAttachmentList = List[AwsEc2VolumeAttachment]
-
-
 class AwsEc2VolumeDetails(ASFFBaseModel):
-    """
-    Details about an EC2 volume.
+	"""
+Details about an EC2 volume.
 
-    :param create_time: Indicates when the volume was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param encrypted: Whether the volume is encrypted.
-    :param size: The size of the volume, in GiBs.
-    :param snapshot_id: The snapshot from which the volume was created.
-    :param status: The volume state.
-    :param kms_key_id: The ARN of the AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to protect the volume encryption key for the volume.
-    :param attachments: The volume attachments.
+:param create_time: Indicates when the volume was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param encrypted: Whether the volume is encrypted.
+:param size: The size of the volume, in GiBs.
+:param snapshot_id: The snapshot from which the volume was created.
+:param status: The volume state.
+:param kms_key_id: The ARN of the AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to protect the volume encryption key for the volume.
+:param attachments: The volume attachments.
 
-    :return: AwsEc2VolumeDetails object
-    """
-
-    create_time: Optional[Iso8601Timestamp]
-    encrypted: Optional[Boolean]
-    size: Optional[Integer]
-    snapshot_id: Optional[NonEmptyString]
-    status: Optional[NonEmptyString]
-    kms_key_id: Optional[NonEmptyString]
-    attachments: Optional[AwsEc2VolumeAttachmentList]
-
-
+:return: AwsEc2VolumeDetails object
+	"""
+	create_time: Optional[Iso8601Timestamp]
+	encrypted: Optional[Boolean]
+	size: Optional[Integer]
+	snapshot_id: Optional[NonEmptyString]
+	status: Optional[NonEmptyString]
+	kms_key_id: Optional[NonEmptyString]
+	attachments: Optional[AwsEc2VolumeAttachmentList]
 class CidrBlockAssociation(ASFFBaseModel):
-    """
-    An IPv4 CIDR block association.
+	"""
+An IPv4 CIDR block association.
 
-    :param association_id: The association ID for the IPv4 CIDR block.
-    :param cidr_block: The IPv4 CIDR block.
-    :param cidr_block_state: Information about the state of the IPv4 CIDR block.
+:param association_id: The association ID for the IPv4 CIDR block.
+:param cidr_block: The IPv4 CIDR block.
+:param cidr_block_state: Information about the state of the IPv4 CIDR block.
 
-    :return: CidrBlockAssociation object
-    """
-
-    association_id: Optional[NonEmptyString]
-    cidr_block: Optional[NonEmptyString]
-    cidr_block_state: Optional[NonEmptyString]
-
-
+:return: CidrBlockAssociation object
+	"""
+	association_id: Optional[NonEmptyString]
+	cidr_block: Optional[NonEmptyString]
+	cidr_block_state: Optional[NonEmptyString]
 CidrBlockAssociationList = List[CidrBlockAssociation]
-
-
 class Ipv6CidrBlockAssociation(ASFFBaseModel):
-    """
-    An IPV6 CIDR block association.
+	"""
+An IPV6 CIDR block association.
 
-    :param association_id: The association ID for the IPv6 CIDR block.
-    :param ipv6_cidr_block: The IPv6 CIDR block.
-    :param cidr_block_state: Information about the state of the CIDR block.
+:param association_id: The association ID for the IPv6 CIDR block.
+:param ipv6_cidr_block: The IPv6 CIDR block.
+:param cidr_block_state: Information about the state of the CIDR block.
 
-    :return: Ipv6CidrBlockAssociation object
-    """
-
-    association_id: Optional[NonEmptyString]
-    ipv6_cidr_block: Optional[NonEmptyString]
-    cidr_block_state: Optional[NonEmptyString]
-
-
+:return: Ipv6CidrBlockAssociation object
+	"""
+	association_id: Optional[NonEmptyString]
+	ipv6_cidr_block: Optional[NonEmptyString]
+	cidr_block_state: Optional[NonEmptyString]
 Ipv6CidrBlockAssociationList = List[Ipv6CidrBlockAssociation]
-
-
 class AwsEc2VpcDetails(ASFFBaseModel):
-    """
-    Details about an EC2 VPC.
+	"""
+Details about an EC2 VPC.
 
-    :param cidr_block_association_set: Information about the IPv4 CIDR blocks associated with the VPC.
-    :param ipv6_cidr_block_association_set: Information about the IPv6 CIDR blocks associated with the VPC.
-    :param dhcp_options_id: The identifier of the set of Dynamic Host Configuration Protocol (DHCP) options that are associated with the VPC. If the default options are associated with the VPC, then this is default.
-    :param state: The current state of the VPC.
+:param cidr_block_association_set: Information about the IPv4 CIDR blocks associated with the VPC.
+:param ipv6_cidr_block_association_set: Information about the IPv6 CIDR blocks associated with the VPC.
+:param dhcp_options_id: The identifier of the set of Dynamic Host Configuration Protocol (DHCP) options that are associated with the VPC. If the default options are associated with the VPC, then this is default.
+:param state: The current state of the VPC.
 
-    :return: AwsEc2VpcDetails object
-    """
-
-    cidr_block_association_set: Optional[CidrBlockAssociationList]
-    ipv6_cidr_block_association_set: Optional[Ipv6CidrBlockAssociationList]
-    dhcp_options_id: Optional[NonEmptyString]
-    state: Optional[NonEmptyString]
-
-
+:return: AwsEc2VpcDetails object
+	"""
+	cidr_block_association_set: Optional[CidrBlockAssociationList]
+	ipv6_cidr_block_association_set: Optional[Ipv6CidrBlockAssociationList]
+	dhcp_options_id: Optional[NonEmptyString]
+	state: Optional[NonEmptyString]
 class AwsEc2EipDetails(ASFFBaseModel):
-    """
-    Information about an Elastic IP address.
+	"""
+Information about an Elastic IP address.
 
-    :param instance_id: The identifier of the EC2 instance.
-    :param public_ip: A public IP address that is associated with the EC2 instance.
-    :param allocation_id: The identifier that AWS assigns to represent the allocation of the Elastic IP address for use with Amazon VPC.
-    :param association_id: The identifier that represents the association of the Elastic IP address with an EC2 instance.
-    :param domain: The domain in which to allocate the address. If the address is for use with EC2 instances in a VPC, then Domain is vpc. Otherwise, Domain is standard.
-    :param public_ipv4_pool: The identifier of an IP address pool. This parameter allows Amazon EC2 to select an IP address from the address pool.
-    :param network_border_group: The name of the location from which the Elastic IP address is advertised.
-    :param network_interface_id: The identifier of the network interface.
-    :param network_interface_owner_id: The AWS account ID of the owner of the network interface.
-    :param private_ip_address: The private IP address that is associated with the Elastic IP address.
+:param instance_id: The identifier of the EC2 instance.
+:param public_ip: A public IP address that is associated with the EC2 instance.
+:param allocation_id: The identifier that AWS assigns to represent the allocation of the Elastic IP address for use with Amazon VPC.
+:param association_id: The identifier that represents the association of the Elastic IP address with an EC2 instance.
+:param domain: The domain in which to allocate the address. If the address is for use with EC2 instances in a VPC, then Domain is vpc. Otherwise, Domain is standard. 
+:param public_ipv4_pool: The identifier of an IP address pool. This parameter allows Amazon EC2 to select an IP address from the address pool.
+:param network_border_group: The name of the location from which the Elastic IP address is advertised.
+:param network_interface_id: The identifier of the network interface.
+:param network_interface_owner_id: The AWS account ID of the owner of the network interface.
+:param private_ip_address: The private IP address that is associated with the Elastic IP address.
 
-    :return: AwsEc2EipDetails object
-    """
+:return: AwsEc2EipDetails object
+	"""
+	instance_id: Optional[NonEmptyString]
+	public_ip: Optional[NonEmptyString]
+	allocation_id: Optional[NonEmptyString]
+	association_id: Optional[NonEmptyString]
+	domain: Optional[NonEmptyString]
+	public_ipv4_pool: Optional[NonEmptyString]
+	network_border_group: Optional[NonEmptyString]
+	network_interface_id: Optional[NonEmptyString]
+	network_interface_owner_id: Optional[NonEmptyString]
+	private_ip_address: Optional[NonEmptyString]
+class AwsEc2SubnetDetails(ASFFBaseModel):
+	"""
+Contains information about a subnet in EC2.
 
-    instance_id: Optional[NonEmptyString]
-    public_ip: Optional[NonEmptyString]
-    allocation_id: Optional[NonEmptyString]
-    association_id: Optional[NonEmptyString]
-    domain: Optional[NonEmptyString]
-    public_ipv4_pool: Optional[NonEmptyString]
-    network_border_group: Optional[NonEmptyString]
-    network_interface_id: Optional[NonEmptyString]
-    network_interface_owner_id: Optional[NonEmptyString]
-    private_ip_address: Optional[NonEmptyString]
+:param assign_ipv6_address_on_creation: Whether to assign an IPV6 address to a network interface that is created in this subnet.
+:param availability_zone: The Availability Zone for the subnet.
+:param availability_zone_id: The identifier of the Availability Zone for the subnet.
+:param available_ip_address_count: The number of available IPV4 addresses in the subnet. Does not include addresses for stopped instances.
+:param cidr_block: The IPV4 CIDR block that is assigned to the subnet.
+:param default_for_az: Whether this subnet is the default subnet for the Availability Zone.
+:param map_public_ip_on_launch: Whether instances in this subnet receive a public IP address.
+:param owner_id: The identifier of the AWS account that owns the subnet.
+:param state: The current state of the subnet.
+:param subnet_arn: The ARN of the subnet.
+:param subnet_id: The identifier of the subnet.
+:param vpc_id: The identifier of the VPC that contains the subnet.
+:param ipv6_cidr_block_association_set: The IPV6 CIDR blocks that are associated with the subnet.
 
+:return: AwsEc2SubnetDetails object
+	"""
+	assign_ipv6_address_on_creation: Optional[Boolean]
+	availability_zone: Optional[NonEmptyString]
+	availability_zone_id: Optional[NonEmptyString]
+	available_ip_address_count: Optional[Integer]
+	cidr_block: Optional[NonEmptyString]
+	default_for_az: Optional[Boolean]
+	map_public_ip_on_launch: Optional[Boolean]
+	owner_id: Optional[NonEmptyString]
+	state: Optional[NonEmptyString]
+	subnet_arn: Optional[NonEmptyString]
+	subnet_id: Optional[NonEmptyString]
+	vpc_id: Optional[NonEmptyString]
+	ipv6_cidr_block_association_set: Optional[Ipv6CidrBlockAssociationList]
+class AwsEc2NetworkAclAssociation(ASFFBaseModel):
+	"""
+An association between the network ACL and a subnet.
 
+:param network_acl_association_id: The identifier of the association between the network ACL and the subnet.
+:param network_acl_id: The identifier of the network ACL.
+:param subnet_id: The identifier of the subnet that is associated with the network ACL.
+
+:return: AwsEc2NetworkAclAssociation object
+	"""
+	network_acl_association_id: Optional[NonEmptyString]
+	network_acl_id: Optional[NonEmptyString]
+	subnet_id: Optional[NonEmptyString]
+AwsEc2NetworkAclAssociationList = List[AwsEc2NetworkAclAssociation]
+class IcmpTypeCode(ASFFBaseModel):
+	"""
+An Internet Control Message Protocol (ICMP) type and code.
+
+:param code: The ICMP code for which to deny or allow access. To deny or allow all codes, use the value -1.
+:param type: The ICMP type for which to deny or allow access. To deny or allow all types, use the value -1.
+
+:return: IcmpTypeCode object
+	"""
+	code: Optional[Integer]
+	type: Optional[Integer]
+class PortRangeFromTo(ASFFBaseModel):
+	"""
+A range of ports.
+
+:param from: The first port in the port range.
+:param to: The last port in the port range.
+
+:return: PortRangeFromTo object
+	"""
+	from: Optional[Integer]
+	to: Optional[Integer]
+class AwsEc2NetworkAclEntry(ASFFBaseModel):
+	"""
+A rule for the network ACL. Each rule allows or denies access based on the IP address, traffic direction, port, and protocol.
+
+:param cidr_block: The IPV4 network range for which to deny or allow access.
+:param egress: Whether the rule is an egress rule. An egress rule is a rule that applies to traffic that leaves the subnet.
+:param icmp_type_code: The Internet Control Message Protocol (ICMP) type and code for which to deny or allow access.
+:param ipv6_cidr_block: The IPV6 network range for which to deny or allow access.
+:param port_range: For TCP or UDP protocols, the range of ports that the rule applies to.
+:param protocol: The protocol that the rule applies to. To deny or allow access to all protocols, use the value -1.
+:param rule_action: Whether the rule is used to allow access or deny access.
+:param rule_number: The rule number. The rules are processed in order by their number.
+
+:return: AwsEc2NetworkAclEntry object
+	"""
+	cidr_block: Optional[NonEmptyString]
+	egress: Optional[Boolean]
+	icmp_type_code: Optional[IcmpTypeCode]
+	ipv6_cidr_block: Optional[NonEmptyString]
+	port_range: Optional[PortRangeFromTo]
+	protocol: Optional[NonEmptyString]
+	rule_action: Optional[NonEmptyString]
+	rule_number: Optional[Integer]
+AwsEc2NetworkAclEntryList = List[AwsEc2NetworkAclEntry]
+class AwsEc2NetworkAclDetails(ASFFBaseModel):
+	"""
+Contains details about an EC2 network access control list (ACL).
+
+:param is_default: Whether this is the default network ACL for the VPC.
+:param network_acl_id: The identifier of the network ACL.
+:param owner_id: The identifier of the AWS account that owns the network ACL.
+:param vpc_id: The identifier of the VPC for the network ACL.
+:param associations: Associations between the network ACL and subnets.
+:param entries: The set of rules in the network ACL.
+
+:return: AwsEc2NetworkAclDetails object
+	"""
+	is_default: Optional[Boolean]
+	network_acl_id: Optional[NonEmptyString]
+	owner_id: Optional[NonEmptyString]
+	vpc_id: Optional[NonEmptyString]
+	associations: Optional[AwsEc2NetworkAclAssociationList]
+	entries: Optional[AwsEc2NetworkAclEntryList]
 class AvailabilityZone(ASFFBaseModel):
-    """
-    Information about an Availability Zone.
+	"""
+Information about an Availability Zone.
 
-    :param zone_name: The name of the Availability Zone.
-    :param subnet_id: The ID of the subnet. You can specify one subnet per Availability Zone.
+:param zone_name: The name of the Availability Zone.
+:param subnet_id: The ID of the subnet. You can specify one subnet per Availability Zone.
 
-    :return: AvailabilityZone object
-    """
-
-    zone_name: Optional[NonEmptyString]
-    subnet_id: Optional[NonEmptyString]
-
-
+:return: AvailabilityZone object
+	"""
+	zone_name: Optional[NonEmptyString]
+	subnet_id: Optional[NonEmptyString]
 AvailabilityZones = List[AvailabilityZone]
 SecurityGroups = List[NonEmptyString]
-
-
 class LoadBalancerState(ASFFBaseModel):
-    """
-    Information about the state of the load balancer.
+	"""
+Information about the state of the load balancer.
 
-    :param code: The state code. The initial state of the load balancer is provisioning. After the load balancer is fully set up and ready to route traffic, its state is active. If the load balancer could not be set up, its state is failed.
-    :param reason: A description of the state.
+:param code: The state code. The initial state of the load balancer is provisioning. After the load balancer is fully set up and ready to route traffic, its state is active. If the load balancer could not be set up, its state is failed. 
+:param reason: A description of the state.
 
-    :return: LoadBalancerState object
-    """
-
-    code: Optional[NonEmptyString]
-    reason: Optional[NonEmptyString]
-
-
+:return: LoadBalancerState object
+	"""
+	code: Optional[NonEmptyString]
+	reason: Optional[NonEmptyString]
 class AwsElbv2LoadBalancerDetails(ASFFBaseModel):
-    """
-    Information about a load balancer.
+	"""
+Information about a load balancer.
 
-    :param availability_zones: The Availability Zones for the load balancer.
-    :param canonical_hosted_zone_id: The ID of the Amazon Route 53 hosted zone associated with the load balancer.
-    :param created_time: Indicates when the load balancer was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param dns_name: The public DNS name of the load balancer.
-    :param ip_address_type: The type of IP addresses used by the subnets for your load balancer. The possible values are ipv4 (for IPv4 addresses) and dualstack (for IPv4 and IPv6 addresses).
-    :param scheme: The nodes of an Internet-facing load balancer have public IP addresses.
-    :param security_groups: The IDs of the security groups for the load balancer.
-    :param state: The state of the load balancer.
-    :param type: The type of load balancer.
-    :param vpc_id: The ID of the VPC for the load balancer.
+:param availability_zones: The Availability Zones for the load balancer.
+:param canonical_hosted_zone_id: The ID of the Amazon Route 53 hosted zone associated with the load balancer.
+:param created_time: Indicates when the load balancer was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param dns_name: The public DNS name of the load balancer.
+:param ip_address_type: The type of IP addresses used by the subnets for your load balancer. The possible values are ipv4 (for IPv4 addresses) and dualstack (for IPv4 and IPv6 addresses).
+:param scheme: The nodes of an Internet-facing load balancer have public IP addresses.
+:param security_groups: The IDs of the security groups for the load balancer.
+:param state: The state of the load balancer.
+:param type: The type of load balancer.
+:param vpc_id: The ID of the VPC for the load balancer.
 
-    :return: AwsElbv2LoadBalancerDetails object
-    """
+:return: AwsElbv2LoadBalancerDetails object
+	"""
+	availability_zones: Optional[AvailabilityZones]
+	canonical_hosted_zone_id: Optional[NonEmptyString]
+	created_time: Optional[Iso8601Timestamp]
+	dns_name: Optional[NonEmptyString]
+	ip_address_type: Optional[NonEmptyString]
+	scheme: Optional[NonEmptyString]
+	security_groups: Optional[SecurityGroups]
+	state: Optional[LoadBalancerState]
+	type: Optional[NonEmptyString]
+	vpc_id: Optional[NonEmptyString]
+class AwsElasticBeanstalkEnvironmentEnvironmentLink(ASFFBaseModel):
+	"""
+Contains information about a link to another environment that is in the same group.
 
-    availability_zones: Optional[AvailabilityZones]
-    canonical_hosted_zone_id: Optional[NonEmptyString]
-    created_time: Optional[Iso8601Timestamp]
-    dns_name: Optional[NonEmptyString]
-    ip_address_type: Optional[NonEmptyString]
-    scheme: Optional[NonEmptyString]
-    security_groups: Optional[SecurityGroups]
-    state: Optional[LoadBalancerState]
-    type: Optional[NonEmptyString]
-    vpc_id: Optional[NonEmptyString]
+:param environment_name: The name of the linked environment.
+:param link_name: The name of the environment link.
 
+:return: AwsElasticBeanstalkEnvironmentEnvironmentLink object
+	"""
+	environment_name: Optional[NonEmptyString]
+	link_name: Optional[NonEmptyString]
+AwsElasticBeanstalkEnvironmentEnvironmentLinks = List[AwsElasticBeanstalkEnvironmentEnvironmentLink]
+class AwsElasticBeanstalkEnvironmentOptionSetting(ASFFBaseModel):
+	"""
+A configuration option setting for the environment.
 
+:param namespace: The type of resource that the configuration option is associated with.
+:param option_name: The name of the option.
+:param resource_name: The name of the resource.
+:param value: The value of the configuration setting.
+
+:return: AwsElasticBeanstalkEnvironmentOptionSetting object
+	"""
+	namespace: Optional[NonEmptyString]
+	option_name: Optional[NonEmptyString]
+	resource_name: Optional[NonEmptyString]
+	value: Optional[NonEmptyString]
+AwsElasticBeanstalkEnvironmentOptionSettings = List[AwsElasticBeanstalkEnvironmentOptionSetting]
+class AwsElasticBeanstalkEnvironmentTier(ASFFBaseModel):
+	"""
+Contains information about the tier of the environment.
+
+:param name: The name of the environment tier.
+:param type: The type of environment tier.
+:param version: The version of the environment tier.
+
+:return: AwsElasticBeanstalkEnvironmentTier object
+	"""
+	name: Optional[NonEmptyString]
+	type: Optional[NonEmptyString]
+	version: Optional[NonEmptyString]
+class AwsElasticBeanstalkEnvironmentDetails(ASFFBaseModel):
+	"""
+Contains details about an Elastic Beanstalk environment.
+
+:param application_name: The name of the application that is associated with the environment.
+:param cname: The URL to the CNAME for this environment.
+:param date_created: The creation date for this environment.
+:param date_updated: The date when this environment was last modified.
+:param description: A description of the environment.
+:param endpoint_url: For load-balanced, autoscaling environments, the URL to the load balancer. For single-instance environments, the IP address of the instance.
+:param environment_arn: The ARN of the environment.
+:param environment_id: The identifier of the environment.
+:param environment_links: Links to other environments in the same group.
+:param environment_name: The name of the environment.
+:param option_settings: The configuration setting for the environment.
+:param platform_arn: The ARN of the platform version for the environment.
+:param solution_stack_name: The name of the solution stack that is deployed with the environment.
+:param status: The current operational status of the environment.
+:param tier: The tier of the environment.
+:param version_label: The application version of the environment.
+
+:return: AwsElasticBeanstalkEnvironmentDetails object
+	"""
+	application_name: Optional[NonEmptyString]
+	cname: Optional[NonEmptyString]
+	date_created: Optional[NonEmptyString]
+	date_updated: Optional[NonEmptyString]
+	description: Optional[NonEmptyString]
+	endpoint_url: Optional[NonEmptyString]
+	environment_arn: Optional[NonEmptyString]
+	environment_id: Optional[NonEmptyString]
+	environment_links: Optional[AwsElasticBeanstalkEnvironmentEnvironmentLinks]
+	environment_name: Optional[NonEmptyString]
+	option_settings: Optional[AwsElasticBeanstalkEnvironmentOptionSettings]
+	platform_arn: Optional[NonEmptyString]
+	solution_stack_name: Optional[NonEmptyString]
+	status: Optional[NonEmptyString]
+	tier: Optional[AwsElasticBeanstalkEnvironmentTier]
+	version_label: Optional[NonEmptyString]
 class AwsElasticsearchDomainDomainEndpointOptions(ASFFBaseModel):
-    """
-    Additional options for the domain endpoint, such as whether to require HTTPS for all traffic.
+	"""
+Additional options for the domain endpoint, such as whether to require HTTPS for all traffic.
 
-    :param enforce_https: Whether to require that all traffic to the domain arrive over HTTPS.
-    :param tls_security_policy: The TLS security policy to apply to the HTTPS endpoint of the Elasticsearch domain. Valid values:    Policy-Min-TLS-1-0-2019-07, which supports TLSv1.0 and higher    Policy-Min-TLS-1-2-2019-07, which only supports TLSv1.2
+:param enforce_https: Whether to require that all traffic to the domain arrive over HTTPS.
+:param tls_security_policy: The TLS security policy to apply to the HTTPS endpoint of the Elasticsearch domain. Valid values:    Policy-Min-TLS-1-0-2019-07, which supports TLSv1.0 and higher    Policy-Min-TLS-1-2-2019-07, which only supports TLSv1.2  
 
-    :return: AwsElasticsearchDomainDomainEndpointOptions object
-    """
-
-    enforce_https: Optional[Boolean]
-    tls_security_policy: Optional[NonEmptyString]
-
-
+:return: AwsElasticsearchDomainDomainEndpointOptions object
+	"""
+	enforce_https: Optional[Boolean]
+	tls_security_policy: Optional[NonEmptyString]
 FieldMap = Dict[NonEmptyString, NonEmptyString]
-
-
 class AwsElasticsearchDomainEncryptionAtRestOptions(ASFFBaseModel):
-    """
-    Details about the configuration for encryption at rest.
+	"""
+Details about the configuration for encryption at rest.
 
-    :param enabled: Whether encryption at rest is enabled.
-    :param kms_key_id: The KMS key ID. Takes the form 1a2a3a4-1a2a-3a4a-5a6a-1a2a3a4a5a6a.
+:param enabled: Whether encryption at rest is enabled.
+:param kms_key_id: The KMS key ID. Takes the form 1a2a3a4-1a2a-3a4a-5a6a-1a2a3a4a5a6a.
 
-    :return: AwsElasticsearchDomainEncryptionAtRestOptions object
-    """
-
-    enabled: Optional[Boolean]
-    kms_key_id: Optional[NonEmptyString]
-
-
+:return: AwsElasticsearchDomainEncryptionAtRestOptions object
+	"""
+	enabled: Optional[Boolean]
+	kms_key_id: Optional[NonEmptyString]
 class AwsElasticsearchDomainNodeToNodeEncryptionOptions(ASFFBaseModel):
-    """
-    Details about the configuration for node-to-node encryption.
+	"""
+Details about the configuration for node-to-node encryption.
 
-    :param enabled: Whether node-to-node encryption is enabled.
+:param enabled: Whether node-to-node encryption is enabled.
 
-    :return: AwsElasticsearchDomainNodeToNodeEncryptionOptions object
-    """
-
-    enabled: Optional[Boolean]
-
-
+:return: AwsElasticsearchDomainNodeToNodeEncryptionOptions object
+	"""
+	enabled: Optional[Boolean]
 class AwsElasticsearchDomainVPCOptions(ASFFBaseModel):
-    """
-    Information that Amazon ES derives based on VPCOptions for the domain.
+	"""
+Information that Amazon ES derives based on VPCOptions for the domain.
 
-    :param availability_zones: The list of Availability Zones associated with the VPC subnets.
-    :param security_group_ids: The list of security group IDs associated with the VPC endpoints for the domain.
-    :param subnet_ids: A list of subnet IDs associated with the VPC endpoints for the domain.
-    :param vpc_id: ID for the VPC.
+:param availability_zones: The list of Availability Zones associated with the VPC subnets.
+:param security_group_ids: The list of security group IDs associated with the VPC endpoints for the domain.
+:param subnet_ids: A list of subnet IDs associated with the VPC endpoints for the domain.
+:param vpc_id: ID for the VPC.
 
-    :return: AwsElasticsearchDomainVPCOptions object
-    """
-
-    availability_zones: Optional[NonEmptyStringList]
-    security_group_ids: Optional[NonEmptyStringList]
-    subnet_ids: Optional[NonEmptyStringList]
-    vpc_id: Optional[NonEmptyString]
-
-
+:return: AwsElasticsearchDomainVPCOptions object
+	"""
+	availability_zones: Optional[NonEmptyStringList]
+	security_group_ids: Optional[NonEmptyStringList]
+	subnet_ids: Optional[NonEmptyStringList]
+	vpc_id: Optional[NonEmptyString]
 class AwsElasticsearchDomainDetails(ASFFBaseModel):
-    """
-    Information about an Elasticsearch domain.
+	"""
+Information about an Elasticsearch domain.
 
-    :param access_policies: IAM policy document specifying the access policies for the new Amazon ES domain.
-    :param domain_endpoint_options: Additional options for the domain endpoint.
-    :param domain_id: Unique identifier for an Amazon ES domain.
-    :param domain_name: Name of an Amazon ES domain. Domain names are unique across all domains owned by the same account within an AWS Region. Domain names must start with a lowercase letter and must be between 3 and 28 characters. Valid characters are a-z (lowercase only), 0-9, and – (hyphen).
-    :param endpoint: Domain-specific endpoint used to submit index, search, and data upload requests to an Amazon ES domain. The endpoint is a service URL.
-    :param endpoints: The key-value pair that exists if the Amazon ES domain uses VPC endpoints.
-    :param elasticsearch_version: Elasticsearch version.
-    :param encryption_at_rest_options: Details about the configuration for encryption at rest.
-    :param node_to_node_encryption_options: Details about the configuration for node-to-node encryption.
-    :param vpc_options: Information that Amazon ES derives based on VPCOptions for the domain.
+:param access_policies: IAM policy document specifying the access policies for the new Amazon ES domain.
+:param domain_endpoint_options: Additional options for the domain endpoint.
+:param domain_id: Unique identifier for an Amazon ES domain.
+:param domain_name: Name of an Amazon ES domain. Domain names are unique across all domains owned by the same account within an AWS Region. Domain names must start with a lowercase letter and must be between 3 and 28 characters. Valid characters are a-z (lowercase only), 0-9, and – (hyphen). 
+:param endpoint: Domain-specific endpoint used to submit index, search, and data upload requests to an Amazon ES domain. The endpoint is a service URL. 
+:param endpoints: The key-value pair that exists if the Amazon ES domain uses VPC endpoints.
+:param elasticsearch_version: Elasticsearch version.
+:param encryption_at_rest_options: Details about the configuration for encryption at rest.
+:param node_to_node_encryption_options: Details about the configuration for node-to-node encryption.
+:param vpc_options: Information that Amazon ES derives based on VPCOptions for the domain.
 
-    :return: AwsElasticsearchDomainDetails object
-    """
-
-    access_policies: Optional[NonEmptyString]
-    domain_endpoint_options: Optional[AwsElasticsearchDomainDomainEndpointOptions]
-    domain_id: Optional[NonEmptyString]
-    domain_name: Optional[NonEmptyString]
-    endpoint: Optional[NonEmptyString]
-    endpoints: Optional[FieldMap]
-    elasticsearch_version: Optional[NonEmptyString]
-    encryption_at_rest_options: Optional[AwsElasticsearchDomainEncryptionAtRestOptions]
-    node_to_node_encryption_options: Optional[
-        AwsElasticsearchDomainNodeToNodeEncryptionOptions
-    ]
-    vpc_options: Optional[AwsElasticsearchDomainVPCOptions]
-
-
+:return: AwsElasticsearchDomainDetails object
+	"""
+	access_policies: Optional[NonEmptyString]
+	domain_endpoint_options: Optional[AwsElasticsearchDomainDomainEndpointOptions]
+	domain_id: Optional[NonEmptyString]
+	domain_name: Optional[NonEmptyString]
+	endpoint: Optional[NonEmptyString]
+	endpoints: Optional[FieldMap]
+	elasticsearch_version: Optional[NonEmptyString]
+	encryption_at_rest_options: Optional[AwsElasticsearchDomainEncryptionAtRestOptions]
+	node_to_node_encryption_options: Optional[AwsElasticsearchDomainNodeToNodeEncryptionOptions]
+	vpc_options: Optional[AwsElasticsearchDomainVPCOptions]
 class AwsS3BucketServerSideEncryptionByDefault(ASFFBaseModel):
-    """
-    Specifies the default server-side encryption to apply to new objects in the bucket.
+	"""
+Specifies the default server-side encryption to apply to new objects in the bucket.
 
-    :param sse_algorithm: Server-side encryption algorithm to use for the default encryption.
-    :param kms_master_key_id: AWS KMS customer master key (CMK) ID to use for the default encryption.
+:param sse_algorithm: Server-side encryption algorithm to use for the default encryption.
+:param kms_master_key_id: AWS KMS customer master key (CMK) ID to use for the default encryption.
 
-    :return: AwsS3BucketServerSideEncryptionByDefault object
-    """
-
-    sse_algorithm: Optional[NonEmptyString]
-    kms_master_key_id: Optional[NonEmptyString]
-
-
+:return: AwsS3BucketServerSideEncryptionByDefault object
+	"""
+	sse_algorithm: Optional[NonEmptyString]
+	kms_master_key_id: Optional[NonEmptyString]
 class AwsS3BucketServerSideEncryptionRule(ASFFBaseModel):
-    """
-    An encryption rule to apply to the S3 bucket.
+	"""
+An encryption rule to apply to the S3 bucket.
 
-    :param apply_server_side_encryption_by_default: Specifies the default server-side encryption to apply to new objects in the bucket. If a PUT object request doesn't specify any server-side encryption, this default encryption is applied.
+:param apply_server_side_encryption_by_default: Specifies the default server-side encryption to apply to new objects in the bucket. If a PUT object request doesn't specify any server-side encryption, this default encryption is applied.
 
-    :return: AwsS3BucketServerSideEncryptionRule object
-    """
-
-    apply_server_side_encryption_by_default: Optional[
-        AwsS3BucketServerSideEncryptionByDefault
-    ]
-
-
+:return: AwsS3BucketServerSideEncryptionRule object
+	"""
+	apply_server_side_encryption_by_default: Optional[AwsS3BucketServerSideEncryptionByDefault]
 AwsS3BucketServerSideEncryptionRules = List[AwsS3BucketServerSideEncryptionRule]
-
-
 class AwsS3BucketServerSideEncryptionConfiguration(ASFFBaseModel):
-    """
-    The encryption configuration for the S3 bucket.
+	"""
+The encryption configuration for the S3 bucket.
 
-    :param rules: The encryption rules that are applied to the S3 bucket.
+:param rules: The encryption rules that are applied to the S3 bucket.
 
-    :return: AwsS3BucketServerSideEncryptionConfiguration object
-    """
-
-    rules: Optional[AwsS3BucketServerSideEncryptionRules]
-
-
+:return: AwsS3BucketServerSideEncryptionConfiguration object
+	"""
+	rules: Optional[AwsS3BucketServerSideEncryptionRules]
 class AwsS3AccountPublicAccessBlockDetails(ASFFBaseModel):
-    """
-    provides information about the Amazon S3 Public Access Block configuration for accounts.
+	"""
+provides information about the Amazon S3 Public Access Block configuration for accounts.
 
-    :param block_public_acls: Indicates whether to reject calls to update an S3 bucket if the calls include a public access control list (ACL).
-    :param block_public_policy: Indicates whether to reject calls to update the access policy for an S3 bucket or access point if the policy allows public access.
-    :param ignore_public_acls: Indicates whether Amazon S3 ignores public ACLs that are associated with an S3 bucket.
-    :param restrict_public_buckets: Indicates whether to restrict access to an access point or S3 bucket that has a public policy to only AWS service principals and authorized users within the S3 bucket owner's account.
+:param block_public_acls: Indicates whether to reject calls to update an S3 bucket if the calls include a public access control list (ACL).
+:param block_public_policy: Indicates whether to reject calls to update the access policy for an S3 bucket or access point if the policy allows public access.
+:param ignore_public_acls: Indicates whether Amazon S3 ignores public ACLs that are associated with an S3 bucket.
+:param restrict_public_buckets: Indicates whether to restrict access to an access point or S3 bucket that has a public policy to only AWS service principals and authorized users within the S3 bucket owner's account.
 
-    :return: AwsS3AccountPublicAccessBlockDetails object
-    """
-
-    block_public_acls: Optional[Boolean]
-    block_public_policy: Optional[Boolean]
-    ignore_public_acls: Optional[Boolean]
-    restrict_public_buckets: Optional[Boolean]
-
-
+:return: AwsS3AccountPublicAccessBlockDetails object
+	"""
+	block_public_acls: Optional[Boolean]
+	block_public_policy: Optional[Boolean]
+	ignore_public_acls: Optional[Boolean]
+	restrict_public_buckets: Optional[Boolean]
 class AwsS3BucketDetails(ASFFBaseModel):
-    """
-    The details of an Amazon S3 bucket.
+	"""
+The details of an Amazon S3 bucket.
 
-    :param owner_id: The canonical user ID of the owner of the S3 bucket.
-    :param owner_name: The display name of the owner of the S3 bucket.
-    :param created_at: Indicates when the S3 bucket was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param server_side_encryption_configuration: The encryption rules that are applied to the S3 bucket.
-    :param public_access_block_configuration: Provides information about the Amazon S3 Public Access Block configuration for the S3 bucket.
+:param owner_id: The canonical user ID of the owner of the S3 bucket.
+:param owner_name: The display name of the owner of the S3 bucket.
+:param created_at: Indicates when the S3 bucket was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param server_side_encryption_configuration: The encryption rules that are applied to the S3 bucket.
+:param public_access_block_configuration: Provides information about the Amazon S3 Public Access Block configuration for the S3 bucket.
 
-    :return: AwsS3BucketDetails object
-    """
-
-    owner_id: Optional[NonEmptyString]
-    owner_name: Optional[NonEmptyString]
-    created_at: Optional[Iso8601Timestamp]
-    server_side_encryption_configuration: Optional[
-        AwsS3BucketServerSideEncryptionConfiguration
-    ]
-    public_access_block_configuration: Optional[AwsS3AccountPublicAccessBlockDetails]
-
-
+:return: AwsS3BucketDetails object
+	"""
+	owner_id: Optional[NonEmptyString]
+	owner_name: Optional[NonEmptyString]
+	created_at: Optional[Iso8601Timestamp]
+	server_side_encryption_configuration: Optional[AwsS3BucketServerSideEncryptionConfiguration]
+	public_access_block_configuration: Optional[AwsS3AccountPublicAccessBlockDetails]
 class AwsS3ObjectDetails(ASFFBaseModel):
-    """
-    Details about an Amazon S3 object.
+	"""
+Details about an Amazon S3 object.
 
-    :param last_modified: Indicates when the object was last modified. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param e_tag: The opaque identifier assigned by a web server to a specific version of a resource found at a URL.
-    :param version_id: The version of the object.
-    :param content_type: A standard MIME type describing the format of the object data.
-    :param server_side_encryption: If the object is stored using server-side encryption, the value of the server-side encryption algorithm used when storing this object in Amazon S3.
-    :param ssekms_key_id: The identifier of the AWS Key Management Service (AWS KMS) symmetric customer managed customer master key (CMK) that was used for the object.
+:param last_modified: Indicates when the object was last modified. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param e_tag: The opaque identifier assigned by a web server to a specific version of a resource found at a URL.
+:param version_id: The version of the object.
+:param content_type: A standard MIME type describing the format of the object data.
+:param server_side_encryption: If the object is stored using server-side encryption, the value of the server-side encryption algorithm used when storing this object in Amazon S3.
+:param ssekms_key_id: The identifier of the AWS Key Management Service (AWS KMS) symmetric customer managed customer master key (CMK) that was used for the object.
 
-    :return: AwsS3ObjectDetails object
-    """
-
-    last_modified: Optional[Iso8601Timestamp]
-    e_tag: Optional[NonEmptyString]
-    version_id: Optional[NonEmptyString]
-    content_type: Optional[NonEmptyString]
-    server_side_encryption: Optional[NonEmptyString]
-    ssekms_key_id: Optional[NonEmptyString]
-
-
+:return: AwsS3ObjectDetails object
+	"""
+	last_modified: Optional[Iso8601Timestamp]
+	e_tag: Optional[NonEmptyString]
+	version_id: Optional[NonEmptyString]
+	content_type: Optional[NonEmptyString]
+	server_side_encryption: Optional[NonEmptyString]
+	ssekms_key_id: Optional[NonEmptyString]
 class AwsSecretsManagerSecretRotationRules(ASFFBaseModel):
-    """
-    Defines the rotation schedule for the secret.
+	"""
+Defines the rotation schedule for the secret.
 
-    :param automatically_after_days: The number of days after the previous rotation to rotate the secret.
+:param automatically_after_days: The number of days after the previous rotation to rotate the secret.
 
-    :return: AwsSecretsManagerSecretRotationRules object
-    """
-
-    automatically_after_days: Optional[Integer]
-
-
+:return: AwsSecretsManagerSecretRotationRules object
+	"""
+	automatically_after_days: Optional[Integer]
 class AwsSecretsManagerSecretDetails(ASFFBaseModel):
-    """
-    Details about an AWS Secrets Manager secret.
+	"""
+Details about an AWS Secrets Manager secret.
 
-    :param rotation_rules: Defines the rotation schedule for the secret.
-    :param rotation_occurred_within_frequency: Whether the rotation occurred within the specified rotation frequency.
-    :param kms_key_id: The ARN, Key ID, or alias of the AWS KMS customer master key (CMK) used to encrypt the SecretString or SecretBinary values for versions of this secret.
-    :param rotation_enabled: Whether rotation is enabled.
-    :param rotation_lambda_arn: The ARN of the Lambda function that rotates the secret.
-    :param deleted: Whether the secret is deleted.
-    :param name: The name of the secret.
-    :param description: The user-provided description of the secret.
+:param rotation_rules: Defines the rotation schedule for the secret.
+:param rotation_occurred_within_frequency: Whether the rotation occurred within the specified rotation frequency.
+:param kms_key_id: The ARN, Key ID, or alias of the AWS KMS customer master key (CMK) used to encrypt the SecretString or SecretBinary values for versions of this secret.
+:param rotation_enabled: Whether rotation is enabled.
+:param rotation_lambda_arn: The ARN of the Lambda function that rotates the secret.
+:param deleted: Whether the secret is deleted.
+:param name: The name of the secret.
+:param description: The user-provided description of the secret.
 
-    :return: AwsSecretsManagerSecretDetails object
-    """
-
-    rotation_rules: Optional[AwsSecretsManagerSecretRotationRules]
-    rotation_occurred_within_frequency: Optional[Boolean]
-    kms_key_id: Optional[NonEmptyString]
-    rotation_enabled: Optional[Boolean]
-    rotation_lambda_arn: Optional[NonEmptyString]
-    deleted: Optional[Boolean]
-    name: Optional[NonEmptyString]
-    description: Optional[NonEmptyString]
-
-
+:return: AwsSecretsManagerSecretDetails object
+	"""
+	rotation_rules: Optional[AwsSecretsManagerSecretRotationRules]
+	rotation_occurred_within_frequency: Optional[Boolean]
+	kms_key_id: Optional[NonEmptyString]
+	rotation_enabled: Optional[Boolean]
+	rotation_lambda_arn: Optional[NonEmptyString]
+	deleted: Optional[Boolean]
+	name: Optional[NonEmptyString]
+	description: Optional[NonEmptyString]
 AwsIamAccessKeyStatus = constr(regex="^(Active|Inactive)$")
-
-
 class AwsIamAccessKeySessionContextAttributes(ASFFBaseModel):
-    """
-    Attributes of the session that the key was used for.
+	"""
+Attributes of the session that the key was used for.
 
-    :param mfa_authenticated: Indicates whether the session used multi-factor authentication (MFA).
-    :param creation_date: Indicates when the session was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param mfa_authenticated: Indicates whether the session used multi-factor authentication (MFA).
+:param creation_date: Indicates when the session was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
 
-    :return: AwsIamAccessKeySessionContextAttributes object
-    """
-
-    mfa_authenticated: Optional[Boolean]
-    creation_date: Optional[Iso8601Timestamp]
-
-
+:return: AwsIamAccessKeySessionContextAttributes object
+	"""
+	mfa_authenticated: Optional[Boolean]
+	creation_date: Optional[Iso8601Timestamp]
 class AwsIamAccessKeySessionContextSessionIssuer(ASFFBaseModel):
-    """
-    Information about the entity that created the session.
+	"""
+Information about the entity that created the session.
 
-    :param type: The type of principal (user, role, or group) that created the session.
-    :param principal_id: The principal ID of the principal (user, role, or group) that created the session.
-    :param arn: The ARN of the session.
-    :param account_id: The identifier of the AWS account that created the session.
-    :param user_name: The name of the principal that created the session.
+:param type: The type of principal (user, role, or group) that created the session.
+:param principal_id: The principal ID of the principal (user, role, or group) that created the session.
+:param arn: The ARN of the session.
+:param account_id: The identifier of the AWS account that created the session.
+:param user_name: The name of the principal that created the session.
 
-    :return: AwsIamAccessKeySessionContextSessionIssuer object
-    """
-
-    type: Optional[NonEmptyString]
-    principal_id: Optional[NonEmptyString]
-    arn: Optional[NonEmptyString]
-    account_id: Optional[NonEmptyString]
-    user_name: Optional[NonEmptyString]
-
-
+:return: AwsIamAccessKeySessionContextSessionIssuer object
+	"""
+	type: Optional[NonEmptyString]
+	principal_id: Optional[NonEmptyString]
+	arn: Optional[NonEmptyString]
+	account_id: Optional[NonEmptyString]
+	user_name: Optional[NonEmptyString]
 class AwsIamAccessKeySessionContext(ASFFBaseModel):
-    """
-    Provides information about the session that the key was used for.
+	"""
+Provides information about the session that the key was used for.
 
-    :param attributes: Attributes of the session that the key was used for.
-    :param session_issuer: Information about the entity that created the session.
+:param attributes: Attributes of the session that the key was used for.
+:param session_issuer: Information about the entity that created the session.
 
-    :return: AwsIamAccessKeySessionContext object
-    """
-
-    attributes: Optional[AwsIamAccessKeySessionContextAttributes]
-    session_issuer: Optional[AwsIamAccessKeySessionContextSessionIssuer]
-
-
+:return: AwsIamAccessKeySessionContext object
+	"""
+	attributes: Optional[AwsIamAccessKeySessionContextAttributes]
+	session_issuer: Optional[AwsIamAccessKeySessionContextSessionIssuer]
 class AwsIamAccessKeyDetails(ASFFBaseModel):
-    """
-    IAM access key details related to a finding.
+	"""
+IAM access key details related to a finding.
 
-    :param user_name: The user associated with the IAM access key related to a finding. The UserName parameter has been replaced with the PrincipalName parameter because access keys can also be assigned to principals that are not IAM users.
-    :param status: The status of the IAM access key related to a finding.
-    :param created_at: Indicates when the IAM access key was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param principal_id: The ID of the principal associated with an access key.
-    :param principal_type: The type of principal associated with an access key.
-    :param principal_name: The name of the principal.
-    :param account_id: The AWS account ID of the account for the key.
-    :param access_key_id: The identifier of the access key.
-    :param session_context: Information about the session that the key was used for.
+:param user_name: The user associated with the IAM access key related to a finding. The UserName parameter has been replaced with the PrincipalName parameter because access keys can also be assigned to principals that are not IAM users.
+:param status: The status of the IAM access key related to a finding.
+:param created_at: Indicates when the IAM access key was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param principal_id: The ID of the principal associated with an access key.
+:param principal_type: The type of principal associated with an access key.
+:param principal_name: The name of the principal.
+:param account_id: The AWS account ID of the account for the key.
+:param access_key_id: The identifier of the access key.
+:param session_context: Information about the session that the key was used for.
 
-    :return: AwsIamAccessKeyDetails object
-    """
-
-    user_name: Optional[NonEmptyString]
-    status: Optional[AwsIamAccessKeyStatus]
-    created_at: Optional[Iso8601Timestamp]
-    principal_id: Optional[NonEmptyString]
-    principal_type: Optional[NonEmptyString]
-    principal_name: Optional[NonEmptyString]
-    account_id: Optional[NonEmptyString]
-    access_key_id: Optional[NonEmptyString]
-    session_context: Optional[AwsIamAccessKeySessionContext]
-
-
+:return: AwsIamAccessKeyDetails object
+	"""
+	user_name: Optional[NonEmptyString]
+	status: Optional[AwsIamAccessKeyStatus]
+	created_at: Optional[Iso8601Timestamp]
+	principal_id: Optional[NonEmptyString]
+	principal_type: Optional[NonEmptyString]
+	principal_name: Optional[NonEmptyString]
+	account_id: Optional[NonEmptyString]
+	access_key_id: Optional[NonEmptyString]
+	session_context: Optional[AwsIamAccessKeySessionContext]
 class AwsIamAttachedManagedPolicy(ASFFBaseModel):
-    """
-    A managed policy that is attached to an IAM principal.
+	"""
+A managed policy that is attached to an IAM principal.
 
-    :param policy_name: The name of the policy.
-    :param policy_arn: The ARN of the policy.
+:param policy_name: The name of the policy.
+:param policy_arn: The ARN of the policy.
 
-    :return: AwsIamAttachedManagedPolicy object
-    """
-
-    policy_name: Optional[NonEmptyString]
-    policy_arn: Optional[NonEmptyString]
-
-
+:return: AwsIamAttachedManagedPolicy object
+	"""
+	policy_name: Optional[NonEmptyString]
+	policy_arn: Optional[NonEmptyString]
 AwsIamAttachedManagedPolicyList = List[AwsIamAttachedManagedPolicy]
-
-
 class AwsIamPermissionsBoundary(ASFFBaseModel):
-    """
-    Information about the policy used to set the permissions boundary for an IAM principal.
+	"""
+Information about the policy used to set the permissions boundary for an IAM principal.
 
-    :param permissions_boundary_arn: The ARN of the policy used to set the permissions boundary.
-    :param permissions_boundary_type: The usage type for the permissions boundary.
+:param permissions_boundary_arn: The ARN of the policy used to set the permissions boundary.
+:param permissions_boundary_type: The usage type for the permissions boundary.
 
-    :return: AwsIamPermissionsBoundary object
-    """
-
-    permissions_boundary_arn: Optional[NonEmptyString]
-    permissions_boundary_type: Optional[NonEmptyString]
-
-
+:return: AwsIamPermissionsBoundary object
+	"""
+	permissions_boundary_arn: Optional[NonEmptyString]
+	permissions_boundary_type: Optional[NonEmptyString]
 class AwsIamUserPolicy(ASFFBaseModel):
-    """
-    Information about an inline policy that is embedded in the user.
+	"""
+Information about an inline policy that is embedded in the user.
 
-    :param policy_name: The name of the policy.
+:param policy_name: The name of the policy.
 
-    :return: AwsIamUserPolicy object
-    """
-
-    policy_name: Optional[NonEmptyString]
-
-
+:return: AwsIamUserPolicy object
+	"""
+	policy_name: Optional[NonEmptyString]
 AwsIamUserPolicyList = List[AwsIamUserPolicy]
-
-
 class AwsIamUserDetails(ASFFBaseModel):
-    """
-    Information about an IAM user.
+	"""
+Information about an IAM user.
 
-    :param attached_managed_policies: A list of the managed policies that are attached to the user.
-    :param create_date: Indicates when the user was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param group_list: A list of IAM groups that the user belongs to.
-    :param path: The path to the user.
-    :param permissions_boundary: The permissions boundary for the user.
-    :param user_id: The unique identifier for the user.
-    :param user_name: The name of the user.
-    :param user_policy_list: The list of inline policies that are embedded in the user.
+:param attached_managed_policies: A list of the managed policies that are attached to the user.
+:param create_date: Indicates when the user was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param group_list: A list of IAM groups that the user belongs to.
+:param path: The path to the user.
+:param permissions_boundary: The permissions boundary for the user.
+:param user_id: The unique identifier for the user.
+:param user_name: The name of the user.
+:param user_policy_list: The list of inline policies that are embedded in the user.
 
-    :return: AwsIamUserDetails object
-    """
-
-    attached_managed_policies: Optional[AwsIamAttachedManagedPolicyList]
-    create_date: Optional[Iso8601Timestamp]
-    group_list: Optional[StringList]
-    path: Optional[NonEmptyString]
-    permissions_boundary: Optional[AwsIamPermissionsBoundary]
-    user_id: Optional[NonEmptyString]
-    user_name: Optional[NonEmptyString]
-    user_policy_list: Optional[AwsIamUserPolicyList]
-
-
+:return: AwsIamUserDetails object
+	"""
+	attached_managed_policies: Optional[AwsIamAttachedManagedPolicyList]
+	create_date: Optional[Iso8601Timestamp]
+	group_list: Optional[StringList]
+	path: Optional[NonEmptyString]
+	permissions_boundary: Optional[AwsIamPermissionsBoundary]
+	user_id: Optional[NonEmptyString]
+	user_name: Optional[NonEmptyString]
+	user_policy_list: Optional[AwsIamUserPolicyList]
 class AwsIamPolicyVersion(ASFFBaseModel):
-    """
-    A version of an IAM policy.
+	"""
+A version of an IAM policy.
 
-    :param version_id: The identifier of the policy version.
-    :param is_default_version: Whether the version is the default version.
-    :param create_date: Indicates when the version was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param version_id: The identifier of the policy version.
+:param is_default_version: Whether the version is the default version.
+:param create_date: Indicates when the version was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
 
-    :return: AwsIamPolicyVersion object
-    """
-
-    version_id: Optional[NonEmptyString]
-    is_default_version: Optional[Boolean]
-    create_date: Optional[Iso8601Timestamp]
-
-
+:return: AwsIamPolicyVersion object
+	"""
+	version_id: Optional[NonEmptyString]
+	is_default_version: Optional[Boolean]
+	create_date: Optional[Iso8601Timestamp]
 AwsIamPolicyVersionList = List[AwsIamPolicyVersion]
-
-
 class AwsIamPolicyDetails(ASFFBaseModel):
-    """
-    Represents an IAM permissions policy.
+	"""
+Represents an IAM permissions policy.
 
-    :param attachment_count: The number of users, groups, and roles that the policy is attached to.
-    :param create_date: When the policy was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param default_version_id: The identifier of the default version of the policy.
-    :param description: A description of the policy.
-    :param is_attachable: Whether the policy can be attached to a user, group, or role.
-    :param path: The path to the policy.
-    :param permissions_boundary_usage_count: The number of users and roles that use the policy to set the permissions boundary.
-    :param policy_id: The unique identifier of the policy.
-    :param policy_name: The name of the policy.
-    :param policy_version_list: List of versions of the policy.
-    :param update_date: When the policy was most recently updated. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param attachment_count: The number of users, groups, and roles that the policy is attached to.
+:param create_date: When the policy was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param default_version_id: The identifier of the default version of the policy.
+:param description: A description of the policy.
+:param is_attachable: Whether the policy can be attached to a user, group, or role.
+:param path: The path to the policy.
+:param permissions_boundary_usage_count: The number of users and roles that use the policy to set the permissions boundary.
+:param policy_id: The unique identifier of the policy.
+:param policy_name: The name of the policy.
+:param policy_version_list: List of versions of the policy.
+:param update_date: When the policy was most recently updated. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
 
-    :return: AwsIamPolicyDetails object
-    """
-
-    attachment_count: Optional[Integer]
-    create_date: Optional[Iso8601Timestamp]
-    default_version_id: Optional[NonEmptyString]
-    description: Optional[NonEmptyString]
-    is_attachable: Optional[Boolean]
-    path: Optional[NonEmptyString]
-    permissions_boundary_usage_count: Optional[Integer]
-    policy_id: Optional[NonEmptyString]
-    policy_name: Optional[NonEmptyString]
-    policy_version_list: Optional[AwsIamPolicyVersionList]
-    update_date: Optional[Iso8601Timestamp]
-
-
+:return: AwsIamPolicyDetails object
+	"""
+	attachment_count: Optional[Integer]
+	create_date: Optional[Iso8601Timestamp]
+	default_version_id: Optional[NonEmptyString]
+	description: Optional[NonEmptyString]
+	is_attachable: Optional[Boolean]
+	path: Optional[NonEmptyString]
+	permissions_boundary_usage_count: Optional[Integer]
+	policy_id: Optional[NonEmptyString]
+	policy_name: Optional[NonEmptyString]
+	policy_version_list: Optional[AwsIamPolicyVersionList]
+	update_date: Optional[Iso8601Timestamp]
 class AwsApiGatewayV2RouteSettings(ASFFBaseModel):
-    """
-    Contains route settings for a stage.
+	"""
+Contains route settings for a stage.
 
-    :param detailed_metrics_enabled: Indicates whether detailed metrics are enabled.
-    :param logging_level: The logging level. The logging level affects the log entries that are pushed to CloudWatch Logs. Supported only for WebSocket APIs. If the logging level is ERROR, then the logs only include error-level entries. If the logging level is INFO, then the logs include both ERROR events and extra informational events. Valid values: OFF | ERROR | INFO
-    :param data_trace_enabled: Indicates whether data trace logging is enabled. Data trace logging affects the log entries that are pushed to CloudWatch Logs. Supported only for WebSocket APIs.
-    :param throttling_burst_limit: The throttling burst limit.
-    :param throttling_rate_limit: The throttling rate limit.
+:param detailed_metrics_enabled: Indicates whether detailed metrics are enabled.
+:param logging_level: The logging level. The logging level affects the log entries that are pushed to CloudWatch Logs. Supported only for WebSocket APIs. If the logging level is ERROR, then the logs only include error-level entries. If the logging level is INFO, then the logs include both ERROR events and extra informational events. Valid values: OFF | ERROR | INFO 
+:param data_trace_enabled: Indicates whether data trace logging is enabled. Data trace logging affects the log entries that are pushed to CloudWatch Logs. Supported only for WebSocket APIs.
+:param throttling_burst_limit: The throttling burst limit.
+:param throttling_rate_limit: The throttling rate limit.
 
-    :return: AwsApiGatewayV2RouteSettings object
-    """
-
-    detailed_metrics_enabled: Optional[Boolean]
-    logging_level: Optional[NonEmptyString]
-    data_trace_enabled: Optional[Boolean]
-    throttling_burst_limit: Optional[Integer]
-    throttling_rate_limit: Optional[Double]
-
-
+:return: AwsApiGatewayV2RouteSettings object
+	"""
+	detailed_metrics_enabled: Optional[Boolean]
+	logging_level: Optional[NonEmptyString]
+	data_trace_enabled: Optional[Boolean]
+	throttling_burst_limit: Optional[Integer]
+	throttling_rate_limit: Optional[Double]
 class AwsApiGatewayAccessLogSettings(ASFFBaseModel):
-    """
-    Contains information about settings for logging access for the stage.
+	"""
+Contains information about settings for logging access for the stage.
 
-    :param format: A single-line format of the access logs of data, as specified by selected $context variables. The format must include at least $context.requestId.
-    :param destination_arn: The ARN of the CloudWatch Logs log group that receives the access logs.
+:param format: A single-line format of the access logs of data, as specified by selected $context variables. The format must include at least $context.requestId.
+:param destination_arn: The ARN of the CloudWatch Logs log group that receives the access logs.
 
-    :return: AwsApiGatewayAccessLogSettings object
-    """
-
-    format: Optional[NonEmptyString]
-    destination_arn: Optional[NonEmptyString]
-
-
+:return: AwsApiGatewayAccessLogSettings object
+	"""
+	format: Optional[NonEmptyString]
+	destination_arn: Optional[NonEmptyString]
 class AwsApiGatewayV2StageDetails(ASFFBaseModel):
-    """
-    Contains information about a version 2 stage for Amazon API Gateway.
+	"""
+Contains information about a version 2 stage for Amazon API Gateway.
 
-    :param created_date: Indicates when the stage was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param description: The description of the stage.
-    :param default_route_settings: Default route settings for the stage.
-    :param deployment_id: The identifier of the deployment that the stage is associated with.
-    :param last_updated_date: Indicates when the stage was most recently updated. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param route_settings: The route settings for the stage.
-    :param stage_name: The name of the stage.
-    :param stage_variables: A map that defines the stage variables for the stage. Variable names can have alphanumeric and underscore characters. Variable values can contain the following characters:   Uppercase and lowercase letters   Numbers   Special characters -._~:/?#&amp;=,
-    :param access_log_settings: Information about settings for logging access for the stage.
-    :param auto_deploy: Indicates whether updates to an API automatically trigger a new deployment.
-    :param last_deployment_status_message: The status of the last deployment of a stage. Supported only if the stage has automatic deployment enabled.
-    :param api_gateway_managed: Indicates whether the stage is managed by API Gateway.
+:param created_date: Indicates when the stage was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param description: The description of the stage.
+:param default_route_settings: Default route settings for the stage.
+:param deployment_id: The identifier of the deployment that the stage is associated with. 
+:param last_updated_date: Indicates when the stage was most recently updated. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param route_settings: The route settings for the stage.
+:param stage_name: The name of the stage.
+:param stage_variables: A map that defines the stage variables for the stage. Variable names can have alphanumeric and underscore characters. Variable values can contain the following characters:   Uppercase and lowercase letters   Numbers   Special characters -._~:/?#&amp;=,  
+:param access_log_settings: Information about settings for logging access for the stage.
+:param auto_deploy: Indicates whether updates to an API automatically trigger a new deployment.
+:param last_deployment_status_message: The status of the last deployment of a stage. Supported only if the stage has automatic deployment enabled.
+:param api_gateway_managed: Indicates whether the stage is managed by API Gateway.
 
-    :return: AwsApiGatewayV2StageDetails object
-    """
-
-    created_date: Optional[Iso8601Timestamp]
-    description: Optional[NonEmptyString]
-    default_route_settings: Optional[AwsApiGatewayV2RouteSettings]
-    deployment_id: Optional[NonEmptyString]
-    last_updated_date: Optional[NonEmptyString]
-    route_settings: Optional[AwsApiGatewayV2RouteSettings]
-    stage_name: Optional[NonEmptyString]
-    stage_variables: Optional[FieldMap]
-    access_log_settings: Optional[AwsApiGatewayAccessLogSettings]
-    auto_deploy: Optional[Boolean]
-    last_deployment_status_message: Optional[NonEmptyString]
-    api_gateway_managed: Optional[Boolean]
-
-
+:return: AwsApiGatewayV2StageDetails object
+	"""
+	created_date: Optional[Iso8601Timestamp]
+	description: Optional[NonEmptyString]
+	default_route_settings: Optional[AwsApiGatewayV2RouteSettings]
+	deployment_id: Optional[NonEmptyString]
+	last_updated_date: Optional[NonEmptyString]
+	route_settings: Optional[AwsApiGatewayV2RouteSettings]
+	stage_name: Optional[NonEmptyString]
+	stage_variables: Optional[FieldMap]
+	access_log_settings: Optional[AwsApiGatewayAccessLogSettings]
+	auto_deploy: Optional[Boolean]
+	last_deployment_status_message: Optional[NonEmptyString]
+	api_gateway_managed: Optional[Boolean]
 class AwsCorsConfiguration(ASFFBaseModel):
-    """
-    Contains the cross-origin resource sharing (CORS) configuration for the API. CORS is only supported for HTTP APIs.
+	"""
+Contains the cross-origin resource sharing (CORS) configuration for the API. CORS is only supported for HTTP APIs.
 
-    :param allow_origins: The allowed origins for CORS requests.
-    :param allow_credentials: Indicates whether the CORS request includes credentials.
-    :param expose_headers: The exposed headers for CORS requests.
-    :param max_age: The number of seconds for which the browser caches preflight request results.
-    :param allow_methods: The allowed methods for CORS requests.
-    :param allow_headers: The allowed headers for CORS requests.
+:param allow_origins: The allowed origins for CORS requests.
+:param allow_credentials: Indicates whether the CORS request includes credentials.
+:param expose_headers: The exposed headers for CORS requests.
+:param max_age: The number of seconds for which the browser caches preflight request results.
+:param allow_methods: The allowed methods for CORS requests.
+:param allow_headers: The allowed headers for CORS requests.
 
-    :return: AwsCorsConfiguration object
-    """
-
-    allow_origins: Optional[NonEmptyStringList]
-    allow_credentials: Optional[Boolean]
-    expose_headers: Optional[NonEmptyStringList]
-    max_age: Optional[Integer]
-    allow_methods: Optional[NonEmptyStringList]
-    allow_headers: Optional[NonEmptyStringList]
-
-
+:return: AwsCorsConfiguration object
+	"""
+	allow_origins: Optional[NonEmptyStringList]
+	allow_credentials: Optional[Boolean]
+	expose_headers: Optional[NonEmptyStringList]
+	max_age: Optional[Integer]
+	allow_methods: Optional[NonEmptyStringList]
+	allow_headers: Optional[NonEmptyStringList]
 class AwsApiGatewayV2ApiDetails(ASFFBaseModel):
-    """
-    Contains information about a version 2 API in Amazon API Gateway.
+	"""
+Contains information about a version 2 API in Amazon API Gateway.
 
-    :param api_endpoint: The URI of the API.  Uses the format  &lt;api-id&gt;.execute-api.&lt;region&gt;.amazonaws.com  The stage name is typically appended to the URI to form a complete path to a deployed API stage.
-    :param api_id: The identifier of the API.
-    :param api_key_selection_expression: An API key selection expression. Supported only for WebSocket APIs.
-    :param created_date: Indicates when the API was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param description: A description of the API.
-    :param version: The version identifier for the API.
-    :param name: The name of the API.
-    :param protocol_type: The API protocol for the API. Valid values: WEBSOCKET | HTTP
-    :param route_selection_expression: The route selection expression for the API. For HTTP APIs, must be ${request.method} ${request.path}. This is the default value for HTTP APIs. For WebSocket APIs, there is no default value.
-    :param cors_configuration: A cross-origin resource sharing (CORS) configuration. Supported only for HTTP APIs.
+:param api_endpoint: The URI of the API.  Uses the format  &lt;api-id&gt;.execute-api.&lt;region&gt;.amazonaws.com  The stage name is typically appended to the URI to form a complete path to a deployed API stage.
+:param api_id: The identifier of the API.
+:param api_key_selection_expression: An API key selection expression. Supported only for WebSocket APIs. 
+:param created_date: Indicates when the API was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param description: A description of the API.
+:param version: The version identifier for the API.
+:param name: The name of the API.
+:param protocol_type: The API protocol for the API. Valid values: WEBSOCKET | HTTP 
+:param route_selection_expression: The route selection expression for the API. For HTTP APIs, must be ${request.method} ${request.path}. This is the default value for HTTP APIs. For WebSocket APIs, there is no default value.
+:param cors_configuration: A cross-origin resource sharing (CORS) configuration. Supported only for HTTP APIs.
 
-    :return: AwsApiGatewayV2ApiDetails object
-    """
-
-    api_endpoint: Optional[NonEmptyString]
-    api_id: Optional[NonEmptyString]
-    api_key_selection_expression: Optional[NonEmptyString]
-    created_date: Optional[Iso8601Timestamp]
-    description: Optional[NonEmptyString]
-    version: Optional[NonEmptyString]
-    name: Optional[NonEmptyString]
-    protocol_type: Optional[NonEmptyString]
-    route_selection_expression: Optional[NonEmptyString]
-    cors_configuration: Optional[AwsCorsConfiguration]
-
-
+:return: AwsApiGatewayV2ApiDetails object
+	"""
+	api_endpoint: Optional[NonEmptyString]
+	api_id: Optional[NonEmptyString]
+	api_key_selection_expression: Optional[NonEmptyString]
+	created_date: Optional[Iso8601Timestamp]
+	description: Optional[NonEmptyString]
+	version: Optional[NonEmptyString]
+	name: Optional[NonEmptyString]
+	protocol_type: Optional[NonEmptyString]
+	route_selection_expression: Optional[NonEmptyString]
+	cors_configuration: Optional[AwsCorsConfiguration]
 class AwsDynamoDbTableAttributeDefinition(ASFFBaseModel):
-    """
-    Contains a definition of an attribute for the table.
+	"""
+Contains a definition of an attribute for the table.
 
-    :param attribute_name: The name of the attribute.
-    :param attribute_type: The type of the attribute.
+:param attribute_name: The name of the attribute.
+:param attribute_type: The type of the attribute.
 
-    :return: AwsDynamoDbTableAttributeDefinition object
-    """
-
-    attribute_name: Optional[NonEmptyString]
-    attribute_type: Optional[NonEmptyString]
-
-
+:return: AwsDynamoDbTableAttributeDefinition object
+	"""
+	attribute_name: Optional[NonEmptyString]
+	attribute_type: Optional[NonEmptyString]
 AwsDynamoDbTableAttributeDefinitionList = List[AwsDynamoDbTableAttributeDefinition]
-
-
 class AwsDynamoDbTableBillingModeSummary(ASFFBaseModel):
-    """
-    Provides information about the billing for read/write capacity on the table.
+	"""
+Provides information about the billing for read/write capacity on the table.
 
-    :param billing_mode: The method used to charge for read and write throughput and to manage capacity.
-    :param last_update_to_pay_per_request_date_time: If the billing mode is PAY_PER_REQUEST, indicates when the billing mode was set to that value. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param billing_mode: The method used to charge for read and write throughput and to manage capacity.
+:param last_update_to_pay_per_request_date_time: If the billing mode is PAY_PER_REQUEST, indicates when the billing mode was set to that value. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
 
-    :return: AwsDynamoDbTableBillingModeSummary object
-    """
-
-    billing_mode: Optional[NonEmptyString]
-    last_update_to_pay_per_request_date_time: Optional[Iso8601Timestamp]
-
-
+:return: AwsDynamoDbTableBillingModeSummary object
+	"""
+	billing_mode: Optional[NonEmptyString]
+	last_update_to_pay_per_request_date_time: Optional[Iso8601Timestamp]
 SizeBytes = int
-
-
 class AwsDynamoDbTableKeySchema(ASFFBaseModel):
-    """
-    A component of the key schema for the DynamoDB table, a global secondary index, or a local secondary index.
+	"""
+A component of the key schema for the DynamoDB table, a global secondary index, or a local secondary index.
 
-    :param attribute_name: The name of the key schema attribute.
-    :param key_type: The type of key used for the key schema attribute.
+:param attribute_name: The name of the key schema attribute.
+:param key_type: The type of key used for the key schema attribute.
 
-    :return: AwsDynamoDbTableKeySchema object
-    """
-
-    attribute_name: Optional[NonEmptyString]
-    key_type: Optional[NonEmptyString]
-
-
+:return: AwsDynamoDbTableKeySchema object
+	"""
+	attribute_name: Optional[NonEmptyString]
+	key_type: Optional[NonEmptyString]
 AwsDynamoDbTableKeySchemaList = List[AwsDynamoDbTableKeySchema]
-
-
 class AwsDynamoDbTableProjection(ASFFBaseModel):
-    """
-    For global and local secondary indexes, identifies the attributes that are copied from the table into the index.
+	"""
+For global and local secondary indexes, identifies the attributes that are copied from the table into the index.
 
-    :param non_key_attributes: The nonkey attributes that are projected into the index. For each attribute, provide the attribute name.
-    :param projection_type: The types of attributes that are projected into the index.
+:param non_key_attributes: The nonkey attributes that are projected into the index. For each attribute, provide the attribute name.
+:param projection_type: The types of attributes that are projected into the index.
 
-    :return: AwsDynamoDbTableProjection object
-    """
-
-    non_key_attributes: Optional[StringList]
-    projection_type: Optional[NonEmptyString]
-
-
+:return: AwsDynamoDbTableProjection object
+	"""
+	non_key_attributes: Optional[StringList]
+	projection_type: Optional[NonEmptyString]
 class AwsDynamoDbTableProvisionedThroughput(ASFFBaseModel):
-    """
-    Information about the provisioned throughput for the table or for a global secondary index.
+	"""
+Information about the provisioned throughput for the table or for a global secondary index.
 
-    :param last_decrease_date_time: Indicates when the provisioned throughput was last decreased. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param last_increase_date_time: Indicates when the provisioned throughput was last increased. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param number_of_decreases_today: The number of times during the current UTC calendar day that the provisioned throughput was decreased.
-    :param read_capacity_units: The maximum number of strongly consistent reads consumed per second before DynamoDB returns a ThrottlingException.
-    :param write_capacity_units: The maximum number of writes consumed per second before DynamoDB returns a ThrottlingException.
+:param last_decrease_date_time: Indicates when the provisioned throughput was last decreased. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param last_increase_date_time: Indicates when the provisioned throughput was last increased. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param number_of_decreases_today: The number of times during the current UTC calendar day that the provisioned throughput was decreased.
+:param read_capacity_units: The maximum number of strongly consistent reads consumed per second before DynamoDB returns a ThrottlingException.
+:param write_capacity_units: The maximum number of writes consumed per second before DynamoDB returns a ThrottlingException.
 
-    :return: AwsDynamoDbTableProvisionedThroughput object
-    """
-
-    last_decrease_date_time: Optional[Iso8601Timestamp]
-    last_increase_date_time: Optional[Iso8601Timestamp]
-    number_of_decreases_today: Optional[Integer]
-    read_capacity_units: Optional[Integer]
-    write_capacity_units: Optional[Integer]
-
-
+:return: AwsDynamoDbTableProvisionedThroughput object
+	"""
+	last_decrease_date_time: Optional[Iso8601Timestamp]
+	last_increase_date_time: Optional[Iso8601Timestamp]
+	number_of_decreases_today: Optional[Integer]
+	read_capacity_units: Optional[Integer]
+	write_capacity_units: Optional[Integer]
 class AwsDynamoDbTableGlobalSecondaryIndex(ASFFBaseModel):
-    """
-    Information abut a global secondary index for the table.
+	"""
+Information abut a global secondary index for the table.
 
-    :param backfilling: Whether the index is currently backfilling.
-    :param index_arn: The ARN of the index.
-    :param index_name: The name of the index.
-    :param index_size_bytes: The total size in bytes of the index.
-    :param index_status: The current status of the index.
-    :param item_count: The number of items in the index.
-    :param key_schema: The key schema for the index.
-    :param projection: Attributes that are copied from the table into an index.
-    :param provisioned_throughput: Information about the provisioned throughput settings for the indexes.
+:param backfilling: Whether the index is currently backfilling.
+:param index_arn: The ARN of the index.
+:param index_name: The name of the index.
+:param index_size_bytes: The total size in bytes of the index.
+:param index_status: The current status of the index.
+:param item_count: The number of items in the index.
+:param key_schema: The key schema for the index.
+:param projection: Attributes that are copied from the table into an index.
+:param provisioned_throughput: Information about the provisioned throughput settings for the indexes.
 
-    :return: AwsDynamoDbTableGlobalSecondaryIndex object
-    """
-
-    backfilling: Optional[Boolean]
-    index_arn: Optional[NonEmptyString]
-    index_name: Optional[NonEmptyString]
-    index_size_bytes: Optional[SizeBytes]
-    index_status: Optional[NonEmptyString]
-    item_count: Optional[Integer]
-    key_schema: Optional[AwsDynamoDbTableKeySchemaList]
-    projection: Optional[AwsDynamoDbTableProjection]
-    provisioned_throughput: Optional[AwsDynamoDbTableProvisionedThroughput]
-
-
+:return: AwsDynamoDbTableGlobalSecondaryIndex object
+	"""
+	backfilling: Optional[Boolean]
+	index_arn: Optional[NonEmptyString]
+	index_name: Optional[NonEmptyString]
+	index_size_bytes: Optional[SizeBytes]
+	index_status: Optional[NonEmptyString]
+	item_count: Optional[Integer]
+	key_schema: Optional[AwsDynamoDbTableKeySchemaList]
+	projection: Optional[AwsDynamoDbTableProjection]
+	provisioned_throughput: Optional[AwsDynamoDbTableProvisionedThroughput]
 AwsDynamoDbTableGlobalSecondaryIndexList = List[AwsDynamoDbTableGlobalSecondaryIndex]
-
-
 class AwsDynamoDbTableLocalSecondaryIndex(ASFFBaseModel):
-    """
-    Information about a local secondary index for a DynamoDB table.
+	"""
+Information about a local secondary index for a DynamoDB table.
 
-    :param index_arn: The ARN of the index.
-    :param index_name: The name of the index.
-    :param key_schema: The complete key schema for the index.
-    :param projection: Attributes that are copied from the table into the index. These are in addition to the primary key attributes and index key attributes, which are automatically projected.
+:param index_arn: The ARN of the index.
+:param index_name: The name of the index.
+:param key_schema: The complete key schema for the index.
+:param projection: Attributes that are copied from the table into the index. These are in addition to the primary key attributes and index key attributes, which are automatically projected.
 
-    :return: AwsDynamoDbTableLocalSecondaryIndex object
-    """
-
-    index_arn: Optional[NonEmptyString]
-    index_name: Optional[NonEmptyString]
-    key_schema: Optional[AwsDynamoDbTableKeySchemaList]
-    projection: Optional[AwsDynamoDbTableProjection]
-
-
+:return: AwsDynamoDbTableLocalSecondaryIndex object
+	"""
+	index_arn: Optional[NonEmptyString]
+	index_name: Optional[NonEmptyString]
+	key_schema: Optional[AwsDynamoDbTableKeySchemaList]
+	projection: Optional[AwsDynamoDbTableProjection]
 AwsDynamoDbTableLocalSecondaryIndexList = List[AwsDynamoDbTableLocalSecondaryIndex]
-
-
 class AwsDynamoDbTableProvisionedThroughputOverride(ASFFBaseModel):
-    """
-    Replica-specific configuration for the provisioned throughput.
+	"""
+Replica-specific configuration for the provisioned throughput.
 
-    :param read_capacity_units: The read capacity units for the replica.
+:param read_capacity_units: The read capacity units for the replica.
 
-    :return: AwsDynamoDbTableProvisionedThroughputOverride object
-    """
-
-    read_capacity_units: Optional[Integer]
-
-
+:return: AwsDynamoDbTableProvisionedThroughputOverride object
+	"""
+	read_capacity_units: Optional[Integer]
 class AwsDynamoDbTableReplicaGlobalSecondaryIndex(ASFFBaseModel):
-    """
-    Information about a global secondary index for a DynamoDB table replica.
+	"""
+Information about a global secondary index for a DynamoDB table replica.
 
-    :param index_name: The name of the index.
-    :param provisioned_throughput_override: Replica-specific configuration for the provisioned throughput for the index.
+:param index_name: The name of the index.
+:param provisioned_throughput_override: Replica-specific configuration for the provisioned throughput for the index.
 
-    :return: AwsDynamoDbTableReplicaGlobalSecondaryIndex object
-    """
-
-    index_name: Optional[NonEmptyString]
-    provisioned_throughput_override: Optional[
-        AwsDynamoDbTableProvisionedThroughputOverride
-    ]
-
-
-AwsDynamoDbTableReplicaGlobalSecondaryIndexList = List[
-    AwsDynamoDbTableReplicaGlobalSecondaryIndex
-]
-
-
+:return: AwsDynamoDbTableReplicaGlobalSecondaryIndex object
+	"""
+	index_name: Optional[NonEmptyString]
+	provisioned_throughput_override: Optional[AwsDynamoDbTableProvisionedThroughputOverride]
+AwsDynamoDbTableReplicaGlobalSecondaryIndexList = List[AwsDynamoDbTableReplicaGlobalSecondaryIndex]
 class AwsDynamoDbTableReplica(ASFFBaseModel):
-    """
-    Information about a replica of a DynamoDB table.
+	"""
+Information about a replica of a DynamoDB table.
 
-    :param global_secondary_indexes: List of global secondary indexes for the replica.
-    :param kms_master_key_id: The identifier of the AWS KMS customer master key (CMK) that will be used for AWS KMS encryption for the replica.
-    :param provisioned_throughput_override: Replica-specific configuration for the provisioned throughput.
-    :param region_name: The name of the Region where the replica is located.
-    :param replica_status: The current status of the replica.
-    :param replica_status_description: Detailed information about the replica status.
+:param global_secondary_indexes: List of global secondary indexes for the replica.
+:param kms_master_key_id: The identifier of the AWS KMS customer master key (CMK) that will be used for AWS KMS encryption for the replica.
+:param provisioned_throughput_override: Replica-specific configuration for the provisioned throughput.
+:param region_name: The name of the Region where the replica is located.
+:param replica_status: The current status of the replica.
+:param replica_status_description: Detailed information about the replica status.
 
-    :return: AwsDynamoDbTableReplica object
-    """
-
-    global_secondary_indexes: Optional[AwsDynamoDbTableReplicaGlobalSecondaryIndexList]
-    kms_master_key_id: Optional[NonEmptyString]
-    provisioned_throughput_override: Optional[
-        AwsDynamoDbTableProvisionedThroughputOverride
-    ]
-    region_name: Optional[NonEmptyString]
-    replica_status: Optional[NonEmptyString]
-    replica_status_description: Optional[NonEmptyString]
-
-
+:return: AwsDynamoDbTableReplica object
+	"""
+	global_secondary_indexes: Optional[AwsDynamoDbTableReplicaGlobalSecondaryIndexList]
+	kms_master_key_id: Optional[NonEmptyString]
+	provisioned_throughput_override: Optional[AwsDynamoDbTableProvisionedThroughputOverride]
+	region_name: Optional[NonEmptyString]
+	replica_status: Optional[NonEmptyString]
+	replica_status_description: Optional[NonEmptyString]
 AwsDynamoDbTableReplicaList = List[AwsDynamoDbTableReplica]
-
-
 class AwsDynamoDbTableRestoreSummary(ASFFBaseModel):
-    """
-    Information about the restore for the table.
+	"""
+Information about the restore for the table.
 
-    :param source_backup_arn: The ARN of the source backup from which the table was restored.
-    :param source_table_arn: The ARN of the source table for the backup.
-    :param restore_date_time: Indicates the point in time that the table was restored to. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param restore_in_progress: Whether a restore is currently in progress.
+:param source_backup_arn: The ARN of the source backup from which the table was restored.
+:param source_table_arn: The ARN of the source table for the backup.
+:param restore_date_time: Indicates the point in time that the table was restored to. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param restore_in_progress: Whether a restore is currently in progress.
 
-    :return: AwsDynamoDbTableRestoreSummary object
-    """
-
-    source_backup_arn: Optional[NonEmptyString]
-    source_table_arn: Optional[NonEmptyString]
-    restore_date_time: Optional[Iso8601Timestamp]
-    restore_in_progress: Optional[Boolean]
-
-
+:return: AwsDynamoDbTableRestoreSummary object
+	"""
+	source_backup_arn: Optional[NonEmptyString]
+	source_table_arn: Optional[NonEmptyString]
+	restore_date_time: Optional[Iso8601Timestamp]
+	restore_in_progress: Optional[Boolean]
 class AwsDynamoDbTableSseDescription(ASFFBaseModel):
-    """
-    Information about the server-side encryption for the table.
+	"""
+Information about the server-side encryption for the table.
 
-    :param inaccessible_encryption_date_time: If the key is inaccessible, the date and time when DynamoDB detected that the key was inaccessible. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param status: The status of the server-side encryption.
-    :param sse_type: The type of server-side encryption.
-    :param kms_master_key_arn: The ARN of the AWS KMS customer master key (CMK) that is used for the AWS KMS encryption.
+:param inaccessible_encryption_date_time: If the key is inaccessible, the date and time when DynamoDB detected that the key was inaccessible. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param status: The status of the server-side encryption.
+:param sse_type: The type of server-side encryption.
+:param kms_master_key_arn: The ARN of the AWS KMS customer master key (CMK) that is used for the AWS KMS encryption.
 
-    :return: AwsDynamoDbTableSseDescription object
-    """
-
-    inaccessible_encryption_date_time: Optional[Iso8601Timestamp]
-    status: Optional[NonEmptyString]
-    sse_type: Optional[NonEmptyString]
-    kms_master_key_arn: Optional[NonEmptyString]
-
-
+:return: AwsDynamoDbTableSseDescription object
+	"""
+	inaccessible_encryption_date_time: Optional[Iso8601Timestamp]
+	status: Optional[NonEmptyString]
+	sse_type: Optional[NonEmptyString]
+	kms_master_key_arn: Optional[NonEmptyString]
 class AwsDynamoDbTableStreamSpecification(ASFFBaseModel):
-    """
-    The current DynamoDB Streams configuration for the table.
+	"""
+The current DynamoDB Streams configuration for the table.
 
-    :param stream_enabled: Indicates whether DynamoDB Streams is enabled on the table.
-    :param stream_view_type: Determines the information that is written to the table.
+:param stream_enabled: Indicates whether DynamoDB Streams is enabled on the table.
+:param stream_view_type: Determines the information that is written to the table.
 
-    :return: AwsDynamoDbTableStreamSpecification object
-    """
-
-    stream_enabled: Optional[Boolean]
-    stream_view_type: Optional[NonEmptyString]
-
-
+:return: AwsDynamoDbTableStreamSpecification object
+	"""
+	stream_enabled: Optional[Boolean]
+	stream_view_type: Optional[NonEmptyString]
 class AwsDynamoDbTableDetails(ASFFBaseModel):
-    """
-    Provides details about a DynamoDB table.
+	"""
+Provides details about a DynamoDB table.
 
-    :param attribute_definitions: A list of attribute definitions for the table.
-    :param billing_mode_summary: Information about the billing for read/write capacity on the table.
-    :param creation_date_time: Indicates when the table was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param global_secondary_indexes: List of global secondary indexes for the table.
-    :param global_table_version: The version of global tables being used.
-    :param item_count: The number of items in the table.
-    :param key_schema: The primary key structure for the table.
-    :param latest_stream_arn: The ARN of the latest stream for the table.
-    :param latest_stream_label: The label of the latest stream. The label is not a unique identifier.
-    :param local_secondary_indexes: The list of local secondary indexes for the table.
-    :param provisioned_throughput: Information about the provisioned throughput for the table.
-    :param replicas: The list of replicas of this table.
-    :param restore_summary: Information about the restore for the table.
-    :param sse_description: Information about the server-side encryption for the table.
-    :param stream_specification: The current DynamoDB Streams configuration for the table.
-    :param table_id: The identifier of the table.
-    :param table_name: The name of the table.
-    :param table_size_bytes: The total size of the table in bytes.
-    :param table_status: The current status of the table.
+:param attribute_definitions: A list of attribute definitions for the table.
+:param billing_mode_summary: Information about the billing for read/write capacity on the table.
+:param creation_date_time: Indicates when the table was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param global_secondary_indexes: List of global secondary indexes for the table.
+:param global_table_version: The version of global tables being used.
+:param item_count: The number of items in the table.
+:param key_schema: The primary key structure for the table.
+:param latest_stream_arn: The ARN of the latest stream for the table.
+:param latest_stream_label: The label of the latest stream. The label is not a unique identifier.
+:param local_secondary_indexes: The list of local secondary indexes for the table.
+:param provisioned_throughput: Information about the provisioned throughput for the table.
+:param replicas: The list of replicas of this table.
+:param restore_summary: Information about the restore for the table.
+:param sse_description: Information about the server-side encryption for the table.
+:param stream_specification: The current DynamoDB Streams configuration for the table.
+:param table_id: The identifier of the table.
+:param table_name: The name of the table.
+:param table_size_bytes: The total size of the table in bytes.
+:param table_status: The current status of the table.
 
-    :return: AwsDynamoDbTableDetails object
-    """
-
-    attribute_definitions: Optional[AwsDynamoDbTableAttributeDefinitionList]
-    billing_mode_summary: Optional[AwsDynamoDbTableBillingModeSummary]
-    creation_date_time: Optional[Iso8601Timestamp]
-    global_secondary_indexes: Optional[AwsDynamoDbTableGlobalSecondaryIndexList]
-    global_table_version: Optional[NonEmptyString]
-    item_count: Optional[Integer]
-    key_schema: Optional[AwsDynamoDbTableKeySchemaList]
-    latest_stream_arn: Optional[NonEmptyString]
-    latest_stream_label: Optional[NonEmptyString]
-    local_secondary_indexes: Optional[AwsDynamoDbTableLocalSecondaryIndexList]
-    provisioned_throughput: Optional[AwsDynamoDbTableProvisionedThroughput]
-    replicas: Optional[AwsDynamoDbTableReplicaList]
-    restore_summary: Optional[AwsDynamoDbTableRestoreSummary]
-    sse_description: Optional[AwsDynamoDbTableSseDescription]
-    stream_specification: Optional[AwsDynamoDbTableStreamSpecification]
-    table_id: Optional[NonEmptyString]
-    table_name: Optional[NonEmptyString]
-    table_size_bytes: Optional[SizeBytes]
-    table_status: Optional[NonEmptyString]
-
-
+:return: AwsDynamoDbTableDetails object
+	"""
+	attribute_definitions: Optional[AwsDynamoDbTableAttributeDefinitionList]
+	billing_mode_summary: Optional[AwsDynamoDbTableBillingModeSummary]
+	creation_date_time: Optional[Iso8601Timestamp]
+	global_secondary_indexes: Optional[AwsDynamoDbTableGlobalSecondaryIndexList]
+	global_table_version: Optional[NonEmptyString]
+	item_count: Optional[Integer]
+	key_schema: Optional[AwsDynamoDbTableKeySchemaList]
+	latest_stream_arn: Optional[NonEmptyString]
+	latest_stream_label: Optional[NonEmptyString]
+	local_secondary_indexes: Optional[AwsDynamoDbTableLocalSecondaryIndexList]
+	provisioned_throughput: Optional[AwsDynamoDbTableProvisionedThroughput]
+	replicas: Optional[AwsDynamoDbTableReplicaList]
+	restore_summary: Optional[AwsDynamoDbTableRestoreSummary]
+	sse_description: Optional[AwsDynamoDbTableSseDescription]
+	stream_specification: Optional[AwsDynamoDbTableStreamSpecification]
+	table_id: Optional[NonEmptyString]
+	table_name: Optional[NonEmptyString]
+	table_size_bytes: Optional[SizeBytes]
+	table_status: Optional[NonEmptyString]
 class AwsApiGatewayMethodSettings(ASFFBaseModel):
-    """
-    Defines settings for a method for the stage.
+	"""
+Defines settings for a method for the stage.
 
-    :param metrics_enabled: Indicates whether CloudWatch metrics are enabled for the method.
-    :param logging_level: The logging level for this method. The logging level affects the log entries that are pushed to CloudWatch Logs. If the logging level is ERROR, then the logs only include error-level entries. If the logging level is INFO, then the logs include both ERROR events and extra informational events. Valid values: OFF | ERROR | INFO
-    :param data_trace_enabled: Indicates whether data trace logging is enabled for the method. Data trace logging affects the log entries that are pushed to CloudWatch Logs.
-    :param throttling_burst_limit: The throttling burst limit for the method.
-    :param throttling_rate_limit: The throttling rate limit for the method.
-    :param caching_enabled: Indicates whether responses are cached and returned for requests. For responses to be cached, a cache cluster must be enabled on the stage.
-    :param cache_ttl_in_seconds: Specifies the time to live (TTL), in seconds, for cached responses. The higher the TTL, the longer the response is cached.
-    :param cache_data_encrypted: Indicates whether the cached responses are encrypted.
-    :param require_authorization_for_cache_control: Indicates whether authorization is required for a cache invalidation request.
-    :param unauthorized_cache_control_header_strategy: Indicates how to handle unauthorized requests for cache invalidation. Valid values: FAIL_WITH_403 | SUCCEED_WITH_RESPONSE_HEADER | SUCCEED_WITHOUT_RESPONSE_HEADER
-    :param http_method: The HTTP method. You can use an asterisk (*) as a wildcard to apply method settings to multiple methods.
-    :param resource_path: The resource path for this method. Forward slashes (/) are encoded as ~1 . The initial slash must include a forward slash. For example, the path value /resource/subresource must be encoded as /~1resource~1subresource. To specify the root path, use only a slash (/). You can use an asterisk (*) as a wildcard to apply method settings to multiple methods.
+:param metrics_enabled: Indicates whether CloudWatch metrics are enabled for the method. 
+:param logging_level: The logging level for this method. The logging level affects the log entries that are pushed to CloudWatch Logs. If the logging level is ERROR, then the logs only include error-level entries. If the logging level is INFO, then the logs include both ERROR events and extra informational events. Valid values: OFF | ERROR | INFO 
+:param data_trace_enabled: Indicates whether data trace logging is enabled for the method. Data trace logging affects the log entries that are pushed to CloudWatch Logs.
+:param throttling_burst_limit: The throttling burst limit for the method.
+:param throttling_rate_limit: The throttling rate limit for the method.
+:param caching_enabled: Indicates whether responses are cached and returned for requests. For responses to be cached, a cache cluster must be enabled on the stage.
+:param cache_ttl_in_seconds: Specifies the time to live (TTL), in seconds, for cached responses. The higher the TTL, the longer the response is cached.
+:param cache_data_encrypted: Indicates whether the cached responses are encrypted. 
+:param require_authorization_for_cache_control: Indicates whether authorization is required for a cache invalidation request.
+:param unauthorized_cache_control_header_strategy: Indicates how to handle unauthorized requests for cache invalidation. Valid values: FAIL_WITH_403 | SUCCEED_WITH_RESPONSE_HEADER | SUCCEED_WITHOUT_RESPONSE_HEADER 
+:param http_method: The HTTP method. You can use an asterisk (*) as a wildcard to apply method settings to multiple methods.
+:param resource_path: The resource path for this method. Forward slashes (/) are encoded as ~1 . The initial slash must include a forward slash. For example, the path value /resource/subresource must be encoded as /~1resource~1subresource. To specify the root path, use only a slash (/). You can use an asterisk (*) as a wildcard to apply method settings to multiple methods.
 
-    :return: AwsApiGatewayMethodSettings object
-    """
-
-    metrics_enabled: Optional[Boolean]
-    logging_level: Optional[NonEmptyString]
-    data_trace_enabled: Optional[Boolean]
-    throttling_burst_limit: Optional[Integer]
-    throttling_rate_limit: Optional[Double]
-    caching_enabled: Optional[Boolean]
-    cache_ttl_in_seconds: Optional[Integer]
-    cache_data_encrypted: Optional[Boolean]
-    require_authorization_for_cache_control: Optional[Boolean]
-    unauthorized_cache_control_header_strategy: Optional[NonEmptyString]
-    http_method: Optional[NonEmptyString]
-    resource_path: Optional[NonEmptyString]
-
-
+:return: AwsApiGatewayMethodSettings object
+	"""
+	metrics_enabled: Optional[Boolean]
+	logging_level: Optional[NonEmptyString]
+	data_trace_enabled: Optional[Boolean]
+	throttling_burst_limit: Optional[Integer]
+	throttling_rate_limit: Optional[Double]
+	caching_enabled: Optional[Boolean]
+	cache_ttl_in_seconds: Optional[Integer]
+	cache_data_encrypted: Optional[Boolean]
+	require_authorization_for_cache_control: Optional[Boolean]
+	unauthorized_cache_control_header_strategy: Optional[NonEmptyString]
+	http_method: Optional[NonEmptyString]
+	resource_path: Optional[NonEmptyString]
 AwsApiGatewayMethodSettingsList = List[AwsApiGatewayMethodSettings]
-
-
 class AwsApiGatewayCanarySettings(ASFFBaseModel):
-    """
-    Contains information about settings for canary deployment in the stage.
+	"""
+Contains information about settings for canary deployment in the stage.
 
-    :param percent_traffic: The percentage of traffic that is diverted to a canary deployment.
-    :param deployment_id: The deployment identifier for the canary deployment.
-    :param stage_variable_overrides: Stage variables that are overridden in the canary release deployment. The variables include new stage variables that are introduced in the canary. Each variable is represented as a string-to-string map between the stage variable name and the variable value.
-    :param use_stage_cache: Indicates whether the canary deployment uses the stage cache.
+:param percent_traffic: The percentage of traffic that is diverted to a canary deployment.
+:param deployment_id: The deployment identifier for the canary deployment.
+:param stage_variable_overrides: Stage variables that are overridden in the canary release deployment. The variables include new stage variables that are introduced in the canary. Each variable is represented as a string-to-string map between the stage variable name and the variable value.
+:param use_stage_cache: Indicates whether the canary deployment uses the stage cache.
 
-    :return: AwsApiGatewayCanarySettings object
-    """
-
-    percent_traffic: Optional[Double]
-    deployment_id: Optional[NonEmptyString]
-    stage_variable_overrides: Optional[FieldMap]
-    use_stage_cache: Optional[Boolean]
-
-
+:return: AwsApiGatewayCanarySettings object
+	"""
+	percent_traffic: Optional[Double]
+	deployment_id: Optional[NonEmptyString]
+	stage_variable_overrides: Optional[FieldMap]
+	use_stage_cache: Optional[Boolean]
 class AwsApiGatewayStageDetails(ASFFBaseModel):
-    """
-    Provides information about a version 1 Amazon API Gateway stage.
+	"""
+Provides information about a version 1 Amazon API Gateway stage.
 
-    :param deployment_id: The identifier of the deployment that the stage points to.
-    :param client_certificate_id: The identifier of the client certificate for the stage.
-    :param stage_name: The name of the stage.
-    :param description: A description of the stage.
-    :param cache_cluster_enabled: Indicates whether a cache cluster is enabled for the stage.
-    :param cache_cluster_size: If a cache cluster is enabled, the size of the cache cluster.
-    :param cache_cluster_status: If a cache cluster is enabled, the status of the cache cluster.
-    :param method_settings: Defines the method settings for the stage.
-    :param variables: A map that defines the stage variables for the stage. Variable names can have alphanumeric and underscore characters. Variable values can contain the following characters:   Uppercase and lowercase letters   Numbers   Special characters -._~:/?#&amp;=,
-    :param documentation_version: The version of the API documentation that is associated with the stage.
-    :param access_log_settings: Settings for logging access for the stage.
-    :param canary_settings: Information about settings for canary deployment in the stage.
-    :param tracing_enabled: Indicates whether active tracing with AWS X-Ray is enabled for the stage.
-    :param created_date: Indicates when the stage was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param last_updated_date: Indicates when the stage was most recently updated. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param web_acl_arn: The ARN of the web ACL associated with the stage.
+:param deployment_id: The identifier of the deployment that the stage points to.
+:param client_certificate_id: The identifier of the client certificate for the stage.
+:param stage_name: The name of the stage.
+:param description: A description of the stage.
+:param cache_cluster_enabled: Indicates whether a cache cluster is enabled for the stage.
+:param cache_cluster_size: If a cache cluster is enabled, the size of the cache cluster.
+:param cache_cluster_status: If a cache cluster is enabled, the status of the cache cluster.
+:param method_settings: Defines the method settings for the stage.
+:param variables: A map that defines the stage variables for the stage. Variable names can have alphanumeric and underscore characters. Variable values can contain the following characters:   Uppercase and lowercase letters   Numbers   Special characters -._~:/?#&amp;=,  
+:param documentation_version: The version of the API documentation that is associated with the stage.
+:param access_log_settings: Settings for logging access for the stage.
+:param canary_settings: Information about settings for canary deployment in the stage.
+:param tracing_enabled: Indicates whether active tracing with AWS X-Ray is enabled for the stage.
+:param created_date: Indicates when the stage was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param last_updated_date: Indicates when the stage was most recently updated. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param web_acl_arn: The ARN of the web ACL associated with the stage.
 
-    :return: AwsApiGatewayStageDetails object
-    """
-
-    deployment_id: Optional[NonEmptyString]
-    client_certificate_id: Optional[NonEmptyString]
-    stage_name: Optional[NonEmptyString]
-    description: Optional[NonEmptyString]
-    cache_cluster_enabled: Optional[Boolean]
-    cache_cluster_size: Optional[NonEmptyString]
-    cache_cluster_status: Optional[NonEmptyString]
-    method_settings: Optional[AwsApiGatewayMethodSettingsList]
-    variables: Optional[FieldMap]
-    documentation_version: Optional[NonEmptyString]
-    access_log_settings: Optional[AwsApiGatewayAccessLogSettings]
-    canary_settings: Optional[AwsApiGatewayCanarySettings]
-    tracing_enabled: Optional[Boolean]
-    created_date: Optional[Iso8601Timestamp]
-    last_updated_date: Optional[NonEmptyString]
-    web_acl_arn: Optional[NonEmptyString]
-
-
+:return: AwsApiGatewayStageDetails object
+	"""
+	deployment_id: Optional[NonEmptyString]
+	client_certificate_id: Optional[NonEmptyString]
+	stage_name: Optional[NonEmptyString]
+	description: Optional[NonEmptyString]
+	cache_cluster_enabled: Optional[Boolean]
+	cache_cluster_size: Optional[NonEmptyString]
+	cache_cluster_status: Optional[NonEmptyString]
+	method_settings: Optional[AwsApiGatewayMethodSettingsList]
+	variables: Optional[FieldMap]
+	documentation_version: Optional[NonEmptyString]
+	access_log_settings: Optional[AwsApiGatewayAccessLogSettings]
+	canary_settings: Optional[AwsApiGatewayCanarySettings]
+	tracing_enabled: Optional[Boolean]
+	created_date: Optional[Iso8601Timestamp]
+	last_updated_date: Optional[NonEmptyString]
+	web_acl_arn: Optional[NonEmptyString]
 class AwsApiGatewayEndpointConfiguration(ASFFBaseModel):
-    """
-    Contains information about the endpoints for the API.
+	"""
+Contains information about the endpoints for the API.
 
-    :param types: A list of endpoint types for the REST API. For an edge-optimized API, the endpoint type is EDGE. For a Regional API, the endpoint type is REGIONAL. For a private API, the endpoint type is PRIVATE.
+:param types: A list of endpoint types for the REST API. For an edge-optimized API, the endpoint type is EDGE. For a Regional API, the endpoint type is REGIONAL. For a private API, the endpoint type is PRIVATE.
 
-    :return: AwsApiGatewayEndpointConfiguration object
-    """
-
-    types: Optional[NonEmptyStringList]
-
-
+:return: AwsApiGatewayEndpointConfiguration object
+	"""
+	types: Optional[NonEmptyStringList]
 class AwsApiGatewayRestApiDetails(ASFFBaseModel):
-    """
-    contains information about a REST API in version 1 of Amazon API Gateway.
+	"""
+Contains information about a REST API in version 1 of Amazon API Gateway.
 
-    :param id: The identifier of the REST API.
-    :param name: The name of the REST API.
-    :param description: A description of the REST API.
-    :param created_date: Indicates when the API was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param version: The version identifier for the REST API.
-    :param binary_media_types: The list of binary media types supported by the REST API.
-    :param minimum_compression_size: The minimum size in bytes of a payload before compression is enabled. If null, then compression is disabled. If 0, then all payloads are compressed.
-    :param api_key_source: The source of the API key for metering requests according to a usage plan.  HEADER indicates whether to read the API key from the X-API-Key header of a request.  AUTHORIZER indicates whether to read the API key from the UsageIdentifierKey from a custom authorizer.
-    :param endpoint_configuration: The endpoint configuration of the REST API.
+:param id: The identifier of the REST API.
+:param name: The name of the REST API.
+:param description: A description of the REST API.
+:param created_date: Indicates when the API was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param version: The version identifier for the REST API.
+:param binary_media_types: The list of binary media types supported by the REST API.
+:param minimum_compression_size: The minimum size in bytes of a payload before compression is enabled. If null, then compression is disabled. If 0, then all payloads are compressed.
+:param api_key_source: The source of the API key for metering requests according to a usage plan.  HEADER indicates whether to read the API key from the X-API-Key header of a request.  AUTHORIZER indicates whether to read the API key from the UsageIdentifierKey from a custom authorizer.
+:param endpoint_configuration: The endpoint configuration of the REST API.
 
-    :return: AwsApiGatewayRestApiDetails object
-    """
-
-    id: Optional[NonEmptyString]
-    name: Optional[NonEmptyString]
-    description: Optional[NonEmptyString]
-    created_date: Optional[Iso8601Timestamp]
-    version: Optional[NonEmptyString]
-    binary_media_types: Optional[NonEmptyStringList]
-    minimum_compression_size: Optional[Integer]
-    api_key_source: Optional[NonEmptyString]
-    endpoint_configuration: Optional[AwsApiGatewayEndpointConfiguration]
-
-
+:return: AwsApiGatewayRestApiDetails object
+	"""
+	id: Optional[NonEmptyString]
+	name: Optional[NonEmptyString]
+	description: Optional[NonEmptyString]
+	created_date: Optional[Iso8601Timestamp]
+	version: Optional[NonEmptyString]
+	binary_media_types: Optional[NonEmptyStringList]
+	minimum_compression_size: Optional[Integer]
+	api_key_source: Optional[NonEmptyString]
+	endpoint_configuration: Optional[AwsApiGatewayEndpointConfiguration]
 class AwsCloudTrailTrailDetails(ASFFBaseModel):
-    """
-    Provides details about a CloudTrail trail.
+	"""
+Provides details about a CloudTrail trail.
 
-    :param cloud_watch_logs_log_group_arn: The ARN of the log group that CloudTrail logs are delivered to.
-    :param cloud_watch_logs_role_arn: The ARN of the role that the CloudWatch Logs endpoint assumes when it writes to the log group.
-    :param has_custom_event_selectors: Indicates whether the trail has custom event selectors.
-    :param home_region: The Region where the trail was created.
-    :param include_global_service_events: Indicates whether the trail publishes events from global services such as IAM to the log files.
-    :param is_multi_region_trail: Indicates whether the trail applies only to the current Region or to all Regions.
-    :param is_organization_trail: Whether the trail is created for all accounts in an organization in AWS Organizations, or only for the current AWS account.
-    :param kms_key_id: The AWS KMS key ID to use to encrypt the logs.
-    :param log_file_validation_enabled: Indicates whether CloudTrail log file validation is enabled.
-    :param name: The name of the trail.
-    :param s3_bucket_name: The name of the S3 bucket where the log files are published.
-    :param s3_key_prefix: The S3 key prefix. The key prefix is added after the name of the S3 bucket where the log files are published.
-    :param sns_topic_arn: The ARN of the SNS topic that is used for notifications of log file delivery.
-    :param sns_topic_name: The name of the SNS topic that is used for notifications of log file delivery.
-    :param trail_arn: The ARN of the trail.
+:param cloud_watch_logs_log_group_arn: The ARN of the log group that CloudTrail logs are delivered to.
+:param cloud_watch_logs_role_arn: The ARN of the role that the CloudWatch Logs endpoint assumes when it writes to the log group.
+:param has_custom_event_selectors: Indicates whether the trail has custom event selectors.
+:param home_region: The Region where the trail was created.
+:param include_global_service_events: Indicates whether the trail publishes events from global services such as IAM to the log files.
+:param is_multi_region_trail: Indicates whether the trail applies only to the current Region or to all Regions.
+:param is_organization_trail: Whether the trail is created for all accounts in an organization in AWS Organizations, or only for the current AWS account.
+:param kms_key_id: The AWS KMS key ID to use to encrypt the logs.
+:param log_file_validation_enabled: Indicates whether CloudTrail log file validation is enabled.
+:param name: The name of the trail.
+:param s3_bucket_name: The name of the S3 bucket where the log files are published.
+:param s3_key_prefix: The S3 key prefix. The key prefix is added after the name of the S3 bucket where the log files are published.
+:param sns_topic_arn: The ARN of the SNS topic that is used for notifications of log file delivery.
+:param sns_topic_name: The name of the SNS topic that is used for notifications of log file delivery.
+:param trail_arn: The ARN of the trail.
 
-    :return: AwsCloudTrailTrailDetails object
-    """
-
-    cloud_watch_logs_log_group_arn: Optional[NonEmptyString]
-    cloud_watch_logs_role_arn: Optional[NonEmptyString]
-    has_custom_event_selectors: Optional[Boolean]
-    home_region: Optional[NonEmptyString]
-    include_global_service_events: Optional[Boolean]
-    is_multi_region_trail: Optional[Boolean]
-    is_organization_trail: Optional[Boolean]
-    kms_key_id: Optional[NonEmptyString]
-    log_file_validation_enabled: Optional[Boolean]
-    name: Optional[NonEmptyString]
-    s3_bucket_name: Optional[NonEmptyString]
-    s3_key_prefix: Optional[NonEmptyString]
-    sns_topic_arn: Optional[NonEmptyString]
-    sns_topic_name: Optional[NonEmptyString]
-    trail_arn: Optional[NonEmptyString]
-
-
+:return: AwsCloudTrailTrailDetails object
+	"""
+	cloud_watch_logs_log_group_arn: Optional[NonEmptyString]
+	cloud_watch_logs_role_arn: Optional[NonEmptyString]
+	has_custom_event_selectors: Optional[Boolean]
+	home_region: Optional[NonEmptyString]
+	include_global_service_events: Optional[Boolean]
+	is_multi_region_trail: Optional[Boolean]
+	is_organization_trail: Optional[Boolean]
+	kms_key_id: Optional[NonEmptyString]
+	log_file_validation_enabled: Optional[Boolean]
+	name: Optional[NonEmptyString]
+	s3_bucket_name: Optional[NonEmptyString]
+	s3_key_prefix: Optional[NonEmptyString]
+	sns_topic_arn: Optional[NonEmptyString]
+	sns_topic_name: Optional[NonEmptyString]
+	trail_arn: Optional[NonEmptyString]
 class AwsSsmComplianceSummary(ASFFBaseModel):
-    """
-    Provides the details about the compliance status for a patch.
+	"""
+Provides the details about the compliance status for a patch.
 
-    :param status: The current patch compliance status. The possible status values are:    COMPLIANT     NON_COMPLIANT     UNSPECIFIED_DATA
-    :param compliant_critical_count: For the patches that are compliant, the number that have a severity of CRITICAL.
-    :param compliant_high_count: For the patches that are compliant, the number that have a severity of HIGH.
-    :param compliant_medium_count: For the patches that are compliant, the number that have a severity of MEDIUM.
-    :param execution_type: The type of execution that was used determine compliance.
-    :param non_compliant_critical_count: For the patch items that are noncompliant, the number of items that have a severity of CRITICAL.
-    :param compliant_informational_count: For the patches that are compliant, the number that have a severity of INFORMATIONAL.
-    :param non_compliant_informational_count: For the patches that are noncompliant, the number that have a severity of INFORMATIONAL.
-    :param compliant_unspecified_count: For the patches that are compliant, the number that have a severity of UNSPECIFIED.
-    :param non_compliant_low_count: For the patches that are noncompliant, the number that have a severity of LOW.
-    :param non_compliant_high_count: For the patches that are noncompliant, the number that have a severity of HIGH.
-    :param compliant_low_count: For the patches that are compliant, the number that have a severity of LOW.
-    :param compliance_type: The type of resource for which the compliance was determined. For AwsSsmPatchCompliance, ComplianceType is Patch.
-    :param patch_baseline_id: The identifier of the patch baseline. The patch baseline lists the patches that are approved for installation.
-    :param overall_severity: The highest severity for the patches.
-    :param non_compliant_medium_count: For the patches that are noncompliant, the number that have a severity of MEDIUM.
-    :param non_compliant_unspecified_count: For the patches that are noncompliant, the number that have a severity of UNSPECIFIED.
-    :param patch_group: The identifier of the patch group for which compliance was determined. A patch group uses tags to group EC2 instances that should have the same patch compliance.
+:param status: The current patch compliance status. The possible status values are:    COMPLIANT     NON_COMPLIANT     UNSPECIFIED_DATA   
+:param compliant_critical_count: For the patches that are compliant, the number that have a severity of CRITICAL.
+:param compliant_high_count: For the patches that are compliant, the number that have a severity of HIGH.
+:param compliant_medium_count: For the patches that are compliant, the number that have a severity of MEDIUM.
+:param execution_type: The type of execution that was used determine compliance.
+:param non_compliant_critical_count: For the patch items that are noncompliant, the number of items that have a severity of CRITICAL.
+:param compliant_informational_count: For the patches that are compliant, the number that have a severity of INFORMATIONAL.
+:param non_compliant_informational_count: For the patches that are noncompliant, the number that have a severity of INFORMATIONAL.
+:param compliant_unspecified_count: For the patches that are compliant, the number that have a severity of UNSPECIFIED.
+:param non_compliant_low_count: For the patches that are noncompliant, the number that have a severity of LOW.
+:param non_compliant_high_count: For the patches that are noncompliant, the number that have a severity of HIGH.
+:param compliant_low_count: For the patches that are compliant, the number that have a severity of LOW.
+:param compliance_type: The type of resource for which the compliance was determined. For AwsSsmPatchCompliance, ComplianceType is Patch. 
+:param patch_baseline_id: The identifier of the patch baseline. The patch baseline lists the patches that are approved for installation.
+:param overall_severity: The highest severity for the patches.
+:param non_compliant_medium_count: For the patches that are noncompliant, the number that have a severity of MEDIUM.
+:param non_compliant_unspecified_count: For the patches that are noncompliant, the number that have a severity of UNSPECIFIED.
+:param patch_group: The identifier of the patch group for which compliance was determined. A patch group uses tags to group EC2 instances that should have the same patch compliance.
 
-    :return: AwsSsmComplianceSummary object
-    """
-
-    status: Optional[NonEmptyString]
-    compliant_critical_count: Optional[Integer]
-    compliant_high_count: Optional[Integer]
-    compliant_medium_count: Optional[Integer]
-    execution_type: Optional[NonEmptyString]
-    non_compliant_critical_count: Optional[Integer]
-    compliant_informational_count: Optional[Integer]
-    non_compliant_informational_count: Optional[Integer]
-    compliant_unspecified_count: Optional[Integer]
-    non_compliant_low_count: Optional[Integer]
-    non_compliant_high_count: Optional[Integer]
-    compliant_low_count: Optional[Integer]
-    compliance_type: Optional[NonEmptyString]
-    patch_baseline_id: Optional[NonEmptyString]
-    overall_severity: Optional[NonEmptyString]
-    non_compliant_medium_count: Optional[Integer]
-    non_compliant_unspecified_count: Optional[Integer]
-    patch_group: Optional[NonEmptyString]
-
-
+:return: AwsSsmComplianceSummary object
+	"""
+	status: Optional[NonEmptyString]
+	compliant_critical_count: Optional[Integer]
+	compliant_high_count: Optional[Integer]
+	compliant_medium_count: Optional[Integer]
+	execution_type: Optional[NonEmptyString]
+	non_compliant_critical_count: Optional[Integer]
+	compliant_informational_count: Optional[Integer]
+	non_compliant_informational_count: Optional[Integer]
+	compliant_unspecified_count: Optional[Integer]
+	non_compliant_low_count: Optional[Integer]
+	non_compliant_high_count: Optional[Integer]
+	compliant_low_count: Optional[Integer]
+	compliance_type: Optional[NonEmptyString]
+	patch_baseline_id: Optional[NonEmptyString]
+	overall_severity: Optional[NonEmptyString]
+	non_compliant_medium_count: Optional[Integer]
+	non_compliant_unspecified_count: Optional[Integer]
+	patch_group: Optional[NonEmptyString]
 class AwsSsmPatch(ASFFBaseModel):
-    """
-    Provides details about the compliance for a patch.
+	"""
+Provides details about the compliance for a patch.
 
-    :param compliance_summary: The compliance status details for the patch.
+:param compliance_summary: The compliance status details for the patch.
 
-    :return: AwsSsmPatch object
-    """
-
-    compliance_summary: Optional[AwsSsmComplianceSummary]
-
-
+:return: AwsSsmPatch object
+	"""
+	compliance_summary: Optional[AwsSsmComplianceSummary]
 class AwsSsmPatchComplianceDetails(ASFFBaseModel):
-    """
-    Provides information about the state of a patch on an instance based on the patch baseline that was used to patch the instance.
+	"""
+Provides information about the state of a patch on an instance based on the patch baseline that was used to patch the instance.
 
-    :param patch: Information about the status of a patch.
+:param patch: Information about the status of a patch.
 
-    :return: AwsSsmPatchComplianceDetails object
-    """
-
-    patch: Optional[AwsSsmPatch]
-
-
+:return: AwsSsmPatchComplianceDetails object
+	"""
+	patch: Optional[AwsSsmPatch]
 class AwsCertificateManagerCertificateExtendedKeyUsage(ASFFBaseModel):
-    """
-    Contains information about an extended key usage X.509 v3 extension object.
+	"""
+Contains information about an extended key usage X.509 v3 extension object.
 
-    :param name: The name of an extension value. Indicates the purpose for which the certificate public key can be used.
-    :param o_id: An object identifier (OID) for the extension value. The format is numbers separated by periods.
+:param name: The name of an extension value. Indicates the purpose for which the certificate public key can be used.
+:param o_id: An object identifier (OID) for the extension value. The format is numbers separated by periods.
 
-    :return: AwsCertificateManagerCertificateExtendedKeyUsage object
-    """
-
-    name: Optional[NonEmptyString]
-    o_id: Optional[NonEmptyString]
-
-
-AwsCertificateManagerCertificateExtendedKeyUsages = List[
-    AwsCertificateManagerCertificateExtendedKeyUsage
-]
-
-
+:return: AwsCertificateManagerCertificateExtendedKeyUsage object
+	"""
+	name: Optional[NonEmptyString]
+	o_id: Optional[NonEmptyString]
+AwsCertificateManagerCertificateExtendedKeyUsages = List[AwsCertificateManagerCertificateExtendedKeyUsage]
 class AwsCertificateManagerCertificateKeyUsage(ASFFBaseModel):
-    """
-    Contains information about a key usage X.509 v3 extension object.
+	"""
+Contains information about a key usage X.509 v3 extension object.
 
-    :param name: The key usage extension name.
+:param name: The key usage extension name.
 
-    :return: AwsCertificateManagerCertificateKeyUsage object
-    """
-
-    name: Optional[NonEmptyString]
-
-
-AwsCertificateManagerCertificateKeyUsages = List[
-    AwsCertificateManagerCertificateKeyUsage
-]
-
-
+:return: AwsCertificateManagerCertificateKeyUsage object
+	"""
+	name: Optional[NonEmptyString]
+AwsCertificateManagerCertificateKeyUsages = List[AwsCertificateManagerCertificateKeyUsage]
 class AwsCertificateManagerCertificateOptions(ASFFBaseModel):
-    """
-    Contains other options for the certificate.
+	"""
+Contains other options for the certificate.
 
-    :param certificate_transparency_logging_preference: Whether to add the certificate to a transparency log. Valid values: DISABLED | ENABLED
+:param certificate_transparency_logging_preference: Whether to add the certificate to a transparency log. Valid values: DISABLED | ENABLED 
 
-    :return: AwsCertificateManagerCertificateOptions object
-    """
-
-    certificate_transparency_logging_preference: Optional[NonEmptyString]
-
-
+:return: AwsCertificateManagerCertificateOptions object
+	"""
+	certificate_transparency_logging_preference: Optional[NonEmptyString]
 class AwsCertificateManagerCertificateResourceRecord(ASFFBaseModel):
-    """
-    Provides details about the CNAME record that is added to the DNS database for domain validation.
+	"""
+Provides details about the CNAME record that is added to the DNS database for domain validation.
 
-    :param name: The name of the resource.
-    :param type: The type of resource.
-    :param value: The value of the resource.
+:param name: The name of the resource.
+:param type: The type of resource.
+:param value: The value of the resource.
 
-    :return: AwsCertificateManagerCertificateResourceRecord object
-    """
-
-    name: Optional[NonEmptyString]
-    type: Optional[NonEmptyString]
-    value: Optional[NonEmptyString]
-
-
+:return: AwsCertificateManagerCertificateResourceRecord object
+	"""
+	name: Optional[NonEmptyString]
+	type: Optional[NonEmptyString]
+	value: Optional[NonEmptyString]
 class AwsCertificateManagerCertificateDomainValidationOption(ASFFBaseModel):
-    """
-    Contains information about one of the following:   The initial validation of each domain name that occurs as a result of the RequestCertificate request   The validation of each domain name in the certificate, as it pertains to AWS Certificate Manager managed renewal
+	"""
+Contains information about one of the following:   The initial validation of each domain name that occurs as a result of the RequestCertificate request   The validation of each domain name in the certificate, as it pertains to AWS Certificate Manager managed renewal  
 
-    :param domain_name: A fully qualified domain name (FQDN) in the certificate.
-    :param resource_record: The CNAME record that is added to the DNS database for domain validation.
-    :param validation_domain: The domain name that AWS Certificate Manager uses to send domain validation emails.
-    :param validation_emails: A list of email addresses that AWS Certificate Manager uses to send domain validation emails.
-    :param validation_method: The method used to validate the domain name.
-    :param validation_status: The validation status of the domain name.
+:param domain_name: A fully qualified domain name (FQDN) in the certificate.
+:param resource_record: The CNAME record that is added to the DNS database for domain validation.
+:param validation_domain: The domain name that AWS Certificate Manager uses to send domain validation emails.
+:param validation_emails: A list of email addresses that AWS Certificate Manager uses to send domain validation emails.
+:param validation_method: The method used to validate the domain name.
+:param validation_status: The validation status of the domain name.
 
-    :return: AwsCertificateManagerCertificateDomainValidationOption object
-    """
-
-    domain_name: Optional[NonEmptyString]
-    resource_record: Optional[AwsCertificateManagerCertificateResourceRecord]
-    validation_domain: Optional[NonEmptyString]
-    validation_emails: Optional[StringList]
-    validation_method: Optional[NonEmptyString]
-    validation_status: Optional[NonEmptyString]
-
-
-AwsCertificateManagerCertificateDomainValidationOptions = List[
-    AwsCertificateManagerCertificateDomainValidationOption
-]
-
-
+:return: AwsCertificateManagerCertificateDomainValidationOption object
+	"""
+	domain_name: Optional[NonEmptyString]
+	resource_record: Optional[AwsCertificateManagerCertificateResourceRecord]
+	validation_domain: Optional[NonEmptyString]
+	validation_emails: Optional[StringList]
+	validation_method: Optional[NonEmptyString]
+	validation_status: Optional[NonEmptyString]
+AwsCertificateManagerCertificateDomainValidationOptions = List[AwsCertificateManagerCertificateDomainValidationOption]
 class AwsCertificateManagerCertificateRenewalSummary(ASFFBaseModel):
-    """
-    Contains information about the AWS Certificate Manager managed renewal for an AMAZON_ISSUED certificate.
+	"""
+Contains information about the AWS Certificate Manager managed renewal for an AMAZON_ISSUED certificate.
 
-    :param domain_validation_options: Information about the validation of each domain name in the certificate, as it pertains to AWS Certificate Manager managed renewal. Provided only when the certificate type is AMAZON_ISSUED.
-    :param renewal_status: The status of the AWS Certificate Manager managed renewal of the certificate. Valid values: PENDING_AUTO_RENEWAL | PENDING_VALIDATION | SUCCESS | FAILED
-    :param renewal_status_reason: The reason that a renewal request was unsuccessful. Valid values: NO_AVAILABLE_CONTACTS | ADDITIONAL_VERIFICATION_REQUIRED | DOMAIN_NOT_ALLOWED | INVALID_PUBLIC_DOMAIN | DOMAIN_VALIDATION_DENIED | CAA_ERROR | PCA_LIMIT_EXCEEDED | PCA_INVALID_ARN | PCA_INVALID_STATE | PCA_REQUEST_FAILED | PCA_NAME_CONSTRAINTS_VALIDATION | PCA_RESOURCE_NOT_FOUND | PCA_INVALID_ARGS | PCA_INVALID_DURATION | PCA_ACCESS_DENIED | SLR_NOT_FOUND | OTHER
-    :param updated_at: Indicates when the renewal summary was last updated. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param domain_validation_options: Information about the validation of each domain name in the certificate, as it pertains to AWS Certificate Manager managed renewal. Provided only when the certificate type is AMAZON_ISSUED.
+:param renewal_status: The status of the AWS Certificate Manager managed renewal of the certificate. Valid values: PENDING_AUTO_RENEWAL | PENDING_VALIDATION | SUCCESS | FAILED 
+:param renewal_status_reason: The reason that a renewal request was unsuccessful. Valid values: NO_AVAILABLE_CONTACTS | ADDITIONAL_VERIFICATION_REQUIRED | DOMAIN_NOT_ALLOWED | INVALID_PUBLIC_DOMAIN | DOMAIN_VALIDATION_DENIED | CAA_ERROR | PCA_LIMIT_EXCEEDED | PCA_INVALID_ARN | PCA_INVALID_STATE | PCA_REQUEST_FAILED | PCA_NAME_CONSTRAINTS_VALIDATION | PCA_RESOURCE_NOT_FOUND | PCA_INVALID_ARGS | PCA_INVALID_DURATION | PCA_ACCESS_DENIED | SLR_NOT_FOUND | OTHER 
+:param updated_at: Indicates when the renewal summary was last updated. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
 
-    :return: AwsCertificateManagerCertificateRenewalSummary object
-    """
-
-    domain_validation_options: Optional[
-        AwsCertificateManagerCertificateDomainValidationOptions
-    ]
-    renewal_status: Optional[NonEmptyString]
-    renewal_status_reason: Optional[NonEmptyString]
-    updated_at: Optional[Iso8601Timestamp]
-
-
+:return: AwsCertificateManagerCertificateRenewalSummary object
+	"""
+	domain_validation_options: Optional[AwsCertificateManagerCertificateDomainValidationOptions]
+	renewal_status: Optional[NonEmptyString]
+	renewal_status_reason: Optional[NonEmptyString]
+	updated_at: Optional[Iso8601Timestamp]
 class AwsCertificateManagerCertificateDetails(ASFFBaseModel):
-    """
-    Provides details about an AWS Certificate Manager certificate.
+	"""
+Provides details about an AWS Certificate Manager certificate.
 
-    :param certificate_authority_arn: The ARN of the private certificate authority (CA) that will be used to issue the certificate.
-    :param created_at: Indicates when the certificate was requested. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param domain_name: The fully qualified domain name (FQDN), such as www.example.com, that is secured by the certificate.
-    :param domain_validation_options: Contains information about the initial validation of each domain name that occurs as a result of the RequestCertificate request. Only provided if the certificate type is AMAZON_ISSUED.
-    :param extended_key_usages: Contains a list of Extended Key Usage X.509 v3 extension objects. Each object specifies a purpose for which the certificate public key can be used and consists of a name and an object identifier (OID).
-    :param failure_reason: For a failed certificate request, the reason for the failure. Valid values: NO_AVAILABLE_CONTACTS | ADDITIONAL_VERIFICATION_REQUIRED | DOMAIN_NOT_ALLOWED | INVALID_PUBLIC_DOMAIN | DOMAIN_VALIDATION_DENIED | CAA_ERROR | PCA_LIMIT_EXCEEDED | PCA_INVALID_ARN | PCA_INVALID_STATE | PCA_REQUEST_FAILED | PCA_NAME_CONSTRAINTS_VALIDATION | PCA_RESOURCE_NOT_FOUND | PCA_INVALID_ARGS | PCA_INVALID_DURATION | PCA_ACCESS_DENIED | SLR_NOT_FOUND | OTHER
-    :param imported_at: Indicates when the certificate was imported. Provided if the certificate type is IMPORTED. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param in_use_by: The list of ARNs for the AWS resources that use the certificate.
-    :param issued_at: Indicates when the certificate was issued. Provided if the certificate type is AMAZON_ISSUED. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param issuer: The name of the certificate authority that issued and signed the certificate.
-    :param key_algorithm: The algorithm that was used to generate the public-private key pair. Valid values: RSA_2048 | RSA_1024 | RSA_4096 | EC_prime256v1 | EC_secp384r1 | EC_secp521r1
-    :param key_usages: A list of key usage X.509 v3 extension objects.
-    :param not_after: The time after which the certificate becomes invalid. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param not_before: The time before which the certificate is not valid. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param options: Provides a value that specifies whether to add the certificate to a transparency log.
-    :param renewal_eligibility: Whether the certificate is eligible for renewal. Valid values: ELIGIBLE | INELIGIBLE
-    :param renewal_summary: Information about the status of the AWS Certificate Manager managed renewal for the certificate. Provided only when the certificate type is AMAZON_ISSUED.
-    :param serial: The serial number of the certificate.
-    :param signature_algorithm: The algorithm that was used to sign the certificate.
-    :param status: The status of the certificate. Valid values: PENDING_VALIDATION | ISSUED | INACTIVE | EXPIRED | VALIDATION_TIMED_OUT | REVOKED | FAILED
-    :param subject: The name of the entity that is associated with the public key contained in the certificate.
-    :param subject_alternative_names: One or more domain names (subject alternative names) included in the certificate. This list contains the domain names that are bound to the public key that is contained in the certificate. The subject alternative names include the canonical domain name (CN) of the certificate and additional domain names that can be used to connect to the website.
-    :param type: The source of the certificate. For certificates that AWS Certificate Manager provides, Type is AMAZON_ISSUED. For certificates that are imported with ImportCertificate, Type is IMPORTED. Valid values: IMPORTED | AMAZON_ISSUED | PRIVATE
+:param certificate_authority_arn: The ARN of the private certificate authority (CA) that will be used to issue the certificate.
+:param created_at: Indicates when the certificate was requested. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param domain_name: The fully qualified domain name (FQDN), such as www.example.com, that is secured by the certificate.
+:param domain_validation_options: Contains information about the initial validation of each domain name that occurs as a result of the RequestCertificate request. Only provided if the certificate type is AMAZON_ISSUED.
+:param extended_key_usages: Contains a list of Extended Key Usage X.509 v3 extension objects. Each object specifies a purpose for which the certificate public key can be used and consists of a name and an object identifier (OID).
+:param failure_reason: For a failed certificate request, the reason for the failure. Valid values: NO_AVAILABLE_CONTACTS | ADDITIONAL_VERIFICATION_REQUIRED | DOMAIN_NOT_ALLOWED | INVALID_PUBLIC_DOMAIN | DOMAIN_VALIDATION_DENIED | CAA_ERROR | PCA_LIMIT_EXCEEDED | PCA_INVALID_ARN | PCA_INVALID_STATE | PCA_REQUEST_FAILED | PCA_NAME_CONSTRAINTS_VALIDATION | PCA_RESOURCE_NOT_FOUND | PCA_INVALID_ARGS | PCA_INVALID_DURATION | PCA_ACCESS_DENIED | SLR_NOT_FOUND | OTHER 
+:param imported_at: Indicates when the certificate was imported. Provided if the certificate type is IMPORTED. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param in_use_by: The list of ARNs for the AWS resources that use the certificate.
+:param issued_at: Indicates when the certificate was issued. Provided if the certificate type is AMAZON_ISSUED. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param issuer: The name of the certificate authority that issued and signed the certificate.
+:param key_algorithm: The algorithm that was used to generate the public-private key pair. Valid values: RSA_2048 | RSA_1024 | RSA_4096 | EC_prime256v1 | EC_secp384r1 | EC_secp521r1 
+:param key_usages: A list of key usage X.509 v3 extension objects.
+:param not_after: The time after which the certificate becomes invalid. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param not_before: The time before which the certificate is not valid. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param options: Provides a value that specifies whether to add the certificate to a transparency log.
+:param renewal_eligibility: Whether the certificate is eligible for renewal. Valid values: ELIGIBLE | INELIGIBLE 
+:param renewal_summary: Information about the status of the AWS Certificate Manager managed renewal for the certificate. Provided only when the certificate type is AMAZON_ISSUED.
+:param serial: The serial number of the certificate.
+:param signature_algorithm: The algorithm that was used to sign the certificate.
+:param status: The status of the certificate. Valid values: PENDING_VALIDATION | ISSUED | INACTIVE | EXPIRED | VALIDATION_TIMED_OUT | REVOKED | FAILED 
+:param subject: The name of the entity that is associated with the public key contained in the certificate.
+:param subject_alternative_names: One or more domain names (subject alternative names) included in the certificate. This list contains the domain names that are bound to the public key that is contained in the certificate. The subject alternative names include the canonical domain name (CN) of the certificate and additional domain names that can be used to connect to the website.
+:param type: The source of the certificate. For certificates that AWS Certificate Manager provides, Type is AMAZON_ISSUED. For certificates that are imported with ImportCertificate, Type is IMPORTED. Valid values: IMPORTED | AMAZON_ISSUED | PRIVATE 
 
-    :return: AwsCertificateManagerCertificateDetails object
-    """
-
-    certificate_authority_arn: Optional[NonEmptyString]
-    created_at: Optional[Iso8601Timestamp]
-    domain_name: Optional[NonEmptyString]
-    domain_validation_options: Optional[
-        AwsCertificateManagerCertificateDomainValidationOptions
-    ]
-    extended_key_usages: Optional[AwsCertificateManagerCertificateExtendedKeyUsages]
-    failure_reason: Optional[NonEmptyString]
-    imported_at: Optional[NonEmptyString]
-    in_use_by: Optional[StringList]
-    issued_at: Optional[NonEmptyString]
-    issuer: Optional[NonEmptyString]
-    key_algorithm: Optional[NonEmptyString]
-    key_usages: Optional[AwsCertificateManagerCertificateKeyUsages]
-    not_after: Optional[NonEmptyString]
-    not_before: Optional[NonEmptyString]
-    options: Optional[AwsCertificateManagerCertificateOptions]
-    renewal_eligibility: Optional[NonEmptyString]
-    renewal_summary: Optional[AwsCertificateManagerCertificateRenewalSummary]
-    serial: Optional[NonEmptyString]
-    signature_algorithm: Optional[NonEmptyString]
-    status: Optional[NonEmptyString]
-    subject: Optional[NonEmptyString]
-    subject_alternative_names: Optional[StringList]
-    type: Optional[NonEmptyString]
-
-
+:return: AwsCertificateManagerCertificateDetails object
+	"""
+	certificate_authority_arn: Optional[NonEmptyString]
+	created_at: Optional[Iso8601Timestamp]
+	domain_name: Optional[NonEmptyString]
+	domain_validation_options: Optional[AwsCertificateManagerCertificateDomainValidationOptions]
+	extended_key_usages: Optional[AwsCertificateManagerCertificateExtendedKeyUsages]
+	failure_reason: Optional[NonEmptyString]
+	imported_at: Optional[NonEmptyString]
+	in_use_by: Optional[StringList]
+	issued_at: Optional[NonEmptyString]
+	issuer: Optional[NonEmptyString]
+	key_algorithm: Optional[NonEmptyString]
+	key_usages: Optional[AwsCertificateManagerCertificateKeyUsages]
+	not_after: Optional[NonEmptyString]
+	not_before: Optional[NonEmptyString]
+	options: Optional[AwsCertificateManagerCertificateOptions]
+	renewal_eligibility: Optional[NonEmptyString]
+	renewal_summary: Optional[AwsCertificateManagerCertificateRenewalSummary]
+	serial: Optional[NonEmptyString]
+	signature_algorithm: Optional[NonEmptyString]
+	status: Optional[NonEmptyString]
+	subject: Optional[NonEmptyString]
+	subject_alternative_names: Optional[StringList]
+	type: Optional[NonEmptyString]
 class AwsRedshiftClusterClusterNode(ASFFBaseModel):
-    """
-    A node in an Amazon Redshift cluster.
+	"""
+A node in an Amazon Redshift cluster.
 
-    :param node_role: The role of the node. A node might be a leader node or a compute node.
-    :param private_ip_address: The private IP address of the node.
-    :param public_ip_address: The public IP address of the node.
+:param node_role: The role of the node. A node might be a leader node or a compute node.
+:param private_ip_address: The private IP address of the node.
+:param public_ip_address: The public IP address of the node.
 
-    :return: AwsRedshiftClusterClusterNode object
-    """
-
-    node_role: Optional[NonEmptyString]
-    private_ip_address: Optional[NonEmptyString]
-    public_ip_address: Optional[NonEmptyString]
-
-
+:return: AwsRedshiftClusterClusterNode object
+	"""
+	node_role: Optional[NonEmptyString]
+	private_ip_address: Optional[NonEmptyString]
+	public_ip_address: Optional[NonEmptyString]
 AwsRedshiftClusterClusterNodes = List[AwsRedshiftClusterClusterNode]
-
-
 class AwsRedshiftClusterClusterParameterStatus(ASFFBaseModel):
-    """
-    The status of a parameter in a cluster parameter group for an Amazon Redshift cluster.
+	"""
+The status of a parameter in a cluster parameter group for an Amazon Redshift cluster.
 
-    :param parameter_name: The name of the parameter.
-    :param parameter_apply_status: The status of the parameter. Indicates whether the parameter is in sync with the database, waiting for a cluster reboot, or encountered an error when it was applied. Valid values: in-sync | pending-reboot | applying | invalid-parameter | apply-deferred | apply-error | unknown-error
-    :param parameter_apply_error_description: The error that prevented the parameter from being applied to the database.
+:param parameter_name: The name of the parameter.
+:param parameter_apply_status: The status of the parameter. Indicates whether the parameter is in sync with the database, waiting for a cluster reboot, or encountered an error when it was applied. Valid values: in-sync | pending-reboot | applying | invalid-parameter | apply-deferred | apply-error | unknown-error 
+:param parameter_apply_error_description: The error that prevented the parameter from being applied to the database.
 
-    :return: AwsRedshiftClusterClusterParameterStatus object
-    """
-
-    parameter_name: Optional[NonEmptyString]
-    parameter_apply_status: Optional[NonEmptyString]
-    parameter_apply_error_description: Optional[NonEmptyString]
-
-
-AwsRedshiftClusterClusterParameterStatusList = List[
-    AwsRedshiftClusterClusterParameterStatus
-]
-
-
+:return: AwsRedshiftClusterClusterParameterStatus object
+	"""
+	parameter_name: Optional[NonEmptyString]
+	parameter_apply_status: Optional[NonEmptyString]
+	parameter_apply_error_description: Optional[NonEmptyString]
+AwsRedshiftClusterClusterParameterStatusList = List[AwsRedshiftClusterClusterParameterStatus]
 class AwsRedshiftClusterClusterParameterGroup(ASFFBaseModel):
-    """
-    A cluster parameter group that is associated with an Amazon Redshift cluster.
+	"""
+A cluster parameter group that is associated with an Amazon Redshift cluster.
 
-    :param cluster_parameter_status_list: The list of parameter statuses.
-    :param parameter_apply_status: The status of updates to the parameters.
-    :param parameter_group_name: The name of the parameter group.
+:param cluster_parameter_status_list: The list of parameter statuses.
+:param parameter_apply_status: The status of updates to the parameters.
+:param parameter_group_name: The name of the parameter group.
 
-    :return: AwsRedshiftClusterClusterParameterGroup object
-    """
-
-    cluster_parameter_status_list: Optional[
-        AwsRedshiftClusterClusterParameterStatusList
-    ]
-    parameter_apply_status: Optional[NonEmptyString]
-    parameter_group_name: Optional[NonEmptyString]
-
-
+:return: AwsRedshiftClusterClusterParameterGroup object
+	"""
+	cluster_parameter_status_list: Optional[AwsRedshiftClusterClusterParameterStatusList]
+	parameter_apply_status: Optional[NonEmptyString]
+	parameter_group_name: Optional[NonEmptyString]
 AwsRedshiftClusterClusterParameterGroups = List[AwsRedshiftClusterClusterParameterGroup]
-
-
 class AwsRedshiftClusterClusterSecurityGroup(ASFFBaseModel):
-    """
-    A security group that is associated with the cluster.
+	"""
+A security group that is associated with the cluster.
 
-    :param cluster_security_group_name: The name of the cluster security group.
-    :param status: The status of the cluster security group.
+:param cluster_security_group_name: The name of the cluster security group.
+:param status: The status of the cluster security group.
 
-    :return: AwsRedshiftClusterClusterSecurityGroup object
-    """
-
-    cluster_security_group_name: Optional[NonEmptyString]
-    status: Optional[NonEmptyString]
-
-
+:return: AwsRedshiftClusterClusterSecurityGroup object
+	"""
+	cluster_security_group_name: Optional[NonEmptyString]
+	status: Optional[NonEmptyString]
 AwsRedshiftClusterClusterSecurityGroups = List[AwsRedshiftClusterClusterSecurityGroup]
-
-
 class AwsRedshiftClusterClusterSnapshotCopyStatus(ASFFBaseModel):
-    """
-    Information about a cross-Region snapshot copy.
+	"""
+Information about a cross-Region snapshot copy.
 
-    :param destination_region: The destination Region that snapshots are automatically copied to when cross-Region snapshot copy is enabled.
-    :param manual_snapshot_retention_period: The number of days that manual snapshots are retained in the destination region after they are copied from a source region. If the value is -1, then the manual snapshot is retained indefinitely. Valid values: Either -1 or an integer between 1 and 3,653
-    :param retention_period: The number of days to retain automated snapshots in the destination Region after they are copied from a source Region.
-    :param snapshot_copy_grant_name: The name of the snapshot copy grant.
+:param destination_region: The destination Region that snapshots are automatically copied to when cross-Region snapshot copy is enabled.
+:param manual_snapshot_retention_period: The number of days that manual snapshots are retained in the destination region after they are copied from a source region. If the value is -1, then the manual snapshot is retained indefinitely. Valid values: Either -1 or an integer between 1 and 3,653
+:param retention_period: The number of days to retain automated snapshots in the destination Region after they are copied from a source Region.
+:param snapshot_copy_grant_name: The name of the snapshot copy grant.
 
-    :return: AwsRedshiftClusterClusterSnapshotCopyStatus object
-    """
-
-    destination_region: Optional[NonEmptyString]
-    manual_snapshot_retention_period: Optional[Integer]
-    retention_period: Optional[Integer]
-    snapshot_copy_grant_name: Optional[NonEmptyString]
-
-
+:return: AwsRedshiftClusterClusterSnapshotCopyStatus object
+	"""
+	destination_region: Optional[NonEmptyString]
+	manual_snapshot_retention_period: Optional[Integer]
+	retention_period: Optional[Integer]
+	snapshot_copy_grant_name: Optional[NonEmptyString]
 class AwsRedshiftClusterDeferredMaintenanceWindow(ASFFBaseModel):
-    """
-    A time windows during which maintenance was deferred for an Amazon Redshift cluster.
+	"""
+A time windows during which maintenance was deferred for an Amazon Redshift cluster.
 
-    :param defer_maintenance_end_time: The end of the time window for which maintenance was deferred. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param defer_maintenance_identifier: The identifier of the maintenance window.
-    :param defer_maintenance_start_time: The start of the time window for which maintenance was deferred. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param defer_maintenance_end_time: The end of the time window for which maintenance was deferred. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param defer_maintenance_identifier: The identifier of the maintenance window.
+:param defer_maintenance_start_time: The start of the time window for which maintenance was deferred. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
 
-    :return: AwsRedshiftClusterDeferredMaintenanceWindow object
-    """
-
-    defer_maintenance_end_time: Optional[NonEmptyString]
-    defer_maintenance_identifier: Optional[NonEmptyString]
-    defer_maintenance_start_time: Optional[NonEmptyString]
-
-
-AwsRedshiftClusterDeferredMaintenanceWindows = List[
-    AwsRedshiftClusterDeferredMaintenanceWindow
-]
-
-
+:return: AwsRedshiftClusterDeferredMaintenanceWindow object
+	"""
+	defer_maintenance_end_time: Optional[NonEmptyString]
+	defer_maintenance_identifier: Optional[NonEmptyString]
+	defer_maintenance_start_time: Optional[NonEmptyString]
+AwsRedshiftClusterDeferredMaintenanceWindows = List[AwsRedshiftClusterDeferredMaintenanceWindow]
 class AwsRedshiftClusterElasticIpStatus(ASFFBaseModel):
-    """
-    The status of the elastic IP (EIP) address for an Amazon Redshift cluster.
+	"""
+The status of the elastic IP (EIP) address for an Amazon Redshift cluster.
 
-    :param elastic_ip: The elastic IP address for the cluster.
-    :param status: The status of the elastic IP address.
+:param elastic_ip: The elastic IP address for the cluster.
+:param status: The status of the elastic IP address.
 
-    :return: AwsRedshiftClusterElasticIpStatus object
-    """
-
-    elastic_ip: Optional[NonEmptyString]
-    status: Optional[NonEmptyString]
-
-
+:return: AwsRedshiftClusterElasticIpStatus object
+	"""
+	elastic_ip: Optional[NonEmptyString]
+	status: Optional[NonEmptyString]
 class AwsRedshiftClusterEndpoint(ASFFBaseModel):
-    """
-    The connection endpoint for an Amazon Redshift cluster.
+	"""
+The connection endpoint for an Amazon Redshift cluster.
 
-    :param address: The DNS address of the cluster.
-    :param port: The port that the database engine listens on.
+:param address: The DNS address of the cluster.
+:param port: The port that the database engine listens on.
 
-    :return: AwsRedshiftClusterEndpoint object
-    """
-
-    address: Optional[NonEmptyString]
-    port: Optional[Integer]
-
-
+:return: AwsRedshiftClusterEndpoint object
+	"""
+	address: Optional[NonEmptyString]
+	port: Optional[Integer]
 class AwsRedshiftClusterHsmStatus(ASFFBaseModel):
-    """
-    Information about whether an Amazon Redshift cluster finished applying any hardware changes to security module (HSM) settings that were specified in a modify cluster command.
+	"""
+Information about whether an Amazon Redshift cluster finished applying any hardware changes to security module (HSM) settings that were specified in a modify cluster command.
 
-    :param hsm_client_certificate_identifier: The name of the HSM client certificate that the Amazon Redshift cluster uses to retrieve the data encryption keys that are stored in an HSM.
-    :param hsm_configuration_identifier: The name of the HSM configuration that contains the information that the Amazon Redshift cluster can use to retrieve and store keys in an HSM.
-    :param status: Indicates whether the Amazon Redshift cluster has finished applying any HSM settings changes specified in a modify cluster command. Type: String Valid values: active | applying
+:param hsm_client_certificate_identifier: The name of the HSM client certificate that the Amazon Redshift cluster uses to retrieve the data encryption keys that are stored in an HSM.
+:param hsm_configuration_identifier: The name of the HSM configuration that contains the information that the Amazon Redshift cluster can use to retrieve and store keys in an HSM.
+:param status: Indicates whether the Amazon Redshift cluster has finished applying any HSM settings changes specified in a modify cluster command. Type: String Valid values: active | applying 
 
-    :return: AwsRedshiftClusterHsmStatus object
-    """
-
-    hsm_client_certificate_identifier: Optional[NonEmptyString]
-    hsm_configuration_identifier: Optional[NonEmptyString]
-    status: Optional[NonEmptyString]
-
-
+:return: AwsRedshiftClusterHsmStatus object
+	"""
+	hsm_client_certificate_identifier: Optional[NonEmptyString]
+	hsm_configuration_identifier: Optional[NonEmptyString]
+	status: Optional[NonEmptyString]
 class AwsRedshiftClusterIamRole(ASFFBaseModel):
-    """
-    An IAM role that the cluster can use to access other AWS services.
+	"""
+An IAM role that the cluster can use to access other AWS services.
 
-    :param apply_status: The status of the IAM role's association with the cluster. Valid values: in-sync | adding | removing
-    :param iam_role_arn: The ARN of the IAM role.
+:param apply_status: The status of the IAM role's association with the cluster. Valid values: in-sync | adding | removing 
+:param iam_role_arn: The ARN of the IAM role.
 
-    :return: AwsRedshiftClusterIamRole object
-    """
-
-    apply_status: Optional[NonEmptyString]
-    iam_role_arn: Optional[NonEmptyString]
-
-
+:return: AwsRedshiftClusterIamRole object
+	"""
+	apply_status: Optional[NonEmptyString]
+	iam_role_arn: Optional[NonEmptyString]
 AwsRedshiftClusterIamRoles = List[AwsRedshiftClusterIamRole]
-
-
 class AwsRedshiftClusterPendingModifiedValues(ASFFBaseModel):
-    """
-    Changes to the Amazon Redshift cluster that are currently pending.
+	"""
+Changes to the Amazon Redshift cluster that are currently pending.
 
-    :param automated_snapshot_retention_period: The pending or in-progress change to the automated snapshot retention period.
-    :param cluster_identifier: The pending or in-progress change to the identifier for the cluster.
-    :param cluster_type: The pending or in-progress change to the cluster type.
-    :param cluster_version: The pending or in-progress change to the service version.
-    :param encryption_type: The encryption type for a cluster.
-    :param enhanced_vpc_routing: Indicates whether to create the cluster with enhanced VPC routing enabled.
-    :param maintenance_track_name: The name of the maintenance track that the cluster changes to during the next maintenance window.
-    :param master_user_password: The pending or in-progress change to the master user password for the cluster.
-    :param node_type: The pending or in-progress change to the cluster's node type.
-    :param number_of_nodes: The pending or in-progress change to the number of nodes in the cluster.
-    :param publicly_accessible: The pending or in-progress change to whether the cluster can be connected to from the public network.
+:param automated_snapshot_retention_period: The pending or in-progress change to the automated snapshot retention period.
+:param cluster_identifier: The pending or in-progress change to the identifier for the cluster.
+:param cluster_type: The pending or in-progress change to the cluster type.
+:param cluster_version: The pending or in-progress change to the service version.
+:param encryption_type: The encryption type for a cluster.
+:param enhanced_vpc_routing: Indicates whether to create the cluster with enhanced VPC routing enabled.
+:param maintenance_track_name: The name of the maintenance track that the cluster changes to during the next maintenance window.
+:param master_user_password: The pending or in-progress change to the master user password for the cluster.
+:param node_type: The pending or in-progress change to the cluster's node type.
+:param number_of_nodes: The pending or in-progress change to the number of nodes in the cluster.
+:param publicly_accessible: The pending or in-progress change to whether the cluster can be connected to from the public network.
 
-    :return: AwsRedshiftClusterPendingModifiedValues object
-    """
-
-    automated_snapshot_retention_period: Optional[Integer]
-    cluster_identifier: Optional[NonEmptyString]
-    cluster_type: Optional[NonEmptyString]
-    cluster_version: Optional[NonEmptyString]
-    encryption_type: Optional[NonEmptyString]
-    enhanced_vpc_routing: Optional[Boolean]
-    maintenance_track_name: Optional[NonEmptyString]
-    master_user_password: Optional[NonEmptyString]
-    node_type: Optional[NonEmptyString]
-    number_of_nodes: Optional[Integer]
-    publicly_accessible: Optional[Boolean]
-
-
+:return: AwsRedshiftClusterPendingModifiedValues object
+	"""
+	automated_snapshot_retention_period: Optional[Integer]
+	cluster_identifier: Optional[NonEmptyString]
+	cluster_type: Optional[NonEmptyString]
+	cluster_version: Optional[NonEmptyString]
+	encryption_type: Optional[NonEmptyString]
+	enhanced_vpc_routing: Optional[Boolean]
+	maintenance_track_name: Optional[NonEmptyString]
+	master_user_password: Optional[NonEmptyString]
+	node_type: Optional[NonEmptyString]
+	number_of_nodes: Optional[Integer]
+	publicly_accessible: Optional[Boolean]
 class AwsRedshiftClusterResizeInfo(ASFFBaseModel):
-    """
-    Information about the resize operation for the cluster.
+	"""
+Information about the resize operation for the cluster.
 
-    :param allow_cancel_resize: Indicates whether the resize operation can be canceled.
-    :param resize_type: The type of resize operation. Valid values: ClassicResize
+:param allow_cancel_resize: Indicates whether the resize operation can be canceled.
+:param resize_type: The type of resize operation. Valid values: ClassicResize 
 
-    :return: AwsRedshiftClusterResizeInfo object
-    """
-
-    allow_cancel_resize: Optional[Boolean]
-    resize_type: Optional[NonEmptyString]
-
-
+:return: AwsRedshiftClusterResizeInfo object
+	"""
+	allow_cancel_resize: Optional[Boolean]
+	resize_type: Optional[NonEmptyString]
 class AwsRedshiftClusterRestoreStatus(ASFFBaseModel):
-    """
-    Information about the status of a cluster restore action. It only applies if the cluster was created by restoring a snapshot.
+	"""
+Information about the status of a cluster restore action. It only applies if the cluster was created by restoring a snapshot.
 
-    :param current_restore_rate_in_mega_bytes_per_second: The number of megabytes per second being transferred from the backup storage. Returns the average rate for a completed backup. This field is only updated when you restore to DC2 and DS2 node types.
-    :param elapsed_time_in_seconds: The amount of time an in-progress restore has been running, or the amount of time it took a completed restore to finish. This field is only updated when you restore to DC2 and DS2 node types.
-    :param estimated_time_to_completion_in_seconds: The estimate of the time remaining before the restore is complete. Returns 0 for a completed restore. This field is only updated when you restore to DC2 and DS2 node types.
-    :param progress_in_mega_bytes: The number of megabytes that were transferred from snapshot storage. This field is only updated when you restore to DC2 and DS2 node types.
-    :param snapshot_size_in_mega_bytes: The size of the set of snapshot data that was used to restore the cluster. This field is only updated when you restore to DC2 and DS2 node types.
-    :param status: The status of the restore action. Valid values: starting | restoring | completed | failed
+:param current_restore_rate_in_mega_bytes_per_second: The number of megabytes per second being transferred from the backup storage. Returns the average rate for a completed backup. This field is only updated when you restore to DC2 and DS2 node types.
+:param elapsed_time_in_seconds: The amount of time an in-progress restore has been running, or the amount of time it took a completed restore to finish. This field is only updated when you restore to DC2 and DS2 node types.
+:param estimated_time_to_completion_in_seconds: The estimate of the time remaining before the restore is complete. Returns 0 for a completed restore. This field is only updated when you restore to DC2 and DS2 node types.
+:param progress_in_mega_bytes: The number of megabytes that were transferred from snapshot storage. This field is only updated when you restore to DC2 and DS2 node types.
+:param snapshot_size_in_mega_bytes: The size of the set of snapshot data that was used to restore the cluster. This field is only updated when you restore to DC2 and DS2 node types.
+:param status: The status of the restore action. Valid values: starting | restoring | completed | failed 
 
-    :return: AwsRedshiftClusterRestoreStatus object
-    """
-
-    current_restore_rate_in_mega_bytes_per_second: Optional[Double]
-    elapsed_time_in_seconds: Optional[Long]
-    estimated_time_to_completion_in_seconds: Optional[Long]
-    progress_in_mega_bytes: Optional[Long]
-    snapshot_size_in_mega_bytes: Optional[Long]
-    status: Optional[NonEmptyString]
-
-
+:return: AwsRedshiftClusterRestoreStatus object
+	"""
+	current_restore_rate_in_mega_bytes_per_second: Optional[Double]
+	elapsed_time_in_seconds: Optional[Long]
+	estimated_time_to_completion_in_seconds: Optional[Long]
+	progress_in_mega_bytes: Optional[Long]
+	snapshot_size_in_mega_bytes: Optional[Long]
+	status: Optional[NonEmptyString]
 class AwsRedshiftClusterVpcSecurityGroup(ASFFBaseModel):
-    """
-    A VPC security group that the cluster belongs to, if the cluster is in a VPC.
+	"""
+A VPC security group that the cluster belongs to, if the cluster is in a VPC.
 
-    :param status: The status of the VPC security group.
-    :param vpc_security_group_id: The identifier of the VPC security group.
+:param status: The status of the VPC security group.
+:param vpc_security_group_id: The identifier of the VPC security group.
 
-    :return: AwsRedshiftClusterVpcSecurityGroup object
-    """
-
-    status: Optional[NonEmptyString]
-    vpc_security_group_id: Optional[NonEmptyString]
-
-
+:return: AwsRedshiftClusterVpcSecurityGroup object
+	"""
+	status: Optional[NonEmptyString]
+	vpc_security_group_id: Optional[NonEmptyString]
 AwsRedshiftClusterVpcSecurityGroups = List[AwsRedshiftClusterVpcSecurityGroup]
-
-
 class AwsRedshiftClusterDetails(ASFFBaseModel):
-    """
-    Details about an Amazon Redshift cluster.
+	"""
+Details about an Amazon Redshift cluster.
 
-    :param allow_version_upgrade: Indicates whether major version upgrades are applied automatically to the cluster during the maintenance window.
-    :param automated_snapshot_retention_period: The number of days that automatic cluster snapshots are retained.
-    :param availability_zone: The name of the Availability Zone in which the cluster is located.
-    :param cluster_availability_status: The availability status of the cluster for queries. Possible values are the following:    Available - The cluster is available for queries.    Unavailable - The cluster is not available for queries.    Maintenance - The cluster is intermittently available for queries due to maintenance activities.    Modifying -The cluster is intermittently available for queries due to changes that modify the cluster.    Failed - The cluster failed and is not available for queries.
-    :param cluster_create_time: Indicates when the cluster was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param cluster_identifier: The unique identifier of the cluster.
-    :param cluster_nodes: The nodes in the cluster.
-    :param cluster_parameter_groups: The list of cluster parameter groups that are associated with this cluster.
-    :param cluster_public_key: The public key for the cluster.
-    :param cluster_revision_number: The specific revision number of the database in the cluster.
-    :param cluster_security_groups: A list of cluster security groups that are associated with the cluster.
-    :param cluster_snapshot_copy_status: Information about the destination Region and retention period for the cross-Region snapshot copy.
-    :param cluster_status: The current status of the cluster. Valid values: available | available, prep-for-resize | available, resize-cleanup | cancelling-resize | creating | deleting | final-snapshot | hardware-failure | incompatible-hsm | incompatible-network | incompatible-parameters | incompatible-restore | modifying | paused | rebooting | renaming | resizing | rotating-keys | storage-full | updating-hsm
-    :param cluster_subnet_group_name: The name of the subnet group that is associated with the cluster. This parameter is valid only when the cluster is in a VPC.
-    :param cluster_version: The version ID of the Amazon Redshift engine that runs on the cluster.
-    :param db_name: The name of the initial database that was created when the cluster was created. The same name is returned for the life of the cluster. If an initial database is not specified, a database named devdev is created by default.
-    :param deferred_maintenance_windows: List of time windows during which maintenance was deferred.
-    :param elastic_ip_status: Information about the status of the Elastic IP (EIP) address.
-    :param elastic_resize_number_of_node_options: The number of nodes that you can use the elastic resize method to resize the cluster to.
-    :param encrypted: Indicates whether the data in the cluster is encrypted at rest.
-    :param endpoint: The connection endpoint.
-    :param enhanced_vpc_routing: Indicates whether to create the cluster with enhanced VPC routing enabled.
-    :param expected_next_snapshot_schedule_time: Indicates when the next snapshot is expected to be taken. The cluster must have a valid snapshot schedule and have backups enabled. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param expected_next_snapshot_schedule_time_status: The status of the next expected snapshot. Valid values: OnTrack | Pending
-    :param hsm_status: Information about whether the Amazon Redshift cluster finished applying any changes to hardware security module (HSM) settings that were specified in a modify cluster command.
-    :param iam_roles: A list of IAM roles that the cluster can use to access other AWS services.
-    :param kms_key_id: The identifier of the AWS KMS encryption key that is used to encrypt data in the cluster.
-    :param maintenance_track_name: The name of the maintenance track for the cluster.
-    :param manual_snapshot_retention_period: The default number of days to retain a manual snapshot. If the value is -1, the snapshot is retained indefinitely. This setting doesn't change the retention period of existing snapshots. Valid values: Either -1 or an integer between 1 and 3,653
-    :param master_username: The master user name for the cluster. This name is used to connect to the database that is specified in as the value of DBName.
-    :param next_maintenance_window_start_time: Indicates the start of the next maintenance window. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param node_type: The node type for the nodes in the cluster.
-    :param number_of_nodes: The number of compute nodes in the cluster.
-    :param pending_actions: A list of cluster operations that are waiting to start.
-    :param pending_modified_values: A list of changes to the cluster that are currently pending.
-    :param preferred_maintenance_window: The weekly time range, in Universal Coordinated Time (UTC), during which system maintenance can occur. Format:  &lt;day&gt;:HH:MM-&lt;day&gt;:HH:MM  For the day values, use mon | tue | wed | thu | fri | sat | sun  For example, sun:09:32-sun:10:02
-    :param publicly_accessible: Whether the cluster can be accessed from a public network.
-    :param resize_info: Information about the resize operation for the cluster.
-    :param restore_status: Information about the status of a cluster restore action. Only applies to a cluster that was created by restoring a snapshot.
-    :param snapshot_schedule_identifier: A unique identifier for the cluster snapshot schedule.
-    :param snapshot_schedule_state: The current state of the cluster snapshot schedule. Valid values: MODIFYING | ACTIVE | FAILED
-    :param vpc_id: The identifier of the VPC that the cluster is in, if the cluster is in a VPC.
-    :param vpc_security_groups: The list of VPC security groups that the cluster belongs to, if the cluster is in a VPC.
+:param allow_version_upgrade: Indicates whether major version upgrades are applied automatically to the cluster during the maintenance window.
+:param automated_snapshot_retention_period: The number of days that automatic cluster snapshots are retained.
+:param availability_zone: The name of the Availability Zone in which the cluster is located.
+:param cluster_availability_status: The availability status of the cluster for queries. Possible values are the following:    Available - The cluster is available for queries.    Unavailable - The cluster is not available for queries.    Maintenance - The cluster is intermittently available for queries due to maintenance activities.    Modifying -The cluster is intermittently available for queries due to changes that modify the cluster.    Failed - The cluster failed and is not available for queries.  
+:param cluster_create_time: Indicates when the cluster was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param cluster_identifier: The unique identifier of the cluster.
+:param cluster_nodes: The nodes in the cluster.
+:param cluster_parameter_groups: The list of cluster parameter groups that are associated with this cluster.
+:param cluster_public_key: The public key for the cluster.
+:param cluster_revision_number: The specific revision number of the database in the cluster.
+:param cluster_security_groups: A list of cluster security groups that are associated with the cluster.
+:param cluster_snapshot_copy_status: Information about the destination Region and retention period for the cross-Region snapshot copy.
+:param cluster_status: The current status of the cluster. Valid values: available | available, prep-for-resize | available, resize-cleanup | cancelling-resize | creating | deleting | final-snapshot | hardware-failure | incompatible-hsm | incompatible-network | incompatible-parameters | incompatible-restore | modifying | paused | rebooting | renaming | resizing | rotating-keys | storage-full | updating-hsm 
+:param cluster_subnet_group_name: The name of the subnet group that is associated with the cluster. This parameter is valid only when the cluster is in a VPC.
+:param cluster_version: The version ID of the Amazon Redshift engine that runs on the cluster.
+:param db_name: The name of the initial database that was created when the cluster was created. The same name is returned for the life of the cluster. If an initial database is not specified, a database named devdev is created by default.
+:param deferred_maintenance_windows: List of time windows during which maintenance was deferred.
+:param elastic_ip_status: Information about the status of the Elastic IP (EIP) address.
+:param elastic_resize_number_of_node_options: The number of nodes that you can use the elastic resize method to resize the cluster to.
+:param encrypted: Indicates whether the data in the cluster is encrypted at rest.
+:param endpoint: The connection endpoint.
+:param enhanced_vpc_routing: Indicates whether to create the cluster with enhanced VPC routing enabled.
+:param expected_next_snapshot_schedule_time: Indicates when the next snapshot is expected to be taken. The cluster must have a valid snapshot schedule and have backups enabled. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param expected_next_snapshot_schedule_time_status: The status of the next expected snapshot. Valid values: OnTrack | Pending 
+:param hsm_status: Information about whether the Amazon Redshift cluster finished applying any changes to hardware security module (HSM) settings that were specified in a modify cluster command.
+:param iam_roles: A list of IAM roles that the cluster can use to access other AWS services.
+:param kms_key_id: The identifier of the AWS KMS encryption key that is used to encrypt data in the cluster.
+:param maintenance_track_name: The name of the maintenance track for the cluster.
+:param manual_snapshot_retention_period: The default number of days to retain a manual snapshot. If the value is -1, the snapshot is retained indefinitely. This setting doesn't change the retention period of existing snapshots. Valid values: Either -1 or an integer between 1 and 3,653
+:param master_username: The master user name for the cluster. This name is used to connect to the database that is specified in as the value of DBName.
+:param next_maintenance_window_start_time: Indicates the start of the next maintenance window. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param node_type: The node type for the nodes in the cluster.
+:param number_of_nodes: The number of compute nodes in the cluster.
+:param pending_actions: A list of cluster operations that are waiting to start.
+:param pending_modified_values: A list of changes to the cluster that are currently pending.
+:param preferred_maintenance_window: The weekly time range, in Universal Coordinated Time (UTC), during which system maintenance can occur. Format:  &lt;day&gt;:HH:MM-&lt;day&gt;:HH:MM  For the day values, use mon | tue | wed | thu | fri | sat | sun  For example, sun:09:32-sun:10:02 
+:param publicly_accessible: Whether the cluster can be accessed from a public network.
+:param resize_info: Information about the resize operation for the cluster.
+:param restore_status: Information about the status of a cluster restore action. Only applies to a cluster that was created by restoring a snapshot.
+:param snapshot_schedule_identifier: A unique identifier for the cluster snapshot schedule.
+:param snapshot_schedule_state: The current state of the cluster snapshot schedule. Valid values: MODIFYING | ACTIVE | FAILED 
+:param vpc_id: The identifier of the VPC that the cluster is in, if the cluster is in a VPC.
+:param vpc_security_groups: The list of VPC security groups that the cluster belongs to, if the cluster is in a VPC.
 
-    :return: AwsRedshiftClusterDetails object
-    """
-
-    allow_version_upgrade: Optional[Boolean]
-    automated_snapshot_retention_period: Optional[Integer]
-    availability_zone: Optional[NonEmptyString]
-    cluster_availability_status: Optional[NonEmptyString]
-    cluster_create_time: Optional[Iso8601Timestamp]
-    cluster_identifier: Optional[NonEmptyString]
-    cluster_nodes: Optional[AwsRedshiftClusterClusterNodes]
-    cluster_parameter_groups: Optional[AwsRedshiftClusterClusterParameterGroups]
-    cluster_public_key: Optional[NonEmptyString]
-    cluster_revision_number: Optional[NonEmptyString]
-    cluster_security_groups: Optional[AwsRedshiftClusterClusterSecurityGroups]
-    cluster_snapshot_copy_status: Optional[AwsRedshiftClusterClusterSnapshotCopyStatus]
-    cluster_status: Optional[NonEmptyString]
-    cluster_subnet_group_name: Optional[NonEmptyString]
-    cluster_version: Optional[NonEmptyString]
-    db_name: Optional[NonEmptyString]
-    deferred_maintenance_windows: Optional[AwsRedshiftClusterDeferredMaintenanceWindows]
-    elastic_ip_status: Optional[AwsRedshiftClusterElasticIpStatus]
-    elastic_resize_number_of_node_options: Optional[NonEmptyString]
-    encrypted: Optional[Boolean]
-    endpoint: Optional[AwsRedshiftClusterEndpoint]
-    enhanced_vpc_routing: Optional[Boolean]
-    expected_next_snapshot_schedule_time: Optional[NonEmptyString]
-    expected_next_snapshot_schedule_time_status: Optional[NonEmptyString]
-    hsm_status: Optional[AwsRedshiftClusterHsmStatus]
-    iam_roles: Optional[AwsRedshiftClusterIamRoles]
-    kms_key_id: Optional[NonEmptyString]
-    maintenance_track_name: Optional[NonEmptyString]
-    manual_snapshot_retention_period: Optional[Integer]
-    master_username: Optional[NonEmptyString]
-    next_maintenance_window_start_time: Optional[NonEmptyString]
-    node_type: Optional[NonEmptyString]
-    number_of_nodes: Optional[Integer]
-    pending_actions: Optional[StringList]
-    pending_modified_values: Optional[AwsRedshiftClusterPendingModifiedValues]
-    preferred_maintenance_window: Optional[NonEmptyString]
-    publicly_accessible: Optional[Boolean]
-    resize_info: Optional[AwsRedshiftClusterResizeInfo]
-    restore_status: Optional[AwsRedshiftClusterRestoreStatus]
-    snapshot_schedule_identifier: Optional[NonEmptyString]
-    snapshot_schedule_state: Optional[NonEmptyString]
-    vpc_id: Optional[NonEmptyString]
-    vpc_security_groups: Optional[AwsRedshiftClusterVpcSecurityGroups]
-
-
+:return: AwsRedshiftClusterDetails object
+	"""
+	allow_version_upgrade: Optional[Boolean]
+	automated_snapshot_retention_period: Optional[Integer]
+	availability_zone: Optional[NonEmptyString]
+	cluster_availability_status: Optional[NonEmptyString]
+	cluster_create_time: Optional[Iso8601Timestamp]
+	cluster_identifier: Optional[NonEmptyString]
+	cluster_nodes: Optional[AwsRedshiftClusterClusterNodes]
+	cluster_parameter_groups: Optional[AwsRedshiftClusterClusterParameterGroups]
+	cluster_public_key: Optional[NonEmptyString]
+	cluster_revision_number: Optional[NonEmptyString]
+	cluster_security_groups: Optional[AwsRedshiftClusterClusterSecurityGroups]
+	cluster_snapshot_copy_status: Optional[AwsRedshiftClusterClusterSnapshotCopyStatus]
+	cluster_status: Optional[NonEmptyString]
+	cluster_subnet_group_name: Optional[NonEmptyString]
+	cluster_version: Optional[NonEmptyString]
+	db_name: Optional[NonEmptyString]
+	deferred_maintenance_windows: Optional[AwsRedshiftClusterDeferredMaintenanceWindows]
+	elastic_ip_status: Optional[AwsRedshiftClusterElasticIpStatus]
+	elastic_resize_number_of_node_options: Optional[NonEmptyString]
+	encrypted: Optional[Boolean]
+	endpoint: Optional[AwsRedshiftClusterEndpoint]
+	enhanced_vpc_routing: Optional[Boolean]
+	expected_next_snapshot_schedule_time: Optional[NonEmptyString]
+	expected_next_snapshot_schedule_time_status: Optional[NonEmptyString]
+	hsm_status: Optional[AwsRedshiftClusterHsmStatus]
+	iam_roles: Optional[AwsRedshiftClusterIamRoles]
+	kms_key_id: Optional[NonEmptyString]
+	maintenance_track_name: Optional[NonEmptyString]
+	manual_snapshot_retention_period: Optional[Integer]
+	master_username: Optional[NonEmptyString]
+	next_maintenance_window_start_time: Optional[NonEmptyString]
+	node_type: Optional[NonEmptyString]
+	number_of_nodes: Optional[Integer]
+	pending_actions: Optional[StringList]
+	pending_modified_values: Optional[AwsRedshiftClusterPendingModifiedValues]
+	preferred_maintenance_window: Optional[NonEmptyString]
+	publicly_accessible: Optional[Boolean]
+	resize_info: Optional[AwsRedshiftClusterResizeInfo]
+	restore_status: Optional[AwsRedshiftClusterRestoreStatus]
+	snapshot_schedule_identifier: Optional[NonEmptyString]
+	snapshot_schedule_state: Optional[NonEmptyString]
+	vpc_id: Optional[NonEmptyString]
+	vpc_security_groups: Optional[AwsRedshiftClusterVpcSecurityGroups]
 class AwsElbLoadBalancerBackendServerDescription(ASFFBaseModel):
-    """
-    Provides information about the configuration of an EC2 instance for the load balancer.
+	"""
+Provides information about the configuration of an EC2 instance for the load balancer.
 
-    :param instance_port: The port on which the EC2 instance is listening.
-    :param policy_names: The names of the policies that are enabled for the EC2 instance.
+:param instance_port: The port on which the EC2 instance is listening.
+:param policy_names: The names of the policies that are enabled for the EC2 instance.
 
-    :return: AwsElbLoadBalancerBackendServerDescription object
-    """
-
-    instance_port: Optional[Integer]
-    policy_names: Optional[StringList]
-
-
-AwsElbLoadBalancerBackendServerDescriptions = List[
-    AwsElbLoadBalancerBackendServerDescription
-]
-
-
+:return: AwsElbLoadBalancerBackendServerDescription object
+	"""
+	instance_port: Optional[Integer]
+	policy_names: Optional[StringList]
+AwsElbLoadBalancerBackendServerDescriptions = List[AwsElbLoadBalancerBackendServerDescription]
 class AwsElbLoadBalancerHealthCheck(ASFFBaseModel):
-    """
-    Contains information about the health checks that are conducted on the load balancer.
+	"""
+Contains information about the health checks that are conducted on the load balancer.
 
-    :param healthy_threshold: The number of consecutive health check successes required before the instance is moved to the Healthy state.
-    :param interval: The approximate interval, in seconds, between health checks of an individual instance.
-    :param target: The instance that is being checked. The target specifies the protocol and port. The available protocols are TCP, SSL, HTTP, and HTTPS. The range of valid ports is 1 through 65535. For the HTTP and HTTPS protocols, the target also specifies the ping path. For the TCP protocol, the target is specified as TCP: &lt;port&gt; . For the SSL protocol, the target is specified as SSL.&lt;port&gt; . For the HTTP and HTTPS protocols, the target is specified as  &lt;protocol&gt;:&lt;port&gt;/&lt;path to ping&gt; .
-    :param timeout: The amount of time, in seconds, during which no response means a failed health check.
-    :param unhealthy_threshold: The number of consecutive health check failures that must occur before the instance is moved to the Unhealthy state.
+:param healthy_threshold: The number of consecutive health check successes required before the instance is moved to the Healthy state.
+:param interval: The approximate interval, in seconds, between health checks of an individual instance.
+:param target: The instance that is being checked. The target specifies the protocol and port. The available protocols are TCP, SSL, HTTP, and HTTPS. The range of valid ports is 1 through 65535. For the HTTP and HTTPS protocols, the target also specifies the ping path. For the TCP protocol, the target is specified as TCP: &lt;port&gt; . For the SSL protocol, the target is specified as SSL.&lt;port&gt; . For the HTTP and HTTPS protocols, the target is specified as  &lt;protocol&gt;:&lt;port&gt;/&lt;path to ping&gt; .
+:param timeout: The amount of time, in seconds, during which no response means a failed health check.
+:param unhealthy_threshold: The number of consecutive health check failures that must occur before the instance is moved to the Unhealthy state.
 
-    :return: AwsElbLoadBalancerHealthCheck object
-    """
-
-    healthy_threshold: Optional[Integer]
-    interval: Optional[Integer]
-    target: Optional[NonEmptyString]
-    timeout: Optional[Integer]
-    unhealthy_threshold: Optional[Integer]
-
-
+:return: AwsElbLoadBalancerHealthCheck object
+	"""
+	healthy_threshold: Optional[Integer]
+	interval: Optional[Integer]
+	target: Optional[NonEmptyString]
+	timeout: Optional[Integer]
+	unhealthy_threshold: Optional[Integer]
 class AwsElbLoadBalancerInstance(ASFFBaseModel):
-    """
-    Provides information about an EC2 instance for a load balancer.
+	"""
+Provides information about an EC2 instance for a load balancer.
 
-    :param instance_id: The instance identifier.
+:param instance_id: The instance identifier.
 
-    :return: AwsElbLoadBalancerInstance object
-    """
-
-    instance_id: Optional[NonEmptyString]
-
-
+:return: AwsElbLoadBalancerInstance object
+	"""
+	instance_id: Optional[NonEmptyString]
 AwsElbLoadBalancerInstances = List[AwsElbLoadBalancerInstance]
-
-
 class AwsElbLoadBalancerListener(ASFFBaseModel):
-    """
-    Information about a load balancer listener.
+	"""
+Information about a load balancer listener.
 
-    :param instance_port: The port on which the instance is listening.
-    :param instance_protocol: The protocol to use to route traffic to instances. Valid values: HTTP | HTTPS | TCP | SSL
-    :param load_balancer_port: The port on which the load balancer is listening. On EC2-VPC, you can specify any port from the range 1-65535. On EC2-Classic, you can specify any port from the following list: 25, 80, 443, 465, 587, 1024-65535.
-    :param protocol: The load balancer transport protocol to use for routing. Valid values: HTTP | HTTPS | TCP | SSL
-    :param ssl_certificate_id: The ARN of the server certificate.
+:param instance_port: The port on which the instance is listening.
+:param instance_protocol: The protocol to use to route traffic to instances. Valid values: HTTP | HTTPS | TCP | SSL 
+:param load_balancer_port: The port on which the load balancer is listening. On EC2-VPC, you can specify any port from the range 1-65535. On EC2-Classic, you can specify any port from the following list: 25, 80, 443, 465, 587, 1024-65535.
+:param protocol: The load balancer transport protocol to use for routing. Valid values: HTTP | HTTPS | TCP | SSL 
+:param ssl_certificate_id: The ARN of the server certificate.
 
-    :return: AwsElbLoadBalancerListener object
-    """
-
-    instance_port: Optional[Integer]
-    instance_protocol: Optional[NonEmptyString]
-    load_balancer_port: Optional[Integer]
-    protocol: Optional[NonEmptyString]
-    ssl_certificate_id: Optional[NonEmptyString]
-
-
+:return: AwsElbLoadBalancerListener object
+	"""
+	instance_port: Optional[Integer]
+	instance_protocol: Optional[NonEmptyString]
+	load_balancer_port: Optional[Integer]
+	protocol: Optional[NonEmptyString]
+	ssl_certificate_id: Optional[NonEmptyString]
 class AwsElbLoadBalancerListenerDescription(ASFFBaseModel):
-    """
-    Lists the policies that are enabled for a load balancer listener.
+	"""
+Lists the policies that are enabled for a load balancer listener.
 
-    :param listener: Information about the listener.
-    :param policy_names: The policies enabled for the listener.
+:param listener: Information about the listener.
+:param policy_names: The policies enabled for the listener.
 
-    :return: AwsElbLoadBalancerListenerDescription object
-    """
-
-    listener: Optional[AwsElbLoadBalancerListener]
-    policy_names: Optional[StringList]
-
-
+:return: AwsElbLoadBalancerListenerDescription object
+	"""
+	listener: Optional[AwsElbLoadBalancerListener]
+	policy_names: Optional[StringList]
 AwsElbLoadBalancerListenerDescriptions = List[AwsElbLoadBalancerListenerDescription]
-
-
 class AwsElbLoadBalancerAccessLog(ASFFBaseModel):
-    """
-    Contains information about the access log configuration for the load balancer.
+	"""
+Contains information about the access log configuration for the load balancer.
 
-    :param emit_interval: The interval in minutes for publishing the access logs. You can publish access logs either every 5 minutes or every 60 minutes.
-    :param enabled: Indicates whether access logs are enabled for the load balancer.
-    :param s3_bucket_name: The name of the S3 bucket where the access logs are stored.
-    :param s3_bucket_prefix: The logical hierarchy that was created for the S3 bucket. If a prefix is not provided, the log is placed at the root level of the bucket.
+:param emit_interval: The interval in minutes for publishing the access logs. You can publish access logs either every 5 minutes or every 60 minutes.
+:param enabled: Indicates whether access logs are enabled for the load balancer.
+:param s3_bucket_name: The name of the S3 bucket where the access logs are stored.
+:param s3_bucket_prefix: The logical hierarchy that was created for the S3 bucket. If a prefix is not provided, the log is placed at the root level of the bucket.
 
-    :return: AwsElbLoadBalancerAccessLog object
-    """
-
-    emit_interval: Optional[Integer]
-    enabled: Optional[Boolean]
-    s3_bucket_name: Optional[NonEmptyString]
-    s3_bucket_prefix: Optional[NonEmptyString]
-
-
+:return: AwsElbLoadBalancerAccessLog object
+	"""
+	emit_interval: Optional[Integer]
+	enabled: Optional[Boolean]
+	s3_bucket_name: Optional[NonEmptyString]
+	s3_bucket_prefix: Optional[NonEmptyString]
 class AwsElbLoadBalancerConnectionDraining(ASFFBaseModel):
-    """
-    Contains information about the connection draining configuration for the load balancer.
+	"""
+Contains information about the connection draining configuration for the load balancer.
 
-    :param enabled: Indicates whether connection draining is enabled for the load balancer.
-    :param timeout: The maximum time, in seconds, to keep the existing connections open before deregistering the instances.
+:param enabled: Indicates whether connection draining is enabled for the load balancer.
+:param timeout: The maximum time, in seconds, to keep the existing connections open before deregistering the instances.
 
-    :return: AwsElbLoadBalancerConnectionDraining object
-    """
-
-    enabled: Optional[Boolean]
-    timeout: Optional[Integer]
-
-
+:return: AwsElbLoadBalancerConnectionDraining object
+	"""
+	enabled: Optional[Boolean]
+	timeout: Optional[Integer]
 class AwsElbLoadBalancerConnectionSettings(ASFFBaseModel):
-    """
-    Contains connection settings for the load balancer.
+	"""
+Contains connection settings for the load balancer.
 
-    :param idle_timeout: The time, in seconds, that the connection can be idle (no data is sent over the connection) before it is closed by the load balancer.
+:param idle_timeout: The time, in seconds, that the connection can be idle (no data is sent over the connection) before it is closed by the load balancer.
 
-    :return: AwsElbLoadBalancerConnectionSettings object
-    """
-
-    idle_timeout: Optional[Integer]
-
-
+:return: AwsElbLoadBalancerConnectionSettings object
+	"""
+	idle_timeout: Optional[Integer]
 class AwsElbLoadBalancerCrossZoneLoadBalancing(ASFFBaseModel):
-    """
-    Contains cross-zone load balancing settings for the load balancer.
+	"""
+Contains cross-zone load balancing settings for the load balancer.
 
-    :param enabled: Indicates whether cross-zone load balancing is enabled for the load balancer.
+:param enabled: Indicates whether cross-zone load balancing is enabled for the load balancer.
 
-    :return: AwsElbLoadBalancerCrossZoneLoadBalancing object
-    """
-
-    enabled: Optional[Boolean]
-
-
+:return: AwsElbLoadBalancerCrossZoneLoadBalancing object
+	"""
+	enabled: Optional[Boolean]
 class AwsElbLoadBalancerAttributes(ASFFBaseModel):
-    """
-    Contains attributes for the load balancer.
+	"""
+Contains attributes for the load balancer.
 
-    :param access_log: Information about the access log configuration for the load balancer. If the access log is enabled, the load balancer captures detailed information about all requests. It delivers the information to a specified S3 bucket.
-    :param connection_draining: Information about the connection draining configuration for the load balancer. If connection draining is enabled, the load balancer allows existing requests to complete before it shifts traffic away from a deregistered or unhealthy instance.
-    :param connection_settings: Connection settings for the load balancer. If an idle timeout is configured, the load balancer allows connections to remain idle for the specified duration. When a connection is idle, no data is sent over the connection.
-    :param cross_zone_load_balancing: Cross-zone load balancing settings for the load balancer. If cross-zone load balancing is enabled, the load balancer routes the request traffic evenly across all instances regardless of the Availability Zones.
+:param access_log: Information about the access log configuration for the load balancer. If the access log is enabled, the load balancer captures detailed information about all requests. It delivers the information to a specified S3 bucket.
+:param connection_draining: Information about the connection draining configuration for the load balancer. If connection draining is enabled, the load balancer allows existing requests to complete before it shifts traffic away from a deregistered or unhealthy instance.
+:param connection_settings: Connection settings for the load balancer. If an idle timeout is configured, the load balancer allows connections to remain idle for the specified duration. When a connection is idle, no data is sent over the connection.
+:param cross_zone_load_balancing: Cross-zone load balancing settings for the load balancer. If cross-zone load balancing is enabled, the load balancer routes the request traffic evenly across all instances regardless of the Availability Zones.
 
-    :return: AwsElbLoadBalancerAttributes object
-    """
-
-    access_log: Optional[AwsElbLoadBalancerAccessLog]
-    connection_draining: Optional[AwsElbLoadBalancerConnectionDraining]
-    connection_settings: Optional[AwsElbLoadBalancerConnectionSettings]
-    cross_zone_load_balancing: Optional[AwsElbLoadBalancerCrossZoneLoadBalancing]
-
-
+:return: AwsElbLoadBalancerAttributes object
+	"""
+	access_log: Optional[AwsElbLoadBalancerAccessLog]
+	connection_draining: Optional[AwsElbLoadBalancerConnectionDraining]
+	connection_settings: Optional[AwsElbLoadBalancerConnectionSettings]
+	cross_zone_load_balancing: Optional[AwsElbLoadBalancerCrossZoneLoadBalancing]
 class AwsElbAppCookieStickinessPolicy(ASFFBaseModel):
-    """
-    Contains information about a stickiness policy that was created using CreateAppCookieStickinessPolicy.
+	"""
+Contains information about a stickiness policy that was created using CreateAppCookieStickinessPolicy.
 
-    :param cookie_name: The name of the application cookie used for stickiness.
-    :param policy_name: The mnemonic name for the policy being created. The name must be unique within the set of policies for the load balancer.
+:param cookie_name: The name of the application cookie used for stickiness.
+:param policy_name: The mnemonic name for the policy being created. The name must be unique within the set of policies for the load balancer.
 
-    :return: AwsElbAppCookieStickinessPolicy object
-    """
-
-    cookie_name: Optional[NonEmptyString]
-    policy_name: Optional[NonEmptyString]
-
-
+:return: AwsElbAppCookieStickinessPolicy object
+	"""
+	cookie_name: Optional[NonEmptyString]
+	policy_name: Optional[NonEmptyString]
 AwsElbAppCookieStickinessPolicies = List[AwsElbAppCookieStickinessPolicy]
-
-
 class AwsElbLbCookieStickinessPolicy(ASFFBaseModel):
-    """
-    Contains information about a stickiness policy that was created using CreateLBCookieStickinessPolicy.
+	"""
+Contains information about a stickiness policy that was created using CreateLBCookieStickinessPolicy.
 
-    :param cookie_expiration_period: The amount of time, in seconds, after which the cookie is considered stale. If an expiration period is not specified, the stickiness session lasts for the duration of the browser session.
-    :param policy_name: The name of the policy. The name must be unique within the set of policies for the load balancer.
+:param cookie_expiration_period: The amount of time, in seconds, after which the cookie is considered stale. If an expiration period is not specified, the stickiness session lasts for the duration of the browser session.
+:param policy_name: The name of the policy. The name must be unique within the set of policies for the load balancer.
 
-    :return: AwsElbLbCookieStickinessPolicy object
-    """
-
-    cookie_expiration_period: Optional[Long]
-    policy_name: Optional[NonEmptyString]
-
-
+:return: AwsElbLbCookieStickinessPolicy object
+	"""
+	cookie_expiration_period: Optional[Long]
+	policy_name: Optional[NonEmptyString]
 AwsElbLbCookieStickinessPolicies = List[AwsElbLbCookieStickinessPolicy]
-
-
 class AwsElbLoadBalancerPolicies(ASFFBaseModel):
-    """
-    Contains information about the policies for a load balancer.
+	"""
+Contains information about the policies for a load balancer.
 
-    :param app_cookie_stickiness_policies: The stickiness policies that are created using CreateAppCookieStickinessPolicy.
-    :param lb_cookie_stickiness_policies: The stickiness policies that are created using CreateLBCookieStickinessPolicy.
-    :param other_policies: The policies other than the stickiness policies.
+:param app_cookie_stickiness_policies: The stickiness policies that are created using CreateAppCookieStickinessPolicy.
+:param lb_cookie_stickiness_policies: The stickiness policies that are created using CreateLBCookieStickinessPolicy.
+:param other_policies: The policies other than the stickiness policies.
 
-    :return: AwsElbLoadBalancerPolicies object
-    """
-
-    app_cookie_stickiness_policies: Optional[AwsElbAppCookieStickinessPolicies]
-    lb_cookie_stickiness_policies: Optional[AwsElbLbCookieStickinessPolicies]
-    other_policies: Optional[StringList]
-
-
+:return: AwsElbLoadBalancerPolicies object
+	"""
+	app_cookie_stickiness_policies: Optional[AwsElbAppCookieStickinessPolicies]
+	lb_cookie_stickiness_policies: Optional[AwsElbLbCookieStickinessPolicies]
+	other_policies: Optional[StringList]
 class AwsElbLoadBalancerSourceSecurityGroup(ASFFBaseModel):
-    """
-    Contains information about the security group for the load balancer.
+	"""
+Contains information about the security group for the load balancer.
 
-    :param group_name: The name of the security group.
-    :param owner_alias: The owner of the security group.
+:param group_name: The name of the security group.
+:param owner_alias: The owner of the security group.
 
-    :return: AwsElbLoadBalancerSourceSecurityGroup object
-    """
-
-    group_name: Optional[NonEmptyString]
-    owner_alias: Optional[NonEmptyString]
-
-
+:return: AwsElbLoadBalancerSourceSecurityGroup object
+	"""
+	group_name: Optional[NonEmptyString]
+	owner_alias: Optional[NonEmptyString]
 class AwsElbLoadBalancerDetails(ASFFBaseModel):
-    """
-    Contains details about a Classic Load Balancer.
+	"""
+Contains details about a Classic Load Balancer.
 
-    :param availability_zones: The list of Availability Zones for the load balancer.
-    :param backend_server_descriptions: Information about the configuration of the EC2 instances.
-    :param canonical_hosted_zone_name: The name of the Amazon Route 53 hosted zone for the load balancer.
-    :param canonical_hosted_zone_name_id: The ID of the Amazon Route 53 hosted zone for the load balancer.
-    :param created_time: Indicates when the load balancer was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param dns_name: The DNS name of the load balancer.
-    :param health_check: Information about the health checks that are conducted on the load balancer.
-    :param instances: List of EC2 instances for the load balancer.
-    :param listener_descriptions: The policies that are enabled for the load balancer listeners.
-    :param load_balancer_attributes: The attributes for a load balancer.
-    :param load_balancer_name: The name of the load balancer.
-    :param policies: The policies for a load balancer.
-    :param scheme: The type of load balancer. Only provided if the load balancer is in a VPC. If Scheme is internet-facing, the load balancer has a public DNS name that resolves to a public IP address. If Scheme is internal, the load balancer has a public DNS name that resolves to a private IP address.
-    :param security_groups: The security groups for the load balancer. Only provided if the load balancer is in a VPC.
-    :param source_security_group: Information about the security group for the load balancer. This is the security group that is used for inbound rules.
-    :param subnets: The list of subnet identifiers for the load balancer.
-    :param vpc_id: The identifier of the VPC for the load balancer.
+:param availability_zones: The list of Availability Zones for the load balancer.
+:param backend_server_descriptions: Information about the configuration of the EC2 instances.
+:param canonical_hosted_zone_name: The name of the Amazon Route 53 hosted zone for the load balancer.
+:param canonical_hosted_zone_name_id: The ID of the Amazon Route 53 hosted zone for the load balancer.
+:param created_time: Indicates when the load balancer was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param dns_name: The DNS name of the load balancer.
+:param health_check: Information about the health checks that are conducted on the load balancer.
+:param instances: List of EC2 instances for the load balancer.
+:param listener_descriptions: The policies that are enabled for the load balancer listeners.
+:param load_balancer_attributes: The attributes for a load balancer.
+:param load_balancer_name: The name of the load balancer.
+:param policies: The policies for a load balancer.
+:param scheme: The type of load balancer. Only provided if the load balancer is in a VPC. If Scheme is internet-facing, the load balancer has a public DNS name that resolves to a public IP address. If Scheme is internal, the load balancer has a public DNS name that resolves to a private IP address.
+:param security_groups: The security groups for the load balancer. Only provided if the load balancer is in a VPC.
+:param source_security_group: Information about the security group for the load balancer. This is the security group that is used for inbound rules.
+:param subnets: The list of subnet identifiers for the load balancer.
+:param vpc_id: The identifier of the VPC for the load balancer.
 
-    :return: AwsElbLoadBalancerDetails object
-    """
-
-    availability_zones: Optional[StringList]
-    backend_server_descriptions: Optional[AwsElbLoadBalancerBackendServerDescriptions]
-    canonical_hosted_zone_name: Optional[NonEmptyString]
-    canonical_hosted_zone_name_id: Optional[NonEmptyString]
-    created_time: Optional[Iso8601Timestamp]
-    dns_name: Optional[NonEmptyString]
-    health_check: Optional[AwsElbLoadBalancerHealthCheck]
-    instances: Optional[AwsElbLoadBalancerInstances]
-    listener_descriptions: Optional[AwsElbLoadBalancerListenerDescriptions]
-    load_balancer_attributes: Optional[AwsElbLoadBalancerAttributes]
-    load_balancer_name: Optional[NonEmptyString]
-    policies: Optional[AwsElbLoadBalancerPolicies]
-    scheme: Optional[NonEmptyString]
-    security_groups: Optional[StringList]
-    source_security_group: Optional[AwsElbLoadBalancerSourceSecurityGroup]
-    subnets: Optional[StringList]
-    vpc_id: Optional[NonEmptyString]
-
-
+:return: AwsElbLoadBalancerDetails object
+	"""
+	availability_zones: Optional[StringList]
+	backend_server_descriptions: Optional[AwsElbLoadBalancerBackendServerDescriptions]
+	canonical_hosted_zone_name: Optional[NonEmptyString]
+	canonical_hosted_zone_name_id: Optional[NonEmptyString]
+	created_time: Optional[Iso8601Timestamp]
+	dns_name: Optional[NonEmptyString]
+	health_check: Optional[AwsElbLoadBalancerHealthCheck]
+	instances: Optional[AwsElbLoadBalancerInstances]
+	listener_descriptions: Optional[AwsElbLoadBalancerListenerDescriptions]
+	load_balancer_attributes: Optional[AwsElbLoadBalancerAttributes]
+	load_balancer_name: Optional[NonEmptyString]
+	policies: Optional[AwsElbLoadBalancerPolicies]
+	scheme: Optional[NonEmptyString]
+	security_groups: Optional[StringList]
+	source_security_group: Optional[AwsElbLoadBalancerSourceSecurityGroup]
+	subnets: Optional[StringList]
+	vpc_id: Optional[NonEmptyString]
 class AwsIamGroupPolicy(ASFFBaseModel):
-    """
-    A managed policy that is attached to the IAM group.
+	"""
+A managed policy that is attached to the IAM group.
 
-    :param policy_name: The name of the policy.
+:param policy_name: The name of the policy.
 
-    :return: AwsIamGroupPolicy object
-    """
-
-    policy_name: Optional[NonEmptyString]
-
-
+:return: AwsIamGroupPolicy object
+	"""
+	policy_name: Optional[NonEmptyString]
 AwsIamGroupPolicyList = List[AwsIamGroupPolicy]
-
-
 class AwsIamGroupDetails(ASFFBaseModel):
-    """
-    Contains details about an IAM group.
+	"""
+Contains details about an IAM group.
 
-    :param attached_managed_policies: A list of the managed policies that are attached to the IAM group.
-    :param create_date: Indicates when the IAM group was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param group_id: The identifier of the IAM group.
-    :param group_name: The name of the IAM group.
-    :param group_policy_list: The list of inline policies that are embedded in the group.
-    :param path: The path to the group.
+:param attached_managed_policies: A list of the managed policies that are attached to the IAM group.
+:param create_date: Indicates when the IAM group was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param group_id: The identifier of the IAM group.
+:param group_name: The name of the IAM group.
+:param group_policy_list: The list of inline policies that are embedded in the group.
+:param path: The path to the group.
 
-    :return: AwsIamGroupDetails object
-    """
-
-    attached_managed_policies: Optional[AwsIamAttachedManagedPolicyList]
-    create_date: Optional[Iso8601Timestamp]
-    group_id: Optional[NonEmptyString]
-    group_name: Optional[NonEmptyString]
-    group_policy_list: Optional[AwsIamGroupPolicyList]
-    path: Optional[NonEmptyString]
-
-
-AwsIamRoleAssumeRolePolicyDocument = constr(
-    regex="[\u0009\u000A\u000D\u0020-\u007E\u00A1-\u00FF]+",
-    min_length=1,
-    max_length=131072,
-)
-
-
+:return: AwsIamGroupDetails object
+	"""
+	attached_managed_policies: Optional[AwsIamAttachedManagedPolicyList]
+	create_date: Optional[Iso8601Timestamp]
+	group_id: Optional[NonEmptyString]
+	group_name: Optional[NonEmptyString]
+	group_policy_list: Optional[AwsIamGroupPolicyList]
+	path: Optional[NonEmptyString]
+AwsIamRoleAssumeRolePolicyDocument = constr(regex="[\u0009\u000A\u000D\u0020-\u007E\u00A1-\u00FF]+", min_length=1, max_length=131072)
 class AwsIamInstanceProfileRole(ASFFBaseModel):
-    """
-    Information about a role associated with an instance profile.
+	"""
+Information about a role associated with an instance profile.
 
-    :param arn: The ARN of the role.
-    :param assume_role_policy_document: The policy that grants an entity permission to assume the role.
-    :param create_date: Indicates when the role was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param path: The path to the role.
-    :param role_id: The identifier of the role.
-    :param role_name: The name of the role.
+:param arn: The ARN of the role.
+:param assume_role_policy_document: The policy that grants an entity permission to assume the role.
+:param create_date: Indicates when the role was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param path: The path to the role.
+:param role_id: The identifier of the role.
+:param role_name: The name of the role.
 
-    :return: AwsIamInstanceProfileRole object
-    """
-
-    arn: Optional[NonEmptyString]
-    assume_role_policy_document: Optional[AwsIamRoleAssumeRolePolicyDocument]
-    create_date: Optional[Iso8601Timestamp]
-    path: Optional[NonEmptyString]
-    role_id: Optional[NonEmptyString]
-    role_name: Optional[NonEmptyString]
-
-
+:return: AwsIamInstanceProfileRole object
+	"""
+	arn: Optional[NonEmptyString]
+	assume_role_policy_document: Optional[AwsIamRoleAssumeRolePolicyDocument]
+	create_date: Optional[Iso8601Timestamp]
+	path: Optional[NonEmptyString]
+	role_id: Optional[NonEmptyString]
+	role_name: Optional[NonEmptyString]
 AwsIamInstanceProfileRoles = List[AwsIamInstanceProfileRole]
-
-
 class AwsIamInstanceProfile(ASFFBaseModel):
-    """
-    Information about an instance profile.
+	"""
+Information about an instance profile.
 
-    :param arn: The ARN of the instance profile.
-    :param create_date: Indicates when the instance profile was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param instance_profile_id: The identifier of the instance profile.
-    :param instance_profile_name: The name of the instance profile.
-    :param path: The path to the instance profile.
-    :param roles: The roles associated with the instance profile.
+:param arn: The ARN of the instance profile.
+:param create_date: Indicates when the instance profile was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param instance_profile_id: The identifier of the instance profile.
+:param instance_profile_name: The name of the instance profile.
+:param path: The path to the instance profile.
+:param roles: The roles associated with the instance profile.
 
-    :return: AwsIamInstanceProfile object
-    """
-
-    arn: Optional[NonEmptyString]
-    create_date: Optional[Iso8601Timestamp]
-    instance_profile_id: Optional[NonEmptyString]
-    instance_profile_name: Optional[NonEmptyString]
-    path: Optional[NonEmptyString]
-    roles: Optional[AwsIamInstanceProfileRoles]
-
-
+:return: AwsIamInstanceProfile object
+	"""
+	arn: Optional[NonEmptyString]
+	create_date: Optional[Iso8601Timestamp]
+	instance_profile_id: Optional[NonEmptyString]
+	instance_profile_name: Optional[NonEmptyString]
+	path: Optional[NonEmptyString]
+	roles: Optional[AwsIamInstanceProfileRoles]
 AwsIamInstanceProfileList = List[AwsIamInstanceProfile]
-
-
 class AwsIamRolePolicy(ASFFBaseModel):
-    """
-    An inline policy that is embedded in the role.
+	"""
+An inline policy that is embedded in the role.
 
-    :param policy_name: The name of the policy.
+:param policy_name: The name of the policy.
 
-    :return: AwsIamRolePolicy object
-    """
-
-    policy_name: Optional[NonEmptyString]
-
-
+:return: AwsIamRolePolicy object
+	"""
+	policy_name: Optional[NonEmptyString]
 AwsIamRolePolicyList = List[AwsIamRolePolicy]
-
-
 class AwsIamRoleDetails(ASFFBaseModel):
-    """
-    Contains information about an IAM role, including all of the role's policies.
+	"""
+Contains information about an IAM role, including all of the role's policies.
 
-    :param assume_role_policy_document: The trust policy that grants permission to assume the role.
-    :param attached_managed_policies: The list of the managed policies that are attached to the role.
-    :param create_date: Indicates when the role was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param instance_profile_list: The list of instance profiles that contain this role.
-    :param role_id: The stable and unique string identifying the role.
-    :param role_name: The friendly name that identifies the role.
-    :param role_policy_list: The list of inline policies that are embedded in the role.
-    :param max_session_duration: The maximum session duration (in seconds) that you want to set for the specified role.
-    :param path: The path to the role.
+:param assume_role_policy_document: The trust policy that grants permission to assume the role.
+:param attached_managed_policies: The list of the managed policies that are attached to the role.
+:param create_date: Indicates when the role was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param instance_profile_list: The list of instance profiles that contain this role.
+:param role_id: The stable and unique string identifying the role.
+:param role_name: The friendly name that identifies the role.
+:param role_policy_list: The list of inline policies that are embedded in the role.
+:param max_session_duration: The maximum session duration (in seconds) that you want to set for the specified role.
+:param path: The path to the role.
 
-    :return: AwsIamRoleDetails object
-    """
-
-    assume_role_policy_document: Optional[AwsIamRoleAssumeRolePolicyDocument]
-    attached_managed_policies: Optional[AwsIamAttachedManagedPolicyList]
-    create_date: Optional[Iso8601Timestamp]
-    instance_profile_list: Optional[AwsIamInstanceProfileList]
-    permissions_boundary: Optional[AwsIamPermissionsBoundary]
-    role_id: Optional[NonEmptyString]
-    role_name: Optional[NonEmptyString]
-    role_policy_list: Optional[AwsIamRolePolicyList]
-    max_session_duration: Optional[Integer]
-    path: Optional[NonEmptyString]
-
-
+:return: AwsIamRoleDetails object
+	"""
+	assume_role_policy_document: Optional[AwsIamRoleAssumeRolePolicyDocument]
+	attached_managed_policies: Optional[AwsIamAttachedManagedPolicyList]
+	create_date: Optional[Iso8601Timestamp]
+	instance_profile_list: Optional[AwsIamInstanceProfileList]
+	permissions_boundary: Optional[AwsIamPermissionsBoundary]
+	role_id: Optional[NonEmptyString]
+	role_name: Optional[NonEmptyString]
+	role_policy_list: Optional[AwsIamRolePolicyList]
+	max_session_duration: Optional[Integer]
+	path: Optional[NonEmptyString]
 class AwsKmsKeyDetails(ASFFBaseModel):
-    """
-    Contains metadata about a customer master key (CMK).
+	"""
+Contains metadata about a customer master key (CMK).
 
-    :param aws_account_id: The twelve-digit account ID of the AWS account that owns the CMK.
-    :param creation_date: Indicates when the CMK was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param key_id: The globally unique identifier for the CMK.
-    :param key_manager: The manager of the CMK. CMKs in your AWS account are either customer managed or AWS managed.
-    :param key_state: The state of the CMK.
-    :param origin: The source of the CMK's key material. When this value is AWS_KMS, AWS KMS created the key material. When this value is EXTERNAL, the key material was imported from your existing key management infrastructure or the CMK lacks key material. When this value is AWS_CLOUDHSM, the key material was created in the AWS CloudHSM cluster associated with a custom key store.
-    :param description: A description of the key.
+:param aws_account_id: The twelve-digit account ID of the AWS account that owns the CMK.
+:param creation_date: Indicates when the CMK was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param key_id: The globally unique identifier for the CMK.
+:param key_manager: The manager of the CMK. CMKs in your AWS account are either customer managed or AWS managed.
+:param key_state: The state of the CMK.
+:param origin: The source of the CMK's key material. When this value is AWS_KMS, AWS KMS created the key material. When this value is EXTERNAL, the key material was imported from your existing key management infrastructure or the CMK lacks key material. When this value is AWS_CLOUDHSM, the key material was created in the AWS CloudHSM cluster associated with a custom key store.
+:param description: A description of the key.
 
-    :return: AwsKmsKeyDetails object
-    """
-
-    aws_account_id: Optional[NonEmptyString]
-    creation_date: Optional[Iso8601Timestamp]
-    key_id: Optional[NonEmptyString]
-    key_manager: Optional[NonEmptyString]
-    key_state: Optional[NonEmptyString]
-    origin: Optional[NonEmptyString]
-    description: Optional[NonEmptyString]
-
-
+:return: AwsKmsKeyDetails object
+	"""
+	aws_account_id: Optional[NonEmptyString]
+	creation_date: Optional[Iso8601Timestamp]
+	key_id: Optional[NonEmptyString]
+	key_manager: Optional[NonEmptyString]
+	key_state: Optional[NonEmptyString]
+	origin: Optional[NonEmptyString]
+	description: Optional[NonEmptyString]
 class AwsLambdaFunctionCode(ASFFBaseModel):
-    """
-    The code for the Lambda function. You can specify either an object in Amazon S3, or upload a deployment package directly.
+	"""
+The code for the Lambda function. You can specify either an object in Amazon S3, or upload a deployment package directly.
 
-    :param s3_bucket: An Amazon S3 bucket in the same AWS Region as your function. The bucket can be in a different AWS account.
-    :param s3_key: The Amazon S3 key of the deployment package.
-    :param s3_object_version: For versioned objects, the version of the deployment package object to use.
-    :param zip_file: The base64-encoded contents of the deployment package. AWS SDK and AWS CLI clients handle the encoding for you.
+:param s3_bucket: An Amazon S3 bucket in the same AWS Region as your function. The bucket can be in a different AWS account.
+:param s3_key: The Amazon S3 key of the deployment package.
+:param s3_object_version: For versioned objects, the version of the deployment package object to use.
+:param zip_file: The base64-encoded contents of the deployment package. AWS SDK and AWS CLI clients handle the encoding for you.
 
-    :return: AwsLambdaFunctionCode object
-    """
-
-    s3_bucket: Optional[NonEmptyString]
-    s3_key: Optional[NonEmptyString]
-    s3_object_version: Optional[NonEmptyString]
-    zip_file: Optional[NonEmptyString]
-
-
+:return: AwsLambdaFunctionCode object
+	"""
+	s3_bucket: Optional[NonEmptyString]
+	s3_key: Optional[NonEmptyString]
+	s3_object_version: Optional[NonEmptyString]
+	zip_file: Optional[NonEmptyString]
 class AwsLambdaFunctionDeadLetterConfig(ASFFBaseModel):
-    """
-    The dead-letter queue for failed asynchronous invocations.
+	"""
+The dead-letter queue for failed asynchronous invocations.
 
-    :param target_arn: The Amazon Resource Name (ARN) of an Amazon SQS queue or Amazon SNS topic.
+:param target_arn: The Amazon Resource Name (ARN) of an Amazon SQS queue or Amazon SNS topic.
 
-    :return: AwsLambdaFunctionDeadLetterConfig object
-    """
-
-    target_arn: Optional[NonEmptyString]
-
-
+:return: AwsLambdaFunctionDeadLetterConfig object
+	"""
+	target_arn: Optional[NonEmptyString]
 class AwsLambdaFunctionEnvironmentError(ASFFBaseModel):
-    """
-    Error messages for environment variables that couldn't be applied.
+	"""
+Error messages for environment variables that couldn't be applied.
 
-    :param error_code: The error code.
-    :param message: The error message.
+:param error_code: The error code.
+:param message: The error message.
 
-    :return: AwsLambdaFunctionEnvironmentError object
-    """
-
-    error_code: Optional[NonEmptyString]
-    message: Optional[NonEmptyString]
-
-
+:return: AwsLambdaFunctionEnvironmentError object
+	"""
+	error_code: Optional[NonEmptyString]
+	message: Optional[NonEmptyString]
 class AwsLambdaFunctionEnvironment(ASFFBaseModel):
-    """
-    A function's environment variable settings.
+	"""
+A function's environment variable settings.
 
-    :param variables: Environment variable key-value pairs.
-    :param error: An AwsLambdaFunctionEnvironmentError object.
+:param variables: Environment variable key-value pairs.
+:param error: An AwsLambdaFunctionEnvironmentError object.
 
-    :return: AwsLambdaFunctionEnvironment object
-    """
-
-    variables: Optional[FieldMap]
-    error: Optional[AwsLambdaFunctionEnvironmentError]
-
-
+:return: AwsLambdaFunctionEnvironment object
+	"""
+	variables: Optional[FieldMap]
+	error: Optional[AwsLambdaFunctionEnvironmentError]
 class AwsLambdaFunctionLayer(ASFFBaseModel):
-    """
-    An AWS Lambda layer.
+	"""
+An AWS Lambda layer.
 
-    :param arn: The Amazon Resource Name (ARN) of the function layer.
-    :param code_size: The size of the layer archive in bytes.
+:param arn: The Amazon Resource Name (ARN) of the function layer.
+:param code_size: The size of the layer archive in bytes.
 
-    :return: AwsLambdaFunctionLayer object
-    """
-
-    arn: Optional[NonEmptyString]
-    code_size: Optional[Integer]
-
-
+:return: AwsLambdaFunctionLayer object
+	"""
+	arn: Optional[NonEmptyString]
+	code_size: Optional[Integer]
 AwsLambdaFunctionLayerList = List[AwsLambdaFunctionLayer]
-
-
 class AwsLambdaFunctionTracingConfig(ASFFBaseModel):
-    """
-    The function's AWS X-Ray tracing configuration.
+	"""
+The function's AWS X-Ray tracing configuration.
 
-    :param mode: The tracing mode.
+:param mode: The tracing mode.
 
-    :return: AwsLambdaFunctionTracingConfig object
-    """
-
-    mode: Optional[NonEmptyString]
-
-
+:return: AwsLambdaFunctionTracingConfig object
+	"""
+	mode: Optional[NonEmptyString]
 class AwsLambdaFunctionVpcConfig(ASFFBaseModel):
-    """
-    The VPC security groups and subnets that are attached to a Lambda function. For more information, see VPC Settings.
+	"""
+The VPC security groups and subnets that are attached to a Lambda function. For more information, see VPC Settings.
 
-    :param security_group_ids: A list of VPC security groups IDs.
-    :param subnet_ids: A list of VPC subnet IDs.
-    :param vpc_id: The ID of the VPC.
+:param security_group_ids: A list of VPC security groups IDs.
+:param subnet_ids: A list of VPC subnet IDs.
+:param vpc_id: The ID of the VPC.
 
-    :return: AwsLambdaFunctionVpcConfig object
-    """
-
-    security_group_ids: Optional[NonEmptyStringList]
-    subnet_ids: Optional[NonEmptyStringList]
-    vpc_id: Optional[NonEmptyString]
-
-
+:return: AwsLambdaFunctionVpcConfig object
+	"""
+	security_group_ids: Optional[NonEmptyStringList]
+	subnet_ids: Optional[NonEmptyStringList]
+	vpc_id: Optional[NonEmptyString]
 class AwsLambdaFunctionDetails(ASFFBaseModel):
-    """
-    Details about a function's configuration.
+	"""
+Details about a function's configuration.
 
-    :param code: An AwsLambdaFunctionCode object.
-    :param code_sha256: The SHA256 hash of the function's deployment package.
-    :param dead_letter_config: The function's dead letter queue.
-    :param environment: The function's environment variables.
-    :param function_name: The name of the function.
-    :param handler: The function that Lambda calls to begin executing your function.
-    :param kms_key_arn: The KMS key that's used to encrypt the function's environment variables. This key is only returned if you've configured a customer managed CMK.
-    :param last_modified: Indicates when the function was last updated. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param layers: The function's layers.
-    :param master_arn: For Lambda@Edge functions, the ARN of the master function.
-    :param memory_size: The memory that's allocated to the function.
-    :param revision_id: The latest updated revision of the function or alias.
-    :param role: The function's execution role.
-    :param runtime: The runtime environment for the Lambda function.
-    :param timeout: The amount of time that Lambda allows a function to run before stopping it.
-    :param tracing_config: The function's AWS X-Ray tracing configuration.
-    :param vpc_config: The function's networking configuration.
-    :param version: The version of the Lambda function.
+:param code: An AwsLambdaFunctionCode object.
+:param code_sha256: The SHA256 hash of the function's deployment package.
+:param dead_letter_config: The function's dead letter queue.
+:param environment: The function's environment variables.
+:param function_name: The name of the function.
+:param handler: The function that Lambda calls to begin executing your function.
+:param kms_key_arn: The KMS key that's used to encrypt the function's environment variables. This key is only returned if you've configured a customer managed CMK.
+:param last_modified: Indicates when the function was last updated. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param layers: The function's layers.
+:param master_arn: For Lambda@Edge functions, the ARN of the master function.
+:param memory_size: The memory that's allocated to the function.
+:param revision_id: The latest updated revision of the function or alias.
+:param role: The function's execution role.
+:param runtime: The runtime environment for the Lambda function.
+:param timeout: The amount of time that Lambda allows a function to run before stopping it.
+:param tracing_config: The function's AWS X-Ray tracing configuration.
+:param vpc_config: The function's networking configuration.
+:param version: The version of the Lambda function.
 
-    :return: AwsLambdaFunctionDetails object
-    """
-
-    code: Optional[AwsLambdaFunctionCode]
-    code_sha256: Optional[NonEmptyString]
-    dead_letter_config: Optional[AwsLambdaFunctionDeadLetterConfig]
-    environment: Optional[AwsLambdaFunctionEnvironment]
-    function_name: Optional[NonEmptyString]
-    handler: Optional[NonEmptyString]
-    kms_key_arn: Optional[NonEmptyString]
-    last_modified: Optional[Iso8601Timestamp]
-    layers: Optional[AwsLambdaFunctionLayerList]
-    master_arn: Optional[NonEmptyString]
-    memory_size: Optional[Integer]
-    revision_id: Optional[NonEmptyString]
-    role: Optional[NonEmptyString]
-    runtime: Optional[NonEmptyString]
-    timeout: Optional[Integer]
-    tracing_config: Optional[AwsLambdaFunctionTracingConfig]
-    vpc_config: Optional[AwsLambdaFunctionVpcConfig]
-    version: Optional[NonEmptyString]
-
-
+:return: AwsLambdaFunctionDetails object
+	"""
+	code: Optional[AwsLambdaFunctionCode]
+	code_sha256: Optional[NonEmptyString]
+	dead_letter_config: Optional[AwsLambdaFunctionDeadLetterConfig]
+	environment: Optional[AwsLambdaFunctionEnvironment]
+	function_name: Optional[NonEmptyString]
+	handler: Optional[NonEmptyString]
+	kms_key_arn: Optional[NonEmptyString]
+	last_modified: Optional[Iso8601Timestamp]
+	layers: Optional[AwsLambdaFunctionLayerList]
+	master_arn: Optional[NonEmptyString]
+	memory_size: Optional[Integer]
+	revision_id: Optional[NonEmptyString]
+	role: Optional[NonEmptyString]
+	runtime: Optional[NonEmptyString]
+	timeout: Optional[Integer]
+	tracing_config: Optional[AwsLambdaFunctionTracingConfig]
+	vpc_config: Optional[AwsLambdaFunctionVpcConfig]
+	version: Optional[NonEmptyString]
 AwsLambdaLayerVersionNumber = int
-
-
 class AwsLambdaLayerVersionDetails(ASFFBaseModel):
-    """
-    Details about a Lambda layer version.
+	"""
+Details about a Lambda layer version.
 
-    :param version: The version number.
-    :param compatible_runtimes: The layer's compatible runtimes. Maximum number of five items. Valid values: nodejs10.x | nodejs12.x | java8 | java11 | python2.7 | python3.6 | python3.7 | python3.8 | dotnetcore1.0 | dotnetcore2.1 | go1.x | ruby2.5 | provided
-    :param created_date: Indicates when the version was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param version: The version number.
+:param compatible_runtimes: The layer's compatible runtimes. Maximum number of five items. Valid values: nodejs10.x | nodejs12.x | java8 | java11 | python2.7 | python3.6 | python3.7 | python3.8 | dotnetcore1.0 | dotnetcore2.1 | go1.x | ruby2.5 | provided 
+:param created_date: Indicates when the version was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
 
-    :return: AwsLambdaLayerVersionDetails object
-    """
-
-    version: Optional[AwsLambdaLayerVersionNumber]
-    compatible_runtimes: Optional[NonEmptyStringList]
-    created_date: Optional[Iso8601Timestamp]
-
-
+:return: AwsLambdaLayerVersionDetails object
+	"""
+	version: Optional[AwsLambdaLayerVersionNumber]
+	compatible_runtimes: Optional[NonEmptyStringList]
+	created_date: Optional[Iso8601Timestamp]
 class AwsRdsDbInstanceAssociatedRole(ASFFBaseModel):
-    """
-    An AWS Identity and Access Management (IAM) role associated with the DB instance.
+	"""
+An AWS Identity and Access Management (IAM) role associated with the DB instance.
 
-    :param role_arn: The Amazon Resource Name (ARN) of the IAM role that is associated with the DB instance.
-    :param feature_name: The name of the feature associated with the IAM)role.
-    :param status: Describes the state of the association between the IAM role and the DB instance. The Status property returns one of the following values:    ACTIVE - The IAM role ARN is associated with the DB instance and can be used to access other AWS services on your behalf.    PENDING - The IAM role ARN is being associated with the DB instance.    INVALID - The IAM role ARN is associated with the DB instance. But the DB instance is unable to assume the IAM role in order to access other AWS services on your behalf.
+:param role_arn: The Amazon Resource Name (ARN) of the IAM role that is associated with the DB instance.
+:param feature_name: The name of the feature associated with the IAM)role.
+:param status: Describes the state of the association between the IAM role and the DB instance. The Status property returns one of the following values:    ACTIVE - The IAM role ARN is associated with the DB instance and can be used to access other AWS services on your behalf.    PENDING - The IAM role ARN is being associated with the DB instance.    INVALID - The IAM role ARN is associated with the DB instance. But the DB instance is unable to assume the IAM role in order to access other AWS services on your behalf.   
 
-    :return: AwsRdsDbInstanceAssociatedRole object
-    """
-
-    role_arn: Optional[NonEmptyString]
-    feature_name: Optional[NonEmptyString]
-    status: Optional[NonEmptyString]
-
-
+:return: AwsRdsDbInstanceAssociatedRole object
+	"""
+	role_arn: Optional[NonEmptyString]
+	feature_name: Optional[NonEmptyString]
+	status: Optional[NonEmptyString]
 AwsRdsDbInstanceAssociatedRoles = List[AwsRdsDbInstanceAssociatedRole]
-
-
 class AwsRdsDbInstanceEndpoint(ASFFBaseModel):
-    """
-    Specifies the connection endpoint.
+	"""
+Specifies the connection endpoint.
 
-    :param address: Specifies the DNS address of the DB instance.
-    :param port: Specifies the port that the database engine is listening on.
-    :param hosted_zone_id: Specifies the ID that Amazon Route 53 assigns when you create a hosted zone.
+:param address: Specifies the DNS address of the DB instance.
+:param port: Specifies the port that the database engine is listening on.
+:param hosted_zone_id: Specifies the ID that Amazon Route 53 assigns when you create a hosted zone.
 
-    :return: AwsRdsDbInstanceEndpoint object
-    """
-
-    address: Optional[NonEmptyString]
-    port: Optional[Integer]
-    hosted_zone_id: Optional[NonEmptyString]
-
-
+:return: AwsRdsDbInstanceEndpoint object
+	"""
+	address: Optional[NonEmptyString]
+	port: Optional[Integer]
+	hosted_zone_id: Optional[NonEmptyString]
 class AwsRdsDbInstanceVpcSecurityGroup(ASFFBaseModel):
-    """
-    A VPC security groups that the DB instance belongs to.
+	"""
+A VPC security groups that the DB instance belongs to.
 
-    :param vpc_security_group_id: The name of the VPC security group.
-    :param status: The status of the VPC security group.
+:param vpc_security_group_id: The name of the VPC security group.
+:param status: The status of the VPC security group.
 
-    :return: AwsRdsDbInstanceVpcSecurityGroup object
-    """
-
-    vpc_security_group_id: Optional[NonEmptyString]
-    status: Optional[NonEmptyString]
-
-
+:return: AwsRdsDbInstanceVpcSecurityGroup object
+	"""
+	vpc_security_group_id: Optional[NonEmptyString]
+	status: Optional[NonEmptyString]
 AwsRdsDbInstanceVpcSecurityGroups = List[AwsRdsDbInstanceVpcSecurityGroup]
-
-
 class AwsRdsDbParameterGroup(ASFFBaseModel):
-    """
-    Provides information about a parameter group for a DB instance.
+	"""
+Provides information about a parameter group for a DB instance.
 
-    :param db_parameter_group_name: The name of the parameter group.
-    :param parameter_apply_status: The status of parameter updates.
+:param db_parameter_group_name: The name of the parameter group.
+:param parameter_apply_status: The status of parameter updates.
 
-    :return: AwsRdsDbParameterGroup object
-    """
-
-    db_parameter_group_name: Optional[NonEmptyString]
-    parameter_apply_status: Optional[NonEmptyString]
-
-
+:return: AwsRdsDbParameterGroup object
+	"""
+	db_parameter_group_name: Optional[NonEmptyString]
+	parameter_apply_status: Optional[NonEmptyString]
 AwsRdsDbParameterGroups = List[AwsRdsDbParameterGroup]
-
-
 class AwsRdsDbSubnetGroupSubnetAvailabilityZone(ASFFBaseModel):
-    """
-    An Availability Zone for a subnet in a subnet group.
+	"""
+An Availability Zone for a subnet in a subnet group.
 
-    :param name: The name of the Availability Zone for a subnet in the subnet group.
+:param name: The name of the Availability Zone for a subnet in the subnet group.
 
-    :return: AwsRdsDbSubnetGroupSubnetAvailabilityZone object
-    """
-
-    name: Optional[NonEmptyString]
-
-
+:return: AwsRdsDbSubnetGroupSubnetAvailabilityZone object
+	"""
+	name: Optional[NonEmptyString]
 class AwsRdsDbSubnetGroupSubnet(ASFFBaseModel):
-    """
-    Information about a subnet in a subnet group.
+	"""
+Information about a subnet in a subnet group.
 
-    :param subnet_identifier: The identifier of a subnet in the subnet group.
-    :param subnet_availability_zone: Information about the Availability Zone for a subnet in the subnet group.
-    :param subnet_status: The status of a subnet in the subnet group.
+:param subnet_identifier: The identifier of a subnet in the subnet group.
+:param subnet_availability_zone: Information about the Availability Zone for a subnet in the subnet group.
+:param subnet_status: The status of a subnet in the subnet group.
 
-    :return: AwsRdsDbSubnetGroupSubnet object
-    """
-
-    subnet_identifier: Optional[NonEmptyString]
-    subnet_availability_zone: Optional[AwsRdsDbSubnetGroupSubnetAvailabilityZone]
-    subnet_status: Optional[NonEmptyString]
-
-
+:return: AwsRdsDbSubnetGroupSubnet object
+	"""
+	subnet_identifier: Optional[NonEmptyString]
+	subnet_availability_zone: Optional[AwsRdsDbSubnetGroupSubnetAvailabilityZone]
+	subnet_status: Optional[NonEmptyString]
 AwsRdsDbSubnetGroupSubnets = List[AwsRdsDbSubnetGroupSubnet]
-
-
 class AwsRdsDbSubnetGroup(ASFFBaseModel):
-    """
-    Information about the subnet group for the database instance.
+	"""
+Information about the subnet group for the database instance.
 
-    :param db_subnet_group_name: The name of the subnet group.
-    :param db_subnet_group_description: The description of the subnet group.
-    :param vpc_id: The VPC ID of the subnet group.
-    :param subnet_group_status: The status of the subnet group.
-    :param subnets: A list of subnets in the subnet group.
-    :param db_subnet_group_arn: The ARN of the subnet group.
+:param db_subnet_group_name: The name of the subnet group.
+:param db_subnet_group_description: The description of the subnet group.
+:param vpc_id: The VPC ID of the subnet group.
+:param subnet_group_status: The status of the subnet group.
+:param subnets: A list of subnets in the subnet group.
+:param db_subnet_group_arn: The ARN of the subnet group.
 
-    :return: AwsRdsDbSubnetGroup object
-    """
-
-    db_subnet_group_name: Optional[NonEmptyString]
-    db_subnet_group_description: Optional[NonEmptyString]
-    vpc_id: Optional[NonEmptyString]
-    subnet_group_status: Optional[NonEmptyString]
-    subnets: Optional[AwsRdsDbSubnetGroupSubnets]
-    db_subnet_group_arn: Optional[NonEmptyString]
-
-
+:return: AwsRdsDbSubnetGroup object
+	"""
+	db_subnet_group_name: Optional[NonEmptyString]
+	db_subnet_group_description: Optional[NonEmptyString]
+	vpc_id: Optional[NonEmptyString]
+	subnet_group_status: Optional[NonEmptyString]
+	subnets: Optional[AwsRdsDbSubnetGroupSubnets]
+	db_subnet_group_arn: Optional[NonEmptyString]
 class AwsRdsPendingCloudWatchLogsExports(ASFFBaseModel):
-    """
-    Identifies the log types to enable and disable.
+	"""
+Identifies the log types to enable and disable.
 
-    :param log_types_to_enable: A list of log types that are being enabled.
-    :param log_types_to_disable: A list of log types that are being disabled.
+:param log_types_to_enable: A list of log types that are being enabled.
+:param log_types_to_disable: A list of log types that are being disabled.
 
-    :return: AwsRdsPendingCloudWatchLogsExports object
-    """
-
-    log_types_to_enable: Optional[StringList]
-    log_types_to_disable: Optional[StringList]
-
-
+:return: AwsRdsPendingCloudWatchLogsExports object
+	"""
+	log_types_to_enable: Optional[StringList]
+	log_types_to_disable: Optional[StringList]
 class AwsRdsDbProcessorFeature(ASFFBaseModel):
-    """
-    A processor feature.
+	"""
+A processor feature.
 
-    :param name: The name of the processor feature.
-    :param value: The value of the processor feature.
+:param name: The name of the processor feature.
+:param value: The value of the processor feature.
 
-    :return: AwsRdsDbProcessorFeature object
-    """
-
-    name: Optional[NonEmptyString]
-    value: Optional[NonEmptyString]
-
-
+:return: AwsRdsDbProcessorFeature object
+	"""
+	name: Optional[NonEmptyString]
+	value: Optional[NonEmptyString]
 AwsRdsDbProcessorFeatures = List[AwsRdsDbProcessorFeature]
-
-
 class AwsRdsDbPendingModifiedValues(ASFFBaseModel):
-    """
-    Changes to a DB instance that are currently pending.
+	"""
+Changes to a DB instance that are currently pending.
 
-    :param db_instance_class: The new DB instance class for the DB instance.
-    :param allocated_storage: The new value of the allocated storage for the DB instance.
-    :param master_user_password: The new master user password for the DB instance.
-    :param port: The new port for the DB instance.
-    :param backup_retention_period: The new backup retention period for the DB instance.
-    :param multi_az: Indicates that a single Availability Zone DB instance is changing to a multiple Availability Zone deployment.
-    :param engine_version: The new engine version for the DB instance.
-    :param license_model: The new license model value for the DB instance.
-    :param iops: The new provisioned IOPS value for the DB instance.
-    :param db_instance_identifier: The new DB instance identifier for the DB instance.
-    :param storage_type: The new storage type for the DB instance.
-    :param ca_certificate_identifier: The new CA certificate identifier for the DB instance.
-    :param db_subnet_group_name: The name of the new subnet group for the DB instance.
-    :param pending_cloud_watch_logs_exports: A list of log types that are being enabled or disabled.
-    :param processor_features: Processor features that are being updated.
+:param db_instance_class: The new DB instance class for the DB instance.
+:param allocated_storage: The new value of the allocated storage for the DB instance.
+:param master_user_password: The new master user password for the DB instance.
+:param port: The new port for the DB instance.
+:param backup_retention_period: The new backup retention period for the DB instance.
+:param multi_az: Indicates that a single Availability Zone DB instance is changing to a multiple Availability Zone deployment.
+:param engine_version: The new engine version for the DB instance.
+:param license_model: The new license model value for the DB instance.
+:param iops: The new provisioned IOPS value for the DB instance.
+:param db_instance_identifier: The new DB instance identifier for the DB instance.
+:param storage_type: The new storage type for the DB instance.
+:param ca_certificate_identifier: The new CA certificate identifier for the DB instance.
+:param db_subnet_group_name: The name of the new subnet group for the DB instance.
+:param pending_cloud_watch_logs_exports: A list of log types that are being enabled or disabled.
+:param processor_features: Processor features that are being updated.
 
-    :return: AwsRdsDbPendingModifiedValues object
-    """
-
-    db_instance_class: Optional[NonEmptyString]
-    allocated_storage: Optional[Integer]
-    master_user_password: Optional[NonEmptyString]
-    port: Optional[Integer]
-    backup_retention_period: Optional[Integer]
-    multi_az: Optional[Boolean]
-    engine_version: Optional[NonEmptyString]
-    license_model: Optional[NonEmptyString]
-    iops: Optional[Integer]
-    db_instance_identifier: Optional[NonEmptyString]
-    storage_type: Optional[NonEmptyString]
-    ca_certificate_identifier: Optional[NonEmptyString]
-    db_subnet_group_name: Optional[NonEmptyString]
-    pending_cloud_watch_logs_exports: Optional[AwsRdsPendingCloudWatchLogsExports]
-    processor_features: Optional[AwsRdsDbProcessorFeatures]
-
-
+:return: AwsRdsDbPendingModifiedValues object
+	"""
+	db_instance_class: Optional[NonEmptyString]
+	allocated_storage: Optional[Integer]
+	master_user_password: Optional[NonEmptyString]
+	port: Optional[Integer]
+	backup_retention_period: Optional[Integer]
+	multi_az: Optional[Boolean]
+	engine_version: Optional[NonEmptyString]
+	license_model: Optional[NonEmptyString]
+	iops: Optional[Integer]
+	db_instance_identifier: Optional[NonEmptyString]
+	storage_type: Optional[NonEmptyString]
+	ca_certificate_identifier: Optional[NonEmptyString]
+	db_subnet_group_name: Optional[NonEmptyString]
+	pending_cloud_watch_logs_exports: Optional[AwsRdsPendingCloudWatchLogsExports]
+	processor_features: Optional[AwsRdsDbProcessorFeatures]
 class AwsRdsDbOptionGroupMembership(ASFFBaseModel):
-    """
-    An option group membership.
+	"""
+An option group membership.
 
-    :param option_group_name: The name of the option group.
-    :param status: The status of the option group membership.
+:param option_group_name: The name of the option group.
+:param status: The status of the option group membership.
 
-    :return: AwsRdsDbOptionGroupMembership object
-    """
-
-    option_group_name: Optional[NonEmptyString]
-    status: Optional[NonEmptyString]
-
-
+:return: AwsRdsDbOptionGroupMembership object
+	"""
+	option_group_name: Optional[NonEmptyString]
+	status: Optional[NonEmptyString]
 AwsRdsDbOptionGroupMemberships = List[AwsRdsDbOptionGroupMembership]
-
-
 class AwsRdsDbStatusInfo(ASFFBaseModel):
-    """
-    Information about the status of a read replica.
+	"""
+Information about the status of a read replica.
 
-    :param status_type: The type of status. For a read replica, the status type is read replication.
-    :param normal: Whether the read replica instance is operating normally.
-    :param status: The status of the read replica instance.
-    :param message: If the read replica is currently in an error state, provides the error details.
+:param status_type: The type of status. For a read replica, the status type is read replication.
+:param normal: Whether the read replica instance is operating normally.
+:param status: The status of the read replica instance.
+:param message: If the read replica is currently in an error state, provides the error details.
 
-    :return: AwsRdsDbStatusInfo object
-    """
-
-    status_type: Optional[NonEmptyString]
-    normal: Optional[Boolean]
-    status: Optional[NonEmptyString]
-    message: Optional[NonEmptyString]
-
-
+:return: AwsRdsDbStatusInfo object
+	"""
+	status_type: Optional[NonEmptyString]
+	normal: Optional[Boolean]
+	status: Optional[NonEmptyString]
+	message: Optional[NonEmptyString]
 AwsRdsDbStatusInfos = List[AwsRdsDbStatusInfo]
-
-
 class AwsRdsDbDomainMembership(ASFFBaseModel):
-    """
-    Information about an Active Directory domain membership record associated with the DB instance.
+	"""
+Information about an Active Directory domain membership record associated with the DB instance.
 
-    :param domain: The identifier of the Active Directory domain.
-    :param status: The status of the Active Directory Domain membership for the DB instance.
-    :param fqdn: The fully qualified domain name of the Active Directory domain.
-    :param iam_role_name: The name of the IAM role to use when making API calls to the Directory Service.
+:param domain: The identifier of the Active Directory domain.
+:param status: The status of the Active Directory Domain membership for the DB instance.
+:param fqdn: The fully qualified domain name of the Active Directory domain.
+:param iam_role_name: The name of the IAM role to use when making API calls to the Directory Service.
 
-    :return: AwsRdsDbDomainMembership object
-    """
-
-    domain: Optional[NonEmptyString]
-    status: Optional[NonEmptyString]
-    fqdn: Optional[NonEmptyString]
-    iam_role_name: Optional[NonEmptyString]
-
-
+:return: AwsRdsDbDomainMembership object
+	"""
+	domain: Optional[NonEmptyString]
+	status: Optional[NonEmptyString]
+	fqdn: Optional[NonEmptyString]
+	iam_role_name: Optional[NonEmptyString]
 AwsRdsDbDomainMemberships = List[AwsRdsDbDomainMembership]
-
-
 class AwsRdsDbInstanceDetails(ASFFBaseModel):
-    """
-    Contains the details of an Amazon RDS DB instance.
+	"""
+Contains the details of an Amazon RDS DB instance.
 
-    :param associated_roles: The AWS Identity and Access Management (IAM) roles associated with the DB instance.
-    :param ca_certificate_identifier: The identifier of the CA certificate for this DB instance.
-    :param db_cluster_identifier: If the DB instance is a member of a DB cluster, contains the name of the DB cluster that the DB instance is a member of.
-    :param db_instance_identifier: Contains a user-supplied database identifier. This identifier is the unique key that identifies a DB instance.
-    :param db_instance_class: Contains the name of the compute and memory capacity class of the DB instance.
-    :param db_instance_port: Specifies the port that the DB instance listens on. If the DB instance is part of a DB cluster, this can be a different port than the DB cluster port.
-    :param dbi_resource_id: The AWS Region-unique, immutable identifier for the DB instance. This identifier is found in AWS CloudTrail log entries whenever the AWS KMS key for the DB instance is accessed.
-    :param db_name: The meaning of this parameter differs according to the database engine you use.  MySQL, MariaDB, SQL Server, PostgreSQL  Contains the name of the initial database of this instance that was provided at create time, if one was specified when the DB instance was created. This same name is returned for the life of the DB instance.  Oracle  Contains the Oracle System ID (SID) of the created DB instance. Not shown when the returned parameters do not apply to an Oracle DB instance.
-    :param deletion_protection: Indicates whether the DB instance has deletion protection enabled. When deletion protection is enabled, the database cannot be deleted.
-    :param endpoint: Specifies the connection endpoint.
-    :param engine: Provides the name of the database engine to use for this DB instance.
-    :param engine_version: Indicates the database engine version.
-    :param iam_database_authentication_enabled: True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and otherwise false. IAM database authentication can be enabled for the following database engines.   For MySQL 5.6, minor version 5.6.34 or higher   For MySQL 5.7, minor version 5.7.16 or higher   Aurora 5.6 or higher
-    :param instance_create_time: Indicates when the DB instance was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param kms_key_id: If StorageEncrypted is true, the AWS KMS key identifier for the encrypted DB instance.
-    :param publicly_accessible: Specifies the accessibility options for the DB instance. A value of true specifies an Internet-facing instance with a publicly resolvable DNS name, which resolves to a public IP address. A value of false specifies an internal instance with a DNS name that resolves to a private IP address.
-    :param storage_encrypted: Specifies whether the DB instance is encrypted.
-    :param tde_credential_arn: The ARN from the key store with which the instance is associated for TDE encryption.
-    :param vpc_security_groups: A list of VPC security groups that the DB instance belongs to.
-    :param multi_az: Whether the DB instance is a multiple Availability Zone deployment.
-    :param enhanced_monitoring_resource_arn: The ARN of the CloudWatch Logs log stream that receives the enhanced monitoring metrics data for the DB instance.
-    :param db_instance_status: The current status of the DB instance.
-    :param master_username: The master user name of the DB instance.
-    :param allocated_storage: The amount of storage (in gigabytes) to initially allocate for the DB instance.
-    :param preferred_backup_window: The range of time each day when automated backups are created, if automated backups are enabled. Uses the format HH:MM-HH:MM. For example, 04:52-05:22.
-    :param backup_retention_period: The number of days for which to retain automated backups.
-    :param db_security_groups: A list of the DB security groups to assign to the DB instance.
-    :param db_parameter_groups: A list of the DB parameter groups to assign to the DB instance.
-    :param availability_zone: The Availability Zone where the DB instance will be created.
-    :param db_subnet_group: Information about the subnet group that is associated with the DB instance.
-    :param preferred_maintenance_window: The weekly time range during which system maintenance can occur, in Universal Coordinated Time (UTC). Uses the format &lt;day&gt;:HH:MM-&lt;day&gt;:HH:MM. For the day values, use mon|tue|wed|thu|fri|sat|sun. For example, sun:09:32-sun:10:02.
-    :param pending_modified_values: Changes to the DB instance that are currently pending.
-    :param latest_restorable_time: Specifies the latest time to which a database can be restored with point-in-time restore. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param auto_minor_version_upgrade: Indicates whether minor version patches are applied automatically.
-    :param read_replica_source_db_instance_identifier: If this DB instance is a read replica, contains the identifier of the source DB instance.
-    :param read_replica_db_instance_identifiers: List of identifiers of the read replicas associated with this DB instance.
-    :param read_replica_db_cluster_identifiers: List of identifiers of Aurora DB clusters to which the RDS DB instance is replicated as a read replica.
-    :param license_model: License model information for this DB instance.
-    :param iops: Specifies the provisioned IOPS (I/O operations per second) for this DB instance.
-    :param option_group_memberships: The list of option group memberships for this DB instance.
-    :param character_set_name: The name of the character set that this DB instance is associated with.
-    :param secondary_availability_zone: For a DB instance with multi-Availability Zone support, the name of the secondary Availability Zone.
-    :param status_infos: The status of a read replica. If the instance isn't a read replica, this is empty.
-    :param storage_type: The storage type for the DB instance.
-    :param domain_memberships: The Active Directory domain membership records associated with the DB instance.
-    :param copy_tags_to_snapshot: Whether to copy resource tags to snapshots of the DB instance.
-    :param monitoring_interval: The interval, in seconds, between points when enhanced monitoring metrics are collected for the DB instance.
-    :param monitoring_role_arn: The ARN for the IAM role that permits Amazon RDS to send enhanced monitoring metrics to CloudWatch Logs.
-    :param promotion_tier: The order in which to promote an Aurora replica to the primary instance after a failure of the existing primary instance.
-    :param timezone: The time zone of the DB instance.
-    :param performance_insights_enabled: Indicates whether Performance Insights is enabled for the DB instance.
-    :param performance_insights_kms_key_id: The identifier of the AWS KMS key used to encrypt the Performance Insights data.
-    :param performance_insights_retention_period: The number of days to retain Performance Insights data.
-    :param enabled_cloud_watch_logs_exports: A list of log types that this DB instance is configured to export to CloudWatch Logs.
-    :param processor_features: The number of CPU cores and the number of threads per core for the DB instance class of the DB instance.
-    :param max_allocated_storage: The upper limit to which Amazon RDS can automatically scale the storage of the DB instance.
+:param associated_roles: The AWS Identity and Access Management (IAM) roles associated with the DB instance.
+:param ca_certificate_identifier: The identifier of the CA certificate for this DB instance.
+:param db_cluster_identifier: If the DB instance is a member of a DB cluster, contains the name of the DB cluster that the DB instance is a member of.
+:param db_instance_identifier: Contains a user-supplied database identifier. This identifier is the unique key that identifies a DB instance.
+:param db_instance_class: Contains the name of the compute and memory capacity class of the DB instance.
+:param db_instance_port: Specifies the port that the DB instance listens on. If the DB instance is part of a DB cluster, this can be a different port than the DB cluster port.
+:param dbi_resource_id: The AWS Region-unique, immutable identifier for the DB instance. This identifier is found in AWS CloudTrail log entries whenever the AWS KMS key for the DB instance is accessed. 
+:param db_name: The meaning of this parameter differs according to the database engine you use.  MySQL, MariaDB, SQL Server, PostgreSQL  Contains the name of the initial database of this instance that was provided at create time, if one was specified when the DB instance was created. This same name is returned for the life of the DB instance.  Oracle  Contains the Oracle System ID (SID) of the created DB instance. Not shown when the returned parameters do not apply to an Oracle DB instance. 
+:param deletion_protection: Indicates whether the DB instance has deletion protection enabled. When deletion protection is enabled, the database cannot be deleted.
+:param endpoint: Specifies the connection endpoint.
+:param engine: Provides the name of the database engine to use for this DB instance.
+:param engine_version: Indicates the database engine version.
+:param iam_database_authentication_enabled: True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and otherwise false. IAM database authentication can be enabled for the following database engines.   For MySQL 5.6, minor version 5.6.34 or higher   For MySQL 5.7, minor version 5.7.16 or higher   Aurora 5.6 or higher  
+:param instance_create_time: Indicates when the DB instance was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param kms_key_id: If StorageEncrypted is true, the AWS KMS key identifier for the encrypted DB instance.
+:param publicly_accessible: Specifies the accessibility options for the DB instance. A value of true specifies an Internet-facing instance with a publicly resolvable DNS name, which resolves to a public IP address. A value of false specifies an internal instance with a DNS name that resolves to a private IP address. 
+:param storage_encrypted: Specifies whether the DB instance is encrypted.
+:param tde_credential_arn: The ARN from the key store with which the instance is associated for TDE encryption.
+:param vpc_security_groups: A list of VPC security groups that the DB instance belongs to.
+:param multi_az: Whether the DB instance is a multiple Availability Zone deployment.
+:param enhanced_monitoring_resource_arn: The ARN of the CloudWatch Logs log stream that receives the enhanced monitoring metrics data for the DB instance.
+:param db_instance_status: The current status of the DB instance.
+:param master_username: The master user name of the DB instance.
+:param allocated_storage: The amount of storage (in gigabytes) to initially allocate for the DB instance.
+:param preferred_backup_window: The range of time each day when automated backups are created, if automated backups are enabled. Uses the format HH:MM-HH:MM. For example, 04:52-05:22.
+:param backup_retention_period: The number of days for which to retain automated backups.
+:param db_security_groups: A list of the DB security groups to assign to the DB instance.
+:param db_parameter_groups: A list of the DB parameter groups to assign to the DB instance.
+:param availability_zone: The Availability Zone where the DB instance will be created.
+:param db_subnet_group: Information about the subnet group that is associated with the DB instance.
+:param preferred_maintenance_window: The weekly time range during which system maintenance can occur, in Universal Coordinated Time (UTC). Uses the format &lt;day&gt;:HH:MM-&lt;day&gt;:HH:MM. For the day values, use mon|tue|wed|thu|fri|sat|sun. For example, sun:09:32-sun:10:02.
+:param pending_modified_values: Changes to the DB instance that are currently pending.
+:param latest_restorable_time: Specifies the latest time to which a database can be restored with point-in-time restore. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param auto_minor_version_upgrade: Indicates whether minor version patches are applied automatically.
+:param read_replica_source_db_instance_identifier: If this DB instance is a read replica, contains the identifier of the source DB instance.
+:param read_replica_db_instance_identifiers: List of identifiers of the read replicas associated with this DB instance.
+:param read_replica_db_cluster_identifiers: List of identifiers of Aurora DB clusters to which the RDS DB instance is replicated as a read replica.
+:param license_model: License model information for this DB instance.
+:param iops: Specifies the provisioned IOPS (I/O operations per second) for this DB instance.
+:param option_group_memberships: The list of option group memberships for this DB instance.
+:param character_set_name: The name of the character set that this DB instance is associated with.
+:param secondary_availability_zone: For a DB instance with multi-Availability Zone support, the name of the secondary Availability Zone.
+:param status_infos: The status of a read replica. If the instance isn't a read replica, this is empty.
+:param storage_type: The storage type for the DB instance.
+:param domain_memberships: The Active Directory domain membership records associated with the DB instance.
+:param copy_tags_to_snapshot: Whether to copy resource tags to snapshots of the DB instance.
+:param monitoring_interval: The interval, in seconds, between points when enhanced monitoring metrics are collected for the DB instance.
+:param monitoring_role_arn: The ARN for the IAM role that permits Amazon RDS to send enhanced monitoring metrics to CloudWatch Logs.
+:param promotion_tier: The order in which to promote an Aurora replica to the primary instance after a failure of the existing primary instance.
+:param timezone: The time zone of the DB instance.
+:param performance_insights_enabled: Indicates whether Performance Insights is enabled for the DB instance.
+:param performance_insights_kms_key_id: The identifier of the AWS KMS key used to encrypt the Performance Insights data.
+:param performance_insights_retention_period: The number of days to retain Performance Insights data.
+:param enabled_cloud_watch_logs_exports: A list of log types that this DB instance is configured to export to CloudWatch Logs.
+:param processor_features: The number of CPU cores and the number of threads per core for the DB instance class of the DB instance.
+:param max_allocated_storage: The upper limit to which Amazon RDS can automatically scale the storage of the DB instance.
 
-    :return: AwsRdsDbInstanceDetails object
-    """
-
-    associated_roles: Optional[AwsRdsDbInstanceAssociatedRoles]
-    ca_certificate_identifier: Optional[NonEmptyString]
-    db_cluster_identifier: Optional[NonEmptyString]
-    db_instance_identifier: Optional[NonEmptyString]
-    db_instance_class: Optional[NonEmptyString]
-    db_instance_port: Optional[Integer]
-    dbi_resource_id: Optional[NonEmptyString]
-    db_name: Optional[NonEmptyString]
-    deletion_protection: Optional[Boolean]
-    endpoint: Optional[AwsRdsDbInstanceEndpoint]
-    engine: Optional[NonEmptyString]
-    engine_version: Optional[NonEmptyString]
-    iam_database_authentication_enabled: Optional[Boolean]
-    instance_create_time: Optional[Iso8601Timestamp]
-    kms_key_id: Optional[NonEmptyString]
-    publicly_accessible: Optional[Boolean]
-    storage_encrypted: Optional[Boolean]
-    tde_credential_arn: Optional[NonEmptyString]
-    vpc_security_groups: Optional[AwsRdsDbInstanceVpcSecurityGroups]
-    multi_az: Optional[Boolean]
-    enhanced_monitoring_resource_arn: Optional[NonEmptyString]
-    db_instance_status: Optional[NonEmptyString]
-    master_username: Optional[NonEmptyString]
-    allocated_storage: Optional[Integer]
-    preferred_backup_window: Optional[NonEmptyString]
-    backup_retention_period: Optional[Integer]
-    db_security_groups: Optional[StringList]
-    db_parameter_groups: Optional[AwsRdsDbParameterGroups]
-    availability_zone: Optional[NonEmptyString]
-    db_subnet_group: Optional[AwsRdsDbSubnetGroup]
-    preferred_maintenance_window: Optional[NonEmptyString]
-    pending_modified_values: Optional[AwsRdsDbPendingModifiedValues]
-    latest_restorable_time: Optional[Iso8601Timestamp]
-    auto_minor_version_upgrade: Optional[Boolean]
-    read_replica_source_db_instance_identifier: Optional[NonEmptyString]
-    read_replica_db_instance_identifiers: Optional[StringList]
-    read_replica_db_cluster_identifiers: Optional[StringList]
-    license_model: Optional[NonEmptyString]
-    iops: Optional[Integer]
-    option_group_memberships: Optional[AwsRdsDbOptionGroupMemberships]
-    character_set_name: Optional[NonEmptyString]
-    secondary_availability_zone: Optional[NonEmptyString]
-    status_infos: Optional[AwsRdsDbStatusInfos]
-    storage_type: Optional[NonEmptyString]
-    domain_memberships: Optional[AwsRdsDbDomainMemberships]
-    copy_tags_to_snapshot: Optional[Boolean]
-    monitoring_interval: Optional[Integer]
-    monitoring_role_arn: Optional[NonEmptyString]
-    promotion_tier: Optional[Integer]
-    timezone: Optional[NonEmptyString]
-    performance_insights_enabled: Optional[Boolean]
-    performance_insights_kms_key_id: Optional[NonEmptyString]
-    performance_insights_retention_period: Optional[Integer]
-    enabled_cloud_watch_logs_exports: Optional[StringList]
-    processor_features: Optional[AwsRdsDbProcessorFeatures]
-    listener_endpoint: Optional[AwsRdsDbInstanceEndpoint]
-    max_allocated_storage: Optional[Integer]
-
-
+:return: AwsRdsDbInstanceDetails object
+	"""
+	associated_roles: Optional[AwsRdsDbInstanceAssociatedRoles]
+	ca_certificate_identifier: Optional[NonEmptyString]
+	db_cluster_identifier: Optional[NonEmptyString]
+	db_instance_identifier: Optional[NonEmptyString]
+	db_instance_class: Optional[NonEmptyString]
+	db_instance_port: Optional[Integer]
+	dbi_resource_id: Optional[NonEmptyString]
+	db_name: Optional[NonEmptyString]
+	deletion_protection: Optional[Boolean]
+	endpoint: Optional[AwsRdsDbInstanceEndpoint]
+	engine: Optional[NonEmptyString]
+	engine_version: Optional[NonEmptyString]
+	iam_database_authentication_enabled: Optional[Boolean]
+	instance_create_time: Optional[Iso8601Timestamp]
+	kms_key_id: Optional[NonEmptyString]
+	publicly_accessible: Optional[Boolean]
+	storage_encrypted: Optional[Boolean]
+	tde_credential_arn: Optional[NonEmptyString]
+	vpc_security_groups: Optional[AwsRdsDbInstanceVpcSecurityGroups]
+	multi_az: Optional[Boolean]
+	enhanced_monitoring_resource_arn: Optional[NonEmptyString]
+	db_instance_status: Optional[NonEmptyString]
+	master_username: Optional[NonEmptyString]
+	allocated_storage: Optional[Integer]
+	preferred_backup_window: Optional[NonEmptyString]
+	backup_retention_period: Optional[Integer]
+	db_security_groups: Optional[StringList]
+	db_parameter_groups: Optional[AwsRdsDbParameterGroups]
+	availability_zone: Optional[NonEmptyString]
+	db_subnet_group: Optional[AwsRdsDbSubnetGroup]
+	preferred_maintenance_window: Optional[NonEmptyString]
+	pending_modified_values: Optional[AwsRdsDbPendingModifiedValues]
+	latest_restorable_time: Optional[Iso8601Timestamp]
+	auto_minor_version_upgrade: Optional[Boolean]
+	read_replica_source_db_instance_identifier: Optional[NonEmptyString]
+	read_replica_db_instance_identifiers: Optional[StringList]
+	read_replica_db_cluster_identifiers: Optional[StringList]
+	license_model: Optional[NonEmptyString]
+	iops: Optional[Integer]
+	option_group_memberships: Optional[AwsRdsDbOptionGroupMemberships]
+	character_set_name: Optional[NonEmptyString]
+	secondary_availability_zone: Optional[NonEmptyString]
+	status_infos: Optional[AwsRdsDbStatusInfos]
+	storage_type: Optional[NonEmptyString]
+	domain_memberships: Optional[AwsRdsDbDomainMemberships]
+	copy_tags_to_snapshot: Optional[Boolean]
+	monitoring_interval: Optional[Integer]
+	monitoring_role_arn: Optional[NonEmptyString]
+	promotion_tier: Optional[Integer]
+	timezone: Optional[NonEmptyString]
+	performance_insights_enabled: Optional[Boolean]
+	performance_insights_kms_key_id: Optional[NonEmptyString]
+	performance_insights_retention_period: Optional[Integer]
+	enabled_cloud_watch_logs_exports: Optional[StringList]
+	processor_features: Optional[AwsRdsDbProcessorFeatures]
+	listener_endpoint: Optional[AwsRdsDbInstanceEndpoint]
+	max_allocated_storage: Optional[Integer]
 class AwsSnsTopicSubscription(ASFFBaseModel):
-    """
-    A wrapper type for the attributes of an Amazon SNS subscription.
+	"""
+A wrapper type for the attributes of an Amazon SNS subscription.
 
-    :param endpoint: The subscription's endpoint (format depends on the protocol).
-    :param protocol: The subscription's protocol.
+:param endpoint: The subscription's endpoint (format depends on the protocol).
+:param protocol: The subscription's protocol.
 
-    :return: AwsSnsTopicSubscription object
-    """
-
-    endpoint: Optional[NonEmptyString]
-    protocol: Optional[NonEmptyString]
-
-
+:return: AwsSnsTopicSubscription object
+	"""
+	endpoint: Optional[NonEmptyString]
+	protocol: Optional[NonEmptyString]
 AwsSnsTopicSubscriptionList = List[AwsSnsTopicSubscription]
-
-
 class AwsSnsTopicDetails(ASFFBaseModel):
-    """
-    A wrapper type for the topic's Amazon Resource Name (ARN).
+	"""
+A wrapper type for the topic's Amazon Resource Name (ARN).
 
-    :param kms_master_key_id: The ID of an AWS managed customer master key (CMK) for Amazon SNS or a custom CMK.
-    :param subscription: Subscription is an embedded property that describes the subscription endpoints of an Amazon SNS topic.
-    :param topic_name: The name of the topic.
-    :param owner: The subscription's owner.
+:param kms_master_key_id: The ID of an AWS managed customer master key (CMK) for Amazon SNS or a custom CMK.
+:param subscription: Subscription is an embedded property that describes the subscription endpoints of an Amazon SNS topic.
+:param topic_name: The name of the topic.
+:param owner: The subscription's owner.
 
-    :return: AwsSnsTopicDetails object
-    """
-
-    kms_master_key_id: Optional[NonEmptyString]
-    subscription: Optional[AwsSnsTopicSubscriptionList]
-    topic_name: Optional[NonEmptyString]
-    owner: Optional[NonEmptyString]
-
-
+:return: AwsSnsTopicDetails object
+	"""
+	kms_master_key_id: Optional[NonEmptyString]
+	subscription: Optional[AwsSnsTopicSubscriptionList]
+	topic_name: Optional[NonEmptyString]
+	owner: Optional[NonEmptyString]
 class AwsSqsQueueDetails(ASFFBaseModel):
-    """
-    Data about a queue.
+	"""
+Data about a queue.
 
-    :param kms_data_key_reuse_period_seconds: The length of time, in seconds, for which Amazon SQS can reuse a data key to encrypt or decrypt messages before calling AWS KMS again.
-    :param kms_master_key_id: The ID of an AWS managed customer master key (CMK) for Amazon SQS or a custom CMK.
-    :param queue_name: The name of the new queue.
-    :param dead_letter_target_arn: The Amazon Resource Name (ARN) of the dead-letter queue to which Amazon SQS moves messages after the value of maxReceiveCount is exceeded.
+:param kms_data_key_reuse_period_seconds: The length of time, in seconds, for which Amazon SQS can reuse a data key to encrypt or decrypt messages before calling AWS KMS again.
+:param kms_master_key_id: The ID of an AWS managed customer master key (CMK) for Amazon SQS or a custom CMK.
+:param queue_name: The name of the new queue.
+:param dead_letter_target_arn: The Amazon Resource Name (ARN) of the dead-letter queue to which Amazon SQS moves messages after the value of maxReceiveCount is exceeded. 
 
-    :return: AwsSqsQueueDetails object
-    """
-
-    kms_data_key_reuse_period_seconds: Optional[Integer]
-    kms_master_key_id: Optional[NonEmptyString]
-    queue_name: Optional[NonEmptyString]
-    dead_letter_target_arn: Optional[NonEmptyString]
-
-
+:return: AwsSqsQueueDetails object
+	"""
+	kms_data_key_reuse_period_seconds: Optional[Integer]
+	kms_master_key_id: Optional[NonEmptyString]
+	queue_name: Optional[NonEmptyString]
+	dead_letter_target_arn: Optional[NonEmptyString]
 class WafAction(ASFFBaseModel):
-    """
-    Details about the action that CloudFront or AWS WAF takes when a web request matches the conditions in the rule.
+	"""
+Details about the action that CloudFront or AWS WAF takes when a web request matches the conditions in the rule. 
 
-    :param type: Specifies how you want AWS WAF to respond to requests that match the settings in a rule. Valid settings include the following:    ALLOW - AWS WAF allows requests    BLOCK - AWS WAF blocks requests    COUNT - AWS WAF increments a counter of the requests that match all of the conditions in the rule. AWS WAF then continues to inspect the web request based on the remaining rules in the web ACL. You can't specify COUNT for the default action for a WebACL.
+:param type: Specifies how you want AWS WAF to respond to requests that match the settings in a rule. Valid settings include the following:    ALLOW - AWS WAF allows requests    BLOCK - AWS WAF blocks requests    COUNT - AWS WAF increments a counter of the requests that match all of the conditions in the rule. AWS WAF then continues to inspect the web request based on the remaining rules in the web ACL. You can't specify COUNT for the default action for a WebACL.  
 
-    :return: WafAction object
-    """
-
-    type: Optional[NonEmptyString]
-
-
+:return: WafAction object
+	"""
+	type: Optional[NonEmptyString]
 class WafExcludedRule(ASFFBaseModel):
-    """
-    Details about a rule to exclude from a rule group.
+	"""
+Details about a rule to exclude from a rule group.
 
-    :param rule_id: The unique identifier for the rule to exclude from the rule group.
+:param rule_id: The unique identifier for the rule to exclude from the rule group.
 
-    :return: WafExcludedRule object
-    """
-
-    rule_id: Optional[NonEmptyString]
-
-
+:return: WafExcludedRule object
+	"""
+	rule_id: Optional[NonEmptyString]
 WafExcludedRuleList = List[WafExcludedRule]
-
-
 class WafOverrideAction(ASFFBaseModel):
-    """
-    Details about an override action for a rule.
+	"""
+Details about an override action for a rule.
 
-    :param type:  COUNT overrides the action specified by the individual rule within a RuleGroup . If set to NONE, the rule's action takes place.
+:param type:  COUNT overrides the action specified by the individual rule within a RuleGroup . If set to NONE, the rule's action takes place.
 
-    :return: WafOverrideAction object
-    """
-
-    type: Optional[NonEmptyString]
-
-
+:return: WafOverrideAction object
+	"""
+	type: Optional[NonEmptyString]
 class AwsWafWebAclRule(ASFFBaseModel):
-    """
-    Details for a rule in a WAF WebACL.
+	"""
+Details for a rule in a WAF WebACL.
 
-    :param action: Specifies the action that CloudFront or AWS WAF takes when a web request matches the conditions in the rule.
-    :param excluded_rules: Rules to exclude from a rule group.
-    :param override_action: Use the OverrideAction to test your RuleGroup. Any rule in a RuleGroup can potentially block a request. If you set the OverrideAction to None, the RuleGroup blocks a request if any individual rule in the RuleGroup matches the request and is configured to block that request. However, if you first want to test the RuleGroup, set the OverrideAction to Count. The RuleGroup then overrides any block action specified by individual rules contained within the group. Instead of blocking matching requests, those requests are counted.  ActivatedRule|OverrideAction applies only when updating or adding a RuleGroup to a WebACL. In this case you do not use ActivatedRule|Action. For all other update requests, ActivatedRule|Action is used instead of ActivatedRule|OverrideAction.
-    :param priority: Specifies the order in which the rules in a WebACL are evaluated. Rules with a lower value for Priority are evaluated before rules with a higher value. The value must be a unique integer. If you add multiple rules to a WebACL, the values do not need to be consecutive.
-    :param rule_id: The identifier for a rule.
-    :param type: The rule type. Valid values: REGULAR | RATE_BASED | GROUP  The default is REGULAR.
+:param action: Specifies the action that CloudFront or AWS WAF takes when a web request matches the conditions in the rule. 
+:param excluded_rules: Rules to exclude from a rule group.
+:param override_action: Use the OverrideAction to test your RuleGroup. Any rule in a RuleGroup can potentially block a request. If you set the OverrideAction to None, the RuleGroup blocks a request if any individual rule in the RuleGroup matches the request and is configured to block that request. However, if you first want to test the RuleGroup, set the OverrideAction to Count. The RuleGroup then overrides any block action specified by individual rules contained within the group. Instead of blocking matching requests, those requests are counted.  ActivatedRule|OverrideAction applies only when updating or adding a RuleGroup to a WebACL. In this case you do not use ActivatedRule|Action. For all other update requests, ActivatedRule|Action is used instead of ActivatedRule|OverrideAction. 
+:param priority: Specifies the order in which the rules in a WebACL are evaluated. Rules with a lower value for Priority are evaluated before rules with a higher value. The value must be a unique integer. If you add multiple rules to a WebACL, the values do not need to be consecutive.
+:param rule_id: The identifier for a rule.
+:param type: The rule type. Valid values: REGULAR | RATE_BASED | GROUP  The default is REGULAR.
 
-    :return: AwsWafWebAclRule object
-    """
-
-    action: Optional[WafAction]
-    excluded_rules: Optional[WafExcludedRuleList]
-    override_action: Optional[WafOverrideAction]
-    priority: Optional[Integer]
-    rule_id: Optional[NonEmptyString]
-    type: Optional[NonEmptyString]
-
-
+:return: AwsWafWebAclRule object
+	"""
+	action: Optional[WafAction]
+	excluded_rules: Optional[WafExcludedRuleList]
+	override_action: Optional[WafOverrideAction]
+	priority: Optional[Integer]
+	rule_id: Optional[NonEmptyString]
+	type: Optional[NonEmptyString]
 AwsWafWebAclRuleList = List[AwsWafWebAclRule]
-
-
 class AwsWafWebAclDetails(ASFFBaseModel):
-    """
-    Details about a WAF WebACL.
+	"""
+Details about a WAF WebACL.
 
-    :param name: A friendly name or description of the WebACL. You can't change the name of a WebACL after you create it.
-    :param default_action: The action to perform if none of the rules contained in the WebACL match.
-    :param rules: An array that contains the action for each rule in a WebACL, the priority of the rule, and the ID of the rule.
-    :param web_acl_id: A unique identifier for a WebACL.
+:param name: A friendly name or description of the WebACL. You can't change the name of a WebACL after you create it.
+:param default_action: The action to perform if none of the rules contained in the WebACL match.
+:param rules: An array that contains the action for each rule in a WebACL, the priority of the rule, and the ID of the rule.
+:param web_acl_id: A unique identifier for a WebACL.
 
-    :return: AwsWafWebAclDetails object
-    """
-
-    name: Optional[NonEmptyString]
-    default_action: Optional[NonEmptyString]
-    rules: Optional[AwsWafWebAclRuleList]
-    web_acl_id: Optional[NonEmptyString]
-
-
+:return: AwsWafWebAclDetails object
+	"""
+	name: Optional[NonEmptyString]
+	default_action: Optional[NonEmptyString]
+	rules: Optional[AwsWafWebAclRuleList]
+	web_acl_id: Optional[NonEmptyString]
 class AwsRdsDbSnapshotDetails(ASFFBaseModel):
-    """
-    Provides details about an Amazon RDS DB cluster snapshot.
+	"""
+Provides details about an Amazon RDS DB cluster snapshot.
 
-    :param db_snapshot_identifier: The name or ARN of the DB snapshot that is used to restore the DB instance.
-    :param db_instance_identifier: A name for the DB instance.
-    :param snapshot_create_time: When the snapshot was taken in Coordinated Universal Time (UTC).
-    :param engine: The name of the database engine to use for this DB instance.
-    :param allocated_storage: The amount of storage (in gigabytes) to be initially allocated for the database instance.
-    :param status: The status of this DB snapshot.
-    :param port: The port that the database engine was listening on at the time of the snapshot.
-    :param availability_zone: Specifies the name of the Availability Zone in which the DB instance was located at the time of the DB snapshot.
-    :param vpc_id: The VPC ID associated with the DB snapshot.
-    :param instance_create_time: Specifies the time in Coordinated Universal Time (UTC) when the DB instance, from which the snapshot was taken, was created.
-    :param master_username: The master user name for the DB snapshot.
-    :param engine_version: The version of the database engine.
-    :param license_model: License model information for the restored DB instance.
-    :param snapshot_type: The type of the DB snapshot.
-    :param iops: The provisioned IOPS (I/O operations per second) value of the DB instance at the time of the snapshot.
-    :param option_group_name: The option group name for the DB snapshot.
-    :param percent_progress: The percentage of the estimated data that has been transferred.
-    :param source_region: The AWS Region that the DB snapshot was created in or copied from.
-    :param source_db_snapshot_identifier: The DB snapshot ARN that the DB snapshot was copied from.
-    :param storage_type: The storage type associated with the DB snapshot.
-    :param tde_credential_arn: The ARN from the key store with which to associate the instance for TDE encryption.
-    :param encrypted: Whether the DB snapshot is encrypted.
-    :param kms_key_id: If Encrypted is true, the AWS KMS key identifier for the encrypted DB snapshot.
-    :param timezone: The time zone of the DB snapshot.
-    :param iam_database_authentication_enabled: Whether mapping of IAM accounts to database accounts is enabled.
-    :param processor_features: The number of CPU cores and the number of threads per core for the DB instance class of the DB instance.
-    :param dbi_resource_id: The identifier for the source DB instance.
+:param db_snapshot_identifier: The name or ARN of the DB snapshot that is used to restore the DB instance.
+:param db_instance_identifier: A name for the DB instance.
+:param snapshot_create_time: When the snapshot was taken in Coordinated Universal Time (UTC).
+:param engine: The name of the database engine to use for this DB instance.
+:param allocated_storage: The amount of storage (in gigabytes) to be initially allocated for the database instance.
+:param status: The status of this DB snapshot.
+:param port: The port that the database engine was listening on at the time of the snapshot.
+:param availability_zone: Specifies the name of the Availability Zone in which the DB instance was located at the time of the DB snapshot.
+:param vpc_id: The VPC ID associated with the DB snapshot.
+:param instance_create_time: Specifies the time in Coordinated Universal Time (UTC) when the DB instance, from which the snapshot was taken, was created.
+:param master_username: The master user name for the DB snapshot.
+:param engine_version: The version of the database engine.
+:param license_model: License model information for the restored DB instance.
+:param snapshot_type: The type of the DB snapshot.
+:param iops: The provisioned IOPS (I/O operations per second) value of the DB instance at the time of the snapshot.
+:param option_group_name: The option group name for the DB snapshot.
+:param percent_progress: The percentage of the estimated data that has been transferred.
+:param source_region: The AWS Region that the DB snapshot was created in or copied from.
+:param source_db_snapshot_identifier: The DB snapshot ARN that the DB snapshot was copied from.
+:param storage_type: The storage type associated with the DB snapshot.
+:param tde_credential_arn: The ARN from the key store with which to associate the instance for TDE encryption.
+:param encrypted: Whether the DB snapshot is encrypted.
+:param kms_key_id: If Encrypted is true, the AWS KMS key identifier for the encrypted DB snapshot.
+:param timezone: The time zone of the DB snapshot.
+:param iam_database_authentication_enabled: Whether mapping of IAM accounts to database accounts is enabled.
+:param processor_features: The number of CPU cores and the number of threads per core for the DB instance class of the DB instance.
+:param dbi_resource_id: The identifier for the source DB instance.
 
-    :return: AwsRdsDbSnapshotDetails object
-    """
-
-    db_snapshot_identifier: Optional[NonEmptyString]
-    db_instance_identifier: Optional[NonEmptyString]
-    snapshot_create_time: Optional[Iso8601Timestamp]
-    engine: Optional[NonEmptyString]
-    allocated_storage: Optional[Integer]
-    status: Optional[NonEmptyString]
-    port: Optional[Integer]
-    availability_zone: Optional[NonEmptyString]
-    vpc_id: Optional[NonEmptyString]
-    instance_create_time: Optional[Iso8601Timestamp]
-    master_username: Optional[NonEmptyString]
-    engine_version: Optional[NonEmptyString]
-    license_model: Optional[NonEmptyString]
-    snapshot_type: Optional[NonEmptyString]
-    iops: Optional[Integer]
-    option_group_name: Optional[NonEmptyString]
-    percent_progress: Optional[Integer]
-    source_region: Optional[NonEmptyString]
-    source_db_snapshot_identifier: Optional[NonEmptyString]
-    storage_type: Optional[NonEmptyString]
-    tde_credential_arn: Optional[NonEmptyString]
-    encrypted: Optional[Boolean]
-    kms_key_id: Optional[NonEmptyString]
-    timezone: Optional[NonEmptyString]
-    iam_database_authentication_enabled: Optional[Boolean]
-    processor_features: Optional[AwsRdsDbProcessorFeatures]
-    dbi_resource_id: Optional[NonEmptyString]
-
-
+:return: AwsRdsDbSnapshotDetails object
+	"""
+	db_snapshot_identifier: Optional[NonEmptyString]
+	db_instance_identifier: Optional[NonEmptyString]
+	snapshot_create_time: Optional[Iso8601Timestamp]
+	engine: Optional[NonEmptyString]
+	allocated_storage: Optional[Integer]
+	status: Optional[NonEmptyString]
+	port: Optional[Integer]
+	availability_zone: Optional[NonEmptyString]
+	vpc_id: Optional[NonEmptyString]
+	instance_create_time: Optional[Iso8601Timestamp]
+	master_username: Optional[NonEmptyString]
+	engine_version: Optional[NonEmptyString]
+	license_model: Optional[NonEmptyString]
+	snapshot_type: Optional[NonEmptyString]
+	iops: Optional[Integer]
+	option_group_name: Optional[NonEmptyString]
+	percent_progress: Optional[Integer]
+	source_region: Optional[NonEmptyString]
+	source_db_snapshot_identifier: Optional[NonEmptyString]
+	storage_type: Optional[NonEmptyString]
+	tde_credential_arn: Optional[NonEmptyString]
+	encrypted: Optional[Boolean]
+	kms_key_id: Optional[NonEmptyString]
+	timezone: Optional[NonEmptyString]
+	iam_database_authentication_enabled: Optional[Boolean]
+	processor_features: Optional[AwsRdsDbProcessorFeatures]
+	dbi_resource_id: Optional[NonEmptyString]
 class AwsRdsDbClusterSnapshotDetails(ASFFBaseModel):
-    """
-    Information about an Amazon RDS DB cluster snapshot.
+	"""
+Information about an Amazon RDS DB cluster snapshot.
 
-    :param availability_zones: A list of Availability Zones where instances in the DB cluster can be created.
-    :param snapshot_create_time: Indicates when the snapshot was taken. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param engine: The name of the database engine that you want to use for this DB instance.
-    :param allocated_storage: Specifies the allocated storage size in gibibytes (GiB).
-    :param status: The status of this DB cluster snapshot.
-    :param port: The port number on which the DB instances in the DB cluster accept connections.
-    :param vpc_id: The VPC ID that is associated with the DB cluster snapshot.
-    :param cluster_create_time: Indicates when the DB cluster was created, in Universal Coordinated Time (UTC). Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param master_username: The name of the master user for the DB cluster.
-    :param engine_version: The version of the database engine to use.
-    :param license_model: The license model information for this DB cluster snapshot.
-    :param snapshot_type: The type of DB cluster snapshot.
-    :param percent_progress: Specifies the percentage of the estimated data that has been transferred.
-    :param storage_encrypted: Whether the DB cluster is encrypted.
-    :param kms_key_id: The ARN of the AWS KMS master key that is used to encrypt the database instances in the DB cluster.
-    :param db_cluster_identifier: The DB cluster identifier.
-    :param db_cluster_snapshot_identifier: The identifier of the DB cluster snapshot.
-    :param iam_database_authentication_enabled: Whether mapping of IAM accounts to database accounts is enabled.
+:param availability_zones: A list of Availability Zones where instances in the DB cluster can be created.
+:param snapshot_create_time: Indicates when the snapshot was taken. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param engine: The name of the database engine that you want to use for this DB instance.
+:param allocated_storage: Specifies the allocated storage size in gibibytes (GiB).
+:param status: The status of this DB cluster snapshot.
+:param port: The port number on which the DB instances in the DB cluster accept connections.
+:param vpc_id: The VPC ID that is associated with the DB cluster snapshot.
+:param cluster_create_time: Indicates when the DB cluster was created, in Universal Coordinated Time (UTC). Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param master_username: The name of the master user for the DB cluster.
+:param engine_version: The version of the database engine to use.
+:param license_model: The license model information for this DB cluster snapshot.
+:param snapshot_type: The type of DB cluster snapshot.
+:param percent_progress: Specifies the percentage of the estimated data that has been transferred.
+:param storage_encrypted: Whether the DB cluster is encrypted.
+:param kms_key_id: The ARN of the AWS KMS master key that is used to encrypt the database instances in the DB cluster.
+:param db_cluster_identifier: The DB cluster identifier.
+:param db_cluster_snapshot_identifier: The identifier of the DB cluster snapshot.
+:param iam_database_authentication_enabled: Whether mapping of IAM accounts to database accounts is enabled.
 
-    :return: AwsRdsDbClusterSnapshotDetails object
-    """
-
-    availability_zones: Optional[StringList]
-    snapshot_create_time: Optional[Iso8601Timestamp]
-    engine: Optional[NonEmptyString]
-    allocated_storage: Optional[Integer]
-    status: Optional[NonEmptyString]
-    port: Optional[Integer]
-    vpc_id: Optional[NonEmptyString]
-    cluster_create_time: Optional[Iso8601Timestamp]
-    master_username: Optional[NonEmptyString]
-    engine_version: Optional[NonEmptyString]
-    license_model: Optional[NonEmptyString]
-    snapshot_type: Optional[NonEmptyString]
-    percent_progress: Optional[Integer]
-    storage_encrypted: Optional[Boolean]
-    kms_key_id: Optional[NonEmptyString]
-    db_cluster_identifier: Optional[NonEmptyString]
-    db_cluster_snapshot_identifier: Optional[NonEmptyString]
-    iam_database_authentication_enabled: Optional[Boolean]
-
-
+:return: AwsRdsDbClusterSnapshotDetails object
+	"""
+	availability_zones: Optional[StringList]
+	snapshot_create_time: Optional[Iso8601Timestamp]
+	engine: Optional[NonEmptyString]
+	allocated_storage: Optional[Integer]
+	status: Optional[NonEmptyString]
+	port: Optional[Integer]
+	vpc_id: Optional[NonEmptyString]
+	cluster_create_time: Optional[Iso8601Timestamp]
+	master_username: Optional[NonEmptyString]
+	engine_version: Optional[NonEmptyString]
+	license_model: Optional[NonEmptyString]
+	snapshot_type: Optional[NonEmptyString]
+	percent_progress: Optional[Integer]
+	storage_encrypted: Optional[Boolean]
+	kms_key_id: Optional[NonEmptyString]
+	db_cluster_identifier: Optional[NonEmptyString]
+	db_cluster_snapshot_identifier: Optional[NonEmptyString]
+	iam_database_authentication_enabled: Optional[Boolean]
 class AwsRdsDbClusterAssociatedRole(ASFFBaseModel):
-    """
-    An IAM role that is associated with the Amazon RDS DB cluster.
+	"""
+An IAM role that is associated with the Amazon RDS DB cluster.
 
-    :param role_arn: The ARN of the IAM role.
-    :param status: The status of the association between the IAM role and the DB cluster.
+:param role_arn: The ARN of the IAM role.
+:param status: The status of the association between the IAM role and the DB cluster.
 
-    :return: AwsRdsDbClusterAssociatedRole object
-    """
-
-    role_arn: Optional[NonEmptyString]
-    status: Optional[NonEmptyString]
-
-
+:return: AwsRdsDbClusterAssociatedRole object
+	"""
+	role_arn: Optional[NonEmptyString]
+	status: Optional[NonEmptyString]
 AwsRdsDbClusterAssociatedRoles = List[AwsRdsDbClusterAssociatedRole]
-
-
 class AwsRdsDbClusterOptionGroupMembership(ASFFBaseModel):
-    """
-    Information about an option group membership for a DB cluster.
+	"""
+Information about an option group membership for a DB cluster.
 
-    :param db_cluster_option_group_name: The name of the DB cluster option group.
-    :param status: The status of the DB cluster option group.
+:param db_cluster_option_group_name: The name of the DB cluster option group.
+:param status: The status of the DB cluster option group.
 
-    :return: AwsRdsDbClusterOptionGroupMembership object
-    """
-
-    db_cluster_option_group_name: Optional[NonEmptyString]
-    status: Optional[NonEmptyString]
-
-
+:return: AwsRdsDbClusterOptionGroupMembership object
+	"""
+	db_cluster_option_group_name: Optional[NonEmptyString]
+	status: Optional[NonEmptyString]
 AwsRdsDbClusterOptionGroupMemberships = List[AwsRdsDbClusterOptionGroupMembership]
-
-
 class AwsRdsDbClusterMember(ASFFBaseModel):
-    """
-    Information about an instance in the DB cluster.
+	"""
+Information about an instance in the DB cluster.
 
-    :param is_cluster_writer: Whether the cluster member is the primary instance for the DB cluster.
-    :param promotion_tier: Specifies the order in which an Aurora replica is promoted to the primary instance when the existing primary instance fails.
-    :param db_instance_identifier: The instance identifier for this member of the DB cluster.
-    :param db_cluster_parameter_group_status: The status of the DB cluster parameter group for this member of the DB cluster.
+:param is_cluster_writer: Whether the cluster member is the primary instance for the DB cluster.
+:param promotion_tier: Specifies the order in which an Aurora replica is promoted to the primary instance when the existing primary instance fails.
+:param db_instance_identifier: The instance identifier for this member of the DB cluster.
+:param db_cluster_parameter_group_status: The status of the DB cluster parameter group for this member of the DB cluster.
 
-    :return: AwsRdsDbClusterMember object
-    """
-
-    is_cluster_writer: Optional[Boolean]
-    promotion_tier: Optional[Integer]
-    db_instance_identifier: Optional[NonEmptyString]
-    db_cluster_parameter_group_status: Optional[NonEmptyString]
-
-
+:return: AwsRdsDbClusterMember object
+	"""
+	is_cluster_writer: Optional[Boolean]
+	promotion_tier: Optional[Integer]
+	db_instance_identifier: Optional[NonEmptyString]
+	db_cluster_parameter_group_status: Optional[NonEmptyString]
 AwsRdsDbClusterMembers = List[AwsRdsDbClusterMember]
-
-
 class AwsRdsDbClusterDetails(ASFFBaseModel):
-    """
-    Information about an Amazon RDS DB cluster.
+	"""
+Information about an Amazon RDS DB cluster.
 
-    :param allocated_storage: For all database engines except Aurora, specifies the allocated storage size in gibibytes (GiB).
-    :param availability_zones: A list of Availability Zones (AZs) where instances in the DB cluster can be created.
-    :param backup_retention_period: The number of days for which automated backups are retained.
-    :param database_name: The name of the database.
-    :param status: The current status of this DB cluster.
-    :param endpoint: The connection endpoint for the primary instance of the DB cluster.
-    :param reader_endpoint: The reader endpoint for the DB cluster.
-    :param custom_endpoints: A list of custom endpoints for the DB cluster.
-    :param multi_az: Whether the DB cluster has instances in multiple Availability Zones.
-    :param engine: The name of the database engine to use for this DB cluster.
-    :param engine_version: The version number of the database engine to use.
-    :param port: The port number on which the DB instances in the DB cluster accept connections.
-    :param master_username: The name of the master user for the DB cluster.
-    :param preferred_backup_window: The range of time each day when automated backups are created, if automated backups are enabled. Uses the format HH:MM-HH:MM. For example, 04:52-05:22.
-    :param preferred_maintenance_window: The weekly time range during which system maintenance can occur, in Universal Coordinated Time (UTC). Uses the format &lt;day&gt;:HH:MM-&lt;day&gt;:HH:MM. For the day values, use mon|tue|wed|thu|fri|sat|sun. For example, sun:09:32-sun:10:02.
-    :param read_replica_identifiers: The identifiers of the read replicas that are associated with this DB cluster.
-    :param vpc_security_groups: A list of VPC security groups that the DB cluster belongs to.
-    :param hosted_zone_id: Specifies the identifier that Amazon Route 53 assigns when you create a hosted zone.
-    :param storage_encrypted: Whether the DB cluster is encrypted.
-    :param kms_key_id: The ARN of the AWS KMS master key that is used to encrypt the database instances in the DB cluster.
-    :param db_cluster_resource_id: The identifier of the DB cluster. The identifier must be unique within each AWS Region and is immutable.
-    :param associated_roles: A list of the IAM roles that are associated with the DB cluster.
-    :param cluster_create_time: Indicates when the DB cluster was created, in Universal Coordinated Time (UTC). Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param enabled_cloud_watch_logs_exports: A list of log types that this DB cluster is configured to export to CloudWatch Logs.
-    :param engine_mode: The database engine mode of the DB cluster.
-    :param deletion_protection: Whether the DB cluster has deletion protection enabled.
-    :param http_endpoint_enabled: Whether the HTTP endpoint for an Aurora Serverless DB cluster is enabled.
-    :param activity_stream_status: The status of the database activity stream.
-    :param copy_tags_to_snapshot: Whether tags are copied from the DB cluster to snapshots of the DB cluster.
-    :param cross_account_clone: Whether the DB cluster is a clone of a DB cluster owned by a different AWS account.
-    :param domain_memberships: The Active Directory domain membership records that are associated with the DB cluster.
-    :param db_cluster_parameter_group: The name of the DB cluster parameter group for the DB cluster.
-    :param db_subnet_group: The subnet group that is associated with the DB cluster, including the name, description, and subnets in the subnet group.
-    :param db_cluster_option_group_memberships: The list of option group memberships for this DB cluster.
-    :param db_cluster_identifier: The DB cluster identifier that the user assigned to the cluster. This identifier is the unique key that identifies a DB cluster.
-    :param db_cluster_members: The list of instances that make up the DB cluster.
-    :param iam_database_authentication_enabled: Whether the mapping of IAM accounts to database accounts is enabled.
+:param allocated_storage: For all database engines except Aurora, specifies the allocated storage size in gibibytes (GiB).
+:param availability_zones: A list of Availability Zones (AZs) where instances in the DB cluster can be created.
+:param backup_retention_period: The number of days for which automated backups are retained.
+:param database_name: The name of the database.
+:param status: The current status of this DB cluster.
+:param endpoint: The connection endpoint for the primary instance of the DB cluster.
+:param reader_endpoint: The reader endpoint for the DB cluster.
+:param custom_endpoints: A list of custom endpoints for the DB cluster.
+:param multi_az: Whether the DB cluster has instances in multiple Availability Zones.
+:param engine: The name of the database engine to use for this DB cluster.
+:param engine_version: The version number of the database engine to use.
+:param port: The port number on which the DB instances in the DB cluster accept connections.
+:param master_username: The name of the master user for the DB cluster.
+:param preferred_backup_window: The range of time each day when automated backups are created, if automated backups are enabled. Uses the format HH:MM-HH:MM. For example, 04:52-05:22.
+:param preferred_maintenance_window: The weekly time range during which system maintenance can occur, in Universal Coordinated Time (UTC). Uses the format &lt;day&gt;:HH:MM-&lt;day&gt;:HH:MM. For the day values, use mon|tue|wed|thu|fri|sat|sun. For example, sun:09:32-sun:10:02.
+:param read_replica_identifiers: The identifiers of the read replicas that are associated with this DB cluster.
+:param vpc_security_groups: A list of VPC security groups that the DB cluster belongs to.
+:param hosted_zone_id: Specifies the identifier that Amazon Route 53 assigns when you create a hosted zone.
+:param storage_encrypted: Whether the DB cluster is encrypted.
+:param kms_key_id: The ARN of the AWS KMS master key that is used to encrypt the database instances in the DB cluster.
+:param db_cluster_resource_id: The identifier of the DB cluster. The identifier must be unique within each AWS Region and is immutable.
+:param associated_roles: A list of the IAM roles that are associated with the DB cluster.
+:param cluster_create_time: Indicates when the DB cluster was created, in Universal Coordinated Time (UTC). Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param enabled_cloud_watch_logs_exports: A list of log types that this DB cluster is configured to export to CloudWatch Logs.
+:param engine_mode: The database engine mode of the DB cluster.
+:param deletion_protection: Whether the DB cluster has deletion protection enabled.
+:param http_endpoint_enabled: Whether the HTTP endpoint for an Aurora Serverless DB cluster is enabled.
+:param activity_stream_status: The status of the database activity stream.
+:param copy_tags_to_snapshot: Whether tags are copied from the DB cluster to snapshots of the DB cluster.
+:param cross_account_clone: Whether the DB cluster is a clone of a DB cluster owned by a different AWS account.
+:param domain_memberships: The Active Directory domain membership records that are associated with the DB cluster.
+:param db_cluster_parameter_group: The name of the DB cluster parameter group for the DB cluster.
+:param db_subnet_group: The subnet group that is associated with the DB cluster, including the name, description, and subnets in the subnet group.
+:param db_cluster_option_group_memberships: The list of option group memberships for this DB cluster.
+:param db_cluster_identifier: The DB cluster identifier that the user assigned to the cluster. This identifier is the unique key that identifies a DB cluster.
+:param db_cluster_members: The list of instances that make up the DB cluster.
+:param iam_database_authentication_enabled: Whether the mapping of IAM accounts to database accounts is enabled.
 
-    :return: AwsRdsDbClusterDetails object
-    """
-
-    allocated_storage: Optional[Integer]
-    availability_zones: Optional[StringList]
-    backup_retention_period: Optional[Integer]
-    database_name: Optional[NonEmptyString]
-    status: Optional[NonEmptyString]
-    endpoint: Optional[NonEmptyString]
-    reader_endpoint: Optional[NonEmptyString]
-    custom_endpoints: Optional[StringList]
-    multi_az: Optional[Boolean]
-    engine: Optional[NonEmptyString]
-    engine_version: Optional[NonEmptyString]
-    port: Optional[Integer]
-    master_username: Optional[NonEmptyString]
-    preferred_backup_window: Optional[NonEmptyString]
-    preferred_maintenance_window: Optional[NonEmptyString]
-    read_replica_identifiers: Optional[StringList]
-    vpc_security_groups: Optional[AwsRdsDbInstanceVpcSecurityGroups]
-    hosted_zone_id: Optional[NonEmptyString]
-    storage_encrypted: Optional[Boolean]
-    kms_key_id: Optional[NonEmptyString]
-    db_cluster_resource_id: Optional[NonEmptyString]
-    associated_roles: Optional[AwsRdsDbClusterAssociatedRoles]
-    cluster_create_time: Optional[Iso8601Timestamp]
-    enabled_cloud_watch_logs_exports: Optional[StringList]
-    engine_mode: Optional[NonEmptyString]
-    deletion_protection: Optional[Boolean]
-    http_endpoint_enabled: Optional[Boolean]
-    activity_stream_status: Optional[NonEmptyString]
-    copy_tags_to_snapshot: Optional[Boolean]
-    cross_account_clone: Optional[Boolean]
-    domain_memberships: Optional[AwsRdsDbDomainMemberships]
-    db_cluster_parameter_group: Optional[NonEmptyString]
-    db_subnet_group: Optional[NonEmptyString]
-    db_cluster_option_group_memberships: Optional[AwsRdsDbClusterOptionGroupMemberships]
-    db_cluster_identifier: Optional[NonEmptyString]
-    db_cluster_members: Optional[AwsRdsDbClusterMembers]
-    iam_database_authentication_enabled: Optional[Boolean]
-
-
+:return: AwsRdsDbClusterDetails object
+	"""
+	allocated_storage: Optional[Integer]
+	availability_zones: Optional[StringList]
+	backup_retention_period: Optional[Integer]
+	database_name: Optional[NonEmptyString]
+	status: Optional[NonEmptyString]
+	endpoint: Optional[NonEmptyString]
+	reader_endpoint: Optional[NonEmptyString]
+	custom_endpoints: Optional[StringList]
+	multi_az: Optional[Boolean]
+	engine: Optional[NonEmptyString]
+	engine_version: Optional[NonEmptyString]
+	port: Optional[Integer]
+	master_username: Optional[NonEmptyString]
+	preferred_backup_window: Optional[NonEmptyString]
+	preferred_maintenance_window: Optional[NonEmptyString]
+	read_replica_identifiers: Optional[StringList]
+	vpc_security_groups: Optional[AwsRdsDbInstanceVpcSecurityGroups]
+	hosted_zone_id: Optional[NonEmptyString]
+	storage_encrypted: Optional[Boolean]
+	kms_key_id: Optional[NonEmptyString]
+	db_cluster_resource_id: Optional[NonEmptyString]
+	associated_roles: Optional[AwsRdsDbClusterAssociatedRoles]
+	cluster_create_time: Optional[Iso8601Timestamp]
+	enabled_cloud_watch_logs_exports: Optional[StringList]
+	engine_mode: Optional[NonEmptyString]
+	deletion_protection: Optional[Boolean]
+	http_endpoint_enabled: Optional[Boolean]
+	activity_stream_status: Optional[NonEmptyString]
+	copy_tags_to_snapshot: Optional[Boolean]
+	cross_account_clone: Optional[Boolean]
+	domain_memberships: Optional[AwsRdsDbDomainMemberships]
+	db_cluster_parameter_group: Optional[NonEmptyString]
+	db_subnet_group: Optional[NonEmptyString]
+	db_cluster_option_group_memberships: Optional[AwsRdsDbClusterOptionGroupMemberships]
+	db_cluster_identifier: Optional[NonEmptyString]
+	db_cluster_members: Optional[AwsRdsDbClusterMembers]
+	iam_database_authentication_enabled: Optional[Boolean]
 class ContainerDetails(ASFFBaseModel):
-    """
-    Container details related to a finding.
+	"""
+Container details related to a finding.
 
-    :param name: The name of the container related to a finding.
-    :param image_id: The identifier of the image related to a finding.
-    :param image_name: The name of the image related to a finding.
-    :param launched_at: Indicates when the container started. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param name: The name of the container related to a finding.
+:param image_id: The identifier of the image related to a finding.
+:param image_name: The name of the image related to a finding.
+:param launched_at: Indicates when the container started. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
 
-    :return: ContainerDetails object
-    """
-
-    name: Optional[NonEmptyString]
-    image_id: Optional[NonEmptyString]
-    image_name: Optional[NonEmptyString]
-    launched_at: Optional[Iso8601Timestamp]
-
-
+:return: ContainerDetails object
+	"""
+	name: Optional[NonEmptyString]
+	image_id: Optional[NonEmptyString]
+	image_name: Optional[NonEmptyString]
+	launched_at: Optional[Iso8601Timestamp]
 class ResourceDetails(ASFFBaseModel):
-    """
-    Additional details about a resource related to a finding. To provide the details, use the object that corresponds to the resource type. For example, if the resource type is AwsEc2Instance, then you use the AwsEc2Instance object to provide the details. If the type-specific object does not contain all of the fields you want to populate, then you use the Other object to populate those additional fields. You also use the Other object to populate the details when the selected type does not have a corresponding object.
+	"""
+Additional details about a resource related to a finding. To provide the details, use the object that corresponds to the resource type. For example, if the resource type is AwsEc2Instance, then you use the AwsEc2Instance object to provide the details. If the type-specific object does not contain all of the fields you want to populate, then you use the Other object to populate those additional fields. You also use the Other object to populate the details when the selected type does not have a corresponding object.
 
-    :param aws_auto_scaling_auto_scaling_group: Details for an autoscaling group.
-    :param aws_code_build_project: Details for an AWS CodeBuild project.
-    :param aws_cloud_front_distribution: Details about a CloudFront distribution.
-    :param aws_ec2_instance: Details about an Amazon EC2 instance related to a finding.
-    :param aws_ec2_network_interface: Details for an Amazon EC2 network interface.
-    :param aws_ec2_security_group: Details for an EC2 security group.
-    :param aws_ec2_volume: Details for an EC2 volume.
-    :param aws_ec2_vpc: Details for an EC2 VPC.
-    :param aws_ec2_eip: Details about an Elastic IP address.
-    :param aws_elbv2_load_balancer: Details about a load balancer.
-    :param aws_elasticsearch_domain: Details for an Elasticsearch domain.
-    :param aws_s3_bucket: Details about an Amazon S3 bucket related to a finding.
-    :param aws_s3_account_public_access_block: Details about the Amazon S3 Public Access Block configuration for an account.
-    :param aws_s3_object: Details about an Amazon S3 object related to a finding.
-    :param aws_secrets_manager_secret: Details about a Secrets Manager secret.
-    :param aws_iam_access_key: Details about an IAM access key related to a finding.
-    :param aws_iam_user: Details about an IAM user.
-    :param aws_iam_policy: Details about an IAM permissions policy.
-    :param aws_api_gateway_v2_stage: Provides information about a version 2 stage for Amazon API Gateway.
-    :param aws_api_gateway_v2_api: Provides information about a version 2 API in Amazon API Gateway.
-    :param aws_dynamo_db_table: Details about a DynamoDB table.
-    :param aws_api_gateway_stage: Provides information about a version 1 Amazon API Gateway stage.
-    :param aws_api_gateway_rest_api: Provides information about a REST API in version 1 of Amazon API Gateway.
-    :param aws_cloud_trail_trail: Provides details about a CloudTrail trail.
-    :param aws_ssm_patch_compliance: Provides information about the state of a patch on an instance based on the patch baseline that was used to patch the instance.
-    :param aws_certificate_manager_certificate: Provides details about an AWS Certificate Manager (ACM) certificate.
-    :param aws_redshift_cluster: Contains details about an Amazon Redshift cluster.
-    :param aws_elb_load_balancer: contains details about a Classic Load Balancer.
-    :param aws_iam_group: Contains details about an IAM group.
-    :param aws_iam_role: Details about an IAM role.
-    :param aws_kms_key: Details about a KMS key.
-    :param aws_lambda_function: Details about a Lambda function.
-    :param aws_lambda_layer_version: Details for a Lambda layer version.
-    :param aws_rds_db_instance: Details about an Amazon RDS database instance.
-    :param aws_sns_topic: Details about an SNS topic.
-    :param aws_sqs_queue: Details about an SQS queue.
-    :param aws_waf_web_acl: Details for a WAF WebACL.
-    :param aws_rds_db_snapshot: Details about an Amazon RDS database snapshot.
-    :param aws_rds_db_cluster_snapshot: Details about an Amazon RDS database cluster snapshot.
-    :param aws_rds_db_cluster: Details about an Amazon RDS database cluster.
-    :param container: Details about a container resource related to a finding.
-    :param other: Details about a resource that are not available in a type-specific details object. Use the Other object in the following cases.   The type-specific object does not contain all of the fields that you want to populate. In this case, first use the type-specific object to populate those fields. Use the Other object to populate the fields that are missing from the type-specific object.   The resource type does not have a corresponding object. This includes resources for which the type is Other.
+:param aws_auto_scaling_auto_scaling_group: Details for an autoscaling group.
+:param aws_code_build_project: Details for an AWS CodeBuild project.
+:param aws_cloud_front_distribution: Details about a CloudFront distribution.
+:param aws_ec2_instance: Details about an Amazon EC2 instance related to a finding.
+:param aws_ec2_network_interface: Details for an Amazon EC2 network interface.
+:param aws_ec2_security_group: Details for an EC2 security group.
+:param aws_ec2_volume: Details for an EC2 volume.
+:param aws_ec2_vpc: Details for an EC2 VPC.
+:param aws_ec2_eip: Details about an Elastic IP address.
+:param aws_ec2_subnet: Details about a subnet in EC2.
+:param aws_ec2_network_acl: Details about an EC2 network access control list (ACL).
+:param aws_elbv2_load_balancer: Details about a load balancer.
+:param aws_elastic_beanstalk_environment: Details about an Elastic Beanstalk environment.
+:param aws_elasticsearch_domain: Details for an Elasticsearch domain.
+:param aws_s3_bucket: Details about an Amazon S3 bucket related to a finding.
+:param aws_s3_account_public_access_block: Details about the Amazon S3 Public Access Block configuration for an account.
+:param aws_s3_object: Details about an Amazon S3 object related to a finding.
+:param aws_secrets_manager_secret: Details about a Secrets Manager secret.
+:param aws_iam_access_key: Details about an IAM access key related to a finding.
+:param aws_iam_user: Details about an IAM user.
+:param aws_iam_policy: Details about an IAM permissions policy.
+:param aws_api_gateway_v2_stage: Provides information about a version 2 stage for Amazon API Gateway.
+:param aws_api_gateway_v2_api: Provides information about a version 2 API in Amazon API Gateway.
+:param aws_dynamo_db_table: Details about a DynamoDB table.
+:param aws_api_gateway_stage: Provides information about a version 1 Amazon API Gateway stage.
+:param aws_api_gateway_rest_api: Provides information about a REST API in version 1 of Amazon API Gateway.
+:param aws_cloud_trail_trail: Provides details about a CloudTrail trail.
+:param aws_ssm_patch_compliance: Provides information about the state of a patch on an instance based on the patch baseline that was used to patch the instance.
+:param aws_certificate_manager_certificate: Provides details about an AWS Certificate Manager (ACM) certificate.
+:param aws_redshift_cluster: Contains details about an Amazon Redshift cluster.
+:param aws_elb_load_balancer: contains details about a Classic Load Balancer.
+:param aws_iam_group: Contains details about an IAM group.
+:param aws_iam_role: Details about an IAM role.
+:param aws_kms_key: Details about a KMS key.
+:param aws_lambda_function: Details about a Lambda function.
+:param aws_lambda_layer_version: Details for a Lambda layer version.
+:param aws_rds_db_instance: Details about an Amazon RDS database instance.
+:param aws_sns_topic: Details about an SNS topic.
+:param aws_sqs_queue: Details about an SQS queue.
+:param aws_waf_web_acl: Details for a WAF WebACL.
+:param aws_rds_db_snapshot: Details about an Amazon RDS database snapshot.
+:param aws_rds_db_cluster_snapshot: Details about an Amazon RDS database cluster snapshot.
+:param aws_rds_db_cluster: Details about an Amazon RDS database cluster.
+:param container: Details about a container resource related to a finding.
+:param other: Details about a resource that are not available in a type-specific details object. Use the Other object in the following cases.   The type-specific object does not contain all of the fields that you want to populate. In this case, first use the type-specific object to populate those fields. Use the Other object to populate the fields that are missing from the type-specific object.   The resource type does not have a corresponding object. This includes resources for which the type is Other.   
 
-    :return: ResourceDetails object
-    """
-
-    aws_auto_scaling_auto_scaling_group: Optional[AwsAutoScalingAutoScalingGroupDetails]
-    aws_code_build_project: Optional[AwsCodeBuildProjectDetails]
-    aws_cloud_front_distribution: Optional[AwsCloudFrontDistributionDetails]
-    aws_ec2_instance: Optional[AwsEc2InstanceDetails]
-    aws_ec2_network_interface: Optional[AwsEc2NetworkInterfaceDetails]
-    aws_ec2_security_group: Optional[AwsEc2SecurityGroupDetails]
-    aws_ec2_volume: Optional[AwsEc2VolumeDetails]
-    aws_ec2_vpc: Optional[AwsEc2VpcDetails]
-    aws_ec2_eip: Optional[AwsEc2EipDetails]
-    aws_elbv2_load_balancer: Optional[AwsElbv2LoadBalancerDetails]
-    aws_elasticsearch_domain: Optional[AwsElasticsearchDomainDetails]
-    aws_s3_bucket: Optional[AwsS3BucketDetails]
-    aws_s3_account_public_access_block: Optional[AwsS3AccountPublicAccessBlockDetails]
-    aws_s3_object: Optional[AwsS3ObjectDetails]
-    aws_secrets_manager_secret: Optional[AwsSecretsManagerSecretDetails]
-    aws_iam_access_key: Optional[AwsIamAccessKeyDetails]
-    aws_iam_user: Optional[AwsIamUserDetails]
-    aws_iam_policy: Optional[AwsIamPolicyDetails]
-    aws_api_gateway_v2_stage: Optional[AwsApiGatewayV2StageDetails]
-    aws_api_gateway_v2_api: Optional[AwsApiGatewayV2ApiDetails]
-    aws_dynamo_db_table: Optional[AwsDynamoDbTableDetails]
-    aws_api_gateway_stage: Optional[AwsApiGatewayStageDetails]
-    aws_api_gateway_rest_api: Optional[AwsApiGatewayRestApiDetails]
-    aws_cloud_trail_trail: Optional[AwsCloudTrailTrailDetails]
-    aws_ssm_patch_compliance: Optional[AwsSsmPatchComplianceDetails]
-    aws_certificate_manager_certificate: Optional[
-        AwsCertificateManagerCertificateDetails
-    ]
-    aws_redshift_cluster: Optional[AwsRedshiftClusterDetails]
-    aws_elb_load_balancer: Optional[AwsElbLoadBalancerDetails]
-    aws_iam_group: Optional[AwsIamGroupDetails]
-    aws_iam_role: Optional[AwsIamRoleDetails]
-    aws_kms_key: Optional[AwsKmsKeyDetails]
-    aws_lambda_function: Optional[AwsLambdaFunctionDetails]
-    aws_lambda_layer_version: Optional[AwsLambdaLayerVersionDetails]
-    aws_rds_db_instance: Optional[AwsRdsDbInstanceDetails]
-    aws_sns_topic: Optional[AwsSnsTopicDetails]
-    aws_sqs_queue: Optional[AwsSqsQueueDetails]
-    aws_waf_web_acl: Optional[AwsWafWebAclDetails]
-    aws_rds_db_snapshot: Optional[AwsRdsDbSnapshotDetails]
-    aws_rds_db_cluster_snapshot: Optional[AwsRdsDbClusterSnapshotDetails]
-    aws_rds_db_cluster: Optional[AwsRdsDbClusterDetails]
-    container: Optional[ContainerDetails]
-    other: Optional[FieldMap]
-
-
+:return: ResourceDetails object
+	"""
+	aws_auto_scaling_auto_scaling_group: Optional[AwsAutoScalingAutoScalingGroupDetails]
+	aws_code_build_project: Optional[AwsCodeBuildProjectDetails]
+	aws_cloud_front_distribution: Optional[AwsCloudFrontDistributionDetails]
+	aws_ec2_instance: Optional[AwsEc2InstanceDetails]
+	aws_ec2_network_interface: Optional[AwsEc2NetworkInterfaceDetails]
+	aws_ec2_security_group: Optional[AwsEc2SecurityGroupDetails]
+	aws_ec2_volume: Optional[AwsEc2VolumeDetails]
+	aws_ec2_vpc: Optional[AwsEc2VpcDetails]
+	aws_ec2_eip: Optional[AwsEc2EipDetails]
+	aws_ec2_subnet: Optional[AwsEc2SubnetDetails]
+	aws_ec2_network_acl: Optional[AwsEc2NetworkAclDetails]
+	aws_elbv2_load_balancer: Optional[AwsElbv2LoadBalancerDetails]
+	aws_elastic_beanstalk_environment: Optional[AwsElasticBeanstalkEnvironmentDetails]
+	aws_elasticsearch_domain: Optional[AwsElasticsearchDomainDetails]
+	aws_s3_bucket: Optional[AwsS3BucketDetails]
+	aws_s3_account_public_access_block: Optional[AwsS3AccountPublicAccessBlockDetails]
+	aws_s3_object: Optional[AwsS3ObjectDetails]
+	aws_secrets_manager_secret: Optional[AwsSecretsManagerSecretDetails]
+	aws_iam_access_key: Optional[AwsIamAccessKeyDetails]
+	aws_iam_user: Optional[AwsIamUserDetails]
+	aws_iam_policy: Optional[AwsIamPolicyDetails]
+	aws_api_gateway_v2_stage: Optional[AwsApiGatewayV2StageDetails]
+	aws_api_gateway_v2_api: Optional[AwsApiGatewayV2ApiDetails]
+	aws_dynamo_db_table: Optional[AwsDynamoDbTableDetails]
+	aws_api_gateway_stage: Optional[AwsApiGatewayStageDetails]
+	aws_api_gateway_rest_api: Optional[AwsApiGatewayRestApiDetails]
+	aws_cloud_trail_trail: Optional[AwsCloudTrailTrailDetails]
+	aws_ssm_patch_compliance: Optional[AwsSsmPatchComplianceDetails]
+	aws_certificate_manager_certificate: Optional[AwsCertificateManagerCertificateDetails]
+	aws_redshift_cluster: Optional[AwsRedshiftClusterDetails]
+	aws_elb_load_balancer: Optional[AwsElbLoadBalancerDetails]
+	aws_iam_group: Optional[AwsIamGroupDetails]
+	aws_iam_role: Optional[AwsIamRoleDetails]
+	aws_kms_key: Optional[AwsKmsKeyDetails]
+	aws_lambda_function: Optional[AwsLambdaFunctionDetails]
+	aws_lambda_layer_version: Optional[AwsLambdaLayerVersionDetails]
+	aws_rds_db_instance: Optional[AwsRdsDbInstanceDetails]
+	aws_sns_topic: Optional[AwsSnsTopicDetails]
+	aws_sqs_queue: Optional[AwsSqsQueueDetails]
+	aws_waf_web_acl: Optional[AwsWafWebAclDetails]
+	aws_rds_db_snapshot: Optional[AwsRdsDbSnapshotDetails]
+	aws_rds_db_cluster_snapshot: Optional[AwsRdsDbClusterSnapshotDetails]
+	aws_rds_db_cluster: Optional[AwsRdsDbClusterDetails]
+	container: Optional[ContainerDetails]
+	other: Optional[FieldMap]
 class Resource(ASFFBaseModel):
-    """
-    A resource related to a finding.
+	"""
+A resource related to a finding.
 
-    :param type: The type of the resource that details are provided for. If possible, set Type to one of the supported resource types. For example, if the resource is an EC2 instance, then set Type to AwsEc2Instance. If the resource does not match any of the provided types, then set Type to Other.
-    :param id: The canonical identifier for the given resource type.
-    :param partition: The canonical AWS partition name that the Region is assigned to.
-    :param region: The canonical AWS external Region name where this resource is located.
-    :param resource_role: Identifies the role of the resource in the finding. A resource is either the actor or target of the finding activity,
-    :param tags: A list of AWS tags associated with a resource at the time the finding was processed.
-    :param data_classification: Contains information about sensitive data that was detected on the resource.
-    :param details: Additional details about the resource related to a finding.
+:param type: The type of the resource that details are provided for. If possible, set Type to one of the supported resource types. For example, if the resource is an EC2 instance, then set Type to AwsEc2Instance. If the resource does not match any of the provided types, then set Type to Other. 
+:param id: The canonical identifier for the given resource type.
+:param partition: The canonical AWS partition name that the Region is assigned to.
+:param region: The canonical AWS external Region name where this resource is located.
+:param resource_role: Identifies the role of the resource in the finding. A resource is either the actor or target of the finding activity,
+:param tags: A list of AWS tags associated with a resource at the time the finding was processed.
+:param data_classification: Contains information about sensitive data that was detected on the resource.
+:param details: Additional details about the resource related to a finding.
 
-    :return: Resource object
-    """
-
-    type: NonEmptyString
-    id: NonEmptyString
-    partition: Optional[Partition]
-    region: Optional[NonEmptyString]
-    resource_role: Optional[NonEmptyString]
-    tags: Optional[FieldMap]
-    data_classification: Optional[DataClassificationDetails]
-    details: Optional[ResourceDetails]
-
-
+:return: Resource object
+	"""
+	type: NonEmptyString
+	id: NonEmptyString
+	partition: Optional[Partition]
+	region: Optional[NonEmptyString]
+	resource_role: Optional[NonEmptyString]
+	tags: Optional[FieldMap]
+	data_classification: Optional[DataClassificationDetails]
+	details: Optional[ResourceDetails]
 ResourceList = List[Resource]
 ComplianceStatus = constr(regex="^(PASSED|WARNING|FAILED|NOT_AVAILABLE)$")
 RelatedRequirementsList = List[NonEmptyString]
-
-
 class StatusReason(ASFFBaseModel):
-    """
-    Provides additional context for the value of Compliance.Status.
+	"""
+Provides additional context for the value of Compliance.Status.
 
-    :param reason_code: A code that represents a reason for the control status. For the list of status reason codes and their meanings, see Standards-related information in the ASFF in the AWS Security Hub User Guide.
-    :param description: The corresponding description for the status reason code.
+:param reason_code: A code that represents a reason for the control status. For the list of status reason codes and their meanings, see Standards-related information in the ASFF in the AWS Security Hub User Guide. 
+:param description: The corresponding description for the status reason code.
 
-    :return: StatusReason object
-    """
-
-    reason_code: NonEmptyString
-    description: Optional[NonEmptyString]
-
-
+:return: StatusReason object
+	"""
+	reason_code: NonEmptyString
+	description: Optional[NonEmptyString]
 StatusReasonsList = List[StatusReason]
-
-
 class Compliance(ASFFBaseModel):
-    """
-    Contains finding details that are specific to control-based findings. Only returned for findings generated from controls.
+	"""
+Contains finding details that are specific to control-based findings. Only returned for findings generated from controls.
 
-    :param status: The result of a standards check. The valid values for Status are as follows.      PASSED - Standards check passed for all evaluated resources.    WARNING - Some information is missing or this check is not supported for your configuration.    FAILED - Standards check failed for at least one evaluated resource.    NOT_AVAILABLE - Check could not be performed due to a service outage, API error, or because the result of the AWS Config evaluation was NOT_APPLICABLE. If the AWS Config evaluation result was NOT_APPLICABLE, then after 3 days, Security Hub automatically archives the finding.
-    :param related_requirements: For a control, the industry or regulatory framework requirements that are related to the control. The check for that control is aligned with these requirements.
-    :param status_reasons: For findings generated from controls, a list of reasons behind the value of Status. For the list of status reason codes and their meanings, see Standards-related information in the ASFF in the AWS Security Hub User Guide.
+:param status: The result of a standards check. The valid values for Status are as follows.      PASSED - Standards check passed for all evaluated resources.    WARNING - Some information is missing or this check is not supported for your configuration.    FAILED - Standards check failed for at least one evaluated resource.    NOT_AVAILABLE - Check could not be performed due to a service outage, API error, or because the result of the AWS Config evaluation was NOT_APPLICABLE. If the AWS Config evaluation result was NOT_APPLICABLE, then after 3 days, Security Hub automatically archives the finding.    
+:param related_requirements: For a control, the industry or regulatory framework requirements that are related to the control. The check for that control is aligned with these requirements.
+:param status_reasons: For findings generated from controls, a list of reasons behind the value of Status. For the list of status reason codes and their meanings, see Standards-related information in the ASFF in the AWS Security Hub User Guide. 
 
-    :return: Compliance object
-    """
-
-    status: Optional[ComplianceStatus]
-    related_requirements: Optional[RelatedRequirementsList]
-    status_reasons: Optional[StatusReasonsList]
-
-
-VerificationState = constr(
-    regex="^(UNKNOWN|TRUE_POSITIVE|FALSE_POSITIVE|BENIGN_POSITIVE)$"
-)
+:return: Compliance object
+	"""
+	status: Optional[ComplianceStatus]
+	related_requirements: Optional[RelatedRequirementsList]
+	status_reasons: Optional[StatusReasonsList]
+VerificationState = constr(regex="^(UNKNOWN|TRUE_POSITIVE|FALSE_POSITIVE|BENIGN_POSITIVE)$")
 WorkflowState = constr(regex="^(NEW|ASSIGNED|IN_PROGRESS|DEFERRED|RESOLVED)$")
 WorkflowStatus = constr(regex="^(NEW|NOTIFIED|RESOLVED|SUPPRESSED)$")
-
-
 class Workflow(ASFFBaseModel):
-    """
-    Provides information about the status of the investigation into a finding.
+	"""
+Provides information about the status of the investigation into a finding.
 
-    :param status: The status of the investigation into the finding. The allowed values are the following.    NEW - The initial state of a finding, before it is reviewed. Security Hub also resets the workflow status from NOTIFIED or RESOLVED to NEW in the following cases:    RecordState changes from ARCHIVED to ACTIVE.    ComplianceStatus changes from PASSED to either WARNING, FAILED, or NOT_AVAILABLE.      NOTIFIED - Indicates that you notified the resource owner about the security issue. Used when the initial reviewer is not the resource owner, and needs intervention from the resource owner.    SUPPRESSED - The finding will not be reviewed again and will not be acted upon.    RESOLVED - The finding was reviewed and remediated and is now considered resolved.
+:param status: The status of the investigation into the finding. The allowed values are the following.    NEW - The initial state of a finding, before it is reviewed. Security Hub also resets the workflow status from NOTIFIED or RESOLVED to NEW in the following cases:    RecordState changes from ARCHIVED to ACTIVE.    ComplianceStatus changes from PASSED to either WARNING, FAILED, or NOT_AVAILABLE.      NOTIFIED - Indicates that you notified the resource owner about the security issue. Used when the initial reviewer is not the resource owner, and needs intervention from the resource owner.    SUPPRESSED - The finding will not be reviewed again and will not be acted upon.    RESOLVED - The finding was reviewed and remediated and is now considered resolved.   
 
-    :return: Workflow object
-    """
-
-    status: Optional[WorkflowStatus]
-
-
+:return: Workflow object
+	"""
+	status: Optional[WorkflowStatus]
 RecordState = constr(regex="^(ACTIVE|ARCHIVED)$")
-
-
 class Note(ASFFBaseModel):
-    """
-    A user-defined note added to a finding.
+	"""
+A user-defined note added to a finding.
 
-    :param text: The text of a note.
-    :param updated_by: The principal that created a note.
-    :param updated_at: The timestamp of when the note was updated. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param text: The text of a note.
+:param updated_by: The principal that created a note.
+:param updated_at: The timestamp of when the note was updated. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
 
-    :return: Note object
-    """
-
-    text: NonEmptyString
-    updated_by: NonEmptyString
-    updated_at: Iso8601Timestamp
-
-
+:return: Note object
+	"""
+	text: NonEmptyString
+	updated_by: NonEmptyString
+	updated_at: Iso8601Timestamp
 class SoftwarePackage(ASFFBaseModel):
-    """
-    Information about a software package.
+	"""
+Information about a software package.
 
-    :param name: The name of the software package.
-    :param version: The version of the software package.
-    :param epoch: The epoch of the software package.
-    :param release: The release of the software package.
-    :param architecture: The architecture used for the software package.
+:param name: The name of the software package.
+:param version: The version of the software package.
+:param epoch: The epoch of the software package.
+:param release: The release of the software package.
+:param architecture: The architecture used for the software package.
 
-    :return: SoftwarePackage object
-    """
-
-    name: Optional[NonEmptyString]
-    version: Optional[NonEmptyString]
-    epoch: Optional[NonEmptyString]
-    release: Optional[NonEmptyString]
-    architecture: Optional[NonEmptyString]
-
-
+:return: SoftwarePackage object
+	"""
+	name: Optional[NonEmptyString]
+	version: Optional[NonEmptyString]
+	epoch: Optional[NonEmptyString]
+	release: Optional[NonEmptyString]
+	architecture: Optional[NonEmptyString]
 SoftwarePackageList = List[SoftwarePackage]
-
-
 class Cvss(ASFFBaseModel):
-    """
-    CVSS scores from the advisory related to the vulnerability.
+	"""
+CVSS scores from the advisory related to the vulnerability.
 
-    :param version: The version of CVSS for the CVSS score.
-    :param base_score: The base CVSS score.
-    :param base_vector: The base scoring vector for the CVSS score.
+:param version: The version of CVSS for the CVSS score.
+:param base_score: The base CVSS score.
+:param base_vector: The base scoring vector for the CVSS score.
 
-    :return: Cvss object
-    """
-
-    version: Optional[NonEmptyString]
-    base_score: Optional[Double]
-    base_vector: Optional[NonEmptyString]
-
-
+:return: Cvss object
+	"""
+	version: Optional[NonEmptyString]
+	base_score: Optional[Double]
+	base_vector: Optional[NonEmptyString]
 CvssList = List[Cvss]
-
-
 class VulnerabilityVendor(ASFFBaseModel):
-    """
-    A vendor that generates a vulnerability report.
+	"""
+A vendor that generates a vulnerability report.
 
-    :param name: The name of the vendor.
-    :param url: The URL of the vulnerability advisory.
-    :param vendor_severity: The severity that the vendor assigned to the vulnerability.
-    :param vendor_created_at: Indicates when the vulnerability advisory was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param vendor_updated_at: Indicates when the vulnerability advisory was last updated. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param name: The name of the vendor.
+:param url: The URL of the vulnerability advisory.
+:param vendor_severity: The severity that the vendor assigned to the vulnerability.
+:param vendor_created_at: Indicates when the vulnerability advisory was created. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param vendor_updated_at: Indicates when the vulnerability advisory was last updated. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
 
-    :return: VulnerabilityVendor object
-    """
-
-    name: NonEmptyString
-    url: Optional[NonEmptyString]
-    vendor_severity: Optional[NonEmptyString]
-    vendor_created_at: Optional[Iso8601Timestamp]
-    vendor_updated_at: Optional[Iso8601Timestamp]
-
-
+:return: VulnerabilityVendor object
+	"""
+	name: NonEmptyString
+	url: Optional[NonEmptyString]
+	vendor_severity: Optional[NonEmptyString]
+	vendor_created_at: Optional[Iso8601Timestamp]
+	vendor_updated_at: Optional[Iso8601Timestamp]
 class Vulnerability(ASFFBaseModel):
-    """
-    A vulnerability associated with a finding.
+	"""
+A vulnerability associated with a finding.
 
-    :param id: The identifier of the vulnerability.
-    :param vulnerable_packages: List of software packages that have the vulnerability.
-    :param cvss: CVSS scores from the advisory related to the vulnerability.
-    :param related_vulnerabilities: List of vulnerabilities that are related to this vulnerability.
-    :param vendor: Information about the vendor that generates the vulnerability report.
-    :param reference_urls: A list of URLs that provide additional information about the vulnerability.
+:param id: The identifier of the vulnerability.
+:param vulnerable_packages: List of software packages that have the vulnerability.
+:param cvss: CVSS scores from the advisory related to the vulnerability.
+:param related_vulnerabilities: List of vulnerabilities that are related to this vulnerability.
+:param vendor: Information about the vendor that generates the vulnerability report.
+:param reference_urls: A list of URLs that provide additional information about the vulnerability.
 
-    :return: Vulnerability object
-    """
-
-    id: NonEmptyString
-    vulnerable_packages: Optional[SoftwarePackageList]
-    cvss: Optional[CvssList]
-    related_vulnerabilities: Optional[StringList]
-    vendor: Optional[VulnerabilityVendor]
-    reference_urls: Optional[StringList]
-
-
+:return: Vulnerability object
+	"""
+	id: NonEmptyString
+	vulnerable_packages: Optional[SoftwarePackageList]
+	cvss: Optional[CvssList]
+	related_vulnerabilities: Optional[StringList]
+	vendor: Optional[VulnerabilityVendor]
+	reference_urls: Optional[StringList]
 VulnerabilityList = List[Vulnerability]
-
-
 class PatchSummary(ASFFBaseModel):
-    """
-    Provides an overview of the patch compliance status for an instance against a selected compliance standard.
+	"""
+Provides an overview of the patch compliance status for an instance against a selected compliance standard.
 
-    :param id: The identifier of the compliance standard that was used to determine the patch compliance status.
-    :param installed_count: The number of patches from the compliance standard that were installed successfully.
-    :param missing_count: The number of patches that are part of the compliance standard but are not installed. The count includes patches that failed to install.
-    :param failed_count: The number of patches from the compliance standard that failed to install.
-    :param installed_other_count: The number of installed patches that are not part of the compliance standard.
-    :param installed_rejected_count: The number of patches that are installed but are also on a list of patches that the customer rejected.
-    :param installed_pending_reboot: The number of patches that were applied, but that require the instance to be rebooted in order to be marked as installed.
-    :param operation_start_time: Indicates when the operation started. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param operation_end_time: Indicates when the operation completed. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param reboot_option: The reboot option specified for the instance.
-    :param operation: The type of patch operation performed. For Patch Manager, the values are SCAN and INSTALL.
+:param id: The identifier of the compliance standard that was used to determine the patch compliance status.
+:param installed_count: The number of patches from the compliance standard that were installed successfully.
+:param missing_count: The number of patches that are part of the compliance standard but are not installed. The count includes patches that failed to install.
+:param failed_count: The number of patches from the compliance standard that failed to install.
+:param installed_other_count: The number of installed patches that are not part of the compliance standard.
+:param installed_rejected_count: The number of patches that are installed but are also on a list of patches that the customer rejected.
+:param installed_pending_reboot: The number of patches that were applied, but that require the instance to be rebooted in order to be marked as installed.
+:param operation_start_time: Indicates when the operation started. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param operation_end_time: Indicates when the operation completed. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param reboot_option: The reboot option specified for the instance.
+:param operation: The type of patch operation performed. For Patch Manager, the values are SCAN and INSTALL. 
 
-    :return: PatchSummary object
-    """
-
-    id: NonEmptyString
-    installed_count: Optional[Integer]
-    missing_count: Optional[Integer]
-    failed_count: Optional[Integer]
-    installed_other_count: Optional[Integer]
-    installed_rejected_count: Optional[Integer]
-    installed_pending_reboot: Optional[Integer]
-    operation_start_time: Optional[Iso8601Timestamp]
-    operation_end_time: Optional[Iso8601Timestamp]
-    reboot_option: Optional[NonEmptyString]
-    operation: Optional[NonEmptyString]
-
-
+:return: PatchSummary object
+	"""
+	id: NonEmptyString
+	installed_count: Optional[Integer]
+	missing_count: Optional[Integer]
+	failed_count: Optional[Integer]
+	installed_other_count: Optional[Integer]
+	installed_rejected_count: Optional[Integer]
+	installed_pending_reboot: Optional[Integer]
+	operation_start_time: Optional[Iso8601Timestamp]
+	operation_end_time: Optional[Iso8601Timestamp]
+	reboot_option: Optional[NonEmptyString]
+	operation: Optional[NonEmptyString]
 class IpOrganizationDetails(ASFFBaseModel):
-    """
-    Provides information about an internet provider.
+	"""
+Provides information about an internet provider.
 
-    :param asn: The Autonomous System Number (ASN) of the internet provider
-    :param asn_org: The name of the organization that registered the ASN.
-    :param isp: The ISP information for the internet provider.
-    :param org: The name of the internet provider.
+:param asn: The Autonomous System Number (ASN) of the internet provider
+:param asn_org: The name of the organization that registered the ASN.
+:param isp: The ISP information for the internet provider.
+:param org: The name of the internet provider.
 
-    :return: IpOrganizationDetails object
-    """
-
-    asn: Optional[Integer]
-    asn_org: Optional[NonEmptyString]
-    isp: Optional[NonEmptyString]
-    org: Optional[NonEmptyString]
-
-
+:return: IpOrganizationDetails object
+	"""
+	asn: Optional[Integer]
+	asn_org: Optional[NonEmptyString]
+	isp: Optional[NonEmptyString]
+	org: Optional[NonEmptyString]
 class Country(ASFFBaseModel):
-    """
-    Information about a country.
+	"""
+Information about a country.
 
-    :param country_code: The 2-letter ISO 3166 country code for the country.
-    :param country_name: The name of the country.
+:param country_code: The 2-letter ISO 3166 country code for the country.
+:param country_name: The name of the country.
 
-    :return: Country object
-    """
-
-    country_code: Optional[NonEmptyString]
-    country_name: Optional[NonEmptyString]
-
-
+:return: Country object
+	"""
+	country_code: Optional[NonEmptyString]
+	country_name: Optional[NonEmptyString]
 class City(ASFFBaseModel):
-    """
-    Information about a city.
+	"""
+Information about a city.
 
-    :param city_name: The name of the city.
+:param city_name: The name of the city.
 
-    :return: City object
-    """
-
-    city_name: Optional[NonEmptyString]
-
-
+:return: City object
+	"""
+	city_name: Optional[NonEmptyString]
 class GeoLocation(ASFFBaseModel):
-    """
-    Provides the latitude and longitude coordinates of a location.
+	"""
+Provides the latitude and longitude coordinates of a location.
 
-    :param lon: The longitude of the location.
-    :param lat: The latitude of the location.
+:param lon: The longitude of the location.
+:param lat: The latitude of the location.
 
-    :return: GeoLocation object
-    """
-
-    lon: Optional[Double]
-    lat: Optional[Double]
-
-
+:return: GeoLocation object
+	"""
+	lon: Optional[Double]
+	lat: Optional[Double]
 class ActionRemoteIpDetails(ASFFBaseModel):
-    """
-    For AwsApiAction, NetworkConnectionAction, and PortProbeAction, RemoteIpDetails provides information about the remote IP address that was involved in the action.
+	"""
+For AwsApiAction, NetworkConnectionAction, and PortProbeAction, RemoteIpDetails provides information about the remote IP address that was involved in the action.
 
-    :param ip_address_v4: The IP address.
-    :param organization: The internet service provider (ISP) organization associated with the remote IP address.
-    :param country: The country where the remote IP address is located.
-    :param city: The city where the remote IP address is located.
-    :param geo_location: The coordinates of the location of the remote IP address.
+:param ip_address_v4: The IP address.
+:param organization: The internet service provider (ISP) organization associated with the remote IP address.
+:param country: The country where the remote IP address is located.
+:param city: The city where the remote IP address is located.
+:param geo_location: The coordinates of the location of the remote IP address.
 
-    :return: ActionRemoteIpDetails object
-    """
-
-    ip_address_v4: Optional[NonEmptyString]
-    organization: Optional[IpOrganizationDetails]
-    country: Optional[Country]
-    city: Optional[City]
-    geo_location: Optional[GeoLocation]
-
-
+:return: ActionRemoteIpDetails object
+	"""
+	ip_address_v4: Optional[NonEmptyString]
+	organization: Optional[IpOrganizationDetails]
+	country: Optional[Country]
+	city: Optional[City]
+	geo_location: Optional[GeoLocation]
 class ActionRemotePortDetails(ASFFBaseModel):
-    """
-    Provides information about the remote port that was involved in an attempted network connection.
+	"""
+Provides information about the remote port that was involved in an attempted network connection.
 
-    :param port: The number of the port.
-    :param port_name: The port name of the remote connection.
+:param port: The number of the port.
+:param port_name: The port name of the remote connection.
 
-    :return: ActionRemotePortDetails object
-    """
-
-    port: Optional[Integer]
-    port_name: Optional[NonEmptyString]
-
-
+:return: ActionRemotePortDetails object
+	"""
+	port: Optional[Integer]
+	port_name: Optional[NonEmptyString]
 class ActionLocalPortDetails(ASFFBaseModel):
-    """
-    For NetworkConnectionAction and PortProbeDetails, LocalPortDetails provides information about the local port that was involved in the action.
+	"""
+For NetworkConnectionAction and PortProbeDetails, LocalPortDetails provides information about the local port that was involved in the action.
 
-    :param port: The number of the port.
-    :param port_name: The port name of the local connection.
+:param port: The number of the port.
+:param port_name: The port name of the local connection.
 
-    :return: ActionLocalPortDetails object
-    """
-
-    port: Optional[Integer]
-    port_name: Optional[NonEmptyString]
-
-
+:return: ActionLocalPortDetails object
+	"""
+	port: Optional[Integer]
+	port_name: Optional[NonEmptyString]
 class NetworkConnectionAction(ASFFBaseModel):
-    """
-    Provided if ActionType is NETWORK_CONNECTION. It provides details about the attempted network connection that was detected.
+	"""
+Provided if ActionType is NETWORK_CONNECTION. It provides details about the attempted network connection that was detected.
 
-    :param connection_direction: The direction of the network connection request (IN or OUT).
-    :param remote_ip_details: Information about the remote IP address that issued the network connection request.
-    :param remote_port_details: Information about the port on the remote IP address.
-    :param local_port_details: Information about the port on the EC2 instance.
-    :param protocol: The protocol used to make the network connection request.
-    :param blocked: Indicates whether the network connection attempt was blocked.
+:param connection_direction: The direction of the network connection request (IN or OUT).
+:param remote_ip_details: Information about the remote IP address that issued the network connection request.
+:param remote_port_details: Information about the port on the remote IP address.
+:param local_port_details: Information about the port on the EC2 instance.
+:param protocol: The protocol used to make the network connection request.
+:param blocked: Indicates whether the network connection attempt was blocked.
 
-    :return: NetworkConnectionAction object
-    """
-
-    connection_direction: Optional[NonEmptyString]
-    remote_ip_details: Optional[ActionRemoteIpDetails]
-    remote_port_details: Optional[ActionRemotePortDetails]
-    local_port_details: Optional[ActionLocalPortDetails]
-    protocol: Optional[NonEmptyString]
-    blocked: Optional[Boolean]
-
-
+:return: NetworkConnectionAction object
+	"""
+	connection_direction: Optional[NonEmptyString]
+	remote_ip_details: Optional[ActionRemoteIpDetails]
+	remote_port_details: Optional[ActionRemotePortDetails]
+	local_port_details: Optional[ActionLocalPortDetails]
+	protocol: Optional[NonEmptyString]
+	blocked: Optional[Boolean]
 class AwsApiCallActionDomainDetails(ASFFBaseModel):
-    """
-    Provided if CallerType is domain. It provides information about the DNS domain that issued the API call.
+	"""
+Provided if CallerType is domain. It provides information about the DNS domain that issued the API call.
 
-    :param domain: The name of the DNS domain that issued the API call.
+:param domain: The name of the DNS domain that issued the API call.
 
-    :return: AwsApiCallActionDomainDetails object
-    """
-
-    domain: Optional[NonEmptyString]
-
-
+:return: AwsApiCallActionDomainDetails object
+	"""
+	domain: Optional[NonEmptyString]
 class AwsApiCallAction(ASFFBaseModel):
-    """
-    Provided if ActionType is AWS_API_CALL. It provides details about the API call that was detected.
+	"""
+Provided if ActionType is AWS_API_CALL. It provides details about the API call that was detected.
 
-    :param api: The name of the API method that was issued.
-    :param service_name: The name of the AWS service that the API method belongs to.
-    :param caller_type: Indicates whether the API call originated from a remote IP address (remoteip) or from a DNS domain (domain).
-    :param remote_ip_details: Provided if CallerType is remoteIp. Provides information about the remote IP address that the API call originated from.
-    :param domain_details: Provided if CallerType is domain. Provides information about the DNS domain that the API call originated from.
-    :param affected_resources: Identifies the resources that were affected by the API call.
-    :param first_seen: An ISO8601-formatted timestamp that indicates when the API call was first observed.
-    :param last_seen: An ISO8601-formatted timestamp that indicates when the API call was most recently observed.
+:param api: The name of the API method that was issued.
+:param service_name: The name of the AWS service that the API method belongs to.
+:param caller_type: Indicates whether the API call originated from a remote IP address (remoteip) or from a DNS domain (domain).
+:param remote_ip_details: Provided if CallerType is remoteIp. Provides information about the remote IP address that the API call originated from.
+:param domain_details: Provided if CallerType is domain. Provides information about the DNS domain that the API call originated from.
+:param affected_resources: Identifies the resources that were affected by the API call.
+:param first_seen: An ISO8601-formatted timestamp that indicates when the API call was first observed.
+:param last_seen: An ISO8601-formatted timestamp that indicates when the API call was most recently observed.
 
-    :return: AwsApiCallAction object
-    """
-
-    api: Optional[NonEmptyString]
-    service_name: Optional[NonEmptyString]
-    caller_type: Optional[NonEmptyString]
-    remote_ip_details: Optional[ActionRemoteIpDetails]
-    domain_details: Optional[AwsApiCallActionDomainDetails]
-    affected_resources: Optional[FieldMap]
-    first_seen: Optional[NonEmptyString]
-    last_seen: Optional[NonEmptyString]
-
-
+:return: AwsApiCallAction object
+	"""
+	api: Optional[NonEmptyString]
+	service_name: Optional[NonEmptyString]
+	caller_type: Optional[NonEmptyString]
+	remote_ip_details: Optional[ActionRemoteIpDetails]
+	domain_details: Optional[AwsApiCallActionDomainDetails]
+	affected_resources: Optional[FieldMap]
+	first_seen: Optional[NonEmptyString]
+	last_seen: Optional[NonEmptyString]
 class DnsRequestAction(ASFFBaseModel):
-    """
-    Provided if ActionType is DNS_REQUEST. It provides details about the DNS request that was detected.
+	"""
+Provided if ActionType is DNS_REQUEST. It provides details about the DNS request that was detected.
 
-    :param domain: The DNS domain that is associated with the DNS request.
-    :param protocol: The protocol that was used for the DNS request.
-    :param blocked: Indicates whether the DNS request was blocked.
+:param domain: The DNS domain that is associated with the DNS request.
+:param protocol: The protocol that was used for the DNS request.
+:param blocked: Indicates whether the DNS request was blocked.
 
-    :return: DnsRequestAction object
-    """
-
-    domain: Optional[NonEmptyString]
-    protocol: Optional[NonEmptyString]
-    blocked: Optional[Boolean]
-
-
+:return: DnsRequestAction object
+	"""
+	domain: Optional[NonEmptyString]
+	protocol: Optional[NonEmptyString]
+	blocked: Optional[Boolean]
 class ActionLocalIpDetails(ASFFBaseModel):
-    """
-    Provides information about the IP address where the scanned port is located.
+	"""
+Provides information about the IP address where the scanned port is located.
 
-    :param ip_address_v4: The IP address.
+:param ip_address_v4: The IP address.
 
-    :return: ActionLocalIpDetails object
-    """
-
-    ip_address_v4: Optional[NonEmptyString]
-
-
+:return: ActionLocalIpDetails object
+	"""
+	ip_address_v4: Optional[NonEmptyString]
 class PortProbeDetail(ASFFBaseModel):
-    """
-    A port scan that was part of the port probe. For each scan, PortProbeDetails provides information about the local IP address and port that were scanned, and the remote IP address that the scan originated from.
+	"""
+A port scan that was part of the port probe. For each scan, PortProbeDetails provides information about the local IP address and port that were scanned, and the remote IP address that the scan originated from.
 
-    :param local_port_details: Provides information about the port that was scanned.
-    :param local_ip_details: Provides information about the IP address where the scanned port is located.
-    :param remote_ip_details: Provides information about the remote IP address that performed the scan.
+:param local_port_details: Provides information about the port that was scanned.
+:param local_ip_details: Provides information about the IP address where the scanned port is located.
+:param remote_ip_details: Provides information about the remote IP address that performed the scan.
 
-    :return: PortProbeDetail object
-    """
-
-    local_port_details: Optional[ActionLocalPortDetails]
-    local_ip_details: Optional[ActionLocalIpDetails]
-    remote_ip_details: Optional[ActionRemoteIpDetails]
-
-
+:return: PortProbeDetail object
+	"""
+	local_port_details: Optional[ActionLocalPortDetails]
+	local_ip_details: Optional[ActionLocalIpDetails]
+	remote_ip_details: Optional[ActionRemoteIpDetails]
 PortProbeDetailList = List[PortProbeDetail]
-
-
 class PortProbeAction(ASFFBaseModel):
-    """
-    Provided if ActionType is PORT_PROBE. It provides details about the attempted port probe that was detected.
+	"""
+Provided if ActionType is PORT_PROBE. It provides details about the attempted port probe that was detected.
 
-    :param port_probe_details: Information about the ports affected by the port probe.
-    :param blocked: Indicates whether the port probe was blocked.
+:param port_probe_details: Information about the ports affected by the port probe.
+:param blocked: Indicates whether the port probe was blocked.
 
-    :return: PortProbeAction object
-    """
-
-    port_probe_details: Optional[PortProbeDetailList]
-    blocked: Optional[Boolean]
-
-
+:return: PortProbeAction object
+	"""
+	port_probe_details: Optional[PortProbeDetailList]
+	blocked: Optional[Boolean]
 class Action(ASFFBaseModel):
-    """
-    Provides details about one of the following actions that affects or that was taken on a resource:   A remote IP address issued an AWS API call   A DNS request was received   A remote IP address attempted to connect to an EC2 instance   A remote IP address attempted a port probe on an EC2 instance
+	"""
+Provides details about one of the following actions that affects or that was taken on a resource:   A remote IP address issued an AWS API call   A DNS request was received   A remote IP address attempted to connect to an EC2 instance   A remote IP address attempted a port probe on an EC2 instance  
 
-    :param action_type: The type of action that was detected. The possible action types are:    NETWORK_CONNECTION     AWS_API_CALL     DNS_REQUEST     PORT_PROBE
-    :param network_connection_action: Included if ActionType is NETWORK_CONNECTION. Provides details about the network connection that was detected.
-    :param aws_api_call_action: Included if ActionType is AWS_API_CALL. Provides details about the API call that was detected.
-    :param dns_request_action: Included if ActionType is DNS_REQUEST. Provides details about the DNS request that was detected.
-    :param port_probe_action: Included if ActionType is PORT_PROBE. Provides details about the port probe that was detected.
+:param action_type: The type of action that was detected. The possible action types are:    NETWORK_CONNECTION     AWS_API_CALL     DNS_REQUEST     PORT_PROBE   
+:param network_connection_action: Included if ActionType is NETWORK_CONNECTION. Provides details about the network connection that was detected.
+:param aws_api_call_action: Included if ActionType is AWS_API_CALL. Provides details about the API call that was detected. 
+:param dns_request_action: Included if ActionType is DNS_REQUEST. Provides details about the DNS request that was detected. 
+:param port_probe_action: Included if ActionType is PORT_PROBE. Provides details about the port probe that was detected. 
 
-    :return: Action object
-    """
-
-    action_type: Optional[NonEmptyString]
-    network_connection_action: Optional[NetworkConnectionAction]
-    aws_api_call_action: Optional[AwsApiCallAction]
-    dns_request_action: Optional[DnsRequestAction]
-    port_probe_action: Optional[PortProbeAction]
-
-
+:return: Action object
+	"""
+	action_type: Optional[NonEmptyString]
+	network_connection_action: Optional[NetworkConnectionAction]
+	aws_api_call_action: Optional[AwsApiCallAction]
+	dns_request_action: Optional[DnsRequestAction]
+	port_probe_action: Optional[PortProbeAction]
 RatioScale = int
-
-
 class RelatedFinding(ASFFBaseModel):
-    """
-    Details about a related finding.
+	"""
+Details about a related finding.
 
-    :param product_arn: The ARN of the product that generated a related finding.
-    :param id: The product-generated identifier for a related finding.
+:param product_arn: The ARN of the product that generated a related finding.
+:param id: The product-generated identifier for a related finding.
 
-    :return: RelatedFinding object
-    """
-
-    product_arn: NonEmptyString
-    id: NonEmptyString
-
-
+:return: RelatedFinding object
+	"""
+	product_arn: NonEmptyString
+	id: NonEmptyString
 RelatedFindingList = List[RelatedFinding]
-
-
 class FindingProviderSeverity(ASFFBaseModel):
-    """
-    The severity assigned to the finding by the finding provider.
+	"""
+The severity assigned to the finding by the finding provider.
 
-    :param label: The severity label assigned to the finding by the finding provider.
-    :param original: The finding provider's original value for the severity.
+:param label: The severity label assigned to the finding by the finding provider.
+:param original: The finding provider's original value for the severity.
 
-    :return: FindingProviderSeverity object
-    """
-
-    label: Optional[SeverityLabel]
-    original: Optional[NonEmptyString]
-
-
+:return: FindingProviderSeverity object
+	"""
+	label: Optional[SeverityLabel]
+	original: Optional[NonEmptyString]
 TypeList = List[NonEmptyString]
-
-
 class FindingProviderFields(ASFFBaseModel):
-    """
-    In a BatchImportFindings request, finding providers use FindingProviderFields to provide and update values for confidence, criticality, related findings, severity, and types.
+	"""
+In a BatchImportFindings request, finding providers use FindingProviderFields to provide and update values for confidence, criticality, related findings, severity, and types.
 
-    :param confidence: A finding's confidence. Confidence is defined as the likelihood that a finding accurately identifies the behavior or issue that it was intended to identify. Confidence is scored on a 0-100 basis using a ratio scale, where 0 means zero percent confidence and 100 means 100 percent confidence.
-    :param criticality: The level of importance assigned to the resources associated with the finding. A score of 0 means that the underlying resources have no criticality, and a score of 100 is reserved for the most critical resources.
-    :param related_findings: A list of findings that are related to the current finding.
-    :param severity: The severity of a finding.
-    :param types: One or more finding types in the format of namespace/category/classifier that classify a finding. Valid namespace values are: Software and Configuration Checks | TTPs | Effects | Unusual Behaviors | Sensitive Data Identifications
+:param confidence: A finding's confidence. Confidence is defined as the likelihood that a finding accurately identifies the behavior or issue that it was intended to identify. Confidence is scored on a 0-100 basis using a ratio scale, where 0 means zero percent confidence and 100 means 100 percent confidence.
+:param criticality: The level of importance assigned to the resources associated with the finding. A score of 0 means that the underlying resources have no criticality, and a score of 100 is reserved for the most critical resources.
+:param related_findings: A list of findings that are related to the current finding.
+:param severity: The severity of a finding.
+:param types: One or more finding types in the format of namespace/category/classifier that classify a finding. Valid namespace values are: Software and Configuration Checks | TTPs | Effects | Unusual Behaviors | Sensitive Data Identifications
 
-    :return: FindingProviderFields object
-    """
-
-    confidence: Optional[RatioScale]
-    criticality: Optional[RatioScale]
-    related_findings: Optional[RelatedFindingList]
-    severity: Optional[FindingProviderSeverity]
-    types: Optional[TypeList]
-
-
+:return: FindingProviderFields object
+	"""
+	confidence: Optional[RatioScale]
+	criticality: Optional[RatioScale]
+	related_findings: Optional[RelatedFindingList]
+	severity: Optional[FindingProviderSeverity]
+	types: Optional[TypeList]
 class AwsSecurityFinding(ASFFBaseModel):
-    """
-    Provides consistent format for the contents of the Security Hub-aggregated findings. AwsSecurityFinding format enables you to share findings between AWS security services and third-party solutions, and security standards checks.  A finding is a potential security issue generated either by AWS services (Amazon GuardDuty, Amazon Inspector, and Amazon Macie) or by the integrated third-party solutions and standards checks.
+	"""
+Provides consistent format for the contents of the Security Hub-aggregated findings. AwsSecurityFinding format enables you to share findings between AWS security services and third-party solutions, and security standards checks.  A finding is a potential security issue generated either by AWS services (Amazon GuardDuty, Amazon Inspector, and Amazon Macie) or by the integrated third-party solutions and standards checks. 
 
-    :param schema_version: The schema version that a finding is formatted for.
-    :param id: The security findings provider-specific identifier for a finding.
-    :param product_arn: The ARN generated by Security Hub that uniquely identifies a product that generates findings. This can be the ARN for a third-party product that is integrated with Security Hub, or the ARN for a custom integration.
-    :param generator_id: The identifier for the solution-specific component (a discrete unit of logic) that generated a finding. In various security-findings providers' solutions, this generator can be called a rule, a check, a detector, a plugin, etc.
-    :param aws_account_id: The AWS account ID that a finding is generated in.
-    :param types: One or more finding types in the format of namespace/category/classifier that classify a finding. Valid namespace values are: Software and Configuration Checks | TTPs | Effects | Unusual Behaviors | Sensitive Data Identifications
-    :param first_observed_at: Indicates when the security-findings provider first observed the potential security issue that a finding captured. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param last_observed_at: Indicates when the security-findings provider most recently observed the potential security issue that a finding captured. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param created_at: Indicates when the security-findings provider created the potential security issue that a finding captured. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param updated_at: Indicates when the security-findings provider last updated the finding record. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
-    :param severity: A finding's severity.
-    :param confidence: A finding's confidence. Confidence is defined as the likelihood that a finding accurately identifies the behavior or issue that it was intended to identify. Confidence is scored on a 0-100 basis using a ratio scale, where 0 means zero percent confidence and 100 means 100 percent confidence.
-    :param criticality: The level of importance assigned to the resources associated with the finding. A score of 0 means that the underlying resources have no criticality, and a score of 100 is reserved for the most critical resources.
-    :param title: A finding's title.  In this release, Title is a required property.
-    :param description: A finding's description.  In this release, Description is a required property.
-    :param remediation: A data type that describes the remediation options for a finding.
-    :param source_url: A URL that links to a page about the current finding in the security-findings provider's solution.
-    :param product_fields: A data type where security-findings providers can include additional solution-specific details that aren't part of the defined AwsSecurityFinding format.
-    :param user_defined_fields: A list of name/value string pairs associated with the finding. These are custom, user-defined fields added to a finding.
-    :param malware: A list of malware related to a finding.
-    :param network: The details of network-related information about a finding.
-    :param network_path: Provides information about a network path that is relevant to a finding. Each entry under NetworkPath represents a component of that path.
-    :param process: The details of process-related information about a finding.
-    :param threat_intel_indicators: Threat intelligence details related to a finding.
-    :param resources: A set of resource data types that describe the resources that the finding refers to.
-    :param compliance: This data type is exclusive to findings that are generated as the result of a check run against a specific rule in a supported security standard, such as CIS AWS Foundations. Contains security standard-related finding details.
-    :param verification_state: Indicates the veracity of a finding.
-    :param workflow_state: The workflow state of a finding.
-    :param workflow: Provides information about the status of the investigation into a finding.
-    :param record_state: The record state of a finding.
-    :param related_findings: A list of related findings.
-    :param note: A user-defined note added to a finding.
-    :param vulnerabilities: Provides a list of vulnerabilities associated with the findings.
-    :param patch_summary: Provides an overview of the patch compliance status for an instance against a selected compliance standard.
-    :param action: Provides details about an action that affects or that was taken on a resource.
-    :param finding_provider_fields: In a BatchImportFindings request, finding providers use FindingProviderFields to provide and update their own values for confidence, criticality, related findings, severity, and types.
+:param schema_version: The schema version that a finding is formatted for.
+:param id: The security findings provider-specific identifier for a finding.
+:param product_arn: The ARN generated by Security Hub that uniquely identifies a product that generates findings. This can be the ARN for a third-party product that is integrated with Security Hub, or the ARN for a custom integration.
+:param generator_id: The identifier for the solution-specific component (a discrete unit of logic) that generated a finding. In various security-findings providers' solutions, this generator can be called a rule, a check, a detector, a plugin, etc. 
+:param aws_account_id: The AWS account ID that a finding is generated in.
+:param types: One or more finding types in the format of namespace/category/classifier that classify a finding. Valid namespace values are: Software and Configuration Checks | TTPs | Effects | Unusual Behaviors | Sensitive Data Identifications
+:param first_observed_at: Indicates when the security-findings provider first observed the potential security issue that a finding captured. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param last_observed_at: Indicates when the security-findings provider most recently observed the potential security issue that a finding captured. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param created_at: Indicates when the security-findings provider created the potential security issue that a finding captured. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param updated_at: Indicates when the security-findings provider last updated the finding record. Uses the date-time format specified in RFC 3339 section 5.6, Internet Date/Time Format. The value cannot contain spaces. For example, 2020-03-22T13:22:13.933Z.
+:param severity: A finding's severity.
+:param confidence: A finding's confidence. Confidence is defined as the likelihood that a finding accurately identifies the behavior or issue that it was intended to identify. Confidence is scored on a 0-100 basis using a ratio scale, where 0 means zero percent confidence and 100 means 100 percent confidence.
+:param criticality: The level of importance assigned to the resources associated with the finding. A score of 0 means that the underlying resources have no criticality, and a score of 100 is reserved for the most critical resources.
+:param title: A finding's title.  In this release, Title is a required property. 
+:param description: A finding's description.  In this release, Description is a required property. 
+:param remediation: A data type that describes the remediation options for a finding.
+:param source_url: A URL that links to a page about the current finding in the security-findings provider's solution.
+:param product_fields: A data type where security-findings providers can include additional solution-specific details that aren't part of the defined AwsSecurityFinding format.
+:param user_defined_fields: A list of name/value string pairs associated with the finding. These are custom, user-defined fields added to a finding. 
+:param malware: A list of malware related to a finding.
+:param network: The details of network-related information about a finding.
+:param network_path: Provides information about a network path that is relevant to a finding. Each entry under NetworkPath represents a component of that path.
+:param process: The details of process-related information about a finding.
+:param threat_intel_indicators: Threat intelligence details related to a finding.
+:param resources: A set of resource data types that describe the resources that the finding refers to.
+:param compliance: This data type is exclusive to findings that are generated as the result of a check run against a specific rule in a supported security standard, such as CIS AWS Foundations. Contains security standard-related finding details.
+:param verification_state: Indicates the veracity of a finding. 
+:param workflow_state: The workflow state of a finding. 
+:param workflow: Provides information about the status of the investigation into a finding.
+:param record_state: The record state of a finding.
+:param related_findings: A list of related findings.
+:param note: A user-defined note added to a finding.
+:param vulnerabilities: Provides a list of vulnerabilities associated with the findings.
+:param patch_summary: Provides an overview of the patch compliance status for an instance against a selected compliance standard.
+:param action: Provides details about an action that affects or that was taken on a resource.
+:param finding_provider_fields: In a BatchImportFindings request, finding providers use FindingProviderFields to provide and update their own values for confidence, criticality, related findings, severity, and types.
 
-    :return: AwsSecurityFinding object
-    """
-
-    schema_version: NonEmptyString
-    id: NonEmptyString
-    product_arn: NonEmptyString
-    generator_id: NonEmptyString
-    aws_account_id: NonEmptyString
-    types: Optional[TypeList]
-    first_observed_at: Optional[Iso8601Timestamp]
-    last_observed_at: Optional[Iso8601Timestamp]
-    created_at: Iso8601Timestamp
-    updated_at: Iso8601Timestamp
-    severity: Optional[Severity]
-    confidence: Optional[Integer]
-    criticality: Optional[Integer]
-    title: NonEmptyString
-    description: NonEmptyString
-    remediation: Optional[Remediation]
-    source_url: Optional[NonEmptyString]
-    product_fields: Optional[FieldMap]
-    user_defined_fields: Optional[FieldMap]
-    malware: Optional[MalwareList]
-    network: Optional[Network]
-    network_path: Optional[NetworkPathList]
-    process: Optional[ProcessDetails]
-    threat_intel_indicators: Optional[ThreatIntelIndicatorList]
-    resources: ResourceList
-    compliance: Optional[Compliance]
-    verification_state: Optional[VerificationState]
-    workflow_state: Optional[WorkflowState]
-    workflow: Optional[Workflow]
-    record_state: Optional[RecordState]
-    related_findings: Optional[RelatedFindingList]
-    note: Optional[Note]
-    vulnerabilities: Optional[VulnerabilityList]
-    patch_summary: Optional[PatchSummary]
-    action: Optional[Action]
-    finding_provider_fields: Optional[FindingProviderFields]
+:return: AwsSecurityFinding object
+	"""
+	schema_version: NonEmptyString
+	id: NonEmptyString
+	product_arn: NonEmptyString
+	generator_id: NonEmptyString
+	aws_account_id: NonEmptyString
+	types: Optional[TypeList]
+	first_observed_at: Optional[Iso8601Timestamp]
+	last_observed_at: Optional[Iso8601Timestamp]
+	created_at: Iso8601Timestamp
+	updated_at: Iso8601Timestamp
+	severity: Optional[Severity]
+	confidence: Optional[Integer]
+	criticality: Optional[Integer]
+	title: NonEmptyString
+	description: NonEmptyString
+	remediation: Optional[Remediation]
+	source_url: Optional[NonEmptyString]
+	product_fields: Optional[FieldMap]
+	user_defined_fields: Optional[FieldMap]
+	malware: Optional[MalwareList]
+	network: Optional[Network]
+	network_path: Optional[NetworkPathList]
+	process: Optional[ProcessDetails]
+	threat_intel_indicators: Optional[ThreatIntelIndicatorList]
+	resources: ResourceList
+	compliance: Optional[Compliance]
+	verification_state: Optional[VerificationState]
+	workflow_state: Optional[WorkflowState]
+	workflow: Optional[Workflow]
+	record_state: Optional[RecordState]
+	related_findings: Optional[RelatedFindingList]
+	note: Optional[Note]
+	vulnerabilities: Optional[VulnerabilityList]
+	patch_summary: Optional[PatchSummary]
+	action: Optional[Action]
+	finding_provider_fields: Optional[FindingProviderFields]
