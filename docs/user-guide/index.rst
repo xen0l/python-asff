@@ -5,3 +5,4 @@ User guide
     :maxdepth: 1
 
     installation
+    cli

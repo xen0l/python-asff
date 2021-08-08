@@ -1,0 +1,79 @@
+#!/usr/bin/env python
+
+import argparse
+import inspect
+import sys
+
+from asff import AmazonSecurityFinding, ValidationError
+
+
+def convert_function_signature_to_args(function_name=AmazonSecurityFinding.from_kwargs):
+    """
+    Function to generate argparse-compatible arguments from function parameters & docstrings.
+    """
+    sig = inspect.signature(function_name)
+    doc = inspect.getdoc(function_name)
+
+    params = sig.parameters
+    doc_lines = doc.splitlines()
+
+    args = {}
+
+    for name, param in params.items():
+        if name in ["kwargs"]:
+            continue
+
+        help_text = None
+        for line in doc_lines:
+            if f"{name}:" in line:
+                help_text = line.split(" ", 2)[-1]
+
+        required = False
+        if param.default is param.empty:
+            required = True
+            default = None
+        else:
+            default = param.default
+
+        nargs = None
+        if "list" in str(param.annotation).lower():
+            nargs = "+"
+
+        args[name] = {
+            "help": help_text,
+            "default": default,
+            "nargs": nargs,
+            "required": required,
+        }
+
+    return args
+
+
+def parse_arguments():
+
+    func_args = convert_function_signature_to_args()
+
+    parser = argparse.ArgumentParser(
+        description="Simple tool to build ASFF findings from command line"
+    )
+    for name, func_arg in func_args.items():
+        arg_name = f"--{name}"
+        parser.add_argument(arg_name, **func_arg)
+
+    return parser.parse_args()
+
+
+def main():
+    args = parse_arguments()
+
+    try:
+        f = AmazonSecurityFinding.from_kwargs(**vars(args))
+    except ValidationError as e:
+        print(e, file=sys.stderr)
+        exit(1)
+
+    print(f.to_json())
+
+
+if __name__ == "__main__":
+    main()
